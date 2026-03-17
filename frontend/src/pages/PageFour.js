@@ -1,0 +1,51 @@
+const PageFour = () => {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white" data-testid="page-four">
+      {/* Header Banner */}
+      <div className="bg-gradient-to-r from-red-700 to-red-600 py-8 px-8 shadow-lg">
+        <h1 className="text-4xl md:text-5xl font-bold text-yellow-300 text-center" data-testid="page-title">
+          Rjhnsn12 - Biblical Revelations
+        </h1>
+      </div>
+
+      <div className="max-w-6xl mx-auto p-8">
+        <div className="bg-white rounded-lg shadow-xl p-8">
+          <h2 className="text-3xl font-bold text-teal-800 mb-6 text-center" data-testid="section-title">
+            BEFORE AFTER WAY OF THE
+          </h2>
+
+          <div className="mb-8">
+            <img 
+              src="https://images.unsplash.com/photo-1513581166391-887a96ddeafd?w=800&h=500&fit=crop" 
+              alt="Ancient Religious Art"
+              className="w-full h-96 object-cover rounded-lg shadow-md mb-6"
+              data-testid="page-image"
+            />
+          </div>
+
+          {/* Video */}
+          <div className="mb-8">
+            <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player">
+              <iframe
+                className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                src="https://www.youtube.com/embed/c_4QOETjPCK"
+                title="Biblical Revelation Video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+
+          <div className="prose max-w-none text-gray-700 text-center">
+            <p className="text-lg italic">
+              Exploring the path of truth through ancient wisdom and biblical understanding.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PageFour;
