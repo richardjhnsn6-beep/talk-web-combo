@@ -37,13 +37,13 @@ const PageFive = () => {
           <div className="mb-8">
             <div className="bg-gray-100 p-6 rounded-lg text-center">
               <img 
-                src="https://images.unsplash.com/photo-1604881991720-f91add269bed?w=600&h=400&fit=crop" 
-                alt="Noah and his sons"
+                src="https://images.unsplash.com/photo-1739997698837-8267626ffe92?w=600&h=400&fit=crop" 
+                alt="Ham, Shem, and Japheth"
                 className="w-full max-w-2xl mx-auto h-64 object-cover rounded-lg shadow-md mb-4"
                 data-testid="noah-image"
               />
               <p className="text-sm font-semibold text-gray-700" data-testid="image-caption">
-                NOAH, HAM, SHEM, AND JAPHETH
+                HAM, SHEM, AND JAPHETH
               </p>
             </div>
           </div>
@@ -51,15 +51,17 @@ const PageFive = () => {
           {/* Video */}
           <div className="mb-8">
             <h3 className="text-xl font-semibold text-teal-700 mb-4">Documentary Video</h3>
-            <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player">
-              <iframe
-                className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                src="https://www.youtube.com/embed/wjROjaPR9OK"
-                title="Bearing of the Truth Video"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+            <div className="max-w-2xl mx-auto">
+              <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player">
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                  src="https://www.youtube.com/embed/wjROjaPR9OK"
+                  title="Bearing of the Truth Video"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
             </div>
           </div>
         </div>

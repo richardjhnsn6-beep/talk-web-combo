@@ -46,15 +46,17 @@ const PageThree = () => {
 
             {/* Farrakhan Video */}
             <div className="mb-8">
-              <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-farrakhan">
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                  src="https://www.youtube.com/embed/09w-ZFasRvE"
-                  title="Louis Farrakhan Speech"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+              <div className="max-w-2xl mx-auto">
+                <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-farrakhan">
+                  <iframe
+                    className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                    src="https://www.youtube.com/embed/09w-ZFasRvE"
+                    title="Louis Farrakhan Speech"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
               </div>
             </div>
           </div>
@@ -100,15 +102,17 @@ const PageThree = () => {
 
             {/* Pastor Ray Hagins Video */}
             <div className="mb-8 mt-6">
-              <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-hagins">
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                  src="https://www.youtube.com/embed/U_2QiZV_xEU"
-                  title="Pastor Ray Hagins Teaching"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+              <div className="max-w-2xl mx-auto">
+                <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-hagins">
+                  <iframe
+                    className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                    src="https://www.youtube.com/embed/U_2QiZV_xEU"
+                    title="Pastor Ray Hagins Teaching"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
               </div>
             </div>
           </div>

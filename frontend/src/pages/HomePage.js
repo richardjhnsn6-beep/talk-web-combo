@@ -37,30 +37,34 @@ const HomePage = () => {
           {/* First Video */}
           <div className="mb-8">
             <h3 className="text-xl font-semibold text-teal-700 mb-4">Documentary Video</h3>
-            <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-1">
-              <iframe
-                className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                src="https://www.youtube.com/embed/_KX9AH8OLHM"
-                title="Documentary Video"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+            <div className="max-w-2xl mx-auto">
+              <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-1">
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                  src="https://www.youtube.com/embed/_KX9AH8OLHM"
+                  title="Documentary Video"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
             </div>
           </div>
 
           {/* Second Video - ALMalachy1 */}
           <div className="mb-8">
             <h3 className="text-xl font-semibold text-teal-700 mb-4">ALMalachy1</h3>
-            <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-2">
-              <iframe
-                className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                src="https://www.youtube.com/embed/cCwKGVOaW1Y"
-                title="ALMalachy1 Video"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+            <div className="max-w-2xl mx-auto">
+              <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-2">
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                  src="https://www.youtube.com/embed/cCwKGVOaW1Y"
+                  title="ALMalachy1 Video"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
             </div>
           </div>
         </div>
