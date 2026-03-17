@@ -53,13 +53,13 @@ const Navigation = () => {
         </div>
         <div className="bg-teal-800 rounded p-3 mb-3">
           <img 
-            src="https://images.unsplash.com/photo-1604881991720-f91add269bed?w=300&h=200&fit=crop" 
-            alt="Noah and his sons"
-            className="w-full h-24 object-cover rounded mb-2"
+            src="https://images.unsplash.com/photo-1739997698837-8267626ffe92?w=300&h=250&fit=crop" 
+            alt="Three Black men representing Shem, Ham, and Japheth"
+            className="w-full h-32 object-cover rounded mb-2"
             data-testid="noah-sidebar-image"
           />
           <p className="text-xs text-center font-semibold" data-testid="sons-names">
-            NOAH, HAM, SHEM, AND JAPHETH
+            HAM, SHEM, AND JAPHETH
           </p>
         </div>
       </div>
