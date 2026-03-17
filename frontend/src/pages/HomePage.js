@@ -13,7 +13,7 @@ const HomePage = () => {
         <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
           <div className="mb-8">
             <img 
-              src="https://images.unsplash.com/photo-1758546705512-2071bf8dc17e?w=1200&h=500&fit=crop" 
+              src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/e51x8bgn_IMG_1618.heic" 
               alt="Pyramids of Egypt at sunset"
               className="w-full h-64 object-cover rounded-lg shadow-md mb-6"
               data-testid="hero-image"
