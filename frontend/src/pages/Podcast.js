@@ -18,7 +18,7 @@ const Podcast = () => {
       id: 3,
       title: "Louis Farrakhan - Black People in the Bible",
       description: "Important teachings about where Black people appear in the Bible and God's love for His people.",
-      videoUrl: "https://drive.google.com/file/d/15Doqt9X6_Bli7JQ0VGQ-bZYJ7vMY9RiA/preview",
+      videoUrl: "https://www.youtube.com/embed/09w-ZFasRvE",
       date: "2024"
     },
     {

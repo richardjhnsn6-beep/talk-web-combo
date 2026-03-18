@@ -50,7 +50,7 @@ const PageThree = () => {
                 <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-farrakhan">
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                    src="https://www.youtube.com/embed/09w-ZFasRvE"
+                    src="https://drive.google.com/file/d/15Doqt9X6_Bli7JQ0VGQ-bZYJ7vMY9RiA/preview"
                     title="Louis Farrakhan Speech"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
