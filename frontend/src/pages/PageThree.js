@@ -66,8 +66,8 @@ const PageThree = () => {
             <h2 className="text-3xl font-bold text-teal-800 mb-6" data-testid="tutorial-title">
               Pastor Ray Hagins - Kemet (Egypt) Ancient Wisdom
             </h2>
-            <p className="text-lg text-gray-700 mb-4 italic">
-              <strong>With Rjhnsn12 Commentary:</strong> Highlighting and introducing what Kemet really is
+            <p className="text-lg text-gray-700 mb-4">
+              <strong>WITH RJHNSN12 COMMENTARY:</strong> Highlighting and introducing what Kemet really is
             </p>
 
             <div className="prose max-w-none text-gray-700 mb-6" data-testid="tutorial-text">
@@ -87,16 +87,16 @@ const PageThree = () => {
               </div>
 
               <div className="mt-6 p-6 bg-teal-50 rounded-lg border-l-4 border-teal-600">
-                <p className="text-gray-800 italic">
-                  <strong>Rjhnsn:</strong> Before I give my answers on what the true wisdom of understanding 
+                <p className="text-gray-800">
+                  <strong>RJHNSN:</strong> Before I give my answers on what the true wisdom of understanding 
                   most of all, these Great men are walking kings no one has or even can step into their shoes, 
                   they are my kinsmen we can not ever stop learning.
                 </p>
-                <p className="text-gray-800 italic mt-4">
+                <p className="text-gray-800 mt-4">
                   When I read the Autobiography of Malcom x writer Alex Haley the hold book was very lively, 
                   and most factual, and real. It brought me to my state of mind on the topic of religion.
                 </p>
-                <p className="text-gray-800 italic mt-4">
+                <p className="text-gray-800 mt-4">
                   When I read about the honorable Elijah stared into the bible with tears of agony of soul. 
                   There is a key, to open this book but right now I have not that key.
                 </p>
