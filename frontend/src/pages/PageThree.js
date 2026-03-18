@@ -44,27 +44,9 @@ const PageThree = () => {
               </div>
             </div>
 
-            {/* Video Section with Intro Thumbnail */}
-            <div className="flex gap-4 items-start mb-8">
-              {/* Tiny Intro Music Thumbnail - Left Side */}
-              <div className="flex-shrink-0">
-                <p className="text-xs font-semibold text-teal-700 mb-2 text-center">▶ Intro Music</p>
-                <div className="w-32">
-                  <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="intro-thumbnail">
-                    <iframe
-                      className="absolute top-0 left-0 w-full h-full rounded shadow-md border-2 border-teal-300"
-                      src="https://drive.google.com/file/d/0B73CQ06mcqAYZ0trVUZNQzI4ZWc/preview"
-                      title="Intro Music Theme"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                </div>
-              </div>
-
-              {/* Main Farrakhan Video - Right Side */}
-              <div className="flex-grow max-w-md">
+            {/* Farrakhan Video */}
+            <div className="mb-8">
+              <div className="max-w-md mx-auto">
                 <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-farrakhan">
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
@@ -121,9 +103,27 @@ const PageThree = () => {
               </div>
             </div>
 
-            {/* Video with Rjhnsn12 Commentary */}
-            <div className="mb-8 mt-6">
-              <div className="max-w-md mx-auto">
+            {/* Tutorial Video Section with Intro Thumbnail */}
+            <div className="flex gap-4 items-start mb-8 mt-6">
+              {/* Tiny Intro Music Thumbnail - Left Side */}
+              <div className="flex-shrink-0">
+                <p className="text-xs font-semibold text-teal-700 mb-2 text-center">▶ Intro Music</p>
+                <div className="w-32">
+                  <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="intro-thumbnail">
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full rounded shadow-md border-2 border-teal-300"
+                      src="https://drive.google.com/file/d/0B73CQ06mcqAYZ0trVUZNQzI4ZWc/preview"
+                      title="Intro Music Theme"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                </div>
+              </div>
+
+              {/* Main Tutorial Video - Right Side */}
+              <div className="flex-grow max-w-md">
                 <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-tutorial">
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
