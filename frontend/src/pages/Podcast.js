@@ -2,31 +2,45 @@ const Podcast = () => {
   const episodes = [
     {
       id: 1,
-      title: "Hebrew Torah Teachings - Episode 1",
+      title: "Hebrew Torah Teachings",
       description: "Exploring the Hebrew writings of the Torah and revealing truth through ancient wisdom.",
-      videoUrl: "https://www.youtube.com/embed/cCwKGVOaW1Y",
-      date: "2024"
+      pageLink: "/",
+      videoUrl: "https://www.youtube.com/embed/cCwKGVOaW1Y"
     },
     {
       id: 2,
       title: "Shaka Zulu 1816 - Historical Truth",
       description: "Understanding Shaka Zulu's coronation in 1816 and the connection to biblical prophecy from Deuteronomy 33:20-21.",
-      videoUrl: "https://www.youtube.com/embed/YUXCWUjCiUE",
-      date: "2024"
+      pageLink: "/page-two",
+      videoUrl: "https://www.youtube.com/embed/YUXCWUjCiUE"
     },
     {
       id: 3,
       title: "Louis Farrakhan - Black People in the Bible",
       description: "Important teachings about where Black people appear in the Bible and God's love for His people.",
-      videoUrl: "https://www.youtube.com/embed/09w-ZFasRvE",
-      date: "2024"
+      pageLink: "/page-three",
+      videoUrl: "https://www.youtube.com/embed/09w-ZFasRvE"
     },
     {
       id: 4,
       title: "Pastor Ray Hagins - Egypt (Kemet) Ancient Wisdom",
       description: "The source of the Bible from ancient Egypt (Kemet), understanding the ancient name meaning 'black'.",
-      videoUrl: "https://www.youtube.com/embed/U_2QiZV_xEU",
-      date: "2024"
+      pageLink: "/page-three",
+      videoUrl: "https://www.youtube.com/embed/U_2QiZV_xEU"
+    },
+    {
+      id: 5,
+      title: "Serapis Christus - The Truth Revealed",
+      description: "Uncovering the historical origins and connections of Serapis Christus in biblical history.",
+      pageLink: "/page-four",
+      videoUrl: "https://drive.google.com/file/d/1ySCSRgGwQjP6eHBPSR_l8HfD_v1R6dKb/preview"
+    },
+    {
+      id: 6,
+      title: "Movement - Who is Israel?",
+      description: "Rodney King, police brutality, Black lives lost. Hebrew documentation with Lil Wayne and Game music.",
+      pageLink: "/page-five",
+      videoUrl: "https://drive.google.com/file/d/12kQtEILC5NjqQIfSANnHa6YxuZsht_aG/preview"
     }
   ];
 
@@ -35,10 +49,10 @@ const Podcast = () => {
       {/* Header Banner */}
       <div className="bg-gradient-to-r from-teal-700 to-teal-600 py-8 px-8 shadow-lg">
         <h1 className="text-4xl md:text-5xl font-bold text-yellow-300 text-center" data-testid="page-title">
-          Rjhnsn12 - Biblical Truth Podcast
+          RJHNSN12 - Biblical Truth Video Podcast
         </h1>
         <p className="text-center text-white mt-3 text-lg">
-          Teachings on Hebrew Torah, Biblical History, and Ancient Wisdom
+          All Video Teachings in One Place
         </p>
       </div>
 
@@ -46,51 +60,48 @@ const Podcast = () => {
         {/* Introduction */}
         <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
           <h2 className="text-3xl font-bold text-teal-800 mb-4" data-testid="intro-title">
-            Welcome to Our Biblical Podcast
+            Video Podcast Hub
           </h2>
           <p className="text-lg text-gray-700 leading-relaxed">
-            Explore profound teachings about Hebrew writings, biblical truth, and the connection between 
-            ancient wisdom and Black heritage. Each episode brings you closer to understanding the true 
-            teachings of the Torah and the presence of Black people throughout biblical history.
+            Welcome to the complete collection of video teachings on Hebrew Torah, biblical truth, and the connection 
+            between ancient wisdom and Black heritage. Browse all episodes below and click to watch.
           </p>
         </div>
 
-        {/* Episodes List */}
-        <div className="space-y-8">
-          <h2 className="text-3xl font-bold text-teal-800 mb-6" data-testid="episodes-title">
-            Podcast Episodes
-          </h2>
-
+        {/* Episodes Grid */}
+        <div className="grid md:grid-cols-2 gap-6">
           {episodes.map((episode) => (
             <div 
               key={episode.id} 
-              className="bg-white rounded-lg shadow-xl p-6 hover:shadow-2xl transition-shadow"
+              className="bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-shadow"
               data-testid={`episode-${episode.id}`}
             >
-              <div className="mb-4">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-2xl font-bold text-teal-800">
-                    Episode {episode.id}: {episode.title}
-                  </h3>
-                  <span className="text-sm text-gray-500">{episode.date}</span>
-                </div>
-                <p className="text-gray-700 leading-relaxed">
+              {/* Video Preview - Smaller */}
+              <div className="relative" style={{ paddingBottom: '56.25%' }}>
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full"
+                  src={episode.videoUrl}
+                  title={episode.title}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+              
+              {/* Episode Info */}
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-teal-800 mb-2">
+                  Episode {episode.id}: {episode.title}
+                </h3>
+                <p className="text-gray-600 text-sm mb-4">
                   {episode.description}
                 </p>
-              </div>
-
-              {/* Video Player */}
-              <div className="max-w-2xl mx-auto">
-                <div className="relative" style={{ paddingBottom: '56.25%' }}>
-                  <iframe
-                    className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                    src={episode.videoUrl}
-                    title={episode.title}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </div>
+                <a 
+                  href={episode.pageLink}
+                  className="inline-block bg-teal-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-teal-700 transition-colors"
+                >
+                  Watch Full Episode →
+                </a>
               </div>
             </div>
           ))}
@@ -98,10 +109,9 @@ const Podcast = () => {
 
         {/* Call to Action */}
         <div className="mt-12 bg-gradient-to-r from-teal-700 to-teal-600 rounded-lg p-8 text-white text-center shadow-xl">
-          <h3 className="text-2xl font-bold mb-4">Subscribe for More Episodes</h3>
+          <h3 className="text-2xl font-bold mb-4">Contact Us</h3>
           <p className="text-lg mb-6">
-            Stay updated with new teachings and biblical insights. Contact us to learn more about 
-            Hebrew Torah truth and ancient wisdom.
+            Have questions about these teachings? Want to learn more about Hebrew Torah truth and ancient wisdom? Get in touch.
           </p>
           <a 
             href="/contact" 
