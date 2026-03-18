@@ -31,9 +31,9 @@ const Podcast = () => {
     {
       id: 5,
       title: "Serapis Christus - The Truth Revealed",
-      description: "Uncovering the historical origins and connections of Serapis Christus in biblical history.",
+      description: "Mix clips featuring Louis Farrakhan and Dr. Ray Hagins discussing Serapis Christus and biblical history.",
       pageLink: "/page-four",
-      videoUrl: "https://drive.google.com/file/d/1ySCSRgGwQjP6eHBPSR_l8HfD_v1R6dKb/preview"
+      videoUrl: "https://drive.google.com/file/d/1jhWW95o0xKU39bABm0SOEIGeEASsABWQ/preview"
     },
     {
       id: 6,
