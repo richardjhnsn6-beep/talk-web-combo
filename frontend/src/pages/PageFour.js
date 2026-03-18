@@ -11,16 +11,19 @@ const PageFour = () => {
       <div className="max-w-6xl mx-auto p-8">
         <div className="bg-white rounded-lg shadow-xl p-8">
           <h2 className="text-3xl font-bold text-teal-800 mb-6 text-center" data-testid="section-title">
-            BEFORE AFTER WAY OF THE
+            Serapis Christus - Origins of Christ Imagery
           </h2>
 
           <div className="mb-8">
             <img 
-              src="https://images.unsplash.com/photo-1513581166391-887a96ddeafd?w=800&h=500&fit=crop" 
-              alt="Ancient Religious Art"
-              className="w-full h-96 object-cover rounded-lg shadow-md mb-6"
-              data-testid="page-image"
+              src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/1uu7xig3_IMG_1623.jpeg" 
+              alt="Serapis Christus sitting with crown and cup"
+              className="w-full max-w-2xl mx-auto h-auto object-contain rounded-lg shadow-md mb-6"
+              data-testid="serapis-image"
             />
+            <p className="text-center text-gray-600 italic">
+              Serapis Christus - Ancient Greco-Egyptian deity and the origins of religious imagery
+            </p>
           </div>
 
           {/* Video */}
