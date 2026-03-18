@@ -61,27 +61,17 @@ const PageThree = () => {
             </div>
           </div>
 
-          {/* Pastor Ray Hagins Section */}
+          {/* Rjhnsn12 Tutorial Section */}
           <div className="mt-12 pt-12 border-t-2 border-teal-200">
-            <h2 className="text-3xl font-bold text-teal-800 mb-6" data-testid="hagins-title">
-              Pastor Ray Hagins - Ancient Wisdom
+            <h2 className="text-3xl font-bold text-teal-800 mb-6" data-testid="tutorial-title">
+              Rjhnsn12 Tutorial - Kush, Shem, and Japheth
             </h2>
 
-            <div className="prose max-w-none text-gray-700 mb-6" data-testid="hagins-text">
-              <div className="space-y-3 text-lg">
-                <p className="pl-4 border-l-4 border-teal-600">
-                  <strong>{'{1}'}</strong> Everything you think you know, about whatever you think you know, 
-                  is in this circumstance of awareness.
-                </p>
-                
-                <p className="pl-4 border-l-4 border-teal-600">
-                  <strong>{'{2}'}</strong> Egypt {'{ Kemet }'}. The source of the bible.
-                </p>
-                
-                <p className="pl-4 border-l-4 border-teal-600">
-                  <strong>{'{3}'}</strong> The Ancient name of Egypt was keme[t] means black.
-                </p>
-              </div>
+            <div className="prose max-w-none text-gray-700 mb-6" data-testid="tutorial-text">
+              <p className="text-lg mb-4">
+                In this tutorial, I teach about the biblical significance of Kush, Shem, and Japheth, 
+                exploring their roles in scripture and the importance of understanding their heritage.
+              </p>
 
               <div className="mt-6 p-6 bg-teal-50 rounded-lg border-l-4 border-teal-600">
                 <p className="text-gray-800 italic">
@@ -100,14 +90,14 @@ const PageThree = () => {
               </div>
             </div>
 
-            {/* Pastor Ray Hagins Video */}
+            {/* Tutorial Video */}
             <div className="mb-8 mt-6">
               <div className="max-w-md mx-auto">
-                <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-hagins">
+                <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-tutorial">
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
                     src="https://www.youtube.com/embed/U_2QiZV_xEU"
-                    title="Pastor Ray Hagins Teaching"
+                    title="Rjhnsn12 Tutorial - Kush, Shem, and Japheth"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
