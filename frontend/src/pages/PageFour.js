@@ -18,7 +18,7 @@ const PageFour = () => {
             <img 
               src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/1uu7xig3_IMG_1623.jpeg" 
               alt="Serapis Christus sitting with crown and cup"
-              className="w-full max-w-2xl mx-auto h-auto object-contain rounded-lg shadow-md mb-6"
+              className="w-full max-w-md mx-auto h-auto object-contain rounded-lg shadow-md mb-6"
               data-testid="serapis-image"
             />
             <p className="text-center text-gray-600 italic">
