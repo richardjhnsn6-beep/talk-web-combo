@@ -53,7 +53,7 @@ const Navigation = () => {
         </div>
         <div className="bg-teal-800 rounded p-3 mb-3">
           <img 
-            src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Shem%2C_Ham_and_Japheth_%28cropped%292.jpg" 
+            src="https://images.unsplash.com/photo-1760574756715-f868bb619ed4?w=300&h=250&fit=crop" 
             alt="Ham, Shem, and Japheth - Three sons of Noah"
             className="w-full h-32 object-cover rounded mb-2"
             data-testid="noah-sidebar-image"
