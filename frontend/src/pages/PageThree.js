@@ -112,7 +112,7 @@ const PageThree = () => {
                   <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="intro-thumbnail">
                     <iframe
                       className="absolute top-0 left-0 w-full h-full rounded shadow-md border-2 border-teal-300"
-                      src="https://drive.google.com/file/d/0B73CQ06mcqAYZ0trVUZNQzI4ZWc/preview"
+                      src="https://drive.google.com/file/d/0B73CQ06mcqAYTWw3RDVEX2J1ek0/preview"
                       title="Intro Music Theme"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
