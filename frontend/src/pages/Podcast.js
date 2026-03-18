@@ -16,8 +16,8 @@ const Podcast = () => {
     },
     {
       id: 3,
-      title: "Louis Farrakhan - Black People in the Bible",
-      description: "Important teachings about where Black people appear in the Bible and God's love for His people.",
+      title: "Pastor Ray Hagins - Kemet Egypt Ancient Wisdom",
+      description: "The source of the Bible from ancient Egypt (Kemet), understanding the ancient name meaning 'black'.",
       pageLink: "/page-three",
       videoUrl: "https://www.youtube.com/embed/09w-ZFasRvE"
     },
