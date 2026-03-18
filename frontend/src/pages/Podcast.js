@@ -2,17 +2,17 @@ const Podcast = () => {
   const episodes = [
     {
       id: 1,
-      title: "Hebrew Torah Teachings",
-      description: "Exploring the Hebrew writings of the Torah and revealing truth through ancient wisdom.",
+      title: "Journey Through Ancient Egypt",
+      description: "3D Egyptian temple journey - Experience the ancient stones and sacred spaces with music by RJHNSN12.",
       pageLink: "/",
-      videoUrl: "https://www.youtube.com/embed/cCwKGVOaW1Y"
+      videoUrl: "https://drive.google.com/file/d/0B73CQ06mcqAYOEhrdVp2Tm51YXc/preview"
     },
     {
       id: 2,
-      title: "Shaka Zulu 1816 - Historical Truth",
-      description: "Understanding Shaka Zulu's coronation in 1816 and the connection to biblical prophecy from Deuteronomy 33:20-21.",
+      title: "Shaka Zulu Coronation 1816",
+      description: "RJHNSN12 Original: Edited documentary about Shaka Zulu's coronation in 1816 and connection to Deuteronomy 33:20-21.",
       pageLink: "/page-two",
-      videoUrl: "https://www.youtube.com/embed/YUXCWUjCiUE"
+      videoUrl: "https://www.youtube.com/embed/cCwKGVOaW1Y"
     },
     {
       id: 3,
