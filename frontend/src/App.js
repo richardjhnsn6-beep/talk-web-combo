@@ -5,6 +5,7 @@ import PageTwo from './pages/PageTwo';
 import PageThree from './pages/PageThree';
 import PageFour from './pages/PageFour';
 import PageFive from './pages/PageFive';
+import Podcast from './pages/Podcast';
 import Contact from './pages/Contact';
 
 const Navigation = () => {
@@ -16,6 +17,7 @@ const Navigation = () => {
     { path: '/page-three', label: 'Page Three' },
     { path: '/page-four', label: 'Page Four' },
     { path: '/page-five', label: 'Page Five' },
+    { path: '/podcast', label: 'Podcast' },
     { path: '/contact', label: 'Contact' }
   ];
 
@@ -79,6 +81,7 @@ function App() {
             <Route path="/page-three" element={<PageThree />} />
             <Route path="/page-four" element={<PageFour />} />
             <Route path="/page-five" element={<PageFive />} />
+            <Route path="/podcast" element={<Podcast />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
