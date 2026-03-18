@@ -20,7 +20,7 @@ const PageTwo = () => {
 
           {/* Video */}
           <div className="mb-8">
-            <div className="max-w-md mx-auto">
+            <div className="max-w-sm mx-auto">
               <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player">
                 <iframe
                   className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
