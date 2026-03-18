@@ -41,7 +41,7 @@ const HomePage = () => {
               <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-1">
                 <iframe
                   className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                  src="https://onedrive.live.com/embed?resid=A14B2343F9E54CF6%21106&authkey=%21AIQBW-POwEOWKR4Y&autoplay=false"
+                  src="https://drive.google.com/file/d/15Doqt9X6_Bli7JQ0VGQ-bZYJ7vMY9RiA/preview"
                   title="Documentary Video"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
