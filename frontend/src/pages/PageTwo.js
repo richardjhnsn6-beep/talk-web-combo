@@ -37,8 +37,8 @@ const PageTwo = () => {
           {/* Second Video - Shaka Coronation by Rjhnsn12 */}
           <div className="mb-8 mt-8">
             <h3 className="text-xl font-semibold text-teal-700 mb-4">Shaka Zulu Coronation 1816</h3>
-            <p className="text-gray-700 mb-4 italic">
-              <strong>RJHNSN12 Original:</strong> Edited and assembled documentary about Shaka's coronation
+            <p className="text-lg text-gray-700 mb-4">
+              <strong>RJHNSN12 ORIGINAL:</strong> Edited and assembled documentary about Shaka's coronation
             </p>
             <div className="max-w-sm mx-auto">
               <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-2">
