@@ -48,16 +48,16 @@ const PageFour = () => {
 
           {/* Second Video - Dr. Ray Hagins at Bottom */}
           <div className="mb-8 mt-8">
-            <h3 className="text-xl font-semibold text-teal-700 mb-4 text-center">Dr. Ray Hagins - Serapis Christus Documentary</h3>
+            <h3 className="text-xl font-semibold text-teal-700 mb-4 text-center">Serapis & Shaka Connection</h3>
             <p className="text-gray-700 mb-4 italic text-center">
-              <strong>Edited by Rjhnsn12:</strong> Clipped and assembled with music and documentation showing the origins of Christ imagery
+              <strong>Rjhnsn12 Original:</strong> Dr. Ray Hagins - Serapis Christus, Shaka Zulu, and the tribe of Israel connection
             </p>
             <div className="max-w-md mx-auto">
               <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-2">
                 <iframe
                   className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                  src="https://www.youtube.com/embed/c_4QOETjPCk"
-                  title="Serapis Christus Documentary"
+                  src="https://drive.google.com/file/d/1T20YnaVNVUt385EO4HPZU1clNSLcImhm/preview"
+                  title="Serapis Shaka Connection"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
