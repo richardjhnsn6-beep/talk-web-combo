@@ -2,7 +2,7 @@ const PageFour = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white" data-testid="page-four">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-red-700 to-red-600 py-8 px-8 shadow-lg">
+      <div className="bg-gradient-to-r from-teal-700 to-teal-600 py-8 px-8 shadow-lg">
         <h1 className="text-4xl md:text-5xl font-bold text-yellow-300 text-center" data-testid="page-title">
           Rjhnsn12 - Biblical Revelations
         </h1>
