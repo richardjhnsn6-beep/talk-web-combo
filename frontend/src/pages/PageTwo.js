@@ -34,6 +34,26 @@ const PageTwo = () => {
             </div>
           </div>
 
+          {/* Second Video - Shaka Coronation by Rjhnsn12 */}
+          <div className="mb-8 mt-8">
+            <h3 className="text-xl font-semibold text-teal-700 mb-4">Shaka Zulu Coronation 1816</h3>
+            <p className="text-gray-700 mb-4 italic">
+              <strong>Rjhnsn12 Original:</strong> Edited and assembled documentary about Shaka's coronation
+            </p>
+            <div className="max-w-sm mx-auto">
+              <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-2">
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                  src="https://www.youtube.com/embed/cCwKGVOaW1Y"
+                  title="Shaka Coronation Video"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
           {/* Content Points */}
           <div className="prose max-w-none text-gray-700" data-testid="content-text">
             <div className="space-y-4 text-lg">
