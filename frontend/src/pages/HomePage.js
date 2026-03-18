@@ -47,8 +47,8 @@ const HomePage = () => {
           <div className="prose max-w-none text-gray-700 leading-relaxed mb-8" data-testid="intro-text">
             <p className="text-lg mb-4">
               Hebrew translater, I write the bible in the original, weaving out the traditions, 
-              giving You the first image of understanding. Website http://shm2.jimdo.com 
-              Beaumont, Texas 77703 Email richardjhnsn6@gmail.com from what I will give you, 
+              giving You the first image of understanding. Beaumont, Texas 77703 
+              Email richardjhnsn6@gmail.com from what I will give you, 
               it will help battle against people that only want to profit. when the True Fire 
               comes he is Eternal'
             </p>
