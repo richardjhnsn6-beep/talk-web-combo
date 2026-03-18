@@ -24,7 +24,7 @@ const PageFive = () => {
                 Gen 9:26 And he said blessed be the lord God of shem; and Canaan shall be his servant.
               </p>
               <p className="text-gray-700 mb-2">
-                <strong>Hebrew-9:26</strong> av Amar Barack hava Yachuwshuah AlaSham av qaynaan hash Naphash Abad
+                <strong>Hebrew-9:26</strong> av Amar Barack hava Yachuwshuah AlaSham av qaynaan hava Naphash Abad
               </p>
               <p className="text-gray-700 mt-4">
                 <strong>Translation:</strong> and of cUshn people light that cometh of the light of truth, 
