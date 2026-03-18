@@ -50,13 +50,16 @@ const PageFive = () => {
 
           {/* Video */}
           <div className="mb-8">
-            <h3 className="text-xl font-semibold text-teal-700 mb-4">Documentary Video</h3>
+            <h3 className="text-xl font-semibold text-teal-700 mb-4">"Movement" - Who is Israel?</h3>
+            <p className="text-gray-700 mb-4 italic">
+              <strong>Rjhnsn12 Original:</strong> Rodney King, police brutality, Black lives lost - One death at a time. Hebrew documentation with Lil Wayne and Game music.
+            </p>
             <div className="max-w-md mx-auto">
               <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player">
                 <iframe
                   className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                  src="https://www.youtube.com/embed/wjROjaPR9OK"
-                  title="Bearing of the Truth Video"
+                  src="https://drive.google.com/file/d/12kQtEILC5NjqQIfSANnHa6YxuZsht_aG/preview"
+                  title="Movement - Who is Israel"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
