@@ -2,10 +2,10 @@ const Podcast = () => {
   const episodes = [
     {
       id: 1,
-      title: "Journey Through Ancient Egypt",
-      description: "3D Egyptian temple journey - Experience the ancient stones and sacred spaces with music by RJHNSN12.",
-      pageLink: "/",
-      videoUrl: "https://drive.google.com/file/d/0B73CQ06mcqAYOEhrdVp2Tm51YXc/preview"
+      title: "RJHNSN12 - Shem, Ham, and Japheth Explained",
+      description: "RJHNSN12 teaching about the three sons of Noah and their connection to biblical history.",
+      pageLink: "/page-three",
+      videoUrl: "https://www.youtube.com/embed/U_2QiZV_xEU"
     },
     {
       id: 2,
@@ -23,10 +23,10 @@ const Podcast = () => {
     },
     {
       id: 4,
-      title: "Pastor Ray Hagins - Egypt (Kemet) Ancient Wisdom",
-      description: "The source of the Bible from ancient Egypt (Kemet), understanding the ancient name meaning 'black'.",
-      pageLink: "/page-three",
-      videoUrl: "https://www.youtube.com/embed/U_2QiZV_xEU"
+      title: "Journey Through Ancient Egypt",
+      description: "3D Egyptian temple journey - Experience the ancient stones and sacred spaces with music by RJHNSN12.",
+      pageLink: "/",
+      videoUrl: "https://drive.google.com/file/d/0B73CQ06mcqAYOEhrdVp2Tm51YXc/preview"
     },
     {
       id: 5,
