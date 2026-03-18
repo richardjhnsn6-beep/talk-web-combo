@@ -20,6 +20,26 @@ const HomePage = () => {
             />
           </div>
 
+          {/* Main Theme Video - 3D Egyptian Temple */}
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold text-teal-700 mb-4">Journey Through Ancient Egypt</h3>
+            <p className="text-gray-700 mb-4 italic">
+              <strong>Rjhnsn12 Original:</strong> 3D Egyptian temple journey - Experience the ancient stones and sacred spaces with music
+            </p>
+            <div className="max-w-md mx-auto">
+              <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-theme">
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                  src="https://drive.google.com/file/d/0B73CQ06mcqAYOEhrdVp2Tm51YXc/preview"
+                  title="Egyptian Temple Journey"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
           <h2 className="text-3xl font-bold text-teal-800 mb-4" data-testid="section-title">
             Hebrew writings of the Torah Reveal's Truth
           </h2>

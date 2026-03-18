@@ -34,23 +34,6 @@ const PageTwo = () => {
             </div>
           </div>
 
-          {/* Second Video - Google Drive */}
-          <div className="mb-8 mt-8">
-            <h3 className="text-xl font-semibold text-teal-700 mb-4">Video 1 (Check if this is correct for Shaka Zulu)</h3>
-            <div className="max-w-sm mx-auto">
-              <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-2">
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                  src="https://drive.google.com/file/d/0B73CQ06mcqAYOEhrdVp2Tm51YXc/preview"
-                  title="Shaka Zulu Video - To Review"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </div>
-          </div>
-
           {/* Content Points */}
           <div className="prose max-w-none text-gray-700" data-testid="content-text">
             <div className="space-y-4 text-lg">
