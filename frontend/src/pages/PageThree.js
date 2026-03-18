@@ -108,6 +108,7 @@ const PageThree = () => {
               {/* Tiny Intro Music Thumbnail - Left Side */}
               <div className="flex-shrink-0">
                 <p className="text-xs font-semibold text-teal-700 mb-2 text-center">▶ Intro Music</p>
+                <p className="text-xs text-gray-500 mb-2 text-center italic">(Click to play)</p>
                 <div className="w-32">
                   <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="intro-thumbnail">
                     <iframe
@@ -115,8 +116,7 @@ const PageThree = () => {
                       src="https://drive.google.com/file/d/0B73CQ06mcqAYTWw3RDVEX2J1ek0/preview"
                       title="Intro Music Theme"
                       frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
+                      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     ></iframe>
                   </div>
                 </div>
