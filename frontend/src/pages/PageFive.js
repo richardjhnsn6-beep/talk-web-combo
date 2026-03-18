@@ -27,8 +27,7 @@ const PageFive = () => {
                 <strong>Hebrew-9:26</strong> av Amar Barack hava Yachuwshuah AlaSham av qaynaan hava Naphash Abad
               </p>
               <p className="text-gray-700 mt-4">
-                <strong>Translation:</strong> and of cUshn people light that cometh of the light of truth, 
-                brother that cometh of one I am the true time, of the fire of kinsmen El one fire of the people.
+                <strong>Translation:</strong> and the people of the beginning I am kinsmen in time of the fire el one fire of the people and the remain it of the eye of the fountain the fountain of fleshy fire of the beginning witness
               </p>
             </div>
           </div>
