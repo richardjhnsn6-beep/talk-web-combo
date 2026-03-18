@@ -36,7 +36,7 @@ const PageFive = () => {
           <div className="mb-8">
             <div className="bg-gray-100 p-6 rounded-lg text-center">
               <img 
-                src="https://images.unsplash.com/photo-1739997698837-8267626ffe92?w=600&h=400&fit=crop" 
+                src="https://static.prod-images.emergentagent.com/jobs/dae91dca-f806-499e-ba09-9fd13250539c/images/bdb3575a2e0272d43fd51db44e327677821fd046ea6f7756c23962cfa688a8b7.png" 
                 alt="Ham, Shem, and Japheth"
                 className="w-full max-w-2xl mx-auto h-64 object-cover rounded-lg shadow-md mb-4"
                 data-testid="noah-image"
