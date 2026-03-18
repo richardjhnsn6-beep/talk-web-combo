@@ -6,6 +6,7 @@ import PageThree from './pages/PageThree';
 import PageFour from './pages/PageFour';
 import PageFive from './pages/PageFive';
 import Podcast from './pages/Podcast';
+import Books from './pages/Books';
 import Contact from './pages/Contact';
 
 const Navigation = () => {
@@ -18,6 +19,7 @@ const Navigation = () => {
     { path: '/page-four', label: 'Page Four' },
     { path: '/page-five', label: 'Page Five' },
     { path: '/podcast', label: 'Podcast' },
+    { path: '/books', label: 'Books' },
     { path: '/contact', label: 'Contact' }
   ];
 
@@ -82,6 +84,7 @@ function App() {
             <Route path="/page-four" element={<PageFour />} />
             <Route path="/page-five" element={<PageFive />} />
             <Route path="/podcast" element={<Podcast />} />
+            <Route path="/books" element={<Books />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
