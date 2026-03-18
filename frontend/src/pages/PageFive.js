@@ -81,6 +81,23 @@ const PageFive = () => {
               </div>
             </div>
           </div>
+
+          {/* Third Video - For Page Five */}
+          <div className="mb-8 mt-8">
+            <h3 className="text-xl font-semibold text-teal-700 mb-4">Video 3 (Page Five Content)</h3>
+            <div className="max-w-2xl mx-auto">
+              <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-3">
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                  src="https://drive.google.com/file/d/1j6i0LqRejSL6KkWIDeJXRqUPMjUOIasq/preview"
+                  title="Page Five Video"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
