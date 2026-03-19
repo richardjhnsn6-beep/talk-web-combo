@@ -8,6 +8,7 @@ import PageFive from './pages/PageFive';
 import Podcast from './pages/Podcast';
 import Books from './pages/Books';
 import Contact from './pages/Contact';
+import HebrewAlphabet from './pages/HebrewAlphabet';
 
 const Navigation = () => {
   const location = useLocation();
@@ -20,6 +21,7 @@ const Navigation = () => {
     { path: '/page-five', label: 'Page Five' },
     { path: '/podcast', label: 'Podcast' },
     { path: '/books', label: 'Books' },
+    { path: '/hebrew-alphabet', label: 'Hebrew Alphabet' },
     { path: '/contact', label: 'Contact' }
   ];
 
@@ -85,6 +87,7 @@ function App() {
             <Route path="/page-five" element={<PageFive />} />
             <Route path="/podcast" element={<Podcast />} />
             <Route path="/books" element={<Books />} />
+            <Route path="/hebrew-alphabet" element={<HebrewAlphabet />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
