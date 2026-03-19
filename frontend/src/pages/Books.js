@@ -113,62 +113,6 @@ const Books = () => {
           </div>
         </div>
 
-        {/* Second Book - Know Thyself */}
-        <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
-          <div className="flex flex-col md:flex-row gap-8 items-start mb-8">
-            {/* Book Cover Placeholder */}
-            <div className="flex-shrink-0">
-              <div className="w-48 h-64 bg-gradient-to-br from-teal-800 to-teal-600 rounded-lg shadow-lg flex items-center justify-center">
-                <div className="text-center p-4">
-                  <h3 className="text-yellow-300 font-bold text-xl mb-2">KNOW THYSELF</h3>
-                  <p className="text-white text-sm">The Knowledge Within You</p>
-                  <div className="mt-4 text-yellow-200 text-xs">
-                    <p>Richard Johnson</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Book Info */}
-            <div className="flex-grow">
-              <h2 className="text-3xl font-bold text-teal-800 mb-2">
-                Know Thyself: The Knowledge Within You
-              </h2>
-              <p className="text-xl text-gray-600 mb-4 italic">by Richard Johnson</p>
-              
-              <div className="flex gap-4 mb-6">
-                <a 
-                  href="https://www.amazon.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
-                >
-                  Buy on Amazon
-                </a>
-                <a 
-                  href="https://www.barnesandnoble.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
-                >
-                  Barnes & Noble
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Book Description */}
-          <div className="prose max-w-none">
-            <p className="text-gray-700 leading-relaxed mb-4">
-              A story about a young man dealing with the separation from his first wife, learning the HEART of separation—now being single and having his own child. Trying to take care of his responsibility of having one child, having negative intentions, low self-esteem, careless attitude, and wanting to learn the Bible, but didn't have enough time to do it being a servant or slave of the system that we all must work to earn money and no talk religion on jobs.
-            </p>
-
-            <p className="text-gray-700 leading-relaxed mb-4">
-              My character began to have demon intentions, and it crashed and manifest the Lord work with that and make me who I am today.
-            </p>
-          </div>
-        </div>
-
         {/* Call to Action */}
         <div className="bg-gradient-to-r from-teal-700 to-teal-600 rounded-lg p-8 text-white text-center shadow-xl">
           <h3 className="text-2xl font-bold mb-4">Available Now</h3>
