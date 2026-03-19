@@ -55,12 +55,28 @@ const HebrewAlphabet = () => {
                 <h3 className="text-2xl font-bold text-teal-800 mb-2">
                   The 20 Original Hebrew Letters
                 </h3>
-                <p className="text-sm text-gray-600 italic">
+                <p className="text-sm text-gray-600 italic mb-4">
                   By Richard Johnson (RJHNSN12) - Transliteration System
                 </p>
+                
+                {/* Handwritten Alphabet Image */}
+                <div className="mb-6 bg-gray-50 p-4 rounded-lg">
+                  <img 
+                    src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/0uubll0f_IMG_1650.heic"
+                    alt="Original Hebrew Alphabet - Handwritten by Richard Johnson"
+                    className="w-full max-w-3xl mx-auto rounded-lg shadow-lg border-2 border-teal-300"
+                    style={{ filter: 'brightness(1.2) contrast(1.2)' }}
+                  />
+                  <p className="text-xs text-gray-500 mt-2 italic">
+                    Original handwritten Hebrew alphabet (Note: Some browsers may not display this image format)
+                  </p>
+                </div>
               </div>
               
               <div className="max-w-3xl mx-auto bg-teal-50 rounded-lg p-6">
+                <p className="text-center text-sm text-gray-600 mb-4 font-semibold">
+                  Letter Reference List:
+                </p>
                 <div className="grid md:grid-cols-2 gap-x-8 gap-y-3">
                   <div className="space-y-3">
                     <div className="text-lg"><span className="font-bold text-teal-700">1.</span> Aleph <span className="text-gray-600 italic">- aw-lef</span></div>
