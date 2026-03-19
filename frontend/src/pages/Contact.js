@@ -53,36 +53,12 @@ const Contact = () => {
                     📘 Facebook
                   </a>
                   <a 
-                    href="YOUR_INSTAGRAM_URL_HERE" 
+                    href="https://www.instagram.com/rjhnsn12/?hl=en" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
                   >
                     📷 Instagram
-                  </a>
-                  <a 
-                    href="YOUR_TWITTER_URL_HERE" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
-                  >
-                    🐦 Twitter
-                  </a>
-                  <a 
-                    href="YOUR_MYSPACE_URL_HERE" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
-                  >
-                    🎵 MySpace
-                  </a>
-                  <a 
-                    href="YOUR_YOUTUBE_URL_HERE" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
-                  >
-                    ▶️ YouTube
                   </a>
                 </div>
               </div>
