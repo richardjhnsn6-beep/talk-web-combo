@@ -45,6 +45,15 @@ const Books = () => {
                 >
                   Buy on Amazon
                 </a>
+                <a 
+                  href="https://www.barnesandnoble.com/s/Richard+Johnson" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
+                  data-testid="bn-link"
+                >
+                  Barnes & Noble
+                </a>
               </div>
             </div>
           </div>
