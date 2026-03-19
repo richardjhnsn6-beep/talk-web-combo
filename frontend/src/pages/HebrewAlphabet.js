@@ -22,11 +22,19 @@ const HebrewAlphabet = () => {
             Unlike modern Hebrew which has 22 letters, the original system contains <strong>20 letters</strong>.
           </p>
           <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg mb-4">
-            <p className="text-gray-800 font-semibold mb-2">Important Note:</p>
-            <p className="text-gray-700">
+            <p className="text-gray-800 font-semibold mb-2">Critical Historical Truth:</p>
+            <p className="text-gray-700 mb-3">
               The original Hebrew scrolls <strong>do not contain the letter "G" (Gimel)</strong> as found in modern Hebrew. 
-              What modern scholars interpret as "G" was actually a <strong>"Y" sound</strong> in the original language. 
-              This is one of many changes that occurred as Hebrew evolved over centuries.
+              What modern scholars interpret as "G" was actually a <strong>"Y" sound</strong> in the original language.
+            </p>
+            <p className="text-gray-700 mb-3">
+              <strong>These letters preserve ancient wisdom</strong> that connects to the earliest civilizations and 
+              sacred knowledge. They are NOT the "Jewish Hebrew" that was formulated in the 12th century (circa 1180 AD) 
+              when traditions were codified and standardized.
+            </p>
+            <p className="text-gray-700">
+              What is taught today as "Hebrew" reflects modifications made over centuries. This alphabet represents 
+              the <strong>original 20 letters</strong> as they existed in ancient times, preserving authentic biblical truth.
             </p>
           </div>
           <p className="text-lg text-gray-700 leading-relaxed">
@@ -51,31 +59,35 @@ const HebrewAlphabet = () => {
 
           {/* Reference List */}
           <div className="bg-teal-50 rounded-lg p-6">
-            <h3 className="text-2xl font-bold text-teal-800 mb-4">Letters Included:</h3>
+            <h3 className="text-2xl font-bold text-teal-800 mb-4">The 20 Original Letters with Transliterations:</h3>
+            <p className="text-gray-700 mb-4">
+              <em>These are the authentic ancient letters as preserved in the original scrolls, 
+              before 12th-century modifications. Each letter connects to ancient wisdom and origins.</em>
+            </p>
             <div className="grid md:grid-cols-2 gap-4 text-gray-700">
               <ul className="space-y-2">
-                <li>1. Aleph (א) - aw-lef</li>
-                <li>2. Beth (ב) - bayth</li>
-                <li>3. Daleth (ד) - daw-leth</li>
-                <li>4. He (ה) - hay</li>
-                <li>5. Vav (ו) - vawv</li>
-                <li>6. Zayin (ז) - zah-yin</li>
-                <li>7. Cheth (ח) - khayth</li>
-                <li>8. Teth (ט) - teth</li>
-                <li>9. Kaph (כ) - caf</li>
-                <li>10. Lamed (ל) - law-med</li>
+                <li>1. Aleph - aw-lef</li>
+                <li>2. Beth - bayth</li>
+                <li>3. Daleth - daw-leth</li>
+                <li>4. He - hay</li>
+                <li>5. Vav - vawv</li>
+                <li>6. Zayin - zah-yin</li>
+                <li>7. Cheth - khayth</li>
+                <li>8. Teth - teth</li>
+                <li>9. Kaph - caf</li>
+                <li>10. Lamed - law-med</li>
               </ul>
               <ul className="space-y-2">
-                <li>11. Mem (מ) - mame</li>
-                <li>12. Nun (נ) - noon</li>
-                <li>13. Samekh (ס) - saw-mek</li>
-                <li>14. Ayin (ע) - ah-yin</li>
-                <li>15. Pe (פ) - fay</li>
-                <li>16. Tsade (צ) - tsaw-d</li>
-                <li>17. Qoph (ק) - cof</li>
-                <li>18. Resh (ר) - raysh</li>
-                <li>19. Shin (ש) - sheen</li>
-                <li>20. Tav (ת) - thawv</li>
+                <li>11. Mem - mame</li>
+                <li>12. Nun - noon</li>
+                <li>13. Samekh - saw-mek</li>
+                <li>14. Ayin - ah-yin</li>
+                <li>15. Pe - fay</li>
+                <li>16. Tsade - tsaw-d</li>
+                <li>17. Qoph - cof</li>
+                <li>18. Resh - raysh</li>
+                <li>19. Shin - sheen</li>
+                <li>20. Tav - thawv</li>
               </ul>
             </div>
           </div>
