@@ -104,26 +104,10 @@ const PageThree = () => {
             </div>
 
             {/* Tutorial Video Section with Intro Thumbnail */}
-            <div className="flex gap-4 items-start mb-8 mt-6">
-              {/* Tiny Intro Music Thumbnail - Left Side */}
-              <div className="flex-shrink-0">
-                <p className="text-xs font-semibold text-teal-700 mb-2 text-center">▶ Intro Music</p>
-                <p className="text-xs text-gray-500 mb-2 text-center italic">(Click to play)</p>
-                <div className="w-32">
-                  <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="intro-thumbnail">
-                    <iframe
-                      className="absolute top-0 left-0 w-full h-full rounded shadow-md border-2 border-teal-300"
-                      src="https://drive.google.com/file/d/0B73CQ06mcqAYTWw3RDVEX2J1ek0/preview"
-                      title="Intro Music Theme"
-                      frameBorder="0"
-                      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    ></iframe>
-                  </div>
-                </div>
-              </div>
-
-              {/* Main Tutorial Video - Right Side */}
-              <div className="flex-grow max-w-md">
+            <div className="flex flex-col md:flex-row gap-4 items-start mb-8 mt-6">
+              {/* Main Tutorial Video - Top on Mobile, Right on Desktop */}
+              <div className="flex-grow w-full md:max-w-md order-2 md:order-2">
+                <h3 className="text-lg font-semibold text-teal-700 mb-2">Pastor Ray Hagins - Kemet Tutorial</h3>
                 <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="video-player-tutorial">
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
@@ -133,6 +117,23 @@ const PageThree = () => {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   ></iframe>
+                </div>
+              </div>
+
+              {/* Intro Music - Bottom on Mobile, Left on Desktop */}
+              <div className="w-full md:w-48 md:flex-shrink-0 order-1 md:order-1">
+                <p className="text-sm font-semibold text-teal-700 mb-2">▶ Intro Music Theme</p>
+                <p className="text-xs text-gray-500 mb-2 italic">(Background music for the teaching)</p>
+                <div className="w-full">
+                  <div className="relative" style={{ paddingBottom: '56.25%' }} data-testid="intro-thumbnail">
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full rounded shadow-md border-2 border-teal-300"
+                      src="https://drive.google.com/file/d/0B73CQ06mcqAYTWw3RDVEX2J1ek0/preview"
+                      title="Intro Music Theme"
+                      frameBorder="0"
+                      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    ></iframe>
+                  </div>
                 </div>
               </div>
             </div>
