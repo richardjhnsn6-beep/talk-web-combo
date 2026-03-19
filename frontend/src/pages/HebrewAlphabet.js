@@ -48,53 +48,49 @@ const HebrewAlphabet = () => {
             The 20 Original Hebrew Letters
           </h2>
           
-          {/* Alphabet Display - Text Based Until Photo Available */}
+          {/* Alphabet Display - List Format */}
           <div className="mb-8">
-            <div className="bg-gradient-to-br from-teal-50 to-white p-8 rounded-xl shadow-2xl border-4 border-teal-200">
+            <div className="bg-white p-8 rounded-xl shadow-xl border-4 border-teal-200">
               <div className="text-center mb-6">
-                <p className="text-lg font-semibold text-teal-800 mb-2">
-                  Original 20-Letter Hebrew Alphabet
-                </p>
+                <h3 className="text-2xl font-bold text-teal-800 mb-2">
+                  The 20 Original Hebrew Letters
+                </h3>
                 <p className="text-sm text-gray-600 italic">
                   By Richard Johnson (RJHNSN12) - Transliteration System
                 </p>
               </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
-                {[
-                  { num: 1, name: 'Aleph', trans: 'aw-lef' },
-                  { num: 2, name: 'Beth', trans: 'bayth' },
-                  { num: 3, name: 'Daleth', trans: 'daw-leth' },
-                  { num: 4, name: 'He', trans: 'hay' },
-                  { num: 5, name: 'Vav', trans: 'vawv' },
-                  { num: 6, name: 'Zayin', trans: 'zah-yin' },
-                  { num: 7, name: 'Cheth', trans: 'khayth' },
-                  { num: 8, name: 'Teth', trans: 'teth' },
-                  { num: 9, name: 'Kaph', trans: 'caf' },
-                  { num: 10, name: 'Lamed', trans: 'law-med' },
-                  { num: 11, name: 'Mem', trans: 'mame' },
-                  { num: 12, name: 'Nun', trans: 'noon' },
-                  { num: 13, name: 'Samekh', trans: 'saw-mek' },
-                  { num: 14, name: 'Ayin', trans: 'ah-yin' },
-                  { num: 15, name: 'Pe', trans: 'fay' },
-                  { num: 16, name: 'Tsade', trans: 'tsaw-d' },
-                  { num: 17, name: 'Qoph', trans: 'cof' },
-                  { num: 18, name: 'Resh', trans: 'raysh' },
-                  { num: 19, name: 'Shin', trans: 'sheen' },
-                  { num: 20, name: 'Tav', trans: 'thawv' }
-                ].map(letter => (
-                  <div key={letter.num} className="bg-white rounded-lg p-4 shadow-md border-2 border-teal-300 hover:shadow-lg transition-shadow">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-teal-700 mb-1">{letter.num}</div>
-                      <div className="text-xl font-bold text-gray-800 mb-1">{letter.name}</div>
-                      <div className="text-sm text-gray-600 italic">{letter.trans}</div>
-                    </div>
+              <div className="max-w-3xl mx-auto bg-teal-50 rounded-lg p-6">
+                <div className="grid md:grid-cols-2 gap-x-8 gap-y-3">
+                  <div className="space-y-3">
+                    <div className="text-lg"><span className="font-bold text-teal-700">1.</span> Aleph <span className="text-gray-600 italic">- aw-lef</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">2.</span> Beth <span className="text-gray-600 italic">- bayth</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">3.</span> Daleth <span className="text-gray-600 italic">- daw-leth</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">4.</span> He <span className="text-gray-600 italic">- hay</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">5.</span> Vav <span className="text-gray-600 italic">- vawv</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">6.</span> Zayin <span className="text-gray-600 italic">- zah-yin</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">7.</span> Cheth <span className="text-gray-600 italic">- khayth</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">8.</span> Teth <span className="text-gray-600 italic">- teth</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">9.</span> Kaph <span className="text-gray-600 italic">- caf</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">10.</span> Lamed <span className="text-gray-600 italic">- law-med</span></div>
                   </div>
-                ))}
+                  <div className="space-y-3">
+                    <div className="text-lg"><span className="font-bold text-teal-700">11.</span> Mem <span className="text-gray-600 italic">- mame</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">12.</span> Nun <span className="text-gray-600 italic">- noon</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">13.</span> Samekh <span className="text-gray-600 italic">- saw-mek</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">14.</span> Ayin <span className="text-gray-600 italic">- ah-yin</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">15.</span> Pe <span className="text-gray-600 italic">- fay</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">16.</span> Tsade <span className="text-gray-600 italic">- tsaw-d</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">17.</span> Qoph <span className="text-gray-600 italic">- cof</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">18.</span> Resh <span className="text-gray-600 italic">- raysh</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">19.</span> Shin <span className="text-gray-600 italic">- sheen</span></div>
+                    <div className="text-lg"><span className="font-bold text-teal-700">20.</span> Tav <span className="text-gray-600 italic">- thawv</span></div>
+                  </div>
+                </div>
               </div>
               
               <div className="mt-6 text-center text-sm text-gray-500 italic">
-                Complete handwritten alphabet image coming soon
+                Authentic ancient Hebrew - preserved before 12th-century modifications
               </div>
             </div>
           </div>
