@@ -45,7 +45,7 @@ const Contact = () => {
                 <h3 className="text-xl font-semibold text-teal-800 mb-4">Follow on Social Media</h3>
                 <div className="flex flex-wrap gap-4">
                   <a 
-                    href="YOUR_FACEBOOK_URL_HERE" 
+                    href="https://www.facebook.com/share/1AgPcJNwbh/?mibextid=wwXIfr" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
