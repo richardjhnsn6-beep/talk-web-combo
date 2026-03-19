@@ -54,7 +54,7 @@ const HebrewAlphabet = () => {
               Original 20-Letter Hebrew Alphabet by RJHNSN12
             </p>
             <img 
-              src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/hc6egzq1_IMG_1650.heic"
+              src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/kjwqckld_IMG_1650.heic"
               alt="Original Hebrew Alphabet - 20 Letters with transliterations by Richard Johnson"
               className="w-full max-w-4xl mx-auto rounded-xl shadow-2xl border-8 border-teal-100"
               style={{
