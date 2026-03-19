@@ -24,6 +24,7 @@ const Navigation = ({ isOpen, setIsOpen }) => {
     { path: '/podcast', label: 'Podcast' },
     { path: '/books', label: 'Books' },
     { path: '/hebrew-alphabet', label: 'Hebrew Alphabet' },
+    { path: '/book-of-amos', label: 'Amos Sample' },
     { path: '/contact', label: 'Contact' }
   ];
 
