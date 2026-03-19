@@ -10,6 +10,7 @@ import Podcast from './pages/Podcast';
 import Books from './pages/Books';
 import Contact from './pages/Contact';
 import HebrewAlphabet from './pages/HebrewAlphabet';
+import BookOfAmos from './pages/BookOfAmos';
 
 const Navigation = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
@@ -127,6 +128,7 @@ function App() {
             <Route path="/podcast" element={<Podcast />} />
             <Route path="/books" element={<Books />} />
             <Route path="/hebrew-alphabet" element={<HebrewAlphabet />} />
+            <Route path="/book-of-amos" element={<BookOfAmos />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
