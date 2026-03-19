@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 import '@/App.css';
 import HomePage from './pages/HomePage';
 import PageTwo from './pages/PageTwo';
@@ -10,7 +11,7 @@ import Books from './pages/Books';
 import Contact from './pages/Contact';
 import HebrewAlphabet from './pages/HebrewAlphabet';
 
-const Navigation = () => {
+const Navigation = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
   
   const navItems = [
@@ -25,8 +26,19 @@ const Navigation = () => {
     { path: '/contact', label: 'Contact' }
   ];
 
+  const handleLinkClick = () => {
+    if (window.innerWidth < 768) {
+      setIsOpen(false);
+    }
+  };
+
   return (
-    <nav className="bg-teal-700 text-white w-64 min-h-screen fixed left-0 top-0 p-6 overflow-y-auto" data-testid="main-navigation">
+    <nav 
+      className={`bg-teal-700 text-white w-64 min-h-screen fixed left-0 top-0 p-6 overflow-y-auto z-50 transition-transform duration-300 ease-in-out ${
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      } md:translate-x-0`}
+      data-testid="main-navigation"
+    >
       <div className="mb-8">
         <h2 className="text-xl font-bold mb-2">rjhnsn12</h2>
         <p className="text-sm opacity-90">Biblical Truth & History</p>
@@ -36,6 +48,7 @@ const Navigation = () => {
           <li key={item.path}>
             <Link
               to={item.path}
+              onClick={handleLinkClick}
               data-testid={`nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
               className={`block px-4 py-2 rounded transition-colors ${
                 location.pathname === item.path
@@ -74,11 +87,37 @@ const Navigation = () => {
 };
 
 function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <div className="App" data-testid="app-container">
       <BrowserRouter>
-        <Navigation />
-        <div className="ml-64">
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="fixed top-4 left-4 z-50 md:hidden bg-teal-700 text-white p-3 rounded-lg shadow-lg hover:bg-teal-800 transition-colors"
+          aria-label="Toggle menu"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {isMenuOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
+
+        {/* Mobile Overlay */}
+        {isMenuOpen && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+            onClick={() => setIsMenuOpen(false)}
+          />
+        )}
+
+        <Navigation isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
+        
+        <div className="md:ml-64">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/page-two" element={<PageTwo />} />

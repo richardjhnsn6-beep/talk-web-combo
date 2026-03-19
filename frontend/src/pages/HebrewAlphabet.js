@@ -48,45 +48,24 @@ const HebrewAlphabet = () => {
             The 20 Original Hebrew Letters
           </h2>
           
-          {/* Alphabet Display - List Format */}
+          {/* Handwritten Alphabet Image */}
           <div className="mb-8">
             <div className="bg-white p-8 rounded-xl shadow-xl border-4 border-teal-200">
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-bold text-teal-800 mb-2">
-                  The 20 Original Hebrew Letters
+                  Handwritten Original Hebrew Alphabet
                 </h3>
                 <p className="text-sm text-gray-600 italic">
-                  By Richard Johnson (RJHNSN12) - Transliteration System
+                  By Richard Johnson (RJHNSN12) - The 20 Ancient Letters
                 </p>
               </div>
               
-              <div className="max-w-3xl mx-auto bg-teal-50 rounded-lg p-6">
-                <div className="grid md:grid-cols-2 gap-x-8 gap-y-3">
-                  <div className="space-y-3">
-                    <div className="text-lg"><span className="font-bold text-teal-700">1.</span> Aleph <span className="text-gray-600 italic">- aw-lef</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">2.</span> Beth <span className="text-gray-600 italic">- bayth</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">3.</span> Daleth <span className="text-gray-600 italic">- daw-leth</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">4.</span> He <span className="text-gray-600 italic">- hay</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">5.</span> Vav <span className="text-gray-600 italic">- vawv</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">6.</span> Zayin <span className="text-gray-600 italic">- zah-yin</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">7.</span> Cheth <span className="text-gray-600 italic">- khayth</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">8.</span> Teth <span className="text-gray-600 italic">- teth</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">9.</span> Kaph <span className="text-gray-600 italic">- caf</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">10.</span> Lamed <span className="text-gray-600 italic">- law-med</span></div>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="text-lg"><span className="font-bold text-teal-700">11.</span> Mem <span className="text-gray-600 italic">- mame</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">12.</span> Nun <span className="text-gray-600 italic">- noon</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">13.</span> Samekh <span className="text-gray-600 italic">- saw-mek</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">14.</span> Ayin <span className="text-gray-600 italic">- ah-yin</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">15.</span> Pe <span className="text-gray-600 italic">- fay</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">16.</span> Tsade <span className="text-gray-600 italic">- tsaw-d</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">17.</span> Qoph <span className="text-gray-600 italic">- cof</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">18.</span> Resh <span className="text-gray-600 italic">- raysh</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">19.</span> Shin <span className="text-gray-600 italic">- sheen</span></div>
-                    <div className="text-lg"><span className="font-bold text-teal-700">20.</span> Tav <span className="text-gray-600 italic">- thawv</span></div>
-                  </div>
-                </div>
+              <div className="flex justify-center mb-6">
+                <img 
+                  src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/qnlhdpy1_IMG_1653.png" 
+                  alt="Original 20-letter Hebrew Alphabet handwritten by Richard Johnson"
+                  className="w-full max-w-4xl rounded-lg shadow-lg"
+                />
               </div>
               
               <div className="mt-6 text-center text-sm text-gray-500 italic">
