@@ -45,15 +45,6 @@ const Books = () => {
                 >
                   Buy on Amazon
                 </a>
-                <a 
-                  href="https://www.barnesandnoble.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
-                  data-testid="bn-link"
-                >
-                  Barnes & Noble
-                </a>
               </div>
             </div>
           </div>
@@ -119,24 +110,14 @@ const Books = () => {
           <p className="text-lg mb-6">
             Discover the deeper meaning of creation through meticulous Hebrew translation
           </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <a 
-              href="https://www.amazon.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-white text-teal-700 px-8 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors"
-            >
-              Order on Amazon
-            </a>
-            <a 
-              href="https://www.barnesandnoble.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-white text-teal-700 px-8 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors"
-            >
-              Order on Barnes & Noble
-            </a>
-          </div>
+          <a 
+            href="https://www.amazon.com/a/c/r/tyelOqLX6JjGvzl0LHdjCyI3i" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-block bg-white text-teal-700 px-8 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors"
+          >
+            Order on Amazon
+          </a>
         </div>
       </div>
     </div>
