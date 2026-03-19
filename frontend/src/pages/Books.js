@@ -37,7 +37,7 @@ const Books = () => {
               
               <div className="flex gap-4 mb-6">
                 <a 
-                  href="https://www.amazon.com" 
+                  href="https://www.amazon.com/a/c/r/tyelOqLX6JjGvzl0LHdjCyI3i" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
