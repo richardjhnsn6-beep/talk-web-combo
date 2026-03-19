@@ -62,7 +62,7 @@ const HebrewAlphabet = () => {
               
               <div className="flex justify-center mb-6">
                 <img 
-                  src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/dy40p6ye_IMG_1655.heic" 
+                  src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/1szacybw_IMG_1656.jpeg" 
                   alt="Original 20-letter Hebrew Alphabet handwritten by Richard Johnson"
                   className="w-full max-w-xl rounded-lg shadow-lg"
                 />
