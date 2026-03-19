@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const BookOfAmos = () => {
-  const [activeSection, setActiveSection] = useState('pure-hebrew');
+  const [activeSection, setActiveSection] = useState('interlinear');
   const [activeChapter, setActiveChapter] = useState(1);
 
   const chapters = [
@@ -36,11 +36,23 @@ const BookOfAmos = () => {
     { verse: 5, text: "aw shabar bariyach al Dammashaq aw kareth yashab al bayth al Awan aw thamak shebeth al bayth al Adan aw galah Aram al Qiyr amar YaChuwshuah" },
   ];
 
-  // Sample content for Chapter 1 - Bilingual
+  // Chapter 1 - Interlinear (word-by-word alignment)
+  const chapter1Interlinear = {
+    verse1: {
+      hebrew: ["dabar", "al", "Amac", "Ashar", "hayach", "bayn", "Naqad", "al", "Taqowa", "Ashar", "chazeh", "al", "yasharaal", "yowm", "al", "yachuwshuahzzah", "Malak", "al", "yachadah", "aw", "yowm", "al", "yaraboam", "ban", "al", "yasharaal", "shanaym", "shana", "rayash"],
+      english: ["words", "of", "Amos", "who", "was", "among", "herdmen", "of", "Tekoa", "which", "he saw", "concerning", "Israel", "in days", "of", "Uzziah", "king", "of", "Judah", "and", "in days", "of", "Jeroboam", "son", "of", "Joash king", "Israel", "two years", "before earthquake"]
+    },
+    verse2: {
+      hebrew: ["aw", "huw", "amar", "Yachuwshua", "al", "Tsayown", "sha'agh", "aw", "al", "Yaruwshalayim", "Nathan", "qowl", "aw", "abal", "Nayah", "al", "Raah", "aw", "yabash", "rosh", "al", "Karmal"],
+      english: ["And", "he", "said", "The LORD", "from", "Zion", "will roar", "and", "from", "Jerusalem", "utter", "his voice", "and", "the habitations", "of", "shepherds", "shall mourn", "and", "the top", "of", "Carmel", "shall wither"]
+    }
+  };
+  
+  // Sample content for Chapter 1 - Bilingual (old format kept for reference)
   const chapter1Bilingual = [
     { 
       verse: 1, 
-      hebrew: "dabar al Amac Ashar hayach Yachuwshuah al adam Taqowa Ashar chazah aw yasharaAl al yowm Ozayah Malak al Yahadah aw al yowm Yarabaam ban al Yoash Malak al yasharaAl Shanath al ra'ash",
+      hebrew: "dabar al Amac Ashar hayach bayn Naqad al Taqowa Ashar chazeh al yasharaal yowm al yachuwshuahzzah Malak al yachadah aw yowm al yaraboam ban al yasharaal shanaym shana rayash",
       english: "The words of Amos, who was among the herdmen of Tekoa, which he saw concerning Israel in the days of Uzziah king of Judah, and in the days of Jeroboam the son of Joash king of Israel, two years before the earthquake."
     },
     { 
@@ -64,6 +76,65 @@ const BookOfAmos = () => {
       english: "I will break also the bar of Damascus, and cut off the inhabitant from the plain of Aven, and him that holdeth the sceptre from the house of Eden: and the people of Syria shall go into captivity unto Kir, saith the LORD."
     },
   ];
+
+  const renderInterlinear = () => {
+    if (activeChapter !== 1) {
+      return (
+        <div className="text-center py-12">
+          <p className="text-gray-600 text-lg">
+            Chapter {activeChapter} interlinear will be added soon.
+          </p>
+        </div>
+      );
+    }
+
+    return (
+      <div className="max-w-5xl mx-auto">
+        <div className="mb-8 p-6 bg-teal-50 rounded-lg border-2 border-teal-300">
+          <h3 className="text-xl font-bold text-teal-800 mb-2">📖 Word-by-Word Interlinear Format</h3>
+          <p className="text-gray-700">
+            Each Hebrew word is shown with its English meaning directly below it. This is the most literal translation format.
+          </p>
+        </div>
+
+        {/* Verse 1 */}
+        <div className="mb-10 p-6 bg-white rounded-lg border border-gray-300">
+          <h4 className="text-lg font-bold text-teal-700 mb-4">Verse 1</h4>
+          <div className="overflow-x-auto">
+            <div className="inline-flex flex-wrap gap-x-4 gap-y-6 min-w-full">
+              {chapter1Interlinear.verse1.hebrew.map((hWord, idx) => (
+                <div key={idx} className="text-center min-w-[80px]">
+                  <div className="text-base font-semibold text-gray-800 mb-1">{hWord}</div>
+                  <div className="text-sm text-teal-700">{chapter1Interlinear.verse1.english[idx]}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Verse 2 */}
+        <div className="mb-10 p-6 bg-white rounded-lg border border-gray-300">
+          <h4 className="text-lg font-bold text-teal-700 mb-4">Verse 2</h4>
+          <div className="overflow-x-auto">
+            <div className="inline-flex flex-wrap gap-x-4 gap-y-6 min-w-full">
+              {chapter1Interlinear.verse2.hebrew.map((hWord, idx) => (
+                <div key={idx} className="text-center min-w-[80px]">
+                  <div className="text-base font-semibold text-gray-800 mb-1">{hWord}</div>
+                  <div className="text-sm text-teal-700">{chapter1Interlinear.verse2.english[idx]}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 p-4 bg-yellow-50 rounded-lg border border-yellow-300">
+          <p className="text-sm text-gray-700 text-center">
+            <strong>Sample:</strong> Verses 1-2 shown in interlinear format. Full chapter will display all 15 verses.
+          </p>
+        </div>
+      </div>
+    );
+  };
 
   const renderPureHebrew = () => {
     if (activeChapter !== 1) {
@@ -198,6 +269,16 @@ const BookOfAmos = () => {
         <div className="bg-white rounded-lg shadow-xl p-6 mb-8">
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button
+              onClick={() => setActiveSection('interlinear')}
+              className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all ${
+                activeSection === 'interlinear'
+                  ? 'bg-teal-700 text-white shadow-lg'
+                  : 'bg-gray-200 text-gray-700 hover:bg-teal-100'
+              }`}
+            >
+              🔤 Word-by-Word
+            </button>
+            <button
               onClick={() => setActiveSection('pure-hebrew')}
               className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all ${
                 activeSection === 'pure-hebrew'
@@ -215,19 +296,23 @@ const BookOfAmos = () => {
                   : 'bg-gray-200 text-gray-700 hover:bg-teal-100'
               }`}
             >
-              🔄 Hebrew & English
+              🔄 Bilingual
             </button>
           </div>
 
           {/* Section Description */}
           <div className="mt-6 text-center">
-            {activeSection === 'pure-hebrew' ? (
+            {activeSection === 'interlinear' ? (
               <p className="text-gray-600">
-                <span className="font-semibold text-teal-700">Pure Hebrew Section:</span> Original 20-letter ancient Hebrew transliteration - preserving the authentic language before 12th-century modifications.
+                <span className="font-semibold text-teal-700">Word-by-Word Interlinear:</span> Each Hebrew word with its English meaning directly below - the most literal translation format.
+              </p>
+            ) : activeSection === 'pure-hebrew' ? (
+              <p className="text-gray-600">
+                <span className="font-semibold text-teal-700">Pure Hebrew Section:</span> Original 20-letter ancient Hebrew transliteration - preserving the authentic language.
               </p>
             ) : (
               <p className="text-gray-600">
-                <span className="font-semibold text-teal-700">Bilingual Study:</span> Side-by-side comparison with Hebrew on the left and English translation on the right - perfect for word-by-word verification.
+                <span className="font-semibold text-teal-700">Bilingual Study:</span> Side-by-side comparison with Hebrew on the left and English on the right.
               </p>
             )}
           </div>
@@ -235,7 +320,7 @@ const BookOfAmos = () => {
 
         {/* Content Section */}
         <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
-          {activeSection === 'pure-hebrew' ? renderPureHebrew() : renderBilingual()}
+          {activeSection === 'interlinear' ? renderInterlinear() : activeSection === 'pure-hebrew' ? renderPureHebrew() : renderBilingual()}
         </div>
 
         {/* Call to Action */}
