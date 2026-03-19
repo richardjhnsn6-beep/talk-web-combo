@@ -49,12 +49,22 @@ const HebrewAlphabet = () => {
           </h2>
           
           {/* Alphabet Image */}
-          <div className="mb-8">
+          <div className="mb-8 bg-white p-8 rounded-lg shadow-inner">
+            <p className="text-center text-gray-600 mb-4 font-semibold">
+              Original 20-Letter Hebrew Alphabet by RJHNSN12
+            </p>
             <img 
               src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/hc6egzq1_IMG_1650.heic"
-              alt="Original Hebrew Alphabet - 20 Letters with transliterations"
-              className="w-full max-w-3xl mx-auto rounded-lg shadow-lg border-4 border-teal-200"
+              alt="Original Hebrew Alphabet - 20 Letters with transliterations by Richard Johnson"
+              className="w-full max-w-4xl mx-auto rounded-xl shadow-2xl border-8 border-teal-100"
+              style={{
+                filter: 'brightness(1.2) contrast(1.3)',
+                backgroundColor: 'white'
+              }}
             />
+            <p className="text-center text-sm text-gray-500 mt-4 italic">
+              Authentic ancient Hebrew - 20 original letters preserved before 12th-century modifications
+            </p>
           </div>
 
           {/* Reference List */}
