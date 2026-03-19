@@ -41,6 +41,52 @@ const Contact = () => {
                 </p>
               </div>
 
+              <div className="p-6 bg-teal-50 rounded-lg border-l-4 border-teal-600">
+                <h3 className="text-xl font-semibold text-teal-800 mb-4">Follow on Social Media</h3>
+                <div className="flex flex-wrap gap-4">
+                  <a 
+                    href="YOUR_FACEBOOK_URL_HERE" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
+                  >
+                    📘 Facebook
+                  </a>
+                  <a 
+                    href="YOUR_INSTAGRAM_URL_HERE" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
+                  >
+                    📷 Instagram
+                  </a>
+                  <a 
+                    href="YOUR_TWITTER_URL_HERE" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
+                  >
+                    🐦 Twitter
+                  </a>
+                  <a 
+                    href="YOUR_MYSPACE_URL_HERE" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
+                  >
+                    🎵 MySpace
+                  </a>
+                  <a 
+                    href="YOUR_YOUTUBE_URL_HERE" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
+                  >
+                    ▶️ YouTube
+                  </a>
+                </div>
+              </div>
+
               <div className="mt-8 p-6 bg-amber-50 rounded-lg border-l-4 border-amber-500">
                 <p className="text-gray-700 italic">
                   "From what I will give you, it will help battle against people that only want to profit. 
