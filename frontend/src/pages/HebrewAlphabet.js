@@ -48,62 +48,59 @@ const HebrewAlphabet = () => {
             The 20 Original Hebrew Letters
           </h2>
           
-          {/* Alphabet Image */}
-          <div className="mb-8 bg-white p-8 rounded-lg shadow-inner">
-            <p className="text-center text-gray-600 mb-4 font-semibold">
-              Original 20-Letter Hebrew Alphabet by RJHNSN12
-            </p>
-            <img 
-              src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/kjwqckld_IMG_1650.heic"
-              alt="Original Hebrew Alphabet - 20 Letters with transliterations by Richard Johnson"
-              className="w-full max-w-4xl mx-auto rounded-xl shadow-2xl border-8 border-teal-100"
-              style={{
-                filter: 'brightness(1.2) contrast(1.3)',
-                backgroundColor: 'white'
-              }}
-            />
-            <p className="text-center text-sm text-gray-500 mt-4 italic">
-              Authentic ancient Hebrew - 20 original letters preserved before 12th-century modifications
-            </p>
-          </div>
-
-          {/* Reference List */}
-          <div className="bg-teal-50 rounded-lg p-6">
-            <h3 className="text-2xl font-bold text-teal-800 mb-4">The 20 Original Letters with Transliterations:</h3>
-            <p className="text-gray-700 mb-4">
-              <em>These are the authentic ancient letters as preserved in the original scrolls, 
-              before 12th-century modifications. Each letter connects to ancient wisdom and origins.</em>
-            </p>
-            <div className="grid md:grid-cols-2 gap-4 text-gray-700">
-              <ul className="space-y-2">
-                <li>1. Aleph - aw-lef</li>
-                <li>2. Beth - bayth</li>
-                <li>3. Daleth - daw-leth</li>
-                <li>4. He - hay</li>
-                <li>5. Vav - vawv</li>
-                <li>6. Zayin - zah-yin</li>
-                <li>7. Cheth - khayth</li>
-                <li>8. Teth - teth</li>
-                <li>9. Kaph - caf</li>
-                <li>10. Lamed - law-med</li>
-              </ul>
-              <ul className="space-y-2">
-                <li>11. Mem - mame</li>
-                <li>12. Nun - noon</li>
-                <li>13. Samekh - saw-mek</li>
-                <li>14. Ayin - ah-yin</li>
-                <li>15. Pe - fay</li>
-                <li>16. Tsade - tsaw-d</li>
-                <li>17. Qoph - cof</li>
-                <li>18. Resh - raysh</li>
-                <li>19. Shin - sheen</li>
-                <li>20. Tav - thawv</li>
-              </ul>
+          {/* Alphabet Display - Text Based Until Photo Available */}
+          <div className="mb-8">
+            <div className="bg-gradient-to-br from-teal-50 to-white p-8 rounded-xl shadow-2xl border-4 border-teal-200">
+              <div className="text-center mb-6">
+                <p className="text-lg font-semibold text-teal-800 mb-2">
+                  Original 20-Letter Hebrew Alphabet
+                </p>
+                <p className="text-sm text-gray-600 italic">
+                  By Richard Johnson (RJHNSN12) - Transliteration System
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+                {[
+                  { num: 1, name: 'Aleph', trans: 'aw-lef' },
+                  { num: 2, name: 'Beth', trans: 'bayth' },
+                  { num: 3, name: 'Daleth', trans: 'daw-leth' },
+                  { num: 4, name: 'He', trans: 'hay' },
+                  { num: 5, name: 'Vav', trans: 'vawv' },
+                  { num: 6, name: 'Zayin', trans: 'zah-yin' },
+                  { num: 7, name: 'Cheth', trans: 'khayth' },
+                  { num: 8, name: 'Teth', trans: 'teth' },
+                  { num: 9, name: 'Kaph', trans: 'caf' },
+                  { num: 10, name: 'Lamed', trans: 'law-med' },
+                  { num: 11, name: 'Mem', trans: 'mame' },
+                  { num: 12, name: 'Nun', trans: 'noon' },
+                  { num: 13, name: 'Samekh', trans: 'saw-mek' },
+                  { num: 14, name: 'Ayin', trans: 'ah-yin' },
+                  { num: 15, name: 'Pe', trans: 'fay' },
+                  { num: 16, name: 'Tsade', trans: 'tsaw-d' },
+                  { num: 17, name: 'Qoph', trans: 'cof' },
+                  { num: 18, name: 'Resh', trans: 'raysh' },
+                  { num: 19, name: 'Shin', trans: 'sheen' },
+                  { num: 20, name: 'Tav', trans: 'thawv' }
+                ].map(letter => (
+                  <div key={letter.num} className="bg-white rounded-lg p-4 shadow-md border-2 border-teal-300 hover:shadow-lg transition-shadow">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-teal-700 mb-1">{letter.num}</div>
+                      <div className="text-xl font-bold text-gray-800 mb-1">{letter.name}</div>
+                      <div className="text-sm text-gray-600 italic">{letter.trans}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="mt-6 text-center text-sm text-gray-500 italic">
+                Complete handwritten alphabet image coming soon
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Learn More */}
+        {/* Learn More Section */}
         <div className="mt-8 bg-gradient-to-r from-teal-700 to-teal-600 rounded-lg p-8 text-white text-center shadow-xl">
           <h3 className="text-2xl font-bold mb-4">Study Original Hebrew Truth</h3>
           <p className="text-lg mb-6">
