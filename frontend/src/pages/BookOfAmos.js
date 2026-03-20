@@ -145,17 +145,20 @@ const BookOfAmos = () => {
               The letter "A" was invisible - understood but not written. This was the pure, original form of the language.
             </p>
             <p className="leading-relaxed">
-              <strong>The Transformation:</strong> Later translators and scholars recognized the invisible "A" and other 
-              consonants, and converted them into a vowel point system. This became known as the vowel doctrine, 
-              establishing what we recognize today as the traditional Hebrew vowel system (א, ע, י, ו - representing vowel sounds).
+              <strong>The JEIOU Doctrine Theory by Well Housing:</strong> Later translators and scholars recognized the 
+              invisible "A" and other consonants, and converted them into a vowel point system. This became known as the 
+              JEIOU doctrine - the vowel adoption theory established by Well Housing, which dictated how the scrolls would 
+              be read and understood. The consonants were transformed into vowel sounds (J-E-I-O-U), fundamentally changing 
+              the original language structure.
             </p>
             <p className="leading-relaxed">
-              <strong>The Impact:</strong> This transformation fundamentally changed how sacred names and words were 
-              pronounced and understood. The original consonantal meanings were altered when vowel points were added by 
-              later institutions, changing the pronunciation of God's name and other sacred terms.
+              <strong>The Impact on Sacred Names:</strong> This transformation fundamentally changed how sacred names and 
+              words were pronounced. The original pronunciation of God's name was altered through this vowel system - 
+              converting it into various forms (LORD, Jehovah, Yahweh) to avoid saying the actual original name. The theory 
+              was that the king would hear them, because He does exist.
             </p>
             <p className="text-sm italic text-blue-800 mt-3 font-semibold">
-              This work preserves the original 20-letter consonantal system before it was modified by later vowel pointing traditions.
+              This work preserves the original 20-letter consonantal system before it was modified by the JEIOU doctrine and later vowel pointing traditions.
             </p>
           </div>
         </div>
