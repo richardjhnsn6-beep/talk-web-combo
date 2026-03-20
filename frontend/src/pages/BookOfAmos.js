@@ -47,8 +47,8 @@ const BookOfAmos = () => {
       english: ["and", "he", "said", "LORD", "from", "Zion", "will roar", "and", "from", "Jerusalem", "utter", "voice", "and", "mourn", "habitations", "of", "shepherds", "and", "wither", "top", "of", "Carmel"]
     },
     verse3: {
-      hebrew: ["kah", "amar", "Yachuwshua", "al", "shalowsh", "pasha", "al", "Dammashaq", "aw", "al", "arba", "law", "shuwb", "cuwr", "avan", "kiy", "dawsh", "al", "Galaad", "al", "charuwts", "al", "barzel"],
-      english: ["Thus", "saith", "LORD", "for", "three", "transgressions", "of", "Damascus", "and", "for", "four", "not", "turn", "away", "punishment", "because", "threshed", "Gilead", "with", "threshing", "instruments", "of", "iron"]
+      hebrew: ["kah", "amar", "Yachuwshua", "al", "shalowsh", "pasha", "al", "Dammashaq", "aw", "al", "arba", "law", "shuwb", "cuwr", "avan", "kiy", "Duwsh", "al", "Galaad", "ad", "charuts", "dachavah", "al", "barzal"],
+      english: ["Thus", "saith", "LORD", "for", "three", "transgressions", "of", "Damascus", "and", "for", "four", "not", "turn", "away", "punishment", "because", "Thresh", "the", "Gilead", "with", "threshing", "instruments", "of", "irons"]
     },
     verse4: {
       hebrew: ["Han", "ahy", "shalach", "ash", "al", "bayth", "al", "Chazaal", "Ashar", "yash", "akal", "armown", "ban", "Hadad"],
