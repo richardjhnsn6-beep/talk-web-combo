@@ -55,8 +55,8 @@ const BookOfAmos = () => {
       english: ["but", "I will", "send", "a fire", "into the", "house", "of", "Hazael", "which", "shall", "devour", "palaces", "of", "Benhadad"]
     },
     verse5: {
-      hebrew: ["aw", "shabar", "bariyach", "Dammashaq", "aw", "karath", "yashab", "al", "biqah", "Aven", "aw", "tamak", "shebet", "al", "bayth", "Adan", "aw", "galah", "am", "Aram", "Qiyr", "amar", "Yachuwshua"],
-      english: ["will break", "bar", "of", "Damascus", "and", "cut off", "inhabitant", "from", "plain", "of Aven", "and", "him that holdeth", "sceptre", "from", "house", "of Eden", "and", "shall go", "people", "of Syria", "into captivity", "unto Kir", "saith LORD"]
+      hebrew: ["ahy", "shabar", "gam", "barayach", "al", "Dammashaq", "aw", "Karath", "al", "yashab", "al", "baqah", "al", "Avan", "aw", "Naphash", "tamak", "shebet", "al", "bayth", "Adan", "aw", "galah", "am", "Aram", "Qiyr", "amar", "Yachuwshua"],
+      english: ["I will", "break", "also", "the bars", "of", "Damascus", "and", "cut off", "the", "inhabitants", "from the", "plain", "of", "avan", "and", "him", "that holdeth", "sceptre", "from", "house", "of Eden", "and", "shall go", "people", "of Syria", "into captivity", "unto Kir", "saith LORD"]
     }
   };
   
