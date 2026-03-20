@@ -36,15 +36,15 @@ const BookOfAmos = () => {
     { verse: 5, text: "aw shabar bariyach al Dammashaq aw kareth yashab al bayth al Awan aw thamak shebeth al bayth al Adan aw galah Aram al Qiyr amar YaChuwshuah" },
   ];
 
-  // Chapter 1 - Interlinear (word-by-word alignment)
+  // Chapter 1 - Interlinear (word-by-word alignment) - Using user's reference image
   const chapter1Interlinear = {
     verse1: {
-      hebrew: ["dabar", "al", "Amac", "Ashar", "hayach", "bayn", "Naqad", "al", "Taqowa", "Ashar", "chazeh", "al", "yasharaal", "yowm", "al", "yachuwshuahzzah", "Malak", "al", "yachadah", "aw", "yowm", "al", "yaraboam", "ban", "al", "yasharaal", "shanaym", "shana", "rayash"],
-      english: ["words", "of", "Amos", "who", "was", "among", "herdmen", "of", "Tekoa", "which", "he saw", "concerning", "Israel", "in days", "of", "Uzziah", "king", "of", "Judah", "and", "in days", "of", "Jeroboam", "son", "of", "Joash king", "Israel", "two years", "before earthquake"]
+      hebrew: ["dabar", "al", "Amac", "Ashar", "hayach", "bayn", "Naqad", "al", "Taqowa", "Ashar", "chazeh", "al", "yasharaal", "al", "yowm", "Ozayah", "Malak", "al", "Yahadah", "aw", "al", "yowm", "Yaraboam", "ban", "Yoash", "Malak", "al", "yasharaal", "shanaym", "shana", "al", "raash"],
+      english: ["words", "of", "Amos", "who", "was", "among", "herdmen", "of", "Tekoa", "which", "he saw", "concerning", "Israel", "in", "days", "Uzziah", "king", "of", "Judah", "and", "in", "days", "Jeroboam", "son", "Joash", "king", "of", "Israel", "two", "years", "before", "earthquake"]
     },
     verse2: {
-      hebrew: ["aw", "huw", "amar", "Yachuwshua", "al", "Tsayown", "sha'agh", "aw", "al", "Yaruwshalayim", "Nathan", "qowl", "aw", "abal", "Nayah", "al", "Raah", "aw", "yabash", "rosh", "al", "Karmal"],
-      english: ["And", "he", "said", "The LORD", "from", "Zion", "will roar", "and", "from", "Jerusalem", "utter", "his voice", "and", "the habitations", "of", "shepherds", "shall mourn", "and", "the top", "of", "Carmel", "shall wither"]
+      hebrew: ["aw", "huw", "amar", "Yachuwshua", "al", "Tsayown", "shaagh", "aw", "al", "Yaruwshalayim", "Nathan", "qowl", "aw", "abal", "Nayah", "al", "Raah", "aw", "yabash", "rosh", "al", "Karmal"],
+      english: ["and", "he", "said", "LORD", "from", "Zion", "will roar", "and", "from", "Jerusalem", "utter", "voice", "and", "mourn", "habitations", "of", "shepherds", "and", "wither", "top", "of", "Carmel"]
     }
   };
   
