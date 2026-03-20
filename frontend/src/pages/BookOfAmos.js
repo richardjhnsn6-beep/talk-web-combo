@@ -153,9 +153,9 @@ const BookOfAmos = () => {
               The letter "A" was invisible - understood but not written. This was the pure, original form of the language.
             </p>
             <p className="leading-relaxed">
-              <strong>The JEIOU Doctrine Theory by Well Housing:</strong> Later translators and scholars recognized the 
+              <strong>The JEIOU Doctrine Theory by Wellhausen:</strong> Later translators and scholars recognized the 
               invisible "A" and other consonants, and converted them into a vowel point system. This became known as the 
-              JEIOU doctrine - the vowel adoption theory established by Well Housing, which dictated how the scrolls would 
+              JEIOU doctrine - the vowel adoption theory established by Wellhausen, which dictated how the scrolls would 
               be read and understood. The consonants were transformed into vowel sounds (J-E-I-O-U), fundamentally changing 
               the original language structure.
             </p>
