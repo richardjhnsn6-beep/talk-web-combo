@@ -61,6 +61,10 @@ const BookOfAmos = () => {
     verse6: {
       hebrew: ["Kah", "Amar", "al", "Yachuwshuah", "yth", "shalawsh", "pasha", "al", "Azzah", "aw", "yth", "arba", "ahy", "lah", "shuwb", "Cuwr", "Avan", "Shamal", "ky", "cham", "baw", "cuwr", "galah", "shalam", "galwth", "cagar", "cham", "cagar", "Adam"],
       english: ["This", "said", "The", "LORD", "for", "three", "transgressions", "of", "Gaza", "and", "for", "four", "I will", "not", "turn", "away", "punishment", "There of", "because", "they", "carried", "away", "captures", "the whole", "captivity", "to deliver up", "them", "up to", "Edom"]
+    },
+    verse7: {
+      hebrew: ["Han", "ahy", "shalach", "ash", "al", "chawah", "al", "Azzah", "Asar", "Yash", "akal", "Aramwn", "shamal"],
+      english: ["But", "I will", "send", "a fire", "on the", "wall", "of", "Gaza", "which", "Shall", "devour", "the palaces", "thereof"]
     }
   };
   
