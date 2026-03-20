@@ -104,9 +104,36 @@ const BookOfAmos = () => {
       <div className="max-w-5xl mx-auto">
         <div className="mb-8 p-6 bg-teal-50 rounded-lg border-2 border-teal-300">
           <h3 className="text-xl font-bold text-teal-800 mb-2">📖 Word-by-Word Interlinear Format</h3>
-          <p className="text-gray-700">
+          <p className="text-gray-700 mb-4">
             Each Hebrew word is shown with its English meaning directly below it. This is the most literal translation format.
           </p>
+        </div>
+
+        {/* Key to Understanding Section */}
+        <div className="mb-8 p-6 bg-yellow-50 rounded-lg border-2 border-yellow-400">
+          <h3 className="text-xl font-bold text-yellow-900 mb-3">🔑 Key to Understanding the 20-Letter Hebrew System</h3>
+          <div className="space-y-3 text-gray-800">
+            <p className="font-semibold text-yellow-900">Important Consonant Rules:</p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>
+                <strong>The Letter "A":</strong> A's always go before every letter even though "A" is not written. This is a fundamental rule of the original Hebrew consonant structure.
+              </li>
+              <li>
+                <strong>The Word "AL":</strong> This is one of the most important particles in Hebrew. Depending on context, "AL" can mean:
+                <ul className="list-circle pl-6 mt-1">
+                  <li><strong>the</strong> (definite article)</li>
+                  <li><strong>of</strong> (possessive)</li>
+                  <li><strong>from</strong> (directional)</li>
+                  <li><strong>against</strong> (oppositional)</li>
+                  <li><strong>the person</strong></li>
+                  <li><strong>God</strong></li>
+                </ul>
+              </li>
+            </ul>
+            <p className="text-sm italic text-yellow-800 mt-3">
+              Understanding these rules is essential to properly reading the word-by-word translation below.
+            </p>
+          </div>
         </div>
 
         {/* Verses 1-5 */}
