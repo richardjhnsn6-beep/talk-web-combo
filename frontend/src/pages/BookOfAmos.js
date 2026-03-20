@@ -33,7 +33,7 @@ const BookOfAmos = () => {
     { verse: 2, text: "aw huw amar Yachuwshua al Tsayown shaagh aw al Yaruwshalayim Nathan qowl aw abal Nayah al Raah aw yabash rosh al Karmal" },
     { verse: 3, text: "kah amar Yachuwshua al shalowsh pasha al Dammashaq aw al arba law shuwb al kiy dawsh al Galaad al charuwts al barzel" },
     { verse: 4, text: "aw shalach esh al bayth Chazaal aw akal armown ban Hadad" },
-    { verse: 5, text: "aw shabar bariyach Dammashaq aw karath yashab al biqah Aven aw tamak shebet al bayth Eden aw galah am Aram Qiyr amar Yachuwshua" },
+    { verse: 5, text: "aw shabar bariyach Dammashaq aw karath yashab al biqah Aven aw tamak shebet al bayth Adan aw galah am Aram Qiyr amar Yachuwshua" },
   ];
 
   // Chapter 1 - Interlinear (word-by-word alignment) - Using user's reference image
@@ -55,7 +55,7 @@ const BookOfAmos = () => {
       english: ["But", "will send", "fire", "into", "house", "Hazael", "which", "shall devour", "palaces", "of", "Benhadad"]
     },
     verse5: {
-      hebrew: ["aw", "shabar", "bariyach", "Dammashaq", "aw", "karath", "yashab", "al", "biqah", "Aven", "aw", "tamak", "shebet", "al", "bayth", "Eden", "aw", "galah", "am", "Aram", "Qiyr", "amar", "Yachuwshua"],
+      hebrew: ["aw", "shabar", "bariyach", "Dammashaq", "aw", "karath", "yashab", "al", "biqah", "Aven", "aw", "tamak", "shebet", "al", "bayth", "Adan", "aw", "galah", "am", "Aram", "Qiyr", "amar", "Yachuwshua"],
       english: ["will break", "bar", "of", "Damascus", "and", "cut off", "inhabitant", "from", "plain", "of Aven", "and", "him that holdeth", "sceptre", "from", "house", "of Eden", "and", "shall go", "people", "of Syria", "into captivity", "unto Kir", "saith LORD"]
     }
   };
