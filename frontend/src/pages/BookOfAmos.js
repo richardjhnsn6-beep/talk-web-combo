@@ -45,6 +45,18 @@ const BookOfAmos = () => {
     verse2: {
       hebrew: ["aw", "huw", "amar", "Yachuwshua", "al", "Tsayown", "shaagh", "aw", "al", "Yaruwshalayim", "Nathan", "qowl", "aw", "abal", "Nayah", "al", "Raah", "aw", "yabash", "rosh", "al", "Karmal"],
       english: ["and", "he", "said", "LORD", "from", "Zion", "will roar", "and", "from", "Jerusalem", "utter", "voice", "and", "mourn", "habitations", "of", "shepherds", "and", "wither", "top", "of", "Carmel"]
+    },
+    verse3: {
+      hebrew: ["kah", "amar", "Yachuwshua", "al", "shalowsh", "pasha", "al", "Dammashaq", "aw", "al", "arba", "law", "shuwb", "al", "kiy", "dawsh", "al", "Galaad", "al", "charuwts", "al", "barzel"],
+      english: ["Thus", "saith", "LORD", "for", "three", "transgressions", "of", "Damascus", "and", "for", "four", "not", "turn away", "punishment", "because", "threshed", "Gilead", "with", "threshing", "instruments", "of", "iron"]
+    },
+    verse4: {
+      hebrew: ["aw", "shalach", "esh", "al", "bayth", "Chazaal", "aw", "akal", "armown", "ban", "Hadad"],
+      english: ["But", "will send", "fire", "into", "house", "Hazael", "which", "shall devour", "palaces", "of", "Benhadad"]
+    },
+    verse5: {
+      hebrew: ["aw", "shabar", "bariyach", "Dammashaq", "aw", "karath", "yashab", "al", "biqah", "Aven", "aw", "tamak", "shebet", "al", "bayth", "Eden", "aw", "galah", "am", "Aram", "Qiyr", "amar", "Yachuwshua"],
+      english: ["will break", "bar", "of", "Damascus", "and", "cut off", "inhabitant", "from", "plain", "of Aven", "and", "him that holdeth", "sceptre", "from", "house", "of Eden", "and", "shall go", "people", "of Syria", "into captivity", "unto Kir", "saith LORD"]
     }
   };
   
@@ -97,39 +109,29 @@ const BookOfAmos = () => {
           </p>
         </div>
 
-        {/* Verse 1 */}
-        <div className="mb-10 p-6 bg-white rounded-lg border border-gray-300">
-          <h4 className="text-lg font-bold text-teal-700 mb-4">Verse 1</h4>
-          <div className="overflow-x-auto">
-            <div className="inline-flex flex-wrap gap-x-4 gap-y-6 min-w-full">
-              {chapter1Interlinear.verse1.hebrew.map((hWord, idx) => (
-                <div key={idx} className="text-center min-w-[80px]">
-                  <div className="text-base font-semibold text-gray-800 mb-1">{hWord}</div>
-                  <div className="text-sm text-teal-700">{chapter1Interlinear.verse1.english[idx]}</div>
+        {/* Verses 1-5 */}
+        {Object.entries(chapter1Interlinear).map(([verseKey, verseData]) => {
+          const verseNum = verseKey.replace('verse', '');
+          return (
+            <div key={verseKey} className="mb-10 p-6 bg-white rounded-lg border border-gray-300">
+              <h4 className="text-lg font-bold text-teal-700 mb-4">Verse {verseNum}</h4>
+              <div className="overflow-x-auto">
+                <div className="inline-flex flex-wrap gap-x-4 gap-y-6 min-w-full">
+                  {verseData.hebrew.map((hWord, idx) => (
+                    <div key={idx} className="text-center min-w-[80px]">
+                      <div className="text-base font-semibold text-gray-800 mb-1">{hWord}</div>
+                      <div className="text-sm text-teal-700">{verseData.english[idx]}</div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
-        </div>
-
-        {/* Verse 2 */}
-        <div className="mb-10 p-6 bg-white rounded-lg border border-gray-300">
-          <h4 className="text-lg font-bold text-teal-700 mb-4">Verse 2</h4>
-          <div className="overflow-x-auto">
-            <div className="inline-flex flex-wrap gap-x-4 gap-y-6 min-w-full">
-              {chapter1Interlinear.verse2.hebrew.map((hWord, idx) => (
-                <div key={idx} className="text-center min-w-[80px]">
-                  <div className="text-base font-semibold text-gray-800 mb-1">{hWord}</div>
-                  <div className="text-sm text-teal-700">{chapter1Interlinear.verse2.english[idx]}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+          );
+        })}
 
         <div className="mt-8 p-4 bg-yellow-50 rounded-lg border border-yellow-300">
           <p className="text-sm text-gray-700 text-center">
-            <strong>Sample:</strong> Verses 1-2 shown in interlinear format. Full chapter will display all 15 verses.
+            <strong>Sample:</strong> Verses 1-5 shown in interlinear format. Full chapter has 15 verses total.
           </p>
         </div>
       </div>
