@@ -27,13 +27,13 @@ const BookOfAmos = () => {
     }
   ];
 
-  // Sample content for Chapter 1 - Pure Hebrew
+  // Sample content for Chapter 1 - Pure Hebrew (continuous text)
   const chapter1PureHebrew = [
-    { verse: 1, text: "dabar al Amac Ashar hayach Yachuwshuah al adam Taqowa Ashar chazah aw yasharaAl al yowm Ozayah Malak al Yahadah aw al yowm Yarabaam ban al Yoash Malak al yasharaAl Shanath al ra'ash" },
-    { verse: 2, text: "aw huw amar YaChuwshuah al Tsayown sha'agh aw al Yaruwshalayim Nathon qowl aw abal Nayah Raah aw yabash rosh al Karmal" },
-    { verse: 3, text: "kah amar YaChuwshuah aw shalowsh pasha al Dammashaq aw aw arba law shu[w]b kiy dawsh kharsth al yahd al Galaad" },
-    { verse: 4, text: "aw shalach esh al bayth al Chaza'Al aw akal Armon ban al Hadad" },
-    { verse: 5, text: "aw shabar bariyach al Dammashaq aw kareth yashab al bayth al Awan aw thamak shebeth al bayth al Adan aw galah Aram al Qiyr amar YaChuwshuah" },
+    { verse: 1, text: "dabar al Amac Ashar hayach bayn Naqad al Taqowa Ashar chazeh al yasharaal al yowm Ozayah Malak al Yahadah aw al yowm Yaraboam ban Yoash Malak al yasharaal shanaym shana al raash" },
+    { verse: 2, text: "aw huw amar Yachuwshua al Tsayown shaagh aw al Yaruwshalayim Nathan qowl aw abal Nayah al Raah aw yabash rosh al Karmal" },
+    { verse: 3, text: "kah amar Yachuwshua al shalowsh pasha al Dammashaq aw al arba law shuwb al kiy dawsh al Galaad al charuwts al barzel" },
+    { verse: 4, text: "aw shalach esh al bayth Chazaal aw akal armown ban Hadad" },
+    { verse: 5, text: "aw shabar bariyach Dammashaq aw karath yashab al biqah Aven aw tamak shebet al bayth Eden aw galah am Aram Qiyr amar Yachuwshua" },
   ];
 
   // Chapter 1 - Interlinear (word-by-word alignment) - Using user's reference image
