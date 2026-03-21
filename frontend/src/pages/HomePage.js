@@ -12,12 +12,14 @@ const HomePage = () => {
         {/* Main Content */}
         <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
           <div className="mb-8">
-            <img 
-              src="https://images.unsplash.com/photo-1771251059397-765d5ccbbd78?w=1200&h=500&fit=crop&q=80" 
-              alt="Pyramids of Egypt at sunset"
-              className="w-full h-64 object-cover rounded-lg shadow-md mb-6"
-              data-testid="hero-image"
-            />
+            <a href="/book-of-amos" className="block">
+              <img 
+                src="https://static.prod-images.emergentagent.com/jobs/dae91dca-f806-499e-ba09-9fd13250539c/images/485ee5484e46ee0129440753c53f3fa24ae14f946532c2df14c0474155b1308d.png" 
+                alt="Unlock the Book of Amos - Ancient Biblical Wisdom"
+                className="w-full h-64 object-cover rounded-lg shadow-md mb-6 hover:shadow-xl transition-shadow cursor-pointer"
+                data-testid="hero-image"
+              />
+            </a>
           </div>
 
           {/* Radio Notice for Video */}

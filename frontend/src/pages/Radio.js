@@ -275,6 +275,24 @@ const Radio = () => {
           </div>
         )}
 
+        {/* Featured Content Banners */}
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <a href="/book-of-amos" className="block group">
+            <img 
+              src="https://static.prod-images.emergentagent.com/jobs/dae91dca-f806-499e-ba09-9fd13250539c/images/485ee5484e46ee0129440753c53f3fa24ae14f946532c2df14c0474155b1308d.png"
+              alt="Unlock the Book of Amos"
+              className="w-full h-48 object-cover rounded-lg shadow-lg group-hover:shadow-2xl transition-all"
+            />
+          </a>
+          <a href="/page-two" className="block group">
+            <img 
+              src="https://static.prod-images.emergentagent.com/jobs/dae91dca-f806-499e-ba09-9fd13250539c/images/0b3440b12a9bf7b882f6b7bd8658c0f354cdefe37cdba2fa7307055e6b0a9bd5.png"
+              alt="20-Letter TRUE Hebrew Alphabet System"
+              className="w-full h-48 object-cover rounded-lg shadow-lg group-hover:shadow-2xl transition-all"
+            />
+          </a>
+        </div>
+
         {/* Support Section */}
         <div className="bg-gradient-to-r from-yellow-500 to-orange-500 rounded-2xl shadow-2xl p-8 text-center">
           {showDonationSuccess && (

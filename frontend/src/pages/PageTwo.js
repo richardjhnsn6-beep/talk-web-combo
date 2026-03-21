@@ -9,6 +9,17 @@ const PageTwo = () => {
       </div>
 
       <div className="max-w-6xl mx-auto p-8">
+        {/* Book of Amos Promotion Banner */}
+        <div className="mb-8">
+          <a href="/book-of-amos" className="block group">
+            <img 
+              src="https://static.prod-images.emergentagent.com/jobs/dae91dca-f806-499e-ba09-9fd13250539c/images/485ee5484e46ee0129440753c53f3fa24ae14f946532c2df14c0474155b1308d.png"
+              alt="Unlock the Book of Amos"
+              className="w-full h-48 object-cover rounded-lg shadow-lg group-hover:shadow-2xl transition-all"
+            />
+          </a>
+        </div>
+
         <div className="bg-white rounded-lg shadow-xl p-8">
           <h2 className="text-3xl font-bold text-teal-800 mb-6" data-testid="shaka-title">
             1816 was shaka year of coronation - Deu 33:20-21 in the bible

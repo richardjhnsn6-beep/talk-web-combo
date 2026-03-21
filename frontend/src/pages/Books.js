@@ -11,7 +11,18 @@ const Books = () => {
         </p>
       </div>
 
-      <div className="max-w-4xl mx-auto p-8">
+      <div className="max-w-6xl mx-auto p-8">
+        {/* Support Banner */}
+        <div className="mb-8">
+          <a href="/radio" className="block group">
+            <img 
+              src="https://static.prod-images.emergentagent.com/jobs/dae91dca-f806-499e-ba09-9fd13250539c/images/b7882843150cf3e728692580af6fe88bcc6518edefc8563689ad3c80cedcbeb5.png"
+              alt="Support True Knowledge"
+              className="w-full h-40 object-cover rounded-lg shadow-lg group-hover:shadow-2xl transition-all"
+            />
+          </a>
+        </div>
+
         {/* Book Feature */}
         <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
           <div className="flex flex-col md:flex-row gap-8 items-start mb-8">
@@ -110,6 +121,17 @@ const Books = () => {
             <p className="text-gray-700 leading-relaxed mb-4 font-semibold text-lg text-teal-800">
               If the first words were misunderstood, what might that change about everything that follows?
             </p>
+          </div>
+
+          {/* Hebrew System Banner */}
+          <div className="mt-8">
+            <a href="/page-two" className="block group">
+              <img 
+                src="https://static.prod-images.emergentagent.com/jobs/dae91dca-f806-499e-ba09-9fd13250539c/images/0b3440b12a9bf7b882f6b7bd8658c0f354cdefe37cdba2fa7307055e6b0a9bd5.png"
+                alt="Discover the 20-Letter TRUE Hebrew Alphabet"
+                className="w-full h-48 object-cover rounded-lg shadow-lg group-hover:shadow-2xl transition-all"
+              />
+            </a>
           </div>
         </div>
 

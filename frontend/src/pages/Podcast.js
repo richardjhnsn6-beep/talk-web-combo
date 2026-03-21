@@ -78,6 +78,17 @@ const Podcast = () => {
           </p>
         </div>
 
+        {/* Radio Station Promo Banner */}
+        <div className="mb-8">
+          <a href="/radio" className="block group">
+            <img 
+              src="https://static.prod-images.emergentagent.com/jobs/dae91dca-f806-499e-ba09-9fd13250539c/images/488f7794704750350163d5d56b98fbcdb983d8f2b489445ffb99950393fbbd5c.png"
+              alt="Listen to RJHNSN12 Radio 24/7"
+              className="w-full h-48 object-cover rounded-lg shadow-lg group-hover:shadow-2xl transition-all"
+            />
+          </a>
+        </div>
+
         {/* Episodes Grid */}
         <div className="grid md:grid-cols-2 gap-6">
           {episodes.map((episode) => (
