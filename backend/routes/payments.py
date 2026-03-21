@@ -24,6 +24,11 @@ PACKAGES = {
     "chapter1_unlock": 4.99
 }
 
+class DonationRequest(BaseModel):
+    amount: float
+    origin_url: str
+    donor_name: Optional[str] = "Anonymous"
+
 class CheckoutRequest(BaseModel):
     package_id: str
     origin_url: str
@@ -124,6 +129,63 @@ async def get_checkout_status(session_id: str):
         "currency": checkout_status.currency,
         "metadata": checkout_status.metadata
     }
+
+@router.post("/v1/donation/session", response_model=CheckoutResponse)
+async def create_donation_checkout(request: DonationRequest, http_request: Request):
+    """Create a Stripe checkout session for donations"""
+    
+    # Validate amount
+    if request.amount < 1 or request.amount > 10000:
+        raise HTTPException(status_code=400, detail="Donation amount must be between $1 and $10,000")
+    
+    # Get Stripe API key
+    stripe_api_key = os.environ.get('STRIPE_API_KEY')
+    if not stripe_api_key:
+        raise HTTPException(status_code=500, detail="Stripe API key not configured")
+    
+    # Create webhook URL
+    host_url = str(http_request.base_url).rstrip('/')
+    webhook_url = f"{host_url}/api/webhook/stripe"
+    
+    # Initialize Stripe checkout
+    stripe_checkout = StripeCheckout(api_key=stripe_api_key, webhook_url=webhook_url)
+    
+    # Build success and cancel URLs
+    success_url = f"{request.origin_url}/radio?donation=success"
+    cancel_url = f"{request.origin_url}/radio"
+    
+    # Add donation metadata
+    metadata = {
+        "type": "donation",
+        "donor_name": request.donor_name
+    }
+    
+    # Create checkout session
+    checkout_request = CheckoutSessionRequest(
+        amount=request.amount,
+        currency="usd",
+        success_url=success_url,
+        cancel_url=cancel_url,
+        metadata=metadata
+    )
+    
+    session: CheckoutSessionResponse = await stripe_checkout.create_checkout_session(checkout_request)
+    
+    # Store donation transaction
+    transaction = {
+        "session_id": session.session_id,
+        "amount": request.amount,
+        "currency": "usd",
+        "type": "donation",
+        "donor_name": request.donor_name,
+        "payment_status": "pending",
+        "status": "initiated",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.payment_transactions.insert_one(transaction)
+    
+    return CheckoutResponse(url=session.url, session_id=session.session_id)
 
 @router.post("/webhook/stripe")
 async def stripe_webhook(request: Request):

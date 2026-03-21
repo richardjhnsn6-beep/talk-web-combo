@@ -11,6 +11,7 @@ import uuid
 from datetime import datetime, timezone
 from routes.payments import router as payments_router
 from routes.analytics import router as analytics_router
+from routes.radio import router as radio_router
 
 
 ROOT_DIR = Path(__file__).parent
@@ -31,6 +32,8 @@ api_router = APIRouter(prefix="/api")
 api_router.include_router(payments_router, prefix="/payments", tags=["payments"])
 # Include analytics routes with /analytics prefix
 api_router.include_router(analytics_router, prefix="/analytics", tags=["analytics"])
+# Include radio routes with /radio prefix
+api_router.include_router(radio_router, prefix="/radio", tags=["radio"])
 
 
 # Define Models

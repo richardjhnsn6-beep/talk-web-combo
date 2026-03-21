@@ -42,8 +42,17 @@ async def get_dashboard_stats():
     
     # Payment stats
     payment_transactions = await db.payment_transactions.find({}, {"_id": 0}).to_list(1000)
-    total_revenue = sum(t.get("amount", 0) for t in payment_transactions if t.get("payment_status") == "paid")
-    successful_payments = len([t for t in payment_transactions if t.get("payment_status") == "paid"])
+    
+    # Separate content unlocks from donations
+    content_unlocks = [t for t in payment_transactions if t.get("package_id") == "chapter1_unlock" and t.get("payment_status") == "paid"]
+    donations = [t for t in payment_transactions if t.get("type") == "donation" and t.get("payment_status") == "paid"]
+    
+    content_revenue = sum(t.get("amount", 0) for t in content_unlocks)
+    donation_revenue = sum(t.get("amount", 0) for t in donations)
+    total_revenue = content_revenue + donation_revenue
+    
+    successful_payments = len(content_unlocks)
+    total_donations = len(donations)
     
     # Page view stats
     page_views = await db.page_views.find({}, {"_id": 0}).to_list(10000)
@@ -65,7 +74,10 @@ async def get_dashboard_stats():
     return {
         "payments": {
             "total_revenue": round(total_revenue, 2),
+            "content_revenue": round(content_revenue, 2),
+            "donation_revenue": round(donation_revenue, 2),
             "successful_payments": successful_payments,
+            "total_donations": total_donations,
             "total_transactions": len(payment_transactions),
             "recent_transactions": recent_transactions
         },

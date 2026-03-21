@@ -12,6 +12,8 @@ import Contact from './pages/Contact';
 import HebrewAlphabet from './pages/HebrewAlphabet';
 import BookOfAmos from './pages/BookOfAmos';
 import AdminDashboard from './pages/AdminDashboard';
+import Radio from './pages/Radio';
+import AdminRadio from './pages/AdminRadio';
 
 const Navigation = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
@@ -23,6 +25,7 @@ const Navigation = ({ isOpen, setIsOpen }) => {
     { path: '/page-four', label: 'Page Four' },
     { path: '/page-five', label: 'Page Five' },
     { path: '/podcast', label: 'Podcast' },
+    { path: '/radio', label: '🎙️ Radio' },
     { path: '/books', label: 'Books' },
     { path: '/hebrew-alphabet', label: 'Hebrew Alphabet' },
     { path: '/book-of-amos', label: 'Amos Sample' },
@@ -129,10 +132,12 @@ function App() {
             <Route path="/page-four" element={<PageFour />} />
             <Route path="/page-five" element={<PageFive />} />
             <Route path="/podcast" element={<Podcast />} />
+            <Route path="/radio" element={<Radio />} />
             <Route path="/books" element={<Books />} />
             <Route path="/hebrew-alphabet" element={<HebrewAlphabet />} />
             <Route path="/book-of-amos" element={<BookOfAmos />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/radio" element={<AdminRadio />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>

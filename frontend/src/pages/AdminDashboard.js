@@ -139,7 +139,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Revenue Stats */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div className="grid md:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-green-500 transform hover:scale-105 transition-all">
             <div className="flex items-center justify-between">
               <div>
@@ -155,12 +155,26 @@ const AdminDashboard = () => {
           <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-blue-500 transform hover:scale-105 transition-all">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-500 text-sm font-semibold mb-1">Chapter 1 Unlocks</p>
+                <p className="text-gray-500 text-sm font-semibold mb-1">Content Sales</p>
                 <p className="text-4xl font-bold text-blue-600">
-                  {stats?.payments?.successful_payments || 0}
+                  ${stats?.payments?.content_revenue?.toFixed(2) || '0.00'}
                 </p>
+                <p className="text-xs text-gray-500 mt-1">{stats?.payments?.successful_payments || 0} unlocks</p>
               </div>
-              <div className="text-5xl">✅</div>
+              <div className="text-5xl">📖</div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-yellow-500 transform hover:scale-105 transition-all">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-500 text-sm font-semibold mb-1">Donations</p>
+                <p className="text-4xl font-bold text-yellow-600">
+                  ${stats?.payments?.donation_revenue?.toFixed(2) || '0.00'}
+                </p>
+                <p className="text-xs text-gray-500 mt-1">{stats?.payments?.total_donations || 0} donors</p>
+              </div>
+              <div className="text-5xl">❤️</div>
             </div>
           </div>
 
@@ -174,6 +188,19 @@ const AdminDashboard = () => {
               </div>
               <div className="text-5xl">👁️</div>
             </div>
+          </div>
+        </div>
+
+        {/* Quick Links */}
+        <div className="bg-gradient-to-r from-teal-600 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+          <h2 className="text-xl font-bold text-white mb-4">⚡ Quick Admin Links</h2>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="/admin/radio"
+              className="bg-white text-teal-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-all shadow-lg inline-flex items-center gap-2"
+            >
+              🎙️ Manage Radio Station
+            </a>
           </div>
         </div>
 
@@ -219,7 +246,7 @@ const AdminDashboard = () => {
                         </span>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-700">
-                        {transaction.metadata?.content || transaction.package_id}
+                        {transaction.metadata?.content || transaction.package_id || (transaction.type === 'donation' ? '❤️ Donation' : 'Unknown')}
                       </td>
                     </tr>
                   ))}
