@@ -14,7 +14,6 @@ const PersistentRadioPlayer = () => {
   // Fetch playlist on mount
   useEffect(() => {
     fetchPlaylist();
-    setupVideoDetection();
   }, []);
 
   const fetchPlaylist = async () => {
@@ -31,37 +30,41 @@ const PersistentRadioPlayer = () => {
   };
 
   const setupVideoDetection = () => {
-    // Listen for video play events across the site
-    document.addEventListener('play', (e) => {
-      if (e.target.tagName === 'VIDEO' || e.target.tagName === 'IFRAME') {
-        // Video started playing - pause radio
-        if (audioRef.current && isPlaying) {
-          audioRef.current.pause();
-          setIsPlaying(false);
-          console.log('📹 Video playing - Radio paused');
-        }
+    // Detect when videos play and pause the radio
+    const handleVideoPlay = () => {
+      if (audioRef.current && !audioRef.current.paused) {
+        audioRef.current.pause();
+        setIsPlaying(false);
       }
-    }, true);
+    };
 
-    document.addEventListener('pause', (e) => {
-      if (e.target.tagName === 'VIDEO') {
-        // Video paused - could resume radio (but let user control)
-        console.log('📹 Video paused');
+    const handleVideoEnd = () => {
+      if (audioRef.current && audioRef.current.paused && playlist.length > 0) {
+        setTimeout(() => {
+          const playPromise = audioRef.current.play();
+          if (playPromise !== undefined) {
+            playPromise.then(() => {
+              setIsPlaying(true);
+            }).catch(() => {
+              // User must interact first
+            });
+          }
+        }, 500);
       }
-    }, true);
+    };
 
-    document.addEventListener('ended', (e) => {
-      if (e.target.tagName === 'VIDEO') {
-        // Video ended - auto-resume radio
-        if (audioRef.current && !isPlaying && playlist.length > 0) {
-          setTimeout(() => {
-            audioRef.current.play();
-            setIsPlaying(true);
-            console.log('🎵 Video ended - Radio resumed');
-          }, 1000);
-        }
-      }
-    }, true);
+    // Listen for video elements
+    const observer = new MutationObserver(() => {
+      const videos = document.querySelectorAll('video');
+      videos.forEach(video => {
+        video.addEventListener('play', handleVideoPlay);
+        video.addEventListener('ended', handleVideoEnd);
+      });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
   };
 
   useEffect(() => {
@@ -128,9 +131,10 @@ const PersistentRadioPlayer = () => {
     handleNext();
   };
 
-  // Auto-load next track (but don't auto-play - wait for user)
+  // Auto-load next track when index changes
   useEffect(() => {
-    if (currentTrack && isPlaying && audioRef.current) {
+    if (currentTrack && isPlaying && audioRef.current && audioRef.current.src) {
+      // Only if already playing and has source
       handlePlay();
     }
   }, [currentTrackIndex]);
