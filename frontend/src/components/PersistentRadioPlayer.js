@@ -11,9 +11,11 @@ const PersistentRadioPlayer = () => {
   const audioRef = useRef(null);
   const location = useLocation();
 
-  // Fetch playlist on mount
+  // Fetch playlist and setup video detection on mount
   useEffect(() => {
     fetchPlaylist();
+    const cleanup = setupVideoDetection();
+    return cleanup;
   }, []);
 
   const fetchPlaylist = async () => {
@@ -31,40 +33,67 @@ const PersistentRadioPlayer = () => {
 
   const setupVideoDetection = () => {
     // Detect when videos play and pause the radio
-    const handleVideoPlay = () => {
-      if (audioRef.current && !audioRef.current.paused) {
-        audioRef.current.pause();
-        setIsPlaying(false);
-      }
-    };
-
-    const handleVideoEnd = () => {
-      if (audioRef.current && audioRef.current.paused && playlist.length > 0) {
-        setTimeout(() => {
-          const playPromise = audioRef.current.play();
-          if (playPromise !== undefined) {
-            playPromise.then(() => {
-              setIsPlaying(true);
-            }).catch(() => {
-              // User must interact first
-            });
+    const handleMediaEvent = (e) => {
+      const target = e.target;
+      
+      // Check if it's a video or iframe (embedded video)
+      if (target.tagName === 'VIDEO' || (target.tagName === 'IFRAME' && target.src)) {
+        if (e.type === 'play' || e.type === 'playing') {
+          // Video started - pause radio
+          if (audioRef.current && !audioRef.current.paused) {
+            audioRef.current.pause();
+            setIsPlaying(false);
+            console.log('📹 Video playing - Radio paused');
           }
-        }, 500);
+        } else if (e.type === 'ended') {
+          // Video ended - resume radio after 1 second
+          setTimeout(() => {
+            if (audioRef.current && audioRef.current.paused) {
+              const playPromise = audioRef.current.play();
+              if (playPromise !== undefined) {
+                playPromise.then(() => {
+                  setIsPlaying(true);
+                  console.log('🎵 Video ended - Radio resumed');
+                }).catch(() => {
+                  console.log('Auto-resume prevented by browser');
+                });
+              }
+            }
+          }, 1000);
+        }
       }
     };
 
-    // Listen for video elements
-    const observer = new MutationObserver(() => {
-      const videos = document.querySelectorAll('video');
-      videos.forEach(video => {
-        video.addEventListener('play', handleVideoPlay);
-        video.addEventListener('ended', handleVideoEnd);
-      });
+    // Add event listeners to document for video events
+    document.addEventListener('play', handleMediaEvent, true);
+    document.addEventListener('playing', handleMediaEvent, true);
+    document.addEventListener('ended', handleMediaEvent, true);
+
+    // Also check for YouTube iframe API events
+    window.addEventListener('message', (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (data.event === 'onStateChange') {
+          if (data.info === 1) {
+            // YouTube video playing
+            if (audioRef.current && !audioRef.current.paused) {
+              audioRef.current.pause();
+              setIsPlaying(false);
+              console.log('📹 YouTube video playing - Radio paused');
+            }
+          }
+        }
+      } catch (e) {
+        // Not YouTube message
+      }
     });
 
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    return () => observer.disconnect();
+    // Cleanup
+    return () => {
+      document.removeEventListener('play', handleMediaEvent, true);
+      document.removeEventListener('playing', handleMediaEvent, true);
+      document.removeEventListener('ended', handleMediaEvent, true);
+    };
   };
 
   useEffect(() => {
