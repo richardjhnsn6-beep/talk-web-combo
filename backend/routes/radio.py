@@ -37,11 +37,43 @@ class DJAnnouncement(BaseModel):
     voice: str = "nova"  # DJ voice
     position: str = "between_tracks"  # or "intro", "outro"
 
-@router.get("/playlist")
-async def get_playlist():
-    """Get all radio tracks in order (metadata only, no audio data)"""
+@router.get("/playlist/mixed")
+async def get_mixed_playlist():
+    """Get playlist with DJ announcements mixed in between tracks"""
+    
+    # Get all tracks
     tracks = await db.radio_tracks.find({}, {"_id": 0, "audio_data": 0}).to_list(1000)
-    return sorted(tracks, key=lambda x: x.get("order", 0))
+    tracks = sorted(tracks, key=lambda x: x.get("order", 0))
+    
+    # Get all DJ announcements
+    announcements = await db.dj_announcements.find({}, {"_id": 0, "audio_data": 0}).to_list(1000)
+    
+    if not announcements:
+        return tracks  # No announcements, just return tracks
+    
+    # Mix announcements between tracks (every 3-4 tracks)
+    mixed_playlist = []
+    announcement_index = 0
+    
+    for i, track in enumerate(tracks):
+        # Add track with type marker
+        mixed_playlist.append({
+            **track,
+            "type": "track"
+        })
+        
+        # Add DJ announcement after every 3 tracks
+        if (i + 1) % 3 == 0 and announcement_index < len(announcements):
+            announcement = announcements[announcement_index % len(announcements)]
+            mixed_playlist.append({
+                **announcement,
+                "type": "announcement",
+                "title": "Station ID",
+                "artist": "RJHNSN12 Radio"
+            })
+            announcement_index += 1
+    
+    return mixed_playlist
 
 @router.post("/track/upload")
 async def upload_track(

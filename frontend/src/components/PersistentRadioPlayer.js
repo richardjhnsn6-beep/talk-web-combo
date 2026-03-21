@@ -20,7 +20,7 @@ const PersistentRadioPlayer = () => {
 
   const fetchPlaylist = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/radio/playlist`);
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/radio/playlist/mixed`);
       const data = await response.json();
       if (data.length > 0) {
         setPlaylist(data);
@@ -107,14 +107,26 @@ const PersistentRadioPlayer = () => {
   const handlePlay = async () => {
     if (audioRef.current && currentTrack) {
       try {
-        // Fetch the track audio data only when user clicks play
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/radio/track/${currentTrack.id}`);
-        const trackData = await response.json();
-        
-        if (trackData.audio_data) {
-          audioRef.current.src = `data:audio/mp3;base64,${trackData.audio_data}`;
-        } else if (trackData.audio_url) {
-          audioRef.current.src = trackData.audio_url;
+        // Check if it's a DJ announcement or music track
+        if (currentTrack.type === 'announcement') {
+          // Fetch announcement audio
+          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/radio/dj/announcements`);
+          const announcements = await response.json();
+          const announcement = announcements.find(a => a.id === currentTrack.id);
+          
+          if (announcement && announcement.audio_data) {
+            audioRef.current.src = `data:audio/mp3;base64,${announcement.audio_data}`;
+          }
+        } else {
+          // Fetch track audio data
+          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/radio/track/${currentTrack.id}`);
+          const trackData = await response.json();
+          
+          if (trackData.audio_data) {
+            audioRef.current.src = `data:audio/mp3;base64,${trackData.audio_data}`;
+          } else if (trackData.audio_url) {
+            audioRef.current.src = trackData.audio_url;
+          }
         }
         
         const playPromise = audioRef.current.play();
@@ -190,8 +202,17 @@ const PersistentRadioPlayer = () => {
                   <span className="text-xs font-bold">LIVE</span>
                 </div>
                 <div className="text-sm">
-                  <p className="font-semibold truncate max-w-xs">{currentTrack?.title || 'Radio'}</p>
-                  <p className="text-xs text-purple-300 truncate">{currentTrack?.artist || ''}</p>
+                  {currentTrack?.type === 'announcement' ? (
+                    <>
+                      <p className="font-semibold truncate max-w-xs">🎙️ Station ID</p>
+                      <p className="text-xs text-purple-300 truncate">RJHNSN12 Radio DJ</p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="font-semibold truncate max-w-xs">{currentTrack?.title || 'Radio'}</p>
+                      <p className="text-xs text-purple-300 truncate">{currentTrack?.artist || ''}</p>
+                    </>
+                  )}
                 </div>
               </div>
 
