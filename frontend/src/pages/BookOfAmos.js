@@ -8,6 +8,14 @@ const BookOfAmos = () => {
 
   // Check if content is unlocked (from localStorage or URL)
   useEffect(() => {
+    // Check for preview mode (for author to verify content)
+    const urlParams = new URLSearchParams(window.location.search);
+    const previewMode = urlParams.get('preview');
+    if (previewMode === 'author') {
+      setIsUnlocked(true);
+      return;
+    }
+
     // Check localStorage
     const unlocked = localStorage.getItem('amos_chapter1_unlocked');
     if (unlocked === 'true') {
@@ -15,7 +23,6 @@ const BookOfAmos = () => {
     }
 
     // Check URL for payment success
-    const urlParams = new URLSearchParams(window.location.search);
     const sessionId = urlParams.get('session_id');
     if (sessionId) {
       verifyPayment(sessionId);
