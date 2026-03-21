@@ -1,8 +1,94 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const BookOfAmos = () => {
   const [activeSection, setActiveSection] = useState('interlinear');
   const [activeChapter, setActiveChapter] = useState(1);
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+
+  // Check if content is unlocked (from localStorage or URL)
+  useEffect(() => {
+    // Check localStorage
+    const unlocked = localStorage.getItem('amos_chapter1_unlocked');
+    if (unlocked === 'true') {
+      setIsUnlocked(true);
+    }
+
+    // Check URL for payment success
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionId = urlParams.get('session_id');
+    if (sessionId) {
+      verifyPayment(sessionId);
+    }
+  }, []);
+
+  const verifyPayment = async (sessionId) => {
+    setIsProcessingPayment(true);
+    const maxAttempts = 5;
+    
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/payments/v1/checkout/status/${sessionId}`);
+        const data = await response.json();
+        
+        if (data.payment_status === 'paid') {
+          localStorage.setItem('amos_chapter1_unlocked', 'true');
+          setIsUnlocked(true);
+          setIsProcessingPayment(false);
+          // Remove session_id from URL
+          window.history.replaceState({}, '', '/book-of-amos');
+          return;
+        } else if (data.status === 'expired') {
+          setIsProcessingPayment(false);
+          alert('Payment session expired. Please try again.');
+          return;
+        }
+        
+        // Wait 2 seconds before next poll
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      } catch (error) {
+        console.error('Payment verification error:', error);
+      }
+    }
+    
+    setIsProcessingPayment(false);
+    alert('Payment verification timed out. Please refresh the page or contact support.');
+  };
+
+  const handleUnlockPayment = async () => {
+    try {
+      const originUrl = window.location.origin;
+      
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/payments/v1/checkout/session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          package_id: 'chapter1_unlock',
+          origin_url: originUrl,
+          metadata: {
+            content: 'Book of Amos - Chapter 1 Full',
+            verses: '6-15'
+          }
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create checkout session');
+      }
+
+      const data = await response.json();
+      
+      // Redirect to Stripe Checkout
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (error) {
+      console.error('Payment error:', error);
+      alert('Error initiating payment. Please try again.');
+    }
+  };
 
   const chapters = [
     { 
@@ -81,6 +167,10 @@ const BookOfAmos = () => {
     verse11: {
       hebrew: ["Kah", "Amar", "al", "Yachuwshuah", "yth", "shalawsh", "pasha", "al", "Adam", "aw", "yth", "arba", "ahy", "lah", "shuwb", "cuwr", "Avan", "shamal", "al", "huw", "Ashah", "radaph", "Naphash", "ah", "awd", "charab", "aw", "Asah", "shachath", "kal", "racham", "aw", "Naphash", "aph", "asah", "Taraph", "ad", "aw", "huw", "shamar", "Naphash", "abrah", "Natsach"],
       english: ["Thus", "said", "the", "Lord", "for", "three", "transgressions", "of", "Edom", "and", "for", "four", "I will", "not", "turn", "away", "The punishment", "there of", "because", "he", "did", "pursue", "his", "brother", "with", "sword", "and", "did", "cast off", "all", "pity", "And", "his", "anger", "did", "tear", "perpetually", "and", "he", "kept", "his", "wrath", "forever"]
+    },
+    verse12: {
+      hebrew: ["Han", "ahy", "shalach", "ash", "al", "Tayman", "Asar", "yash", "akal", "al", "Aramawn", "al", "batsarah"],
+      english: ["But", "I will", "send", "a fire", "upon", "Teman", "which", "should", "devour", "the", "palace", "of", "Bozrah"]
     }
   };
   
@@ -187,25 +277,100 @@ const BookOfAmos = () => {
           </div>
         </div>
 
-        {/* Verses 1-5 */}
-        {Object.entries(chapter1Interlinear).map(([verseKey, verseData]) => {
-          const verseNum = verseKey.replace('verse', '');
-          return (
-            <div key={verseKey} className="mb-10 p-6 bg-white rounded-lg border border-gray-300">
-              <h4 className="text-lg font-bold text-teal-700 mb-4">Verse {verseNum}</h4>
-              <div className="overflow-x-auto">
-                <div className="inline-flex flex-wrap gap-x-4 gap-y-6 min-w-full">
-                  {verseData.hebrew.map((hWord, idx) => (
-                    <div key={idx} className="text-center min-w-[80px]">
-                      <div className="text-base font-semibold text-gray-800 mb-1">{hWord}</div>
-                      <div className="text-sm text-teal-700">{verseData.english[idx]}</div>
-                    </div>
-                  ))}
+        {/* Verses 1-5 (FREE SAMPLE) */}
+        {Object.entries(chapter1Interlinear)
+          .filter(([verseKey]) => {
+            const verseNum = parseInt(verseKey.replace('verse', ''));
+            return verseNum <= 5;
+          })
+          .map(([verseKey, verseData]) => {
+            const verseNum = verseKey.replace('verse', '');
+            return (
+              <div key={verseKey} className="mb-10 p-6 bg-white rounded-lg border border-gray-300">
+                <h4 className="text-lg font-bold text-teal-700 mb-4">Verse {verseNum}</h4>
+                <div className="overflow-x-auto">
+                  <div className="inline-flex flex-wrap gap-x-4 gap-y-6 min-w-full">
+                    {verseData.hebrew.map((hWord, idx) => (
+                      <div key={idx} className="text-center min-w-[80px]">
+                        <div className="text-base font-semibold text-gray-800 mb-1">{hWord}</div>
+                        <div className="text-sm text-teal-700">{verseData.english[idx]}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
+            );
+          })}
+
+        {/* PAYMENT GATE - Unlock verses 6-15 */}
+        {!isUnlocked && !isProcessingPayment && (
+          <div className="my-12 p-8 bg-gradient-to-br from-green-50 to-teal-50 rounded-xl border-2 border-green-400 text-center">
+            <div className="max-w-2xl mx-auto">
+              <h3 className="text-2xl font-bold text-green-900 mb-3">🔒 Unlock Full Chapter 1</h3>
+              <p className="text-gray-700 mb-4 leading-relaxed">
+                You've just experienced verses 1-5 in the original 20-letter Hebrew system with word-by-word interlinear translation.
+              </p>
+              <p className="text-lg font-semibold text-gray-800 mb-6">
+                Unlock verses 6-15 to see the complete Chapter 1 in this revolutionary format!
+              </p>
+              <div className="bg-white p-6 rounded-lg mb-6 border border-green-300">
+                <p className="text-3xl font-bold text-green-700 mb-2">$4.99</p>
+                <p className="text-sm text-gray-600">One-time payment • Instant access • Verses 6-15</p>
+              </div>
+              <button
+                onClick={handleUnlockPayment}
+                className="px-8 py-4 bg-green-600 text-white text-lg font-bold rounded-lg hover:bg-green-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+              >
+                🔓 Unlock Now - $4.99
+              </button>
+              <p className="text-xs text-gray-500 mt-4">Secure payment powered by Stripe</p>
             </div>
-          );
-        })}
+          </div>
+        )}
+
+        {/* Processing payment state */}
+        {isProcessingPayment && (
+          <div className="my-12 p-8 bg-blue-50 rounded-xl border-2 border-blue-400 text-center">
+            <div className="max-w-2xl mx-auto">
+              <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto mb-4"></div>
+              <h3 className="text-xl font-bold text-blue-900 mb-2">Processing Payment...</h3>
+              <p className="text-gray-700">Verifying your payment. Please wait a moment.</p>
+            </div>
+          </div>
+        )}
+
+        {/* Verses 6-15 (UNLOCKED CONTENT) */}
+        {isUnlocked && (
+          <>
+            <div className="my-8 p-4 bg-green-100 rounded-lg border-2 border-green-500 text-center">
+              <p className="text-green-800 font-semibold">✅ Content Unlocked! Thank you for your support.</p>
+            </div>
+            
+            {Object.entries(chapter1Interlinear)
+              .filter(([verseKey]) => {
+                const verseNum = parseInt(verseKey.replace('verse', ''));
+                return verseNum >= 6;
+              })
+              .map(([verseKey, verseData]) => {
+                const verseNum = verseKey.replace('verse', '');
+                return (
+                  <div key={verseKey} className="mb-10 p-6 bg-white rounded-lg border border-gray-300">
+                    <h4 className="text-lg font-bold text-teal-700 mb-4">Verse {verseNum}</h4>
+                    <div className="overflow-x-auto">
+                      <div className="inline-flex flex-wrap gap-x-4 gap-y-6 min-w-full">
+                        {verseData.hebrew.map((hWord, idx) => (
+                          <div key={idx} className="text-center min-w-[80px]">
+                            <div className="text-base font-semibold text-gray-800 mb-1">{hWord}</div>
+                            <div className="text-sm text-teal-700">{verseData.english[idx]}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+          </>
+        )}
 
         <div className="mt-8 p-4 bg-yellow-50 rounded-lg border border-yellow-300">
           <p className="text-sm text-gray-700 text-center">

@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field, ConfigDict
 from typing import List
 import uuid
 from datetime import datetime, timezone
+from routes.payments import router as payments_router
 
 
 ROOT_DIR = Path(__file__).parent
@@ -24,6 +25,9 @@ app = FastAPI()
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
+
+# Include payment routes
+api_router.include_router(payments_router)
 
 
 # Define Models
