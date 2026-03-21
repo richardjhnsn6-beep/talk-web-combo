@@ -75,7 +75,7 @@ const PersistentRadioPlayer = () => {
   const handlePlay = async () => {
     if (audioRef.current && currentTrack) {
       try {
-        // Fetch the track audio data
+        // Fetch the track audio data only when user clicks play
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/radio/track/${currentTrack.id}`);
         const trackData = await response.json();
         
@@ -85,10 +85,18 @@ const PersistentRadioPlayer = () => {
           audioRef.current.src = trackData.audio_url;
         }
         
-        await audioRef.current.play();
-        setIsPlaying(true);
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            setIsPlaying(true);
+          }).catch(error => {
+            console.log('Playback prevented:', error);
+            setIsPlaying(false);
+          });
+        }
       } catch (error) {
         console.error('Playback error:', error);
+        setIsPlaying(false);
       }
     }
   };
@@ -120,9 +128,9 @@ const PersistentRadioPlayer = () => {
     handleNext();
   };
 
-  // Auto-load and play next track
+  // Auto-load next track (but don't auto-play - wait for user)
   useEffect(() => {
-    if (currentTrack && isPlaying) {
+    if (currentTrack && isPlaying && audioRef.current) {
       handlePlay();
     }
   }, [currentTrackIndex]);
