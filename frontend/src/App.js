@@ -26,7 +26,8 @@ const Navigation = ({ isOpen, setIsOpen }) => {
     { path: '/books', label: 'Books' },
     { path: '/hebrew-alphabet', label: 'Hebrew Alphabet' },
     { path: '/book-of-amos', label: 'Amos Sample' },
-    { path: '/contact', label: 'Contact' }
+    { path: '/contact', label: 'Contact' },
+    { path: '/admin', label: '📊 Dashboard' }
   ];
 
   const handleLinkClick = () => {
