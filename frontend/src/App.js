@@ -11,7 +11,6 @@ import Books from './pages/Books';
 import Contact from './pages/Contact';
 import HebrewAlphabet from './pages/HebrewAlphabet';
 import BookOfAmos from './pages/BookOfAmos';
-import BookOfAmosPreview from './pages/BookOfAmosPreview';
 import AdminDashboard from './pages/AdminDashboard';
 
 const Navigation = ({ isOpen, setIsOpen }) => {
@@ -132,7 +131,6 @@ function App() {
             <Route path="/books" element={<Books />} />
             <Route path="/hebrew-alphabet" element={<HebrewAlphabet />} />
             <Route path="/book-of-amos" element={<BookOfAmos />} />
-            <Route path="/amos-preview" element={<BookOfAmosPreview />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>

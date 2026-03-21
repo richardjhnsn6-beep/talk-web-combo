@@ -4,11 +4,13 @@ const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [lastTransactionCount, setLastTransactionCount] = useState(0);
+  const [newSaleAlert, setNewSaleAlert] = useState(null);
 
   useEffect(() => {
     fetchDashboardData();
-    // Refresh every 30 seconds
-    const interval = setInterval(fetchDashboardData, 30000);
+    // Check for new sales every 5 seconds
+    const interval = setInterval(checkForNewSales, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -18,10 +20,69 @@ const AdminDashboard = () => {
       if (!response.ok) throw new Error('Failed to fetch dashboard data');
       const data = await response.json();
       setStats(data);
+      setLastTransactionCount(data.payments.successful_payments);
       setLoading(false);
     } catch (err) {
       setError(err.message);
       setLoading(false);
+    }
+  };
+
+  const checkForNewSales = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/analytics/dashboard`);
+      if (!response.ok) return;
+      const data = await response.json();
+      
+      const currentCount = data.payments.successful_payments;
+      
+      // Detect new sale
+      if (currentCount > lastTransactionCount) {
+        const newSales = currentCount - lastTransactionCount;
+        const revenuePerSale = 4.99;
+        const newRevenue = newSales * revenuePerSale;
+        
+        // Play "cha-ching" sound
+        playChaChing();
+        
+        // Show bouncing alert
+        setNewSaleAlert({
+          amount: newRevenue,
+          count: newSales
+        });
+        
+        // Clear alert after 5 seconds
+        setTimeout(() => setNewSaleAlert(null), 5000);
+        
+        setLastTransactionCount(currentCount);
+      }
+      
+      setStats(data);
+    } catch (err) {
+      console.error('Error checking for new sales:', err);
+    }
+  };
+
+  const playChaChing = () => {
+    try {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      // Cash register "cha-ching" sound effect
+      oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
+      
+      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+      
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.5);
+    } catch (err) {
+      console.error('Audio playback error:', err);
     }
   };
 
@@ -47,33 +108,55 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 relative">
+      {/* NEW SALE ALERT - Bouncing notification */}
+      {newSaleAlert && (
+        <div className="fixed top-4 right-4 z-50 animate-bounce">
+          <div className="bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-6 rounded-xl shadow-2xl border-4 border-yellow-400">
+            <div className="text-center">
+              <div className="text-6xl mb-2">💰</div>
+              <p className="text-2xl font-bold mb-1">NEW SALE!</p>
+              <p className="text-4xl font-extrabold mb-2">+${newSaleAlert.amount.toFixed(2)}</p>
+              <p className="text-sm opacity-90">
+                🎉 {newSaleAlert.count} {newSaleAlert.count === 1 ? 'unlock' : 'unlocks'}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-800 mb-2">📊 Admin Dashboard</h1>
-          <p className="text-gray-600">Monitor your website activity and revenue</p>
+          <p className="text-gray-600">
+            Monitor your website activity and revenue • 
+            <span className="ml-2 inline-flex items-center">
+              <span className="animate-pulse inline-block w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+              <strong>LIVE</strong> (checks every 5 seconds)
+            </span>
+          </p>
         </div>
 
         {/* Revenue Stats */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-green-500">
+          <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-green-500 transform hover:scale-105 transition-all">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm font-semibold mb-1">Total Revenue</p>
-                <p className="text-3xl font-bold text-green-600">
-                  ${stats?.payments?.total_revenue || 0}
+                <p className="text-4xl font-bold text-green-600">
+                  ${stats?.payments?.total_revenue?.toFixed(2) || '0.00'}
                 </p>
               </div>
               <div className="text-5xl">💰</div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-blue-500">
+          <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-blue-500 transform hover:scale-105 transition-all">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-500 text-sm font-semibold mb-1">Successful Payments</p>
-                <p className="text-3xl font-bold text-blue-600">
+                <p className="text-gray-500 text-sm font-semibold mb-1">Chapter 1 Unlocks</p>
+                <p className="text-4xl font-bold text-blue-600">
                   {stats?.payments?.successful_payments || 0}
                 </p>
               </div>
@@ -81,11 +164,11 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-purple-500">
+          <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-purple-500 transform hover:scale-105 transition-all">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm font-semibold mb-1">Total Page Views</p>
-                <p className="text-3xl font-bold text-purple-600">
+                <p className="text-4xl font-bold text-purple-600">
                   {stats?.page_views?.total_views || 0}
                 </p>
               </div>
@@ -96,17 +179,23 @@ const AdminDashboard = () => {
 
         {/* Recent Transactions */}
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">💳 Recent Transactions</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+            💳 Recent Transactions
+            {stats?.payments?.successful_payments > 0 && (
+              <span className="ml-3 text-sm bg-green-100 text-green-700 px-3 py-1 rounded-full">
+                {stats.payments.successful_payments} sales
+              </span>
+            )}
+          </h2>
           {stats?.payments?.recent_transactions?.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="min-w-full">
                 <thead>
                   <tr className="bg-gray-50 border-b">
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Date</th>
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Date & Time</th>
                     <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Amount</th>
                     <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Status</th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Package</th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Session ID</th>
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Content</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -115,23 +204,22 @@ const AdminDashboard = () => {
                       <td className="px-6 py-4 text-sm text-gray-700">
                         {new Date(transaction.created_at).toLocaleString()}
                       </td>
-                      <td className="px-6 py-4 text-sm font-semibold text-green-600">
+                      <td className="px-6 py-4 text-lg font-bold text-green-600">
                         ${transaction.amount}
                       </td>
                       <td className="px-6 py-4">
                         <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
                           transaction.payment_status === 'paid' 
                             ? 'bg-green-100 text-green-800' 
-                            : 'bg-yellow-100 text-yellow-800'
+                            : transaction.payment_status === 'pending'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : 'bg-red-100 text-red-800'
                         }`}>
                           {transaction.payment_status}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-700">
-                        {transaction.package_id}
-                      </td>
-                      <td className="px-6 py-4 text-xs text-gray-500 font-mono">
-                        {transaction.session_id?.substring(0, 20)}...
+                        {transaction.metadata?.content || transaction.package_id}
                       </td>
                     </tr>
                   ))}
@@ -139,11 +227,15 @@ const AdminDashboard = () => {
               </table>
             </div>
           ) : (
-            <p className="text-gray-500 text-center py-8">No transactions yet</p>
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">🎯</div>
+              <p className="text-gray-500 text-lg">No transactions yet</p>
+              <p className="text-gray-400 text-sm mt-2">Your first sale is coming soon!</p>
+            </div>
           )}
         </div>
 
-        {/* Page Views by Page */}
+        {/* Page Views by Section */}
         <div className="bg-white rounded-lg shadow-lg p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">📄 Page Views by Section</h2>
           {stats?.page_views?.by_page && Object.keys(stats.page_views.by_page).length > 0 ? (
@@ -151,24 +243,21 @@ const AdminDashboard = () => {
               {Object.entries(stats.page_views.by_page)
                 .sort(([, a], [, b]) => b - a)
                 .map(([page, count]) => (
-                  <div key={page} className="flex items-center justify-between p-3 bg-gray-50 rounded">
-                    <span className="text-gray-700 font-medium">{page}</span>
-                    <span className="bg-teal-100 text-teal-800 px-3 py-1 rounded-full font-semibold">
+                  <div key={page} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all">
+                    <span className="text-gray-700 font-medium text-lg">{page}</span>
+                    <span className="bg-teal-100 text-teal-800 px-4 py-2 rounded-full font-bold text-lg">
                       {count} views
                     </span>
                   </div>
                 ))}
             </div>
           ) : (
-            <p className="text-gray-500 text-center py-8">No page views tracked yet</p>
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📢</div>
+              <p className="text-gray-500 text-lg">No page views tracked yet</p>
+              <p className="text-gray-400 text-sm mt-2">Share your site to start tracking visitor activity!</p>
+            </div>
           )}
-        </div>
-
-        {/* Auto-refresh indicator */}
-        <div className="mt-8 text-center">
-          <p className="text-sm text-gray-500">
-            📡 Dashboard auto-refreshes every 30 seconds
-          </p>
         </div>
       </div>
     </div>
