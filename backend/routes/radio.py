@@ -39,8 +39,8 @@ class DJAnnouncement(BaseModel):
 
 @router.get("/playlist")
 async def get_playlist():
-    """Get all radio tracks in order"""
-    tracks = await db.radio_tracks.find({}, {"_id": 0}).to_list(1000)
+    """Get all radio tracks in order (metadata only, no audio data)"""
+    tracks = await db.radio_tracks.find({}, {"_id": 0, "audio_data": 0}).to_list(1000)
     return sorted(tracks, key=lambda x: x.get("order", 0))
 
 @router.post("/track/upload")
