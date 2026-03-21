@@ -20,6 +20,15 @@ const HomePage = () => {
             />
           </div>
 
+          {/* Radio Notice for Video */}
+          <div className="bg-purple-100 border-l-4 border-purple-600 rounded-lg p-4 mb-6">
+            <p className="text-purple-900 font-semibold flex items-center gap-2 justify-center">
+              <span className="text-2xl">🎵</span>
+              <span>Listening to our radio? Pause the player at the bottom before watching this video!</span>
+              <span className="text-2xl">⏸️</span>
+            </p>
+          </div>
+
           {/* Main Theme Video - 3D Egyptian Temple */}
           <div className="mb-8">
             <h3 className="text-xl font-semibold text-teal-700 mb-4">Journey Through Ancient Egypt</h3>

@@ -57,6 +57,16 @@ const Podcast = () => {
       </div>
 
       <div className="max-w-6xl mx-auto p-8">
+        {/* Radio Notice */}
+        <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg shadow-lg p-6 mb-8 text-center">
+          <p className="text-white text-lg font-semibold">
+            🎵 <strong>Listening to our radio?</strong> Please pause the radio player at the bottom before watching videos! ⏸️
+          </p>
+          <p className="text-white/90 text-sm mt-2">
+            (Look for the purple player bar at the bottom of your screen)
+          </p>
+        </div>
+
         {/* Introduction */}
         <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
           <h2 className="text-3xl font-bold text-teal-800 mb-4" data-testid="intro-title">
