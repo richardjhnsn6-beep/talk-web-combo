@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 const BookOfAmos = () => {
   const [activeSection, setActiveSection] = useState('interlinear');
   const [activeChapter, setActiveChapter] = useState(1);
-  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [isUnlocked, setIsUnlocked] = useState(true); // TEMPORARILY TRUE - for author to verify
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
   // Check if content is unlocked (from localStorage or URL)
