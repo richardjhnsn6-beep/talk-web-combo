@@ -180,8 +180,8 @@ const PersistentRadioPlayer = () => {
     }
   }, [currentTrackIndex]);
 
-  // Don't show player if no tracks or on admin pages
-  if (!isVisible || playlist.length === 0 || location.pathname.includes('/admin')) {
+  // Don't show player if no tracks or on admin radio page (to avoid duplicate players)
+  if (!isVisible || playlist.length === 0 || location.pathname === '/admin/radio') {
     return null;
   }
 
