@@ -79,8 +79,8 @@ const BookOfAmos = () => {
       english: ["Because", "I will", "send", "a fire", "on the", "walls", "of", "Tyrus", "which", "shall", "devour", "the palaces", "thereof"]
     },
     verse11: {
-      hebrew: ["Kah", "Amar", "al", "Yachuwshuah", "yth", "shalawsh", "pasha", "al", "Adam", "aw", "yth", "arba", "ahy", "lah", "shuwb", "cuwr", "Avan", "shamal", "al", "huw", "Ashah", "radaph", "Naphash", "ah", "awd", "charab", "aw", "Asah", "shachath", "kal", "racham"],
-      english: ["Thus", "said", "the", "Lord", "for", "three", "transgressions", "of", "Edom", "and", "for", "four", "I will", "not", "turn", "away", "The punishment", "there of", "because", "he", "did", "pursue", "his", "brother", "with", "sword", "and", "did", "cast off", "all", "pity"]
+      hebrew: ["Kah", "Amar", "al", "Yachuwshuah", "yth", "shalawsh", "pasha", "al", "Adam", "aw", "yth", "arba", "ahy", "lah", "shuwb", "cuwr", "Avan", "shamal", "al", "huw", "Ashah", "radaph", "Naphash", "ah", "awd", "charab", "aw", "Asah", "shachath", "kal", "racham", "aw", "Naphash", "aph", "asah", "Taraph", "ad", "aw", "huw", "shamar", "Naphash", "abrah", "Natsach"],
+      english: ["Thus", "said", "the", "Lord", "for", "three", "transgressions", "of", "Edom", "and", "for", "four", "I will", "not", "turn", "away", "The punishment", "there of", "because", "he", "did", "pursue", "his", "brother", "with", "sword", "and", "did", "cast off", "all", "pity", "And", "his", "anger", "did", "tear", "perpetually", "and", "he", "kept", "his", "wrath", "forever"]
     }
   };
   
