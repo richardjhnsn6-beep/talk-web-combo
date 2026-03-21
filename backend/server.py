@@ -10,6 +10,7 @@ from typing import List
 import uuid
 from datetime import datetime, timezone
 from routes.payments import router as payments_router
+from routes.analytics import router as analytics_router
 
 
 ROOT_DIR = Path(__file__).parent
@@ -26,8 +27,10 @@ app = FastAPI()
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
-# Include payment routes
-api_router.include_router(payments_router)
+# Include payment routes with /payments prefix
+api_router.include_router(payments_router, prefix="/payments", tags=["payments"])
+# Include analytics routes with /analytics prefix
+api_router.include_router(analytics_router, prefix="/analytics", tags=["analytics"])
 
 
 # Define Models

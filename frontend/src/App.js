@@ -12,6 +12,7 @@ import Contact from './pages/Contact';
 import HebrewAlphabet from './pages/HebrewAlphabet';
 import BookOfAmos from './pages/BookOfAmos';
 import BookOfAmosPreview from './pages/BookOfAmosPreview';
+import AdminDashboard from './pages/AdminDashboard';
 
 const Navigation = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
@@ -132,6 +133,7 @@ function App() {
             <Route path="/hebrew-alphabet" element={<HebrewAlphabet />} />
             <Route path="/book-of-amos" element={<BookOfAmos />} />
             <Route path="/amos-preview" element={<BookOfAmosPreview />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>

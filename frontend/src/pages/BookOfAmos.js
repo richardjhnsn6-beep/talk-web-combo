@@ -8,6 +8,9 @@ const BookOfAmos = () => {
 
   // Check if content is unlocked (from localStorage or URL)
   useEffect(() => {
+    // Track page view
+    trackPageView();
+
     // Check for preview mode (for author to verify content)
     const urlParams = new URLSearchParams(window.location.search);
     const previewMode = urlParams.get('preview');
@@ -28,6 +31,29 @@ const BookOfAmos = () => {
       verifyPayment(sessionId);
     }
   }, []);
+
+  const trackPageView = async () => {
+    try {
+      // Generate or get visitor ID
+      let visitorId = localStorage.getItem('visitor_id');
+      if (!visitorId) {
+        visitorId = `visitor_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        localStorage.setItem('visitor_id', visitorId);
+      }
+
+      await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/analytics/pageview`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          page: 'Book of Amos',
+          visitor_id: visitorId,
+          user_agent: navigator.userAgent
+        })
+      });
+    } catch (error) {
+      console.error('Analytics tracking error:', error);
+    }
+  };
 
   const verifyPayment = async (sessionId) => {
     setIsProcessingPayment(true);
