@@ -14,6 +14,7 @@ import BookOfAmos from './pages/BookOfAmos';
 import AdminDashboard from './pages/AdminDashboard';
 import Radio from './pages/Radio';
 import AdminRadio from './pages/AdminRadio';
+import PersistentRadioPlayer from './components/PersistentRadioPlayer';
 
 const Navigation = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
@@ -141,6 +142,9 @@ function App() {
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
+        
+        {/* Persistent Radio Player - Shows on all pages except admin */}
+        <PersistentRadioPlayer />
       </BrowserRouter>
     </div>
   );
