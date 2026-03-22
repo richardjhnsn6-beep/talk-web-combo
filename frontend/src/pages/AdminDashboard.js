@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Crown, Sparkles, TrendingUp } from 'lucide-react';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
+  const [aiChatStats, setAiChatStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [lastTransactionCount, setLastTransactionCount] = useState(0);
@@ -9,8 +11,12 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     fetchDashboardData();
+    fetchAIChatStats();
     // Check for new sales every 5 seconds
-    const interval = setInterval(checkForNewSales, 5000);
+    const interval = setInterval(() => {
+      checkForNewSales();
+      fetchAIChatStats();
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -25,6 +31,17 @@ const AdminDashboard = () => {
     } catch (err) {
       setError(err.message);
       setLoading(false);
+    }
+  };
+
+  const fetchAIChatStats = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/ai-chat/admin/stats`);
+      if (!response.ok) return;
+      const data = await response.json();
+      setAiChatStats(data);
+    } catch (err) {
+      console.error('Failed to fetch AI chat stats:', err);
     }
   };
 
@@ -139,13 +156,13 @@ const AdminDashboard = () => {
         </div>
 
         {/* Revenue Stats */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
+        <div className="grid md:grid-cols-5 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-green-500 transform hover:scale-105 transition-all">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm font-semibold mb-1">Total Revenue</p>
                 <p className="text-4xl font-bold text-green-600">
-                  ${stats?.payments?.total_revenue?.toFixed(2) || '0.00'}
+                  ${((stats?.payments?.total_revenue || 0) + (aiChatStats?.monthly_recurring_revenue || 0)).toFixed(2)}
                 </p>
               </div>
               <div className="text-5xl">💰</div>
@@ -178,6 +195,22 @@ const AdminDashboard = () => {
             </div>
           </div>
 
+          <div className="bg-gradient-to-br from-purple-500 to-pink-500 text-white rounded-lg shadow-lg p-6 border-l-4 border-purple-700 transform hover:scale-105 transition-all">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-purple-100 text-sm font-semibold mb-1 flex items-center gap-1">
+                  <Crown className="w-4 h-4" />
+                  AI Chat Revenue
+                </p>
+                <p className="text-4xl font-bold text-white">
+                  ${aiChatStats?.monthly_recurring_revenue?.toFixed(2) || '0.00'}
+                </p>
+                <p className="text-xs text-purple-100 mt-1">{aiChatStats?.active_subscribers || 0} subscribers</p>
+              </div>
+              <div className="text-5xl">🤖</div>
+            </div>
+          </div>
+
           <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-purple-500 transform hover:scale-105 transition-all">
             <div className="flex items-center justify-between">
               <div>
@@ -201,8 +234,81 @@ const AdminDashboard = () => {
             >
               🎙️ Manage Radio Station
             </a>
+            <a
+              href="/ai-chat"
+              className="bg-white text-purple-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-all shadow-lg inline-flex items-center gap-2"
+            >
+              <Sparkles className="w-5 h-5" />
+              Try AI Chat
+            </a>
+            <a
+              href="/admin/ai-chat"
+              className="bg-white text-pink-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-all shadow-lg inline-flex items-center gap-2"
+            >
+              👑 Manage AI Chat
+            </a>
+            <a
+              href="/admin/pricing"
+              className="bg-white text-green-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-all shadow-lg inline-flex items-center gap-2"
+            >
+              💰 Change Pricing
+            </a>
           </div>
         </div>
+
+        {/* AI Chat Stats Section */}
+        {aiChatStats && (
+          <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg shadow-lg p-6 mb-8 text-white">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+              <Sparkles className="w-6 h-6" />
+              🤖 AI Chat Revenue System
+            </h2>
+            <div className="grid md:grid-cols-4 gap-4 mb-4">
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <p className="text-purple-100 text-sm mb-1">Active Subscribers</p>
+                <p className="text-3xl font-bold flex items-center gap-2">
+                  <Crown className="w-6 h-6 text-yellow-400" />
+                  {aiChatStats.active_subscribers}
+                </p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <p className="text-purple-100 text-sm mb-1">Monthly Revenue</p>
+                <p className="text-3xl font-bold text-yellow-300">
+                  ${aiChatStats.monthly_recurring_revenue.toFixed(2)}
+                </p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <p className="text-purple-100 text-sm mb-1">Total Questions</p>
+                <p className="text-3xl font-bold">
+                  {aiChatStats.total_messages}
+                </p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <p className="text-purple-100 text-sm mb-1">Questions Today</p>
+                <p className="text-3xl font-bold text-green-300">
+                  {aiChatStats.messages_today}
+                </p>
+              </div>
+            </div>
+            
+            <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-semibold">Usage Breakdown:</span>
+                <span className="text-sm">
+                  Free: {aiChatStats.free_tier_messages} | Paid: {aiChatStats.paid_tier_messages}
+                </span>
+              </div>
+              <div className="w-full bg-white/20 rounded-full h-2">
+                <div 
+                  className="bg-yellow-400 h-2 rounded-full transition-all"
+                  style={{ 
+                    width: `${(aiChatStats.paid_tier_messages / (aiChatStats.total_messages || 1)) * 100}%` 
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Recent Transactions */}
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8">

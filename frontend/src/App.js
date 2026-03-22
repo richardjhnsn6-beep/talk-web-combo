@@ -14,7 +14,12 @@ import BookOfAmos from './pages/BookOfAmos';
 import AdminDashboard from './pages/AdminDashboard';
 import Radio from './pages/Radio';
 import AdminRadio from './pages/AdminRadio';
+import AIChat from './pages/AIChat';
+import AIChatPricing from './pages/AIChatPricing';
+import AdminAIChat from './pages/AdminAIChat';
+import AdminPricingConfig from './pages/AdminPricingConfig';
 import PersistentRadioPlayer from './components/PersistentRadioPlayer';
+import FloatingChatButton from './components/FloatingChatButton';
 
 const Navigation = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
@@ -27,6 +32,7 @@ const Navigation = ({ isOpen, setIsOpen }) => {
     { path: '/page-five', label: 'Page Five' },
     { path: '/podcast', label: 'Podcast' },
     { path: '/radio', label: '🎙️ Radio' },
+    { path: '/ai-chat', label: '🤖 AI Chat' },
     { path: '/books', label: 'Books' },
     { path: '/hebrew-alphabet', label: 'Hebrew Alphabet' },
     { path: '/book-of-amos', label: 'Amos Sample' },
@@ -134,17 +140,24 @@ function App() {
             <Route path="/page-five" element={<PageFive />} />
             <Route path="/podcast" element={<Podcast />} />
             <Route path="/radio" element={<Radio />} />
+            <Route path="/ai-chat" element={<AIChat />} />
+            <Route path="/ai-chat/pricing" element={<AIChatPricing />} />
             <Route path="/books" element={<Books />} />
             <Route path="/hebrew-alphabet" element={<HebrewAlphabet />} />
             <Route path="/book-of-amos" element={<BookOfAmos />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/radio" element={<AdminRadio />} />
+            <Route path="/admin/ai-chat" element={<AdminAIChat />} />
+            <Route path="/admin/pricing" element={<AdminPricingConfig />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
         
         {/* Persistent Radio Player - Shows on all pages except admin */}
         <PersistentRadioPlayer />
+        
+        {/* Floating AI Chat Button - Shows on all pages except AI chat pages */}
+        <FloatingChatButton />
       </BrowserRouter>
     </div>
   );

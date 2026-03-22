@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 from routes.payments import router as payments_router
 from routes.analytics import router as analytics_router
 from routes.radio import router as radio_router
+from routes.ai_chat import router as ai_chat_router
 
 
 ROOT_DIR = Path(__file__).parent
@@ -34,6 +35,8 @@ api_router.include_router(payments_router, prefix="/payments", tags=["payments"]
 api_router.include_router(analytics_router, prefix="/analytics", tags=["analytics"])
 # Include radio routes with /radio prefix
 api_router.include_router(radio_router, prefix="/radio", tags=["radio"])
+# Include AI chat routes with /ai-chat prefix
+api_router.include_router(ai_chat_router, prefix="/ai-chat", tags=["ai-chat"])
 
 
 # Define Models
