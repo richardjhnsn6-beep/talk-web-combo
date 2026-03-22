@@ -123,9 +123,9 @@ const PersistentRadioPlayer = () => {
       if (isAnnouncement) {
         // FORCE announcements to 100% volume (max possible)
         audioRef.current.volume = 1.0;
-        // Apply additional Web Audio API gain boost
+        // Apply MAXIMUM Web Audio API gain boost to match onyx/echo loudness
         if (gainNodeRef.current) {
-          gainNodeRef.current.gain.value = 5.0; // Even higher gain boost
+          gainNodeRef.current.gain.value = 8.0; // Increased boost for all voices (especially nova)
         }
       } else {
         // Music plays at 60% of slider volume for better contrast
