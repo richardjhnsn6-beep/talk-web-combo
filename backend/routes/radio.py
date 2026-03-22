@@ -9,6 +9,9 @@ import base64
 from dotenv import load_dotenv
 from pathlib import Path
 import uuid
+import io
+from pydub import AudioSegment
+from pydub.effects import normalize, compress_dynamic_range
 
 # Load environment variables
 ROOT_DIR = Path(__file__).parent.parent
@@ -166,7 +169,7 @@ async def get_track_audio(track_id: str):
 
 @router.post("/dj/announcement")
 async def create_dj_announcement(announcement: DJAnnouncement):
-    """Generate AI DJ announcement using OpenAI TTS"""
+    """Generate AI DJ announcement using OpenAI TTS with audio normalization"""
     
     try:
         # Generate speech using OpenAI TTS
@@ -176,8 +179,26 @@ async def create_dj_announcement(announcement: DJAnnouncement):
             voice=announcement.voice
         )
         
+        # Load audio into pydub for processing
+        audio = AudioSegment.from_file(io.BytesIO(audio_bytes), format="mp3")
+        
+        # Apply audio processing to boost soft voices
+        # 1. Normalize - brings audio to maximum level without clipping
+        audio = normalize(audio)
+        
+        # 2. Apply compression to boost quieter parts
+        audio = compress_dynamic_range(audio, threshold=-20.0, ratio=4.0, attack=5.0)
+        
+        # 3. Additional gain boost for all announcements (+6 dB)
+        audio = audio + 6  # Increase volume by 6 decibels
+        
+        # Export processed audio
+        output_buffer = io.BytesIO()
+        audio.export(output_buffer, format="mp3", bitrate="128k")
+        processed_audio_bytes = output_buffer.getvalue()
+        
         # Convert to base64
-        audio_base64 = base64.b64encode(audio_bytes).decode('utf-8')
+        audio_base64 = base64.b64encode(processed_audio_bytes).decode('utf-8')
         
         # Store announcement
         dj_data = {
