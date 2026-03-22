@@ -133,6 +133,8 @@ const PersistentRadioPlayer = () => {
   const handlePlay = async () => {
     if (audioRef.current && currentTrack) {
       try {
+        console.log(`🎵 Loading track: ${currentTrack.title} (Type: ${currentTrack.type})`);
+        
         // Check if it's a DJ announcement or music track
         if (currentTrack.type === 'announcement') {
           // Fetch announcement audio
@@ -141,7 +143,12 @@ const PersistentRadioPlayer = () => {
           const announcement = announcements.find(a => a.id === currentTrack.id);
           
           if (announcement && announcement.audio_data) {
+            console.log('📢 Loading DJ announcement audio...');
             audioRef.current.src = `data:audio/mp3;base64,${announcement.audio_data}`;
+          } else {
+            console.error('❌ Announcement audio not found, skipping to next');
+            handleNext();
+            return;
           }
         } else {
           // Fetch track audio data
@@ -152,6 +159,10 @@ const PersistentRadioPlayer = () => {
             audioRef.current.src = `data:audio/mp3;base64,${trackData.audio_data}`;
           } else if (trackData.audio_url) {
             audioRef.current.src = trackData.audio_url;
+          } else {
+            console.error('❌ Track audio not found, skipping to next');
+            handleNext();
+            return;
           }
         }
         
@@ -159,14 +170,17 @@ const PersistentRadioPlayer = () => {
         if (playPromise !== undefined) {
           playPromise.then(() => {
             setIsPlaying(true);
+            console.log('✅ Playback started');
           }).catch(error => {
-            console.log('Playback prevented:', error);
+            console.log('⚠️ Playback prevented:', error);
             setIsPlaying(false);
           });
         }
       } catch (error) {
-        console.error('Playback error:', error);
+        console.error('❌ Playback error:', error);
         setIsPlaying(false);
+        // Skip to next track on error
+        setTimeout(() => handleNext(), 1000);
       }
     }
   };
