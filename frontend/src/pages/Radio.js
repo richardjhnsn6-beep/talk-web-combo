@@ -34,6 +34,13 @@ const Radio = () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/radio/playlist/mixed`);
       const data = await response.json();
+      
+      console.log('🎵 PLAYLIST LOADED:', data.length, 'items');
+      console.log('First 6 items:');
+      data.slice(0, 6).forEach((item, i) => {
+        console.log(`  ${i}: ${item.type} - ${item.title}`);
+      });
+      
       setPlaylist(data);
       setLoading(false);
     } catch (error) {
@@ -111,7 +118,12 @@ const Radio = () => {
 
   const handleNext = () => {
     if (playlist.length > 0) {
-      setCurrentTrackIndex((prev) => (prev + 1) % playlist.length);
+      const nextIndex = (currentTrackIndex + 1) % playlist.length;
+      console.log(`⏭️ Next clicked: Moving from ${currentTrackIndex} to ${nextIndex}`);
+      if (playlist[nextIndex]) {
+        console.log(`   Next track: ${playlist[nextIndex].title} (${playlist[nextIndex].type})`);
+      }
+      setCurrentTrackIndex(nextIndex);
     }
   };
 
