@@ -59,7 +59,7 @@ const HomePage = () => {
             <p className="text-lg mb-4">
               Hebrew translater, I write the bible in the original, weaving out the traditions, 
               giving You the first image of understanding. 
-              Website <a href="https://talk-web-combo.preview.emergentagent.com" className="text-teal-700 font-semibold hover:text-teal-900">https://talk-web-combo.preview.emergentagent.com</a>
+              Website <a href={window.location.origin} className="text-teal-700 font-semibold hover:text-teal-900">{window.location.origin}</a>
               <br/>
               Beaumont, Texas 77703 
               Email richardjhnsn6@gmail.com from what I will give you, 
