@@ -113,6 +113,8 @@ const PersistentRadioPlayer = () => {
     }
   }, []);
 
+  const currentTrack = playlist[currentTrackIndex];
+
   // Update volume with special boost for announcements
   useEffect(() => {
     if (audioRef.current) {
@@ -127,8 +129,6 @@ const PersistentRadioPlayer = () => {
       }
     }
   }, [volume, currentTrack]);
-
-  const currentTrack = playlist[currentTrackIndex];
 
   const handlePlay = async () => {
     if (audioRef.current && currentTrack) {
