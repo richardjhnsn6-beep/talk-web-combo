@@ -117,6 +117,9 @@ const PersistentRadioPlayer = () => {
           if (announcement && announcement.audio_data) {
             audioRef.current.src = `data:audio/mp3;base64,${announcement.audio_data}`;
           }
+          
+          // BOOST volume for announcements (they're quieter than music)
+          audioRef.current.volume = Math.min(volume * 2.5, 1.0);
         } else {
           // Fetch track audio data
           const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/radio/track/${currentTrack.id}`);
@@ -127,6 +130,9 @@ const PersistentRadioPlayer = () => {
           } else if (trackData.audio_url) {
             audioRef.current.src = trackData.audio_url;
           }
+          
+          // Normal volume for music tracks
+          audioRef.current.volume = volume;
         }
         
         const playPromise = audioRef.current.play();
