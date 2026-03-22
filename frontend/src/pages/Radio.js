@@ -32,7 +32,7 @@ const Radio = () => {
 
   const fetchPlaylist = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/radio/playlist`);
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/radio/playlist/mixed`);
       const data = await response.json();
       setPlaylist(data);
       setLoading(false);
@@ -44,10 +44,54 @@ const Radio = () => {
 
   const currentTrack = playlist[currentTrackIndex];
 
-  const handlePlay = () => {
+  const handlePlay = async () => {
     if (audioRef.current && currentTrack) {
-      audioRef.current.play();
-      setIsPlaying(true);
+      try {
+        console.log(`🎵 Loading: ${currentTrack.title} (${currentTrack.type})`);
+        
+        // Check if it's a DJ announcement or music track
+        if (currentTrack.type === 'announcement') {
+          // Fetch announcement audio
+          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/radio/dj/announcements`);
+          const announcements = await response.json();
+          const announcement = announcements.find(a => a.id === currentTrack.id);
+          
+          if (announcement && announcement.audio_data) {
+            console.log('📢 Playing DJ announcement with volume boost');
+            audioRef.current.src = `data:audio/mp3;base64,${announcement.audio_data}`;
+            // Boost volume for announcements (they're quieter)
+            audioRef.current.volume = Math.min(volume * 4.0, 1.0);
+          } else {
+            console.error('❌ Announcement audio missing, skipping');
+            handleNext();
+            return;
+          }
+        } else {
+          // Fetch track audio data
+          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/radio/track/${currentTrack.id}`);
+          const trackData = await response.json();
+          
+          if (trackData.audio_data) {
+            audioRef.current.src = `data:audio/mp3;base64,${trackData.audio_data}`;
+            // Normal volume for music
+            audioRef.current.volume = volume;
+          } else if (trackData.audio_url) {
+            audioRef.current.src = trackData.audio_url;
+            audioRef.current.volume = volume;
+          } else {
+            console.error('❌ Track audio missing, skipping');
+            handleNext();
+            return;
+          }
+        }
+        
+        await audioRef.current.play();
+        setIsPlaying(true);
+        console.log('✅ Playing');
+      } catch (error) {
+        console.error('Playback error:', error);
+        setIsPlaying(false);
+      }
     }
   };
 
@@ -61,7 +105,12 @@ const Radio = () => {
   const handleNext = () => {
     if (playlist.length > 0) {
       setCurrentTrackIndex((prev) => (prev + 1) % playlist.length);
-      setIsPlaying(true);
+      // Trigger play for next track
+      setTimeout(() => {
+        if (audioRef.current) {
+          handlePlay();
+        }
+      }, 100);
     }
   };
 
