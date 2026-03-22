@@ -102,15 +102,16 @@ const Radio = () => {
     }
   };
 
+  // Auto-load and play when track index changes
+  useEffect(() => {
+    if (currentTrack && isPlaying) {
+      handlePlay();
+    }
+  }, [currentTrackIndex]);
+
   const handleNext = () => {
     if (playlist.length > 0) {
       setCurrentTrackIndex((prev) => (prev + 1) % playlist.length);
-      // Trigger play for next track
-      setTimeout(() => {
-        if (audioRef.current) {
-          handlePlay();
-        }
-      }, 100);
     }
   };
 
