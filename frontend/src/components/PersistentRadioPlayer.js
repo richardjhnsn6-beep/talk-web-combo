@@ -9,6 +9,9 @@ const PersistentRadioPlayer = () => {
   const [isMinimized, setIsMinimized] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const audioRef = useRef(null);
+  const audioContextRef = useRef(null);
+  const gainNodeRef = useRef(null);
+  const sourceNodeRef = useRef(null);
   const location = useLocation();
 
   // Fetch playlist and setup video detection on mount
@@ -96,11 +99,34 @@ const PersistentRadioPlayer = () => {
     };
   };
 
+  // Initialize Web Audio API for volume amplification
+  useEffect(() => {
+    if (!audioContextRef.current && audioRef.current) {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioContextRef.current = new AudioContext();
+        gainNodeRef.current = audioContextRef.current.createGain();
+        gainNodeRef.current.connect(audioContextRef.current.destination);
+      } catch (error) {
+        console.error('Web Audio API not supported:', error);
+      }
+    }
+  }, []);
+
+  // Update volume with special boost for announcements
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = volume;
+      const isAnnouncement = currentTrack?.type === 'announcement';
+      // Announcements get 4x boost (up to max), music gets normal volume
+      const targetVolume = isAnnouncement ? Math.min(volume * 4.0, 1.0) : volume;
+      audioRef.current.volume = targetVolume;
+      
+      // Also apply gain node boost for announcements if available
+      if (gainNodeRef.current) {
+        gainNodeRef.current.gain.value = isAnnouncement ? 3.0 : 1.0;
+      }
     }
-  }, [volume]);
+  }, [volume, currentTrack]);
 
   const currentTrack = playlist[currentTrackIndex];
 
@@ -117,9 +143,6 @@ const PersistentRadioPlayer = () => {
           if (announcement && announcement.audio_data) {
             audioRef.current.src = `data:audio/mp3;base64,${announcement.audio_data}`;
           }
-          
-          // BOOST volume for announcements (they're quieter than music)
-          audioRef.current.volume = Math.min(volume * 2.5, 1.0);
         } else {
           // Fetch track audio data
           const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/radio/track/${currentTrack.id}`);
@@ -130,9 +153,6 @@ const PersistentRadioPlayer = () => {
           } else if (trackData.audio_url) {
             audioRef.current.src = trackData.audio_url;
           }
-          
-          // Normal volume for music tracks
-          audioRef.current.volume = volume;
         }
         
         const playPromise = audioRef.current.play();
