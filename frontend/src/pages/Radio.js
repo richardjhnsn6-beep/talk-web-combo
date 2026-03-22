@@ -231,7 +231,6 @@ const Radio = () => {
               {currentTrack && (
                 <audio
                   ref={audioRef}
-                  src={currentTrack.audio_data ? `data:audio/mp3;base64,${currentTrack.audio_data}` : currentTrack.audio_url}
                   onEnded={handleTrackEnd}
                   autoPlay={isPlaying}
                 />
