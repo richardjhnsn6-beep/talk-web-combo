@@ -5,7 +5,7 @@ const PersistentRadioPlayer = () => {
   const [playlist, setPlaylist] = useState([]);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.5);
+  const [volume, setVolume] = useState(0.5); // Base volume matches Radio.js
   const [isMinimized, setIsMinimized] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const audioRef = useRef(null);
@@ -115,17 +115,24 @@ const PersistentRadioPlayer = () => {
 
   const currentTrack = playlist[currentTrackIndex];
 
-  // Update volume with special boost for announcements
+  // Update volume with MAXIMUM boost for announcements
   useEffect(() => {
     if (audioRef.current) {
       const isAnnouncement = currentTrack?.type === 'announcement';
-      // Announcements get 4x boost (up to max), music gets normal volume
-      const targetVolume = isAnnouncement ? Math.min(volume * 4.0, 1.0) : volume;
-      audioRef.current.volume = targetVolume;
       
-      // Also apply gain node boost for announcements if available
-      if (gainNodeRef.current) {
-        gainNodeRef.current.gain.value = isAnnouncement ? 3.0 : 1.0;
+      if (isAnnouncement) {
+        // FORCE announcements to 100% volume (max possible)
+        audioRef.current.volume = 1.0;
+        // Apply additional Web Audio API gain boost
+        if (gainNodeRef.current) {
+          gainNodeRef.current.gain.value = 5.0; // Even higher gain boost
+        }
+      } else {
+        // Music plays at 60% of slider volume for better contrast
+        audioRef.current.volume = volume * 0.6;
+        if (gainNodeRef.current) {
+          gainNodeRef.current.gain.value = 1.0;
+        }
       }
     }
   }, [volume, currentTrack]);
@@ -143,8 +150,9 @@ const PersistentRadioPlayer = () => {
           const announcement = announcements.find(a => a.id === currentTrack.id);
           
           if (announcement && announcement.audio_data) {
-            console.log('📢 Loading DJ announcement audio...');
             audioRef.current.src = `data:audio/mp3;base64,${announcement.audio_data}`;
+            console.log(`📢 DJ ANNOUNCEMENT - Volume: 1.0 (100% MAX) + 5x gain boost - "${currentTrack.title}"`);
+            console.log(`🔊 VOLUME COMPARISON: Announcement=1.0*5x vs Music would be=${(volume * 0.6).toFixed(2)}`);
           } else {
             console.error('❌ Announcement audio not found, skipping to next');
             handleNext();
@@ -157,8 +165,10 @@ const PersistentRadioPlayer = () => {
           
           if (trackData.audio_data) {
             audioRef.current.src = `data:audio/mp3;base64,${trackData.audio_data}`;
+            console.log(`🎵 MUSIC TRACK - Volume: ${(volume * 0.6).toFixed(2)} (${Math.round(volume * 60)}% of slider) - "${currentTrack.title}"`);
           } else if (trackData.audio_url) {
             audioRef.current.src = trackData.audio_url;
+            console.log(`🎵 MUSIC TRACK - Volume: ${(volume * 0.6).toFixed(2)} (${Math.round(volume * 60)}% of slider) - "${currentTrack.title}"`);
           } else {
             console.error('❌ Track audio not found, skipping to next');
             handleNext();

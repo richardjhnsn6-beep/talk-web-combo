@@ -4,7 +4,7 @@ const Radio = () => {
   const [playlist, setPlaylist] = useState([]);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.7);
+  const [volume, setVolume] = useState(0.5); // Reduced base volume for better contrast
   const [loading, setLoading] = useState(true);
   const [showDonationSuccess, setShowDonationSuccess] = useState(false);
   const [showCustomDonation, setShowCustomDonation] = useState(false);
@@ -25,10 +25,18 @@ const Radio = () => {
   }, []);
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = volume;
+    if (audioRef.current && playlist.length > 0) {
+      const track = playlist[currentTrackIndex];
+      // Apply volume based on track type - announcements always at 100%, music at 60% of slider
+      if (track?.type === 'announcement') {
+        audioRef.current.volume = 1.0;
+        console.log(`🔊 Volume set: 1.0 (100%) for ANNOUNCEMENT`);
+      } else {
+        audioRef.current.volume = volume * 0.6;
+        console.log(`🔊 Volume set: ${(volume * 0.6).toFixed(2)} (${Math.round(volume * 60)}%) for MUSIC`);
+      }
     }
-  }, [volume]);
+  }, [volume, playlist, currentTrackIndex]);
 
   const fetchPlaylist = async () => {
     try {
@@ -64,10 +72,11 @@ const Radio = () => {
           const announcement = announcements.find(a => a.id === currentTrack.id);
           
           if (announcement && announcement.audio_data) {
-            console.log('📢 Playing DJ announcement with volume boost');
             audioRef.current.src = `data:audio/mp3;base64,${announcement.audio_data}`;
-            // Boost volume for announcements (they're quieter)
-            audioRef.current.volume = Math.min(volume * 4.0, 1.0);
+            // MAXIMUM volume boost for announcements - 8x boost capped at 1.0 (100%)
+            audioRef.current.volume = 1.0; // Force max volume for announcements
+            console.log(`📢 DJ ANNOUNCEMENT - Volume: 1.0 (100% MAX) - "${currentTrack.title}"`);
+            console.log(`🔊 VOLUME COMPARISON: Announcement=1.0 vs Music would be=${(volume * 0.6).toFixed(2)}`)
           } else {
             console.error('❌ Announcement audio missing, skipping');
             handleNext();
@@ -80,11 +89,13 @@ const Radio = () => {
           
           if (trackData.audio_data) {
             audioRef.current.src = `data:audio/mp3;base64,${trackData.audio_data}`;
-            // Normal volume for music
-            audioRef.current.volume = volume;
+            // Reduced volume for music to create contrast with loud announcements
+            audioRef.current.volume = volume * 0.6; // Music plays at 60% of slider volume
+            console.log(`🎵 MUSIC TRACK - Volume: ${(volume * 0.6).toFixed(2)} (${Math.round(volume * 60)}% of slider) - "${currentTrack.title}"`);
           } else if (trackData.audio_url) {
             audioRef.current.src = trackData.audio_url;
-            audioRef.current.volume = volume;
+            audioRef.current.volume = volume * 0.6; // Music plays at 60% of slider volume
+            console.log(`🎵 MUSIC TRACK - Volume: ${(volume * 0.6).toFixed(2)} (${Math.round(volume * 60)}% of slider) - "${currentTrack.title}"`);
           } else {
             console.error('❌ Track audio missing, skipping');
             handleNext();

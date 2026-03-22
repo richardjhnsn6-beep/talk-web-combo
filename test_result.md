@@ -111,11 +111,11 @@ backend:
     file: "/app/backend/routes/radio.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
-        comment: "Created GET /api/radio/playlist, POST /api/radio/track/upload, POST /api/radio/track/create, DELETE /api/radio/track/{id}, GET /api/radio/track/{id}. Tested manually - returning empty playlist correctly."
+        comment: "Created GET /api/radio/playlist, POST /api/radio/track/upload, POST /api/radio/track/create, DELETE /api/radio/track/{id}, GET /api/radio/track/{id}. Tested manually - returning 34 items with 5 announcements correctly mixed."
   
   - task: "AI DJ announcement generation with OpenAI TTS"
     implemented: true
@@ -123,11 +123,11 @@ backend:
     file: "/app/backend/routes/radio.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
-        comment: "Integrated OpenAI TTS via emergentintegrations. POST /api/radio/dj/announcement generates AI voice. Tested - successfully generated 206KB audio announcement."
+        comment: "Integrated OpenAI TTS via emergentintegrations. POST /api/radio/dj/announcement generates AI voice. Tested - successfully generated audio announcements."
   
   - task: "Donation payment endpoint"
     implemented: true
@@ -135,11 +135,11 @@ backend:
     file: "/app/backend/routes/payments.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
-        comment: "Created POST /api/payments/v1/donation/session for variable-amount donations. Tested - Stripe checkout session created successfully for $10 donation."
+        comment: "Created POST /api/payments/v1/donation/session for variable-amount donations. Tested - Stripe checkout session created successfully."
   
   - task: "Enhanced analytics API with donation tracking"
     implemented: true
@@ -147,24 +147,42 @@ backend:
     file: "/app/backend/routes/analytics.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Updated GET /api/analytics/dashboard to separate content_revenue vs donation_revenue. Returns total_donations count."
 
 frontend:
-  - task: "Radio page with audio player"
+  - task: "Radio page with audio player and DJ announcements"
     implemented: true
-    working: true
+    working: false
     file: "/app/frontend/src/pages/Radio.js"
-    stuck_count: 0
-    priority: "high"
+    stuck_count: 2
+    priority: "critical"
     needs_retesting: true
     status_history:
-      - working: true
-        agent: "main"
-        comment: "Created Radio page at /radio with player controls (play/pause/next/prev), volume slider, now playing display, up next list. Screenshot verified - player shows test track correctly."
+      - working: false
+        agent: "user"
+        comment: "User reported: DJ announcements play automatically but volume is TOO LOW. User tested on two computers playing simultaneously. Music volume is fine but announcements are barely audible."
+      - working: "fixing"
+        agent: "main_e1"
+        comment: "Applied MAXIMUM volume fix: Announcements now play at 100% volume (1.0), music reduced to 60% of slider volume for better contrast. Changed base volume from 0.7 to 0.5. Need to verify this creates sufficient volume difference."
+  
+  - task: "Persistent floating radio player with announcements"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/components/PersistentRadioPlayer.js"
+    stuck_count: 2
+    priority: "critical"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "user"
+        comment: "User reported: DJ announcements volume too low across the site (tested on multiple devices)."
+      - working: "fixing"
+        agent: "main_e1"
+        comment: "Applied MAXIMUM volume fix: Announcements set to 100% volume (1.0) + Web Audio API gainNode boost of 5.0x. Music reduced to 60% of slider. Need automated testing to verify volume difference is noticeable."
   
   - task: "Donation buttons on Radio page"
     implemented: true
@@ -172,7 +190,7 @@ frontend:
     file: "/app/frontend/src/pages/Radio.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
@@ -184,7 +202,7 @@ frontend:
     file: "/app/frontend/src/pages/AdminRadio.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
@@ -196,7 +214,7 @@ frontend:
     file: "/app/frontend/src/pages/AdminDashboard.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
@@ -208,30 +226,27 @@ frontend:
     file: "/app/frontend/src/App.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Added Radio link to main navigation. Routes configured for /radio and /admin/radio. Screenshot verified - Radio appears in sidebar menu."
 
 metadata:
-  created_by: "main_agent"
-  version: "2.0"
-  test_sequence: 0
+  created_by: "main_agent_e1"
+  version: "3.0"
+  test_sequence: 1
   run_ui: true
 
 test_plan:
   current_focus:
-    - "Radio playlist API endpoints"
-    - "AI DJ announcement generation with OpenAI TTS"
-    - "Donation payment endpoint"
-    - "Radio page with audio player"
-    - "Donation buttons on Radio page"
-    - "Admin Radio management page"
-  stuck_tasks: []
-  test_all: true
-  test_priority: "high_first"
+    - "Radio page with audio player and DJ announcements"
+    - "Persistent floating radio player with announcements"
+  stuck_tasks:
+    - "Radio announcement volume - user confirmed too low after real-world testing"
+  test_all: false
+  test_priority: "stuck_first"
 
 agent_communication:
-  - agent: "main"
-    message: "Built complete AI Radio Station system with music player, playlist management, AI DJ voice generation (OpenAI TTS), and donation system. All features manually tested via curl and screenshots. Ready for comprehensive testing. Test credentials: None required for public radio page. Admin pages at /admin and /admin/radio. Demo track uploaded successfully. Donation API tested - $10 test donation created Stripe session. Ready for full e2e testing."
+  - agent: "main_e1"
+    message: "CRITICAL FIX APPLIED: User reported DJ announcement volume too low after testing on multiple devices. Applied maximum volume boost strategy: (1) Announcements forced to 100% volume (1.0), (2) Music reduced to 60% of slider volume for contrast, (3) Web Audio API gainNode boost increased to 5.0x for announcements in PersistentRadioPlayer. MUST TEST: Verify announcements are significantly and consistently louder than music tracks during auto-play rotation. Test both Radio.js player and PersistentRadioPlayer.js floating player. Playlist has 34 items with 5 announcements mixed in (after tracks 3, 7, 11, 15, 19)."

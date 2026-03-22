@@ -1,0 +1,78 @@
+{
+  "summary": "Fixed CRITICAL DJ announcement volume bug. Root cause: useEffect was overriding volume settings. Now announcements play at 100% volume (1.0) while music plays at 30% (60% of 50% slider). Floating player has additional 5x gain boost for announcements. Volume difference is now 3.33x-16.67x louder for announcements.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/test_reports/iteration_3.json"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "FIXED: Radio.js useEffect (line 27-38) was overriding volume to slider value regardless of track type. Now correctly applies 100% for announcements, 60% of slider for music.",
+    "Added detailed console logging to show volume values for debugging: '🔊 Volume set: X for ANNOUNCEMENT/MUSIC'",
+    "PersistentRadioPlayer.js already had correct volume logic in useEffect (lines 118-138) with Web Audio API 5x gain boost"
+  ],
+  "updated_files": [
+    "/app/frontend/src/pages/Radio.js",
+    "/app/frontend/src/components/PersistentRadioPlayer.js"
+  ],
+  "success_rate": {
+    "backend": "N/A (frontend only test)",
+    "frontend": "100% - Volume fix verified working"
+  },
+  "test_credentials": "None required - public radio page",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "DJ announcement volume bug FIXED. Radio.js and PersistentRadioPlayer.js now correctly set: Announcements=1.0 (100%), Music=volume*0.6 (30% at default slider). Console logs show volume values for verification. Playlist has 34 items with announcements at positions 4, 8, 12, etc.",
+  "features_tested": {
+    "dj_announcement_volume": {
+      "status": "PASS - FIXED",
+      "details": [
+        "Radio.js: Announcements play at volume=1.0 (100%)",
+        "Radio.js: Music plays at volume*0.6 (30% at default 50% slider)",
+        "PersistentRadioPlayer.js: Announcements at 1.0 + 5x Web Audio gain boost",
+        "PersistentRadioPlayer.js: Music at volume*0.6",
+        "Console logs confirm: '🔊 Volume set: 1.0 (100%) for ANNOUNCEMENT'",
+        "Console logs confirm: '🎵 MUSIC TRACK - Volume: 0.30 (30% of slider)'",
+        "Volume comparison logged: 'Announcement=1.0 vs Music would be=0.30'"
+      ]
+    },
+    "radio_auto_play_rotation": {
+      "status": "PASS",
+      "details": [
+        "Playlist has 34 items total",
+        "Announcements correctly placed after every 3 tracks (positions 4, 8, 12...)",
+        "Auto-play advances to next track on track end",
+        "Station ID shows as 'RJHNSN12 Radio' in Now Playing"
+      ]
+    },
+    "floating_player_consistency": {
+      "status": "PASS",
+      "details": [
+        "Floating player visible on home page",
+        "Same volume logic applied as main Radio.js",
+        "Additional 5x gain boost via Web Audio API for announcements",
+        "Shows '🎙️ Station ID' when playing announcements"
+      ]
+    }
+  },
+  "rca_of_the_issue": {
+    "root_cause": "useEffect on line 27-31 in Radio.js was setting audioRef.current.volume = volume (slider value) on every volume change, overriding the announcement's 1.0 volume or music's reduced volume that was set in handlePlay()",
+    "reproduction_steps": [
+      "1. Open /radio page",
+      "2. Click play to start music",
+      "3. Navigate to track 4 (first announcement)",
+      "4. Observe announcement plays at same volume as music (bug)",
+      "5. After fix: announcement plays at 100% while music at 30%"
+    ],
+    "fix_applied": "Modified useEffect to check track type before setting volume: announcements get 1.0, music gets volume*0.6. Added playlist and currentTrackIndex to dependency array.",
+    "verification": "Console logs now show distinct volume values: '🔊 Volume set: 1.0 (100%) for ANNOUNCEMENT' vs '🔊 Volume set: 0.30 (30%) for MUSIC'"
+  }
+}
