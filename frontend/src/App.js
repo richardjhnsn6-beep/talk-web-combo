@@ -18,8 +18,10 @@ import AIChat from './pages/AIChat';
 import AIChatPricing from './pages/AIChatPricing';
 import AdminAIChat from './pages/AdminAIChat';
 import AdminPricingConfig from './pages/AdminPricingConfig';
+import InstallApp from './pages/InstallApp';
 import PersistentRadioPlayer from './components/PersistentRadioPlayer';
 import FloatingChatButton from './components/FloatingChatButton';
+import PWAInstallPrompt from './components/PWAInstallPrompt';
 
 const Navigation = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
@@ -33,6 +35,7 @@ const Navigation = ({ isOpen, setIsOpen }) => {
     { path: '/podcast', label: 'Podcast' },
     { path: '/radio', label: '🎙️ Radio' },
     { path: '/ai-chat', label: '🤖 AI Chat' },
+    { path: '/install', label: '📱 Install App' },
     { path: '/books', label: 'Books' },
     { path: '/hebrew-alphabet', label: 'Hebrew Alphabet' },
     { path: '/book-of-amos', label: 'Amos Sample' },
@@ -142,6 +145,7 @@ function App() {
             <Route path="/radio" element={<Radio />} />
             <Route path="/ai-chat" element={<AIChat />} />
             <Route path="/ai-chat/pricing" element={<AIChatPricing />} />
+            <Route path="/install" element={<InstallApp />} />
             <Route path="/books" element={<Books />} />
             <Route path="/hebrew-alphabet" element={<HebrewAlphabet />} />
             <Route path="/book-of-amos" element={<BookOfAmos />} />
@@ -158,6 +162,9 @@ function App() {
         
         {/* Floating AI Chat Button - Shows on all pages except AI chat pages */}
         <FloatingChatButton />
+        
+        {/* PWA Install Prompt - Shows on mobile devices */}
+        <PWAInstallPrompt />
       </BrowserRouter>
     </div>
   );

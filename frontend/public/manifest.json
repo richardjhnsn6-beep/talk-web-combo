@@ -1,0 +1,42 @@
+{
+  "short_name": "RJHNSN12",
+  "name": "RJHNSN12 - Biblical Truth & AI Radio",
+  "description": "24/7 AI Radio Station and Biblical Research AI. Explore the true Hebrew alphabet, Torah wisdom, and ancient biblical truth.",
+  "icons": [
+    {
+      "src": "/logo192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#7c3aed",
+  "background_color": "#0f172a",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "categories": ["education", "music", "lifestyle", "religion"],
+  "shortcuts": [
+    {
+      "name": "AI Chat",
+      "short_name": "AI Chat",
+      "description": "Ask AI about biblical research",
+      "url": "/ai-chat",
+      "icons": [{ "src": "/logo192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Radio",
+      "short_name": "Radio",
+      "description": "Listen to 24/7 AI Radio",
+      "url": "/radio",
+      "icons": [{ "src": "/logo192.png", "sizes": "192x192" }]
+    }
+  ]
+}

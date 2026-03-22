@@ -1,3 +1,6 @@
+import React, { useState } from 'react';
+import { Download, Smartphone } from 'lucide-react';
+
 const HomePage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white" data-testid="homepage">
@@ -9,6 +12,25 @@ const HomePage = () => {
       </div>
 
       <div className="max-w-6xl mx-auto p-8">
+        {/* PWA Install Banner - Mobile Only */}
+        <div className="md:hidden mb-6">
+          <a 
+            href="/install"
+            className="block bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl shadow-lg p-4 hover:from-purple-700 hover:to-pink-700 transition"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
+                <Smartphone className="w-6 h-6 text-purple-600" />
+              </div>
+              <div className="flex-1">
+                <p className="font-bold">📱 Install Our App</p>
+                <p className="text-sm text-purple-100">Quick access to AI chat & radio!</p>
+              </div>
+              <Download className="w-5 h-5" />
+            </div>
+          </a>
+        </div>
+
         {/* Main Content */}
         <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
           <div className="mb-8">
