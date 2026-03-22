@@ -109,13 +109,11 @@ const Radio = () => {
     }
   };
 
-  // Auto-load and play when track index changes (if radio is playing)
+  // Auto-load next track when index changes
   useEffect(() => {
-    if (currentTrack && audioRef.current && playlist.length > 0) {
-      console.log(`🔄 Track changed to index ${currentTrackIndex}: ${currentTrack.title} (${currentTrack.type})`);
-      if (isPlaying) {
-        handlePlay();
-      }
+    if (currentTrack && isPlaying && audioRef.current) {
+      console.log(`🔄 Track index changed to ${currentTrackIndex}, loading track...`);
+      handlePlay();
     }
   }, [currentTrackIndex]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -243,13 +241,10 @@ const Radio = () => {
               </div>
 
               {/* Audio Element */}
-              {currentTrack && (
-                <audio
-                  ref={audioRef}
-                  onEnded={handleTrackEnd}
-                  autoPlay={isPlaying}
-                />
-              )}
+              <audio
+                ref={audioRef}
+                onEnded={handleTrackEnd}
+              />
 
               {/* Player Controls */}
               <div className="flex items-center justify-center gap-6 mb-8">
