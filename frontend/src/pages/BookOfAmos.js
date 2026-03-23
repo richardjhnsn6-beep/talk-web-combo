@@ -347,9 +347,22 @@ const BookOfAmos = () => {
             );
           })}
 
+        {/* COMING SOON NOTICE */}
+        <div className="my-8 p-6 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-xl border-2 border-yellow-600 text-center shadow-xl">
+          <div className="max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold text-white mb-2">🚀 Live Payments Launching Soon!</h3>
+            <p className="text-white text-lg font-semibold mb-2">
+              Payment system goes live in 24-48 hours
+            </p>
+            <p className="text-yellow-100 text-sm">
+              Our Stripe payment processing is being activated. Check back soon to unlock the full chapter!
+            </p>
+          </div>
+        </div>
+
         {/* PAYMENT GATE - Unlock verses 6-15 */}
         {!isUnlocked && !isProcessingPayment && (
-          <div className="my-12 p-8 bg-gradient-to-br from-green-50 to-teal-50 rounded-xl border-2 border-green-400 text-center">
+          <div className="my-12 p-8 bg-gradient-to-br from-green-50 to-teal-50 rounded-xl border-2 border-green-400 text-center opacity-60">
             <div className="max-w-2xl mx-auto">
               <h3 className="text-2xl font-bold text-green-900 mb-3">🔒 Unlock Full Chapter 1</h3>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -364,11 +377,12 @@ const BookOfAmos = () => {
               </div>
               <button
                 onClick={handleUnlockPayment}
-                className="px-8 py-4 bg-green-600 text-white text-lg font-bold rounded-lg hover:bg-green-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                disabled
+                className="px-8 py-4 bg-gray-400 text-white text-lg font-bold rounded-lg cursor-not-allowed opacity-75"
               >
-                🔓 Unlock Now - $4.99
+                🔓 Coming Soon - $4.99
               </button>
-              <p className="text-xs text-gray-500 mt-4">Secure payment powered by Stripe</p>
+              <p className="text-xs text-gray-500 mt-4">Payment system activating • Available in 24-48 hours</p>
             </div>
           </div>
         )}
