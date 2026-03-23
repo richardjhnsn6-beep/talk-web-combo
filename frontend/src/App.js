@@ -23,6 +23,7 @@ import PersistentRadioPlayer from './components/PersistentRadioPlayer';
 import FloatingChatButton from './components/FloatingChatButton';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
 import AdminLogin from './components/AdminLogin';
+import AIRichard from './components/AIRichard';
 
 const Navigation = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
@@ -166,6 +167,9 @@ function App() {
         
         {/* Floating AI Chat Button - Shows on all pages except AI chat pages */}
         <FloatingChatButton />
+        
+        {/* AI RICHARD - 24/7 Business Assistant */}
+        <AIRichard />
         
         {/* PWA Install Prompt - Shows on mobile devices */}
         <PWAInstallPrompt />
