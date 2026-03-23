@@ -4,7 +4,7 @@ from typing import List, Optional
 from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime, timezone, timedelta
 from emergentintegrations.llm.openai import LlmChat, UserMessage
-from emergentintegrations.payments.stripe.checkout import StripeCheckout, CheckoutSessionRequest
+import stripe
 import os
 from dotenv import load_dotenv
 from pathlib import Path
@@ -20,6 +20,9 @@ router = APIRouter()
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
+
+# Configure Stripe
+stripe.api_key = os.environ.get('STRIPE_API_KEY')
 
 # System prompt for biblical research AI
 BIBLICAL_AI_SYSTEM_PROMPT = """You are a specialized AI assistant for RJHNSN12 Biblical Research, focused on:
@@ -235,24 +238,31 @@ async def create_subscription(sub_data: SubscriptionCreate, request: Request):
     """Create Stripe subscription for unlimited AI chat access"""
     
     client_ip = get_client_ip(request)
-    stripe_api_key = os.environ.get('STRIPE_API_KEY')
-    
-    if not stripe_api_key:
-        raise HTTPException(status_code=500, detail="Stripe not configured")
-    
-    # Use emergentintegrations Stripe
-    stripe_checkout = StripeCheckout(api_key=stripe_api_key)
     
     try:
         # NOTE: For recurring subscriptions, we use a one-time payment of $9.99
         # In production, you'd create a Stripe Product/Price and use stripe_price_id
         # For now, treating as monthly one-time payment
         
-        checkout_request = CheckoutSessionRequest(
-            amount=9.99,
-            currency="usd",
-            success_url=f"{os.environ.get('FRONTEND_URL')}/ai-chat?subscription=success&session_id={{{{CHECKOUT_SESSION_ID}}}}",
-            cancel_url=f"{os.environ.get('FRONTEND_URL')}/ai-chat?subscription=cancelled",
+        frontend_url = os.environ.get('FRONTEND_URL', 'https://talk-web-combo.preview.emergentagent.com')
+        
+        # Create checkout session using standard Stripe SDK
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price_data': {
+                    'currency': 'usd',
+                    'product_data': {
+                        'name': 'AI Chat - Unlimited Access',
+                        'description': 'Unlimited biblical research questions'
+                    },
+                    'unit_amount': 999,  # $9.99 in cents
+                },
+                'quantity': 1,
+            }],
+            mode='payment',
+            success_url=f"{frontend_url}/ai-chat?subscription=success&session_id={{{{CHECKOUT_SESSION_ID}}}}",
+            cancel_url=f"{frontend_url}/ai-chat?subscription=cancelled",
             metadata={
                 "user_identifier": client_ip,
                 "email": sub_data.email,
@@ -261,14 +271,12 @@ async def create_subscription(sub_data: SubscriptionCreate, request: Request):
             }
         )
         
-        session: CheckoutSessionResponse = await stripe_checkout.create_checkout_session(checkout_request)
-        
         # Store pending subscription
         subscription_doc = {
             "id": str(uuid.uuid4()),
             "user_identifier": client_ip,
             "email": sub_data.email,
-            "stripe_session_id": session.session_id,
+            "stripe_session_id": session.id,
             "status": "pending",
             "amount": 9.99,
             "created_at": datetime.now(timezone.utc).isoformat()
@@ -277,7 +285,7 @@ async def create_subscription(sub_data: SubscriptionCreate, request: Request):
         
         return {
             "checkout_url": session.url,
-            "session_id": session.session_id
+            "session_id": session.id
         }
         
     except Exception as e:
