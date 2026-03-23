@@ -22,6 +22,7 @@ import InstallApp from './pages/InstallApp';
 import PersistentRadioPlayer from './components/PersistentRadioPlayer';
 import FloatingChatButton from './components/FloatingChatButton';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
+import AdminLogin from './components/AdminLogin';
 
 const Navigation = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
@@ -39,8 +40,8 @@ const Navigation = ({ isOpen, setIsOpen }) => {
     { path: '/books', label: 'Books' },
     { path: '/hebrew-alphabet', label: 'Hebrew Alphabet' },
     { path: '/book-of-amos', label: 'Amos Sample' },
-    { path: '/contact', label: 'Contact' },
-    { path: '/admin', label: '📊 Dashboard' }
+    { path: '/contact', label: 'Contact' }
+    // Admin dashboard removed from public navigation
   ];
 
   const handleLinkClick = () => {
@@ -149,10 +150,13 @@ function App() {
             <Route path="/books" element={<Books />} />
             <Route path="/hebrew-alphabet" element={<HebrewAlphabet />} />
             <Route path="/book-of-amos" element={<BookOfAmos />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/radio" element={<AdminRadio />} />
-            <Route path="/admin/ai-chat" element={<AdminAIChat />} />
-            <Route path="/admin/pricing" element={<AdminPricingConfig />} />
+            
+            {/* Protected Admin Routes - Password Required */}
+            <Route path="/admin" element={<AdminLogin><AdminDashboard /></AdminLogin>} />
+            <Route path="/admin/radio" element={<AdminLogin><AdminRadio /></AdminLogin>} />
+            <Route path="/admin/ai-chat" element={<AdminLogin><AdminAIChat /></AdminLogin>} />
+            <Route path="/admin/pricing" element={<AdminLogin><AdminPricingConfig /></AdminLogin>} />
+            
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
