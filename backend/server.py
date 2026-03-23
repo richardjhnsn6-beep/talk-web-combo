@@ -13,7 +13,8 @@ from routes.payments import router as payments_router
 from routes.analytics import router as analytics_router
 from routes.radio import router as radio_router
 from routes.ai_chat import router as ai_chat_router
-from routes.ai_richard import router as ai_richard_router
+# AI Richard temporarily disabled until file is recreated
+# from routes.ai_richard import router as ai_richard_router
 
 
 ROOT_DIR = Path(__file__).parent
@@ -38,8 +39,8 @@ api_router.include_router(analytics_router, prefix="/analytics", tags=["analytic
 api_router.include_router(radio_router, prefix="/radio", tags=["radio"])
 # Include AI chat routes with /ai-chat prefix
 api_router.include_router(ai_chat_router, prefix="/ai-chat", tags=["ai-chat"])
-# Include AI Richard routes with /ai-richard prefix
-api_router.include_router(ai_richard_router, prefix="/ai-richard", tags=["ai-richard"])
+# AI Richard temporarily disabled until file is recreated
+# api_router.include_router(ai_richard_router, prefix="/ai-richard", tags=["ai-richard"])
 
 
 # Define Models
