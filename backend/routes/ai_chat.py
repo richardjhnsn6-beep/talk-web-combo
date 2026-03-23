@@ -262,8 +262,8 @@ async def create_subscription(sub_data: SubscriptionCreate, request: Request):
                 },
                 'quantity': 1,
             }],
-            success_url=f"{os.environ.get('FRONTEND_URL', 'http://localhost:3000')}/ai-chat?subscription=success",
-            cancel_url=f"{os.environ.get('FRONTEND_URL', 'http://localhost:3000')}/ai-chat?subscription=cancelled",
+            success_url=f"{os.environ.get('FRONTEND_URL')}/ai-chat?subscription=success",
+            cancel_url=f"{os.environ.get('FRONTEND_URL')}/ai-chat?subscription=cancelled",
             client_reference_id=client_ip,
             customer_email=sub_data.email,
             metadata={
