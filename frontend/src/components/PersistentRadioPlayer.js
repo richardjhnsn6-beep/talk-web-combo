@@ -230,8 +230,8 @@ const PersistentRadioPlayer = () => {
     }
   }, [currentTrackIndex]);
 
-  // Don't show player if no tracks or on admin radio page (to avoid duplicate players)
-  if (!isVisible || playlist.length === 0 || location.pathname === '/admin/radio') {
+  // Don't show player if no tracks, on admin radio page, or on AI Chat page (to avoid UI overlap)
+  if (!isVisible || playlist.length === 0 || location.pathname === '/admin/radio' || location.pathname === '/ai-chat') {
     return null;
   }
 

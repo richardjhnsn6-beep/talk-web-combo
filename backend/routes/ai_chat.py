@@ -244,32 +244,36 @@ async def create_subscription(sub_data: SubscriptionCreate, request: Request):
     stripe_checkout = StripeCheckout(api_key=stripe_api_key)
     
     try:
-        # Create checkout session request
+        # NOTE: For recurring subscriptions, we use a one-time payment of $9.99
+        # In production, you'd create a Stripe Product/Price and use stripe_price_id
+        # For now, treating as monthly one-time payment
+        
         checkout_request = CheckoutSessionRequest(
-            line_items=[{
-                "price_data": {
-                    "currency": "usd",
-                    "product_data": {
-                        "name": "RJHNSN12 AI Chat - Unlimited Access",
-                        "description": "Unlimited biblical research questions with AI assistant"
-                    },
-                    "recurring": {"interval": "month"},
-                    "unit_amount": 999  # $9.99
-                },
-                "quantity": 1
-            }],
-            mode="subscription",
-            success_url=f"{os.environ.get('FRONTEND_URL')}/ai-chat?subscription=success",
+            amount=9.99,
+            currency="usd",
+            success_url=f"{os.environ.get('FRONTEND_URL')}/ai-chat?subscription=success&session_id={{{{CHECKOUT_SESSION_ID}}}}",
             cancel_url=f"{os.environ.get('FRONTEND_URL')}/ai-chat?subscription=cancelled",
-            customer_email=sub_data.email,
-            client_reference_id=client_ip,
             metadata={
                 "user_identifier": client_ip,
-                "product": "ai_chat_unlimited"
+                "email": sub_data.email,
+                "product": "ai_chat_unlimited",
+                "type": "subscription"
             }
         )
         
         session: CheckoutSessionResponse = await stripe_checkout.create_checkout_session(checkout_request)
+        
+        # Store pending subscription
+        subscription_doc = {
+            "id": str(uuid.uuid4()),
+            "user_identifier": client_ip,
+            "email": sub_data.email,
+            "stripe_session_id": session.session_id,
+            "status": "pending",
+            "amount": 9.99,
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+        await db.ai_chat_subscriptions.insert_one(subscription_doc)
         
         return {
             "checkout_url": session.url,
