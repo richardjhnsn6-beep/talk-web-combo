@@ -4,6 +4,7 @@ from typing import List, Optional
 from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime, timezone, timedelta
 from emergentintegrations.llm.openai import LlmChat, UserMessage
+from emergentintegrations.payments.stripe.checkout import StripeCheckout, CheckoutSessionRequest
 import os
 from dotenv import load_dotenv
 from pathlib import Path
@@ -11,7 +12,7 @@ import uuid
 
 # Load environment variables
 ROOT_DIR = Path(__file__).parent.parent
-load_dotenv(ROOT_DIR / '.env')
+load_dotenv(ROOT_DIR / '.env', override=True)
 
 router = APIRouter()
 
@@ -233,48 +234,46 @@ async def get_usage_stats(request: Request, user_id: Optional[str] = None):
 async def create_subscription(sub_data: SubscriptionCreate, request: Request):
     """Create Stripe subscription for unlimited AI chat access"""
     
-    import stripe
-    stripe.api_key = os.environ.get('STRIPE_API_KEY')
-    
     client_ip = get_client_ip(request)
+    stripe_api_key = os.environ.get('STRIPE_API_KEY')
     
-    # Create Stripe checkout session for subscription
+    if not stripe_api_key:
+        raise HTTPException(status_code=500, detail="Stripe not configured")
+    
+    # Use emergentintegrations Stripe
+    stripe_checkout = StripeCheckout(api_key=stripe_api_key)
+    
     try:
-        # Get or create Stripe price (monthly subscription)
-        # In production, you'd create this price once in Stripe dashboard
-        # For now, we'll create it on the fly
-        
-        # Create checkout session
-        checkout_session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            mode='subscription',
+        # Create checkout session request
+        checkout_request = CheckoutSessionRequest(
             line_items=[{
-                'price_data': {
-                    'currency': 'usd',
-                    'product_data': {
-                        'name': 'RJHNSN12 AI Chat - Unlimited Access',
-                        'description': 'Unlimited biblical research questions with AI assistant'
+                "price_data": {
+                    "currency": "usd",
+                    "product_data": {
+                        "name": "RJHNSN12 AI Chat - Unlimited Access",
+                        "description": "Unlimited biblical research questions with AI assistant"
                     },
-                    'recurring': {
-                        'interval': 'month'
-                    },
-                    'unit_amount': 999,  # $9.99 in cents
+                    "recurring": {"interval": "month"},
+                    "unit_amount": 999  # $9.99
                 },
-                'quantity': 1,
+                "quantity": 1
             }],
+            mode="subscription",
             success_url=f"{os.environ.get('FRONTEND_URL')}/ai-chat?subscription=success",
             cancel_url=f"{os.environ.get('FRONTEND_URL')}/ai-chat?subscription=cancelled",
-            client_reference_id=client_ip,
             customer_email=sub_data.email,
+            client_reference_id=client_ip,
             metadata={
-                'user_identifier': client_ip,
-                'product': 'ai_chat_unlimited'
+                "user_identifier": client_ip,
+                "product": "ai_chat_unlimited"
             }
         )
         
+        session: CheckoutSessionResponse = await stripe_checkout.create_checkout_session(checkout_request)
+        
         return {
-            "checkout_url": checkout_session.url,
-            "session_id": checkout_session.id
+            "checkout_url": session.url,
+            "session_id": session.session_id
         }
         
     except Exception as e:
