@@ -271,7 +271,7 @@ export default function AIChat() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about Hebrew alphabet, Torah, biblical research..."
-              className="flex-1 bg-slate-800 border border-purple-700/50 rounded-xl px-4 py-3 text-white placeholder-purple-400/60 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="flex-1 bg-slate-800 border border-purple-700/50 rounded-xl px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500 text-lg"
               disabled={loading}
             />
             <button
