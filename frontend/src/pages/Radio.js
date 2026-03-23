@@ -365,12 +365,6 @@ const Radio = () => {
 
         {/* Support Section */}
         <div className="bg-gradient-to-r from-yellow-500 to-orange-500 rounded-2xl shadow-2xl p-8 text-center">
-          {/* COMING SOON NOTICE */}
-          <div className="mb-6 p-4 bg-white rounded-lg">
-            <p className="text-orange-600 font-bold text-lg">🚀 Live Donations in 24-48 Hours!</p>
-            <p className="text-gray-600 text-sm mt-1">Stripe payment activation in progress</p>
-          </div>
-          
           {showDonationSuccess && (
             <div className="mb-6 p-4 bg-white rounded-lg animate-bounce">
               <p className="text-2xl font-bold text-green-600">🎉 Thank You for Your Support!</p>
@@ -390,31 +384,27 @@ const Radio = () => {
               <div className="flex flex-wrap justify-center gap-4 mb-6">
                 <button 
                   onClick={() => handleDonation(5)}
-                  disabled
-                  className="bg-gray-400 text-white px-6 py-3 rounded-lg font-bold text-lg cursor-not-allowed opacity-75"
+                  className="bg-white text-orange-600 px-6 py-3 rounded-lg font-bold text-lg hover:bg-orange-50 transition-all shadow-lg"
                 >
                   $5
                 </button>
                 <button 
                   onClick={() => handleDonation(10)}
-                  disabled
-                  className="bg-gray-400 text-white px-6 py-3 rounded-lg font-bold text-lg cursor-not-allowed opacity-75"
+                  className="bg-white text-orange-600 px-6 py-3 rounded-lg font-bold text-lg hover:bg-orange-50 transition-all shadow-lg"
                 >
                   $10
                 </button>
                 <button 
                   onClick={() => handleDonation(25)}
-                  disabled
-                  className="bg-gray-400 text-white px-6 py-3 rounded-lg font-bold text-lg cursor-not-allowed opacity-75"
+                  className="bg-white text-orange-600 px-6 py-3 rounded-lg font-bold text-lg hover:bg-orange-50 transition-all shadow-lg"
                 >
                   $25
                 </button>
                 <button 
                   onClick={() => setShowCustomDonation(true)}
-                  disabled
-                  className="bg-gray-400 text-white px-6 py-3 rounded-lg font-bold text-lg cursor-not-allowed opacity-75"
+                  className="bg-white text-orange-600 px-6 py-3 rounded-lg font-bold text-lg hover:bg-orange-50 transition-all shadow-lg"
                 >
-                  Custom
+                  Custom Amount
                 </button>
               </div>
             </>
@@ -451,7 +441,7 @@ const Radio = () => {
           )}
           
           <p className="text-white/80 text-sm">
-            Available soon • Stripe payment activation in progress
+            🔒 Secure payment via Stripe • All major cards accepted
           </p>
         </div>
 

@@ -199,12 +199,6 @@ export default function AIChat() {
 
           {/* Pricing Info */}
           <div className="bg-slate-900/50 border border-purple-700/30 rounded-xl p-6">
-            {/* COMING SOON NOTICE */}
-            <div className="mb-4 p-4 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg text-center">
-              <p className="text-white font-bold text-sm">🚀 Live Payments in 24-48 Hours!</p>
-              <p className="text-yellow-100 text-xs mt-1">Stripe activation in progress</p>
-            </div>
-            
             <div className="flex items-start justify-between">
               <div>
                 <h3 className="text-lg font-bold mb-2">💎 Free Tier</h3>
@@ -215,10 +209,9 @@ export default function AIChat() {
                 <p className="text-purple-200 mb-2">$9.99/month</p>
                 <button
                   onClick={handleSubscribe}
-                  disabled
-                  className="bg-gray-600 text-white px-4 py-2 rounded-lg font-bold cursor-not-allowed opacity-75"
+                  className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-6 py-2 rounded-lg font-bold hover:from-yellow-600 hover:to-orange-600 transition-all shadow-lg"
                 >
-                  Coming Soon
+                  Subscribe Now
                 </button>
               </div>
             </div>
