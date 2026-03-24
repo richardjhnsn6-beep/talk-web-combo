@@ -144,15 +144,17 @@ const AIRichard = () => {
           }
           // Restart listening if continuous mode is on
           if (continuousMode && recognitionRef.current && !isRecognitionActive) {
+            console.log('⏰ Waiting 3 seconds before restarting mic...');
             setTimeout(() => {
               try {
+                console.log('🎤 Mic restarting - YOU CAN SPEAK NOW!');
                 recognitionRef.current.start();
                 setIsListening(true);
                 setIsRecognitionActive(true);
               } catch (err) {
                 console.error('Restart failed:', err);
               }
-            }, 500);
+            }, 3000); // 3 seconds delay - gives you time to think!
           }
         };
         audio.onerror = () => {
@@ -303,6 +305,8 @@ const AIRichard = () => {
       recognitionRef.current.interimResults = false;
       recognitionRef.current.lang = 'en-US';
       recognitionRef.current.maxAlternatives = 1;
+      
+      // IMPORTANT: No built-in timeout, let user speak at their pace
 
       recognitionRef.current.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
@@ -738,16 +742,23 @@ const AIRichard = () => {
               </div>
             )}
             {isListening && !isSpeaking && (
-              <div className="mb-2 flex items-center gap-2 text-sm text-red-600 font-medium">
-                {/* Animated microphone waveform */}
-                <div className="flex items-center gap-1">
-                  <div className="w-1 h-4 bg-red-600 rounded animate-bounce" style={{ animationDelay: '0s' }}></div>
-                  <div className="w-1 h-6 bg-red-600 rounded animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                  <div className="w-1 h-5 bg-red-600 rounded animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                  <div className="w-1 h-7 bg-red-600 rounded animate-bounce" style={{ animationDelay: '0.3s' }}></div>
-                  <div className="w-1 h-5 bg-red-600 rounded animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+              <div className="mb-2 p-3 bg-red-50 border-2 border-red-300 rounded-lg">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 text-sm text-red-600 font-bold">
+                    {/* Animated microphone waveform */}
+                    <div className="flex items-center gap-1">
+                      <div className="w-1 h-4 bg-red-600 rounded animate-bounce" style={{ animationDelay: '0s' }}></div>
+                      <div className="w-1 h-6 bg-red-600 rounded animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-1 h-5 bg-red-600 rounded animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-1 h-7 bg-red-600 rounded animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+                      <div className="w-1 h-5 bg-red-600 rounded animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                    </div>
+                    <span className="text-lg">🎤 LISTENING - SPEAK NOW!</span>
+                  </div>
                 </div>
-                <span>🎤 Listening... Speak now!</span>
+                <div className="text-xs text-red-700 mt-1 font-medium">
+                  Take your time - I'm listening for your full question!
+                </div>
               </div>
             )}
             <div className="flex gap-2">
