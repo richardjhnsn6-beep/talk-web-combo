@@ -12,6 +12,8 @@ const AIRichard = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [continuousMode, setContinuousMode] = useState(false); // NEW: Always-on listening
   const [isRecognitionActive, setIsRecognitionActive] = useState(false); // Track if recognition is running
+  const [walkPosition, setWalkPosition] = useState(6); // Walking animation position (in rem units)
+  const [walkDirection, setWalkDirection] = useState(1); // 1 = right, -1 = left
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
   const synthRef = useRef(null);
@@ -35,6 +37,32 @@ const AIRichard = () => {
       }]);
     }
   }, [isOpen]);
+
+  // Walking animation effect
+  useEffect(() => {
+    if (isOpen) return; // Don't walk when chat is open
+
+    const walkInterval = setInterval(() => {
+      setWalkPosition(prev => {
+        const newPos = prev + (walkDirection * 0.5); // Move 0.5rem per tick
+        
+        // Check boundaries (walk between 6rem and 80% of screen width)
+        const maxPosition = (window.innerWidth * 0.8) / 16; // Convert to rem
+        
+        if (newPos >= maxPosition) {
+          setWalkDirection(-1); // Turn around, walk left
+          return maxPosition;
+        } else if (newPos <= 6) {
+          setWalkDirection(1); // Turn around, walk right
+          return 6;
+        }
+        
+        return newPos;
+      });
+    }, 50); // Update every 50ms for smooth animation
+
+    return () => clearInterval(walkInterval);
+  }, [isOpen, walkDirection]);
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
@@ -560,30 +588,41 @@ const AIRichard = () => {
 
   return (
     <>
-      {/* Floating button - Always visible - MOVED TO BOTTOM-LEFT */}
+      {/* Floating button - Always visible - WALKS ACROSS SCREEN */}
       {!isOpen && (
         <div 
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 left-6 z-50 cursor-pointer group"
+          className="fixed bottom-6 z-50 cursor-pointer group transition-all duration-200 ease-linear"
+          style={{ 
+            left: `${walkPosition}rem`,
+            transform: walkDirection === -1 ? 'scaleX(-1)' : 'scaleX(1)' // Flip horizontally when walking left
+          }}
         >
           {/* Avatar circle */}
           <div className="relative">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 p-1 shadow-2xl group-hover:scale-110 transition-transform duration-300">
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 p-1 shadow-2xl group-hover:scale-110 transition-transform duration-300 animate-bounce-subtle">
               <div className="w-full h-full rounded-full overflow-hidden bg-white">
                 <img 
                   src="/richard-avatar.jpg"
                   alt="Richard Johnson"
                   className="w-full h-full object-cover"
-                />
+                  style={{ transform: walkDirection === -1 ? 'scaleX(-1)' : 'scaleX(1)' }} // Keep face upright
                 />
               </div>
             </div>
             
             {/* Online status indicator */}
-            <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
+            <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
             
             {/* Pulse animation */}
             <div className="absolute inset-0 rounded-full bg-purple-400 opacity-0 group-hover:opacity-30 animate-ping"></div>
+            
+            {/* Walking footsteps animation */}
+            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
+              <div className="flex gap-1 animate-pulse">
+                <span className="text-xs opacity-50">👣</span>
+              </div>
+            </div>
           </div>
           
           {/* Label */}
