@@ -205,8 +205,106 @@ const Radio = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-teal-900 p-4 md:p-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-teal-900 p-4 md:p-8 relative overflow-hidden">
+      {/* 3D Floating Vinyl Records */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 left-10 w-32 h-32 opacity-20 animate-spin-slow">
+          <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-400 to-pink-500 shadow-2xl" style={{
+            transform: 'rotateY(45deg) rotateX(20deg)',
+            animation: 'float 6s ease-in-out infinite, spin3d 20s linear infinite'
+          }}>
+            <div className="absolute inset-6 rounded-full bg-gray-900"></div>
+            <div className="absolute inset-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-600"></div>
+          </div>
+        </div>
+        
+        <div className="absolute top-40 right-20 w-24 h-24 opacity-15 animate-spin-slow">
+          <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-400 to-teal-500 shadow-2xl" style={{
+            transform: 'rotateY(-30deg) rotateX(15deg)',
+            animation: 'float 8s ease-in-out infinite 1s, spin3d 25s linear infinite'
+          }}>
+            <div className="absolute inset-4 rounded-full bg-gray-900"></div>
+            <div className="absolute inset-8 rounded-full bg-gradient-to-br from-blue-600 to-teal-600"></div>
+          </div>
+        </div>
+        
+        <div className="absolute bottom-32 left-1/4 w-28 h-28 opacity-10">
+          <div className="w-full h-full rounded-full bg-gradient-to-br from-pink-400 to-purple-500 shadow-2xl" style={{
+            transform: 'rotateY(60deg) rotateX(-25deg)',
+            animation: 'float 7s ease-in-out infinite 2s, spin3d 30s linear infinite'
+          }}>
+            <div className="absolute inset-5 rounded-full bg-gray-900"></div>
+            <div className="absolute inset-10 rounded-full bg-gradient-to-br from-pink-600 to-purple-600"></div>
+          </div>
+        </div>
+        
+        {/* Rotating 3D Geometric Shapes - Fireworks style */}
+        <div className="absolute top-1/3 right-10 w-20 h-20 opacity-20" style={{
+          animation: 'float 5s ease-in-out infinite, rotate3d 15s linear infinite'
+        }}>
+          <div className="w-full h-full bg-gradient-to-br from-yellow-400 to-orange-500 shadow-2xl" style={{
+            clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
+            transform: 'rotateX(45deg) rotateZ(45deg)'
+          }}></div>
+        </div>
+        
+        <div className="absolute bottom-1/4 right-1/3 w-16 h-16 opacity-25" style={{
+          animation: 'float 6s ease-in-out infinite 1.5s, rotate3d 18s linear infinite reverse'
+        }}>
+          <div className="w-full h-full bg-gradient-to-br from-green-400 to-blue-500 shadow-xl" style={{
+            clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
+            transform: 'rotateX(30deg) rotateY(45deg)'
+          }}></div>
+        </div>
+        
+        {/* 3D Music Notes */}
+        <div className="absolute top-1/2 left-20 text-6xl opacity-20" style={{
+          animation: 'float 4s ease-in-out infinite, rotate3d 12s linear infinite',
+          transform: 'rotateY(30deg) rotateX(20deg)'
+        }}>🎵</div>
+        
+        <div className="absolute top-1/4 right-1/4 text-5xl opacity-15" style={{
+          animation: 'float 5s ease-in-out infinite 2s, rotate3d 16s linear infinite reverse',
+          transform: 'rotateY(-40deg) rotateX(-15deg)'
+        }}>🎶</div>
+        
+        <div className="absolute bottom-1/3 left-1/3 text-4xl opacity-25" style={{
+          animation: 'float 6s ease-in-out infinite 1s, rotate3d 20s linear infinite',
+          transform: 'rotateY(50deg) rotateX(25deg)'
+        }}>🎼</div>
+        
+        {/* Sparkle Particles - Fireworks effect */}
+        {[...Array(12)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-2 h-2 bg-white rounded-full"
+            style={{
+              top: `${15 + i * 7}%`,
+              left: `${10 + i * 8}%`,
+              opacity: 0.6,
+              boxShadow: '0 0 10px rgba(255, 255, 255, 0.8)',
+              animation: `sparkle ${2 + i * 0.3}s ease-in-out infinite ${i * 0.2}s, float ${3 + i * 0.2}s ease-in-out infinite`
+            }}
+          />
+        ))}
+        
+        {/* Orbiting particles around corners */}
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={`orbit-${i}`}
+            className="absolute w-3 h-3 rounded-full bg-gradient-to-r from-purple-400 to-pink-400"
+            style={{
+              top: '50%',
+              left: '50%',
+              opacity: 0.4,
+              boxShadow: '0 0 20px rgba(168, 85, 247, 0.6)',
+              animation: `orbit ${8 + i}s linear infinite ${i * 1.5}s`
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-3 animate-pulse">
@@ -222,7 +320,26 @@ const Radio = () => {
         </div>
 
         {/* Main Player Card */}
-        <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-8 mb-8 border border-white/20">
+        <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-8 mb-8 border border-white/20 relative" style={{
+          transform: 'perspective(1000px) rotateX(2deg)',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 100px rgba(168, 85, 247, 0.4)',
+          transition: 'transform 0.3s ease'
+        }}
+        onMouseMove={(e) => {
+          const card = e.currentTarget;
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = (y - centerY) / 20;
+          const rotateY = (centerX - x) / 20;
+          card.style.transform = `perspective(1000px) rotateX(${2 - rotateX}deg) rotateY(${rotateY}deg)`;
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'perspective(1000px) rotateX(2deg)';
+        }}
+        >
           {playlist.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-8xl mb-4">🎵</div>
@@ -271,8 +388,12 @@ const Radio = () => {
 
                 <button
                   onClick={isPlaying ? handlePause : handlePlay}
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white p-6 rounded-full transition-all shadow-2xl transform hover:scale-110"
+                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white p-6 rounded-full transition-all shadow-2xl transform hover:scale-110 relative"
                   disabled={playlist.length === 0}
+                  style={{
+                    boxShadow: isPlaying ? '0 0 60px rgba(168, 85, 247, 0.8), 0 0 100px rgba(236, 72, 153, 0.6), 0 20px 40px rgba(0,0,0,0.3)' : '0 20px 40px rgba(0,0,0,0.3)',
+                    animation: isPlaying ? 'pulse-glow 2s ease-in-out infinite' : 'none'
+                  }}
                 >
                   {isPlaying ? (
                     <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
@@ -325,13 +446,18 @@ const Radio = () => {
 
         {/* Upcoming Tracks */}
         {playlist.length > 0 && (
-          <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 border border-white/20 mb-8">
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 border border-white/20 mb-8 relative" style={{
+            transform: 'perspective(1000px) rotateX(1deg)',
+            boxShadow: '0 20px 40px -12px rgba(0, 0, 0, 0.4), 0 0 80px rgba(59, 130, 246, 0.3)'
+          }}>
             <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
               <span>📻</span> Up Next
             </h3>
             <div className="space-y-3 max-h-64 overflow-y-auto">
               {playlist.slice(currentTrackIndex + 1, currentTrackIndex + 6).map((track, idx) => (
-                <div key={track.id} className="bg-white/5 rounded-lg p-4 hover:bg-white/10 transition-all">
+                <div key={track.id} className="bg-white/5 rounded-lg p-4 hover:bg-white/10 transition-all transform hover:translate-x-2" style={{
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)'
+                }}>
                   <p className="text-white font-semibold">{track.title}</p>
                   <p className="text-purple-300 text-sm">{track.artist}</p>
                 </div>
@@ -469,6 +595,69 @@ const Radio = () => {
           </div>
         </div>
       </div>
+      
+      {/* 3D Animation Styles */}
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { 
+            transform: translateY(0px) translateX(0px); 
+          }
+          50% { 
+            transform: translateY(-20px) translateX(10px); 
+          }
+        }
+        
+        @keyframes spin3d {
+          0% { 
+            transform: rotateY(0deg) rotateX(20deg); 
+          }
+          100% { 
+            transform: rotateY(360deg) rotateX(20deg); 
+          }
+        }
+        
+        @keyframes rotate3d {
+          0% { 
+            transform: rotateX(45deg) rotateZ(0deg); 
+          }
+          100% { 
+            transform: rotateX(45deg) rotateZ(360deg); 
+          }
+        }
+        
+        @keyframes sparkle {
+          0%, 100% { 
+            opacity: 0.3; 
+            transform: scale(1); 
+          }
+          50% { 
+            opacity: 1; 
+            transform: scale(2); 
+          }
+        }
+        
+        @keyframes orbit {
+          0% {
+            transform: translate(-50%, -50%) rotate(0deg) translateX(300px) rotate(0deg);
+          }
+          100% {
+            transform: translate(-50%, -50%) rotate(360deg) translateX(300px) rotate(-360deg);
+          }
+        }
+        
+        @keyframes pulse-glow {
+          0%, 100% {
+            box-shadow: 0 0 60px rgba(168, 85, 247, 0.8), 0 0 100px rgba(236, 72, 153, 0.6), 0 20px 40px rgba(0,0,0,0.3);
+          }
+          50% {
+            box-shadow: 0 0 80px rgba(168, 85, 247, 1), 0 0 120px rgba(236, 72, 153, 0.8), 0 20px 40px rgba(0,0,0,0.3);
+          }
+        }
+        
+        .animate-spin-slow {
+          animation: spin 8s linear infinite;
+        }
+      `}</style>
     </div>
   );
 };
