@@ -132,7 +132,7 @@ const AIRichard = () => {
         >
           {/* Avatar circle */}
           <div className="relative">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 p-1 shadow-2xl group-hover:scale-110 transition-transform duration-300">
+            <div className="w-48 h-48 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 p-1 shadow-2xl group-hover:scale-110 transition-transform duration-300">
               <div className="w-full h-full rounded-full overflow-hidden" style={{ backgroundColor: '#F5E6D3' }}>
                 <img 
                   src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/ekj6e45z_IMG_1807.png"
@@ -166,7 +166,7 @@ const AIRichard = () => {
           {/* Header */}
           <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white" style={{ backgroundColor: '#F5E6D3' }}>
+              <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-white" style={{ backgroundColor: '#F5E6D3' }}>
                 <img 
                   src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/ekj6e45z_IMG_1807.png"
                   alt="Richard Johnson"
