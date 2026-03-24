@@ -626,13 +626,16 @@ const AIRichard = () => {
                 </div>
               </div>
             ) : (
-              // NEW: Walking figure (silhouette or purple)
+              // NEW: Walking figure (silhouette or purple) - NO WHITE BOX!
               <div className="w-32 h-32 group-hover:scale-110 transition-transform duration-300 animate-bounce-subtle">
                 <img 
                   src={walkingStyle === 'silhouette' ? '/richard-walking-silhouette.png' : '/richard-walking-purple.png'}
                   alt="Richard Johnson Walking"
                   className="w-full h-full object-contain drop-shadow-2xl"
-                  style={{ transform: walkDirection === -1 ? 'scaleX(-1)' : 'scaleX(1)' }}
+                  style={{ 
+                    transform: walkDirection === -1 ? 'scaleX(-1)' : 'scaleX(1)',
+                    background: 'transparent' // Force transparent background
+                  }}
                 />
               </div>
             )}
