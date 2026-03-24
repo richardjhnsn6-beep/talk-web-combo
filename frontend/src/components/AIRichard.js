@@ -94,7 +94,7 @@ const AIRichard = () => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
             text: text,
-            voice: 'fable' // Expressive, storytelling voice - projects better than onyx
+            voice: 'onyx' // Deep, authoritative - most authentic Black American voice
           })
         });
         
