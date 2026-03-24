@@ -10,6 +10,7 @@ const AdminDashboard = () => {
   const [newSaleAlert, setNewSaleAlert] = useState(null);
   const pageViewsRef = useRef(null);
   const aiChatStatsRef = useRef(null);
+  const transactionsRef = useRef(null);
 
   useEffect(() => {
     fetchDashboardData();
@@ -113,6 +114,10 @@ const AdminDashboard = () => {
     aiChatStatsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  const scrollToTransactions = () => {
+    transactionsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -167,10 +172,16 @@ const AdminDashboard = () => {
 
         {/* Revenue Stats */}
         <div className="grid md:grid-cols-5 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-green-500 transform hover:scale-105 transition-all">
+          <div 
+            onClick={scrollToTransactions}
+            className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-green-500 transform hover:scale-105 transition-all cursor-pointer hover:shadow-xl"
+          >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-500 text-sm font-semibold mb-1">Total Revenue</p>
+                <p className="text-gray-500 text-sm font-semibold mb-1 flex items-center gap-1">
+                  Total Revenue
+                  <span className="text-xs text-green-500">↓ Click</span>
+                </p>
                 <p className="text-4xl font-bold text-green-600">
                   ${((stats?.payments?.total_revenue || 0) + (aiChatStats?.monthly_recurring_revenue || 0)).toFixed(2)}
                 </p>
@@ -179,10 +190,16 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-blue-500 transform hover:scale-105 transition-all">
+          <div 
+            onClick={scrollToTransactions}
+            className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-blue-500 transform hover:scale-105 transition-all cursor-pointer hover:shadow-xl"
+          >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-500 text-sm font-semibold mb-1">Content Sales</p>
+                <p className="text-gray-500 text-sm font-semibold mb-1 flex items-center gap-1">
+                  Content Sales
+                  <span className="text-xs text-blue-500">↓ Click</span>
+                </p>
                 <p className="text-4xl font-bold text-blue-600">
                   ${stats?.payments?.content_revenue?.toFixed(2) || '0.00'}
                 </p>
@@ -192,10 +209,16 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-yellow-500 transform hover:scale-105 transition-all">
+          <div 
+            onClick={scrollToTransactions}
+            className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-yellow-500 transform hover:scale-105 transition-all cursor-pointer hover:shadow-xl"
+          >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-500 text-sm font-semibold mb-1">Donations</p>
+                <p className="text-gray-500 text-sm font-semibold mb-1 flex items-center gap-1">
+                  Donations
+                  <span className="text-xs text-yellow-500">↓ Click</span>
+                </p>
                 <p className="text-4xl font-bold text-yellow-600">
                   ${stats?.payments?.donation_revenue?.toFixed(2) || '0.00'}
                 </p>
@@ -337,7 +360,7 @@ const AdminDashboard = () => {
         )}
 
         {/* Recent Transactions */}
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
+        <div ref={transactionsRef} className="bg-white rounded-lg shadow-lg p-6 mb-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
             💳 Recent Transactions
             {stats?.payments?.successful_payments > 0 && (
