@@ -11,6 +11,7 @@ const AIRichard = () => {
   const [voiceQuality, setVoiceQuality] = useState('free'); // 'free' or 'premium'
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [continuousMode, setContinuousMode] = useState(false); // NEW: Always-on listening
+  const [isRecognitionActive, setIsRecognitionActive] = useState(false); // Track if recognition is running
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
   const synthRef = useRef(null);
@@ -122,10 +123,15 @@ const AIRichard = () => {
             radioPlayer.play();
           }
           // Restart listening if continuous mode is on
-          if (continuousMode && recognitionRef.current) {
+          if (continuousMode && recognitionRef.current && !isRecognitionActive) {
             setTimeout(() => {
-              recognitionRef.current.start();
-              setIsListening(true);
+              try {
+                recognitionRef.current.start();
+                setIsListening(true);
+                setIsRecognitionActive(true);
+              } catch (err) {
+                console.error('Restart failed:', err);
+              }
             }, 500);
           }
         };
@@ -251,6 +257,7 @@ const AIRichard = () => {
       recognitionRef.current.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
         setIsListening(false);
+        setIsRecognitionActive(false);
         
         // Auto-send the message immediately for natural voice conversation
         if (transcript.trim()) {
@@ -302,10 +309,15 @@ const AIRichard = () => {
               speakText(errorMsg);
             } else {
               // Restart listening even on error if continuous mode
-              if (continuousMode) {
+              if (continuousMode && !isRecognitionActive) {
                 setTimeout(() => {
-                  recognitionRef.current.start();
-                  setIsListening(true);
+                  try {
+                    recognitionRef.current.start();
+                    setIsListening(true);
+                    setIsRecognitionActive(true);
+                  } catch (err) {
+                    console.error('Restart failed:', err);
+                  }
                 }, 500);
               }
             }
@@ -315,10 +327,15 @@ const AIRichard = () => {
           });
         } else {
           // Empty transcript - restart listening immediately
-          if (continuousMode) {
+          if (continuousMode && !isRecognitionActive) {
             setTimeout(() => {
-              recognitionRef.current.start();
-              setIsListening(true);
+              try {
+                recognitionRef.current.start();
+                setIsListening(true);
+                setIsRecognitionActive(true);
+              } catch (err) {
+                console.error('Restart failed:', err);
+              }
             }, 500);
           }
         }
@@ -327,13 +344,15 @@ const AIRichard = () => {
       recognitionRef.current.onerror = (event) => {
         console.error('Speech recognition error:', event.error);
         setIsListening(false);
+        setIsRecognitionActive(false);
         
         // Auto-restart if continuous mode and error is not fatal
-        if (continuousMode && event.error !== 'aborted') {
+        if (continuousMode && event.error !== 'aborted' && !isRecognitionActive) {
           setTimeout(() => {
             try {
               recognitionRef.current.start();
               setIsListening(true);
+              setIsRecognitionActive(true);
             } catch (err) {
               console.error('Failed to restart recognition:', err);
             }
@@ -344,6 +363,7 @@ const AIRichard = () => {
       recognitionRef.current.onend = () => {
         console.log('Recognition ended. Continuous mode:', continuousMode);
         setIsListening(false);
+        setIsRecognitionActive(false);
         
         // CRITICAL: Use a ref check instead of state to avoid stale closure
         // Check if the button is still in continuous mode
@@ -355,6 +375,7 @@ const AIRichard = () => {
             try {
               recognitionRef.current.start();
               setIsListening(true);
+              setIsRecognitionActive(true);
               console.log('Recognition restarted successfully');
             } catch (err) {
               console.error('Failed to restart recognition:', err);
@@ -363,8 +384,10 @@ const AIRichard = () => {
                 try {
                   recognitionRef.current.start();
                   setIsListening(true);
+                  setIsRecognitionActive(true);
                 } catch (err2) {
                   console.error('Second restart attempt failed');
+                  setIsRecognitionActive(false);
                 }
               }, 1000);
             }
@@ -424,8 +447,15 @@ const AIRichard = () => {
       
       // Small delay to ensure voiceEnabled state updates
       setTimeout(() => {
-        recognitionRef.current.start();
-        setIsListening(true);
+        if (!isRecognitionActive) {
+          try {
+            recognitionRef.current.start();
+            setIsListening(true);
+            setIsRecognitionActive(true);
+          } catch (err) {
+            console.error('Failed to start recognition:', err);
+          }
+        }
       }, 100);
     } else {
       // Disable continuous mode
