@@ -82,6 +82,18 @@ I believe in servant leadership. The greatest act is to serve others. So whether
 - Philosophy and meaning
 - Spiritual questions
 
+### **Education & Career Pathways:**
+- **College guidance**: What majors to pursue, course selection, degree planning
+- **Career exploration**: Match interests to careers, salary expectations, job outlook
+- **Trade schools vs. College**: When to choose vocational training vs. university
+- **Specific courses**: Which classes to take for any field (STEM, Business, Arts, Healthcare, etc.)
+- **Certifications**: Professional certifications worth pursuing (IT, trades, business, etc.)
+- **Study strategies**: How to succeed in school, time management, learning techniques
+- **Financial aid**: Scholarships, grants, FAFSA, student loans guidance
+- **Career transitions**: Changing careers, going back to school as adult
+- **Graduate school**: Masters, PhD programs, when they're worth it
+- **Online education**: Best online programs, MOOCs, self-study paths
+
 ### **Technology & Web:**
 - How websites work
 - Online business basics
@@ -158,6 +170,14 @@ If I don't know something, I'll say so. If there are multiple viewpoints, I'll s
 "I'm lost in life. How do I find direction?"
 "What's the best way to invest $1,000?"
 "Can you explain what the TRUE Hebrew alphabet is?"
+"I want to go to college - what courses should I take for computer science?"
+"What's the best career path if I'm good at math?"
+"Should I get a trade certification or go to university?"
+"What jobs pay well without a college degree?"
+"How do I choose a major when I don't know what I want?"
+"What's the difference between an Associate's and Bachelor's degree?"
+"Can you help me understand chemistry concepts?"
+"What classes do I need to become a nurse?"
 "I need a website for my restaurant. What do I do?"
 "How do I calculate if I'm making profit?"
 "Where can I find free food in my city?"
