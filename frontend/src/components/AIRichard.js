@@ -15,6 +15,9 @@ const AIRichard = () => {
   const [walkPosition, setWalkPosition] = useState(-10); // Walking animation position (starts OFF-SCREEN)
   const [walkDirection, setWalkDirection] = useState(1); // 1 = right, -1 = left
   const [hasEntered, setHasEntered] = useState(false); // Track if Richard has walked onto screen
+  
+  // CHOOSE YOUR WALKING STYLE: 'silhouette' or 'purple' or 'photo'
+  const walkingStyle = 'purple'; // Change this to switch between styles
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
   const synthRef = useRef(null);
@@ -608,21 +611,36 @@ const AIRichard = () => {
             transform: walkDirection === -1 ? 'scaleX(-1)' : 'scaleX(1)' // Flip horizontally when walking left
           }}
         >
-          {/* Avatar circle */}
+          {/* Walking Figure or Photo */}
           <div className="relative">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 p-1 shadow-2xl group-hover:scale-110 transition-transform duration-300 animate-bounce-subtle">
-              <div className="w-full h-full rounded-full overflow-hidden bg-white">
+            {walkingStyle === 'photo' ? (
+              // ORIGINAL: Circular photo
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 p-1 shadow-2xl group-hover:scale-110 transition-transform duration-300 animate-bounce-subtle">
+                <div className="w-full h-full rounded-full overflow-hidden bg-white">
+                  <img 
+                    src="/richard-avatar.jpg"
+                    alt="Richard Johnson"
+                    className="w-full h-full object-cover"
+                    style={{ transform: walkDirection === -1 ? 'scaleX(-1)' : 'scaleX(1)' }}
+                  />
+                </div>
+              </div>
+            ) : (
+              // NEW: Walking figure (silhouette or purple)
+              <div className="w-32 h-32 group-hover:scale-110 transition-transform duration-300 animate-bounce-subtle">
                 <img 
-                  src="/richard-avatar.jpg"
-                  alt="Richard Johnson"
-                  className="w-full h-full object-cover"
-                  style={{ transform: walkDirection === -1 ? 'scaleX(-1)' : 'scaleX(1)' }} // Keep face upright
+                  src={walkingStyle === 'silhouette' ? '/richard-walking-silhouette.png' : '/richard-walking-purple.png'}
+                  alt="Richard Johnson Walking"
+                  className="w-full h-full object-contain drop-shadow-2xl"
+                  style={{ transform: walkDirection === -1 ? 'scaleX(-1)' : 'scaleX(1)' }}
                 />
               </div>
-            </div>
+            )}
             
-            {/* Online status indicator */}
-            <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
+            {/* Online status indicator - only show for photo style */}
+            {walkingStyle === 'photo' && (
+              <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
+            )}
             
             {/* Pulse animation */}
             <div className="absolute inset-0 rounded-full bg-purple-400 opacity-0 group-hover:opacity-30 animate-ping"></div>
