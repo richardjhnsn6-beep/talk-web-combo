@@ -385,6 +385,15 @@ const AIRichard = () => {
             <div ref={messagesEndRef} />
           </div>
 
+          {/* Business Card */}
+          <div className="px-4 pt-3 pb-2 border-t border-gray-200 bg-gray-50">
+            <img 
+              src="/business-card.jpg" 
+              alt="Richard Johnson Business Card"
+              className="w-full rounded-lg shadow-md"
+            />
+          </div>
+
           {/* Input area */}
           <div className="p-4 bg-white border-t border-gray-200">
             {/* Voice status indicator with quality selector */}
