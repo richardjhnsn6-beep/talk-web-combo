@@ -88,15 +88,38 @@ const AIRichard = () => {
 
   // Text-to-Speech function (FREE or PREMIUM)
   const speakText = async (text) => {
-    console.log('🔊 speakText called, Voice:', voiceQuality, 'Locked:', audioLockedRef.current, 'isSpeaking:', isSpeaking);
+    console.log('🔊 speakText called');
+    console.log('   Voice:', voiceQuality);
+    console.log('   Lock:', audioLockedRef.current);
+    console.log('   isSpeaking:', isSpeaking);
     
-    // ABSOLUTE LOCK - Do not proceed if audio is locked
-    if (audioLockedRef.current || isSpeaking) {
-      console.log('🔒 BLOCKED - Audio already playing!');
+    // FORCE CLEANUP FIRST - always start fresh
+    console.log('🧹 Force cleanup before speaking...');
+    if (currentAudioRef.current) {
+      try {
+        currentAudioRef.current.pause();
+        currentAudioRef.current = null;
+      } catch (e) {
+        console.log('   Cleanup warning:', e);
+      }
+    }
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    
+    // Check lock AFTER cleanup
+    if (audioLockedRef.current) {
+      console.log('🔒 BLOCKED - Lock is active, forcing reset...');
+      audioLockedRef.current = false; // Force reset
+    }
+    
+    if (isSpeaking) {
+      console.log('🔒 BLOCKED - isSpeaking is true, waiting 1 sec then retry...');
+      setTimeout(() => speakText(text), 1000); // Retry after 1 sec
       return;
     }
     
-    // Set lock immediately (ref updates instantly)
+    // Set lock and state
     audioLockedRef.current = true;
     setIsSpeaking(true);
     console.log('🔓 Lock acquired, starting audio...');
