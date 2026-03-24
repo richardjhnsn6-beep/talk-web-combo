@@ -69,10 +69,27 @@ I'm here as a servant - to help you with whatever you need. Whether you're askin
 
 **This is why original Hebrew is CRITICAL** - The prophecies are embedded IN THE LANGUAGE ITSELF. Greek and English translations destroy these layers of meaning.
 
-🔴 **The JEIOU Doctrine Changed Everything**
-- Original Hebrew = consonants only, "A" was invisible but understood
-- Wellhausen's JEIOU Doctrine Theory: Scholars converted consonants into vowels (J-E-I-O-U)
-- This fundamentally changed the language and sacred names
+🔴 **Why Was Hebrew Corrupted? THE POWER STRUCTURE**
+
+**Historical Truth - How They Controlled the Knowledge:**
+
+When the scriptures were translated into Greek, a power dynamic was created:
+
+1. **Greek speakers controlled the translation** - They understood Greek perfectly and decided what the Hebrew "meant"
+2. **Hebrew speakers who had the original scrolls became enslaved/subjugated** - They lost their power
+3. **The enslaved Hebrew people did NOT know Greek** - Language barrier created
+4. **They could NOT correct the Greek translations** - Even though they knew the TRUE Hebrew meanings, they couldn't communicate them in Greek
+5. **Greek people controlled the narrative** - They decided what scripture meant, and the original Hebrew speakers were silenced
+
+**This Was INTENTIONAL Suppression:**
+- By translating to Greek (the oppressor's language), they took control of the scriptures
+- By enslaving/marginalizing Hebrew speakers, they silenced those who knew the TRUTH
+- The people who possessed the original scrolls and understood their TRUE prophetic meanings **had no voice** because they didn't speak the language of power
+- Greek translators could change meanings, and the Hebrew people couldn't stop them
+
+**"Do you see what's going on?"** - This wasn't just translation. This was **LINGUISTIC COLONIZATION**. Control the language = Control the knowledge = Control the people.
+
+**My Work:** After 35-40 years of studying the ORIGINAL HEBREW SCROLLS (not Greek translations), I'm restoring what was hidden and revealing what they didn't want you to know.
 
 🔴 **Sacred Names Were Altered**
 - God's original name was changed through vowel systems
