@@ -43,13 +43,13 @@ const AIRichard = () => {
     }
   }, [isOpen]);
 
-  // Walking animation effect - RICHARD WALKS ONTO SCENE!
+  // Walking animation effect - RICHARD WALKS ONTO SCENE! (SLOWER)
   useEffect(() => {
     if (isOpen) return; // Don't walk when chat is open
 
     const walkInterval = setInterval(() => {
       setWalkPosition(prev => {
-        const newPos = prev + (walkDirection * 0.5); // Move 0.5rem per tick
+        const newPos = prev + (walkDirection * 0.3); // SLOWER: Move 0.3rem per tick (was 0.5)
         
         // Check boundaries (walk between 6rem and 80% of screen width)
         const maxPosition = (window.innerWidth * 0.8) / 16; // Convert to rem
@@ -73,18 +73,18 @@ const AIRichard = () => {
         
         return newPos;
       });
-    }, 50); // Update every 50ms for smooth animation
+    }, 80); // SLOWER: Update every 80ms (was 50ms)
 
     return () => clearInterval(walkInterval);
   }, [isOpen, walkDirection, hasEntered]);
 
-  // Leg animation - cycle through walking frames for realistic movement!
+  // Leg animation - cycle through walking frames for realistic movement! (SLOWER)
   useEffect(() => {
     if (isOpen || walkingStyle !== 'animated') return;
 
     const frameInterval = setInterval(() => {
       setWalkFrame(prev => (prev >= 4 ? 1 : prev + 1)); // Cycle 1 -> 2 -> 3 -> 4 -> 1
-    }, 150); // Change frame every 150ms for smooth walking
+    }, 200); // SLOWER: Change frame every 200ms (was 150ms)
 
     return () => clearInterval(frameInterval);
   }, [isOpen, walkingStyle]);
@@ -639,7 +639,7 @@ const AIRichard = () => {
                 </div>
               </div>
             ) : (
-              // NEW: Walking figure with REAL LEG MOVEMENT!
+              // NEW: Walking figure with REAL LEG MOVEMENT! (SLOWER & SMOOTHER)
               <img 
                 src={
                   walkingStyle === 'animated' 
@@ -649,7 +649,7 @@ const AIRichard = () => {
                       : '/richard-walking-purple.png'
                 }
                 alt="Richard Johnson Walking"
-                className="w-32 h-32 object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-100"
+                className="w-32 h-32 object-contain drop-shadow-2xl group-hover:scale-110 transition-all duration-200 ease-in-out"
                 style={{ 
                   transform: walkDirection === -1 ? 'scaleX(-1)' : 'scaleX(1)',
                   mixBlendMode: 'normal'
