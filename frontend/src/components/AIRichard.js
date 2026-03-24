@@ -7,8 +7,11 @@ const AIRichard = () => {
   const [conversationId, setConversationId] = useState(null);
   const [isTyping, setIsTyping] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
+  const synthRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -52,19 +55,63 @@ const AIRichard = () => {
       const data = await response.json();
       
       setConversationId(data.conversation_id);
+      const aiResponse = data.response;
+      
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: data.response 
+        content: aiResponse 
       }]);
+      
+      // Speak the response if voice is enabled
+      if (voiceEnabled) {
+        speakText(aiResponse);
+      }
     } catch (error) {
       console.error('AI Richard error:', error);
+      const errorMsg = "I apologize, but I'm having trouble connecting right now. Please try again in a moment or email me directly at the contact information on the site.";
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: "I apologize, but I'm having trouble connecting right now. Please try again in a moment or email me directly at the contact information on the site." 
+        content: errorMsg 
       }]);
+      if (voiceEnabled) {
+        speakText(errorMsg);
+      }
     } finally {
       setIsTyping(false);
     }
+  };
+
+  // Text-to-Speech function (FREE browser TTS)
+  const speakText = (text) => {
+    if ('speechSynthesis' in window) {
+      // Cancel any ongoing speech
+      window.speechSynthesis.cancel();
+      
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.9; // Slightly slower for clarity
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
+      
+      utterance.onstart = () => setIsSpeaking(true);
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
+      
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  const toggleVoice = () => {
+    if (voiceEnabled) {
+      // Turning off - stop any current speech
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    }
+    setVoiceEnabled(!voiceEnabled);
+  };
+
+  const stopSpeaking = () => {
+    window.speechSynthesis.cancel();
+    setIsSpeaking(false);
   };
 
   const handleKeyPress = (e) => {
@@ -187,6 +234,34 @@ const AIRichard = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
+            {/* Voice toggle button */}
+            <button 
+              onClick={toggleVoice}
+              className={`text-white rounded-full p-2 transition-colors ${voiceEnabled ? 'bg-green-500' : 'hover:bg-white/20'}`}
+              title={voiceEnabled ? "Voice ON - AI will speak" : "Voice OFF - Click to enable"}
+            >
+              {voiceEnabled ? (
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clipRule="evenodd" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM12.293 7.293a1 1 0 011.414 0L15 8.586l1.293-1.293a1 1 0 111.414 1.414L16.414 10l1.293 1.293a1 1 0 01-1.414 1.414L15 11.414l-1.293 1.293a1 1 0 01-1.414-1.414L13.586 10l-1.293-1.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              )}
+            </button>
+            {/* Stop speaking button (only show when speaking) */}
+            {isSpeaking && (
+              <button 
+                onClick={stopSpeaking}
+                className="text-white bg-red-500 rounded-full p-2 transition-colors animate-pulse"
+                title="Stop speaking"
+              >
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clipRule="evenodd" />
+                </svg>
+              </button>
+            )}
           </div>
 
           {/* Messages area */}
@@ -220,6 +295,23 @@ const AIRichard = () => {
 
           {/* Input area */}
           <div className="p-4 bg-white border-t border-gray-200">
+            {/* Voice status indicator */}
+            {voiceEnabled && (
+              <div className="mb-2 flex items-center gap-2 text-sm text-green-600 font-medium">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                Voice enabled - AI Richard will speak to you
+              </div>
+            )}
+            {isSpeaking && (
+              <div className="mb-2 flex items-center gap-2 text-sm text-blue-600 font-medium animate-pulse">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217z" clipRule="evenodd" />
+                </svg>
+                Richard is speaking...
+              </div>
+            )}
             <div className="flex gap-2">
               <input
                 type="text"
