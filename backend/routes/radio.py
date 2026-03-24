@@ -42,21 +42,55 @@ class DJAnnouncement(BaseModel):
 
 @router.get("/playlist/mixed")
 async def get_mixed_playlist():
-    """Get playlist with DJ announcements mixed in between tracks"""
+    """Get playlist with DJ announcements mixed in between tracks
+    
+    Special handling for Morning Stretch:
+    - Only plays once per day
+    - Only during morning hours (6 AM - 10 AM)
+    - Excluded from regular rotation to prevent over-exercising
+    """
+    
+    from datetime import datetime, timezone
     
     # Get all tracks
     tracks = await db.radio_tracks.find({}, {"_id": 0, "audio_data": 0}).to_list(1000)
     tracks = sorted(tracks, key=lambda x: x.get("order", 0))
     
     # Get all DJ announcements
-    announcements = await db.dj_announcements.find({}, {"_id": 0, "audio_data": 0}).to_list(1000)
+    all_announcements = await db.dj_announcements.find({}, {"_id": 0, "audio_data": 0}).to_list(1000)
     
-    if not announcements:
+    # Separate Morning Stretch from regular announcements
+    morning_stretch = None
+    regular_announcements = []
+    
+    for ann in all_announcements:
+        # Check if this is the Morning Stretch broadcast
+        if "Morning Stretch" in ann.get("script", ""):
+            morning_stretch = ann
+        else:
+            regular_announcements.append(ann)
+    
+    if not regular_announcements and not morning_stretch:
         return tracks  # No announcements, just return tracks
     
-    # Mix announcements between tracks (every 3-4 tracks)
+    # Check if it's morning time (6 AM - 10 AM UTC)
+    # Note: Adjust timezone as needed for user's location
+    now_utc = datetime.now(timezone.utc)
+    current_hour = now_utc.hour
+    is_morning = 6 <= current_hour < 10
+    
+    # Mix regular announcements between tracks (every 3 tracks)
     mixed_playlist = []
     announcement_index = 0
+    
+    # If it's morning time, add Morning Stretch as the very first item
+    if is_morning and morning_stretch:
+        mixed_playlist.append({
+            **morning_stretch,
+            "type": "announcement",
+            "title": "Morning Stretch with Richard Johnson",
+            "artist": "RJHNSN12 Radio"
+        })
     
     for i, track in enumerate(tracks):
         # Add track with type marker
@@ -65,9 +99,9 @@ async def get_mixed_playlist():
             "type": "track"
         })
         
-        # Add DJ announcement after every 3 tracks
-        if (i + 1) % 3 == 0 and announcement_index < len(announcements):
-            announcement = announcements[announcement_index % len(announcements)]
+        # Add regular DJ announcement after every 3 tracks
+        if (i + 1) % 3 == 0 and announcement_index < len(regular_announcements):
+            announcement = regular_announcements[announcement_index % len(regular_announcements)]
             mixed_playlist.append({
                 **announcement,
                 "type": "announcement",
