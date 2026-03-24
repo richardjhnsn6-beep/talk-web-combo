@@ -132,14 +132,13 @@ const AIRichard = () => {
         >
           {/* Avatar circle */}
           <div className="relative">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 p-1 shadow-2xl group-hover:scale-110 transition-transform duration-300">
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 p-1 shadow-2xl group-hover:scale-110 transition-transform duration-300">
               <div className="w-full h-full rounded-full bg-white overflow-hidden">
-                {/* Photo from business card - perfectly centered */}
                 <img 
                   src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/ekj6e45z_IMG_1807.png"
                   alt="Richard Johnson"
                   className="w-full h-full object-cover"
-                  style={{ objectPosition: '50% 50%', transform: 'scale(1.3)' }}
+                  style={{ objectPosition: '50% 35%', objectFit: 'cover' }}
                 />
               </div>
             </div>
@@ -167,12 +166,12 @@ const AIRichard = () => {
           {/* Header */}
           <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-white overflow-hidden border-2 border-white">
+              <div className="w-14 h-14 rounded-full bg-white overflow-hidden border-2 border-white">
                 <img 
                   src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/ekj6e45z_IMG_1807.png"
                   alt="Richard Johnson"
                   className="w-full h-full object-cover"
-                  style={{ objectPosition: '50% 50%', transform: 'scale(1.3)' }}
+                  style={{ objectPosition: '50% 35%', objectFit: 'cover' }}
                 />
               </div>
               <div className="text-white">
