@@ -246,6 +246,7 @@ const AIRichard = () => {
       recognitionRef.current.continuous = false;
       recognitionRef.current.interimResults = false;
       recognitionRef.current.lang = 'en-US';
+      recognitionRef.current.maxAlternatives = 1;
 
       recognitionRef.current.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
@@ -341,20 +342,33 @@ const AIRichard = () => {
       };
 
       recognitionRef.current.onend = () => {
+        console.log('Recognition ended. Continuous mode:', continuousMode);
         setIsListening(false);
         
-        // Auto-restart if continuous mode is still active
-        if (continuousMode) {
+        // CRITICAL: Use a ref check instead of state to avoid stale closure
+        // Check if the button is still in continuous mode
+        const continuousModeActive = document.querySelector('[class*="bg-green-600"][class*="animate-pulse"]');
+        
+        if (continuousModeActive) {
+          console.log('Auto-restarting recognition...');
           setTimeout(() => {
             try {
               recognitionRef.current.start();
               setIsListening(true);
+              console.log('Recognition restarted successfully');
             } catch (err) {
               console.error('Failed to restart recognition:', err);
-              // If it fails, turn off continuous mode
-              setContinuousMode(false);
+              // Try one more time after a longer delay
+              setTimeout(() => {
+                try {
+                  recognitionRef.current.start();
+                  setIsListening(true);
+                } catch (err2) {
+                  console.error('Second restart attempt failed');
+                }
+              }, 1000);
             }
-          }, 500);
+          }, 300);
         }
       };
     }
