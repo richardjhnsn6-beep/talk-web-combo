@@ -134,12 +134,12 @@ const AIRichard = () => {
           <div className="relative">
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 p-1 shadow-2xl group-hover:scale-110 transition-transform duration-300">
               <div className="w-full h-full rounded-full bg-white overflow-hidden">
-                {/* Photo from business card - centered and larger */}
+                {/* Photo from business card - perfectly centered */}
                 <img 
                   src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/ekj6e45z_IMG_1807.png"
                   alt="Richard Johnson"
                   className="w-full h-full object-cover"
-                  style={{ objectPosition: 'center center', transform: 'scale(1.2)' }}
+                  style={{ objectPosition: '50% 50%', transform: 'scale(1.3)' }}
                 />
               </div>
             </div>
@@ -172,7 +172,7 @@ const AIRichard = () => {
                   src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/ekj6e45z_IMG_1807.png"
                   alt="Richard Johnson"
                   className="w-full h-full object-cover"
-                  style={{ objectPosition: 'center center', transform: 'scale(1.2)' }}
+                  style={{ objectPosition: '50% 50%', transform: 'scale(1.3)' }}
                 />
               </div>
               <div className="text-white">
