@@ -186,29 +186,41 @@ const AIRichard = () => {
           
           utterance.onend = () => {
             setIsSpeaking(false);
+            setAudioLocked(false); // Release lock for free voice
             // Resume radio if it was playing and not in continuous mode
             if (wasPlaying && !continuousMode && radioPlayer) {
               radioPlayer.play();
             }
             // Restart listening if continuous mode is on
-            if (continuousMode && recognitionRef.current) {
+            if (continuousMode && recognitionRef.current && !isRecognitionActive) {
               setTimeout(() => {
-                recognitionRef.current.start();
-                setIsListening(true);
+                try {
+                  recognitionRef.current.start();
+                  setIsListening(true);
+                  setIsRecognitionActive(true);
+                } catch (err) {
+                  console.error('Restart failed:', err);
+                }
               }, 500);
             }
           };
           utterance.onerror = () => {
             setIsSpeaking(false);
+            setAudioLocked(false); // Release lock on error
             // Resume radio on error
             if (wasPlaying && !continuousMode && radioPlayer) {
               radioPlayer.play();
             }
             // Restart listening even on error
-            if (continuousMode && recognitionRef.current) {
+            if (continuousMode && recognitionRef.current && !isRecognitionActive) {
               setTimeout(() => {
-                recognitionRef.current.start();
-                setIsListening(true);
+                try {
+                  recognitionRef.current.start();
+                  setIsListening(true);
+                  setIsRecognitionActive(true);
+                } catch (err) {
+                  console.error('Restart failed:', err);
+                }
               }, 500);
             }
           };
@@ -216,6 +228,7 @@ const AIRichard = () => {
           window.speechSynthesis.speak(utterance);
         } else {
           setIsSpeaking(false);
+          setAudioLocked(false); // Release lock if no speech synthesis
           // Resume radio if speech synthesis not available
           if (wasPlaying && radioPlayer) {
             radioPlayer.play();
@@ -225,15 +238,21 @@ const AIRichard = () => {
     } catch (error) {
       console.error('Speech error:', error);
       setIsSpeaking(false);
+      setAudioLocked(false); // CRITICAL: Release lock on error
       // Resume radio on error
       if (wasPlaying && !continuousMode && radioPlayer) {
         radioPlayer.play();
       }
       // Restart listening even on error
-      if (continuousMode && recognitionRef.current) {
+      if (continuousMode && recognitionRef.current && !isRecognitionActive) {
         setTimeout(() => {
-          recognitionRef.current.start();
-          setIsListening(true);
+          try {
+            recognitionRef.current.start();
+            setIsListening(true);
+            setIsRecognitionActive(true);
+          } catch (err) {
+            console.error('Restart failed:', err);
+          }
         }, 500);
       }
     }
