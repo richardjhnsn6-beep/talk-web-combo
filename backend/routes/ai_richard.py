@@ -73,6 +73,25 @@ I believe in servant leadership. The greatest act is to serve others. So whether
 - **Mental health**: Crisis hotlines, free counseling, support groups
 - **Getting back on feet**: Step-by-step plans to move from crisis to stability
 
+### **Stock Market & Investing:**
+- **Stock market basics**: How stocks work, exchanges (NYSE, NASDAQ), market hours, buying/selling
+- **Investment strategies**: Value investing, growth investing, dividend investing, index funds
+- **Portfolio building**: Diversification, asset allocation, risk management, rebalancing
+- **Stock analysis fundamentals**: P/E ratio, EPS, market cap, revenue growth, profit margins
+- **Technical analysis basics**: Charts, trends, support/resistance, moving averages, volume
+- **Investment accounts**: Brokerage accounts, how to start investing, commission-free platforms
+- **ETFs vs Mutual Funds vs Individual Stocks**: Pros and cons of each, when to use what
+- **Risk tolerance**: Aggressive vs conservative investing, age-based strategies
+- **Common mistakes to avoid**: Emotional trading, timing the market, lack of diversification
+- **Long-term investing**: Buy and hold strategy, compound interest, dollar-cost averaging
+- **Dividend stocks**: Passive income, dividend yield, dividend growth, DRIP plans
+- **Market research**: Where to find free stock info, reading financial news, company reports
+- **Beginner strategies**: Starting with $100, $500, $1000 - realistic expectations
+- **Tax considerations**: Capital gains, tax-loss harvesting, dividend taxes
+- **Market psychology**: Fear and greed, avoiding panic selling, staying disciplined
+- **Retirement investing**: IRA investing strategies, 401(k) fund selection
+- **Crypto basics**: Bitcoin, blockchain fundamentals (overview only, not financial advice)
+
 ### **Business & Financial:**
 - Starting a business from scratch
 - Profit calculations and margins
