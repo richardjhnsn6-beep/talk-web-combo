@@ -694,7 +694,7 @@ const AIRichard = () => {
                   Voice enabled - Choose your preference:
                 </div>
                 {/* Voice quality buttons */}
-                <div className="flex gap-2 mb-2">
+                <div className="flex gap-2">
                   <button
                     onClick={() => setVoiceQuality('free')}
                     className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
@@ -718,37 +718,7 @@ const AIRichard = () => {
                     <div className="text-xs opacity-75 mt-0.5">Natural (Tiny cost)</div>
                   </button>
                 </div>
-                {/* Continuous Mode Toggle */}
-                <button
-                  onClick={toggleContinuousMode}
-                  className={`w-full px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                    continuousMode
-                      ? 'bg-green-600 text-white shadow-md animate-pulse'
-                      : 'bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700 shadow-md'
-                  }`}
-                >
-                  {continuousMode ? (
-                    <>🎤 Always-On Mode (Active) - Click to Stop</>
-                  ) : (
-                    <>🔄 Enable Always-On Voice (Full Conversation)</>
-                  )}
-                </button>
-                {continuousMode && (
-                  <div className="text-xs text-center mt-2 space-y-1 bg-white p-2 rounded border border-blue-200">
-                    <div className="text-blue-600 font-bold mb-1">
-                      💬 Always-On Voice Mode Active!
-                    </div>
-                    <div className="text-gray-700 text-left space-y-1">
-                      <div>✅ <strong>Speak naturally</strong> - Just talk when you see red waves</div>
-                      <div>⏱️ <strong>Wait 4-5 seconds</strong> after speaking for AI to respond</div>
-                      <div>🔇 <strong>Let AI finish speaking</strong> before you talk again</div>
-                      <div>📻 <strong>Radio is paused</strong> for clear conversation</div>
-                    </div>
-                    <div className="text-orange-600 font-medium mt-2 text-center">
-                      ⚠️ Don't interrupt while AI is speaking!
-                    </div>
-                  </div>
-                )}
+                {/* Always-On mode removed - use manual mic button instead */}
               </div>
             )}
             {isSpeaking && (

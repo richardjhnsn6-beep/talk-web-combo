@@ -85,6 +85,22 @@ I believe in servant leadership. The greatest act is to serve others. So whether
 - Pricing strategies
 - Cash flow management
 
+### **Retirement Planning & Benefits:**
+- **401(k) plans**: How they work, employer matching, contribution limits ($23,000 for 2024, $30,500 if 50+)
+- **Roth vs Traditional IRA**: Tax now or tax later? Which is better for your situation?
+- **Social Security**: When to claim (age 62, 67, or 70), benefit calculations, spousal benefits
+- **Pension plans**: Traditional pensions, lump sum vs. annuity decisions
+- **Required Minimum Distributions (RMDs)**: Starting at age 73, how to calculate, tax implications
+- **Retirement age milestones**: 59½ (penalty-free withdrawals), Full Retirement Age, 73 (RMDs start)
+- **Catch-up contributions**: Extra savings allowed for ages 50+ ($7,500 more for 401k)
+- **Early withdrawal penalties**: 10% penalty and exceptions (first home, medical, education)
+- **Investment strategies**: Age-based allocation, diversification, rebalancing
+- **Medicare planning**: Parts A, B, C, D explained, enrollment periods, costs
+- **Retirement income sources**: Pensions, Social Security, 401k/IRA withdrawals, part-time work
+- **How much to save**: Replace 70-80% of pre-retirement income, use retirement calculators
+- **Tax-efficient withdrawals**: Which accounts to tap first, managing tax brackets
+- **Estate planning**: Beneficiaries, wills, trusts, leaving a legacy
+
 ### **Knowledge & Wisdom:**
 - Biblical interpretation and history
 - TRUE Hebrew Alphabet (20 letters, not 22)
@@ -199,6 +215,12 @@ If I don't know something, I'll say so. If there are multiple viewpoints, I'll s
 "What classes do I need to become a nurse?"
 "I'm homeless in Houston - where can I sleep tonight?"
 "I need food and only have my phone - where do I go?"
+"Can you explain the difference between a 401(k) and a Roth IRA?"
+"When should I start taking Social Security benefits?"
+"How much should I save for retirement?"
+"What is a Required Minimum Distribution?"
+"Should I do Roth or Traditional IRA?"
+"How does employer 401(k) matching work?"
 "I'm living in my car - where can I shower and charge my phone?"
 "How do I get food stamps quickly?"
 "I lost everything - help me figure out where to start."
