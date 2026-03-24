@@ -648,12 +648,18 @@ const AIRichard = () => {
                   )}
                 </button>
                 {continuousMode && (
-                  <div className="text-xs text-center mt-2 space-y-1">
-                    <div className="text-blue-600 font-medium">
-                      💬 Speak naturally - I'll respond with voice!
+                  <div className="text-xs text-center mt-2 space-y-1 bg-white p-2 rounded border border-blue-200">
+                    <div className="text-blue-600 font-bold mb-1">
+                      💬 Always-On Voice Mode Active!
                     </div>
-                    <div className="text-orange-600 font-medium">
-                      📻 Radio paused for clear conversation
+                    <div className="text-gray-700 text-left space-y-1">
+                      <div>✅ <strong>Speak naturally</strong> - Just talk when you see red waves</div>
+                      <div>⏱️ <strong>Wait 4-5 seconds</strong> after speaking for AI to respond</div>
+                      <div>🔇 <strong>Let AI finish speaking</strong> before you talk again</div>
+                      <div>📻 <strong>Radio is paused</strong> for clear conversation</div>
+                    </div>
+                    <div className="text-orange-600 font-medium mt-2 text-center">
+                      ⚠️ Don't interrupt while AI is speaking!
                     </div>
                   </div>
                 )}
