@@ -16,6 +16,8 @@ const AIRichard = () => {
   const [walkDirection, setWalkDirection] = useState(1); // 1 = right, -1 = left
   const [hasEntered, setHasEntered] = useState(false); // Track if Richard has walked onto screen
   const [walkFrame, setWalkFrame] = useState(1); // Current walking animation frame (1-4)
+  const [danceFrame, setDanceFrame] = useState(1); // Current dance animation frame (1-4)
+  const [isDancing, setIsDancing] = useState(false); // Is music playing?
   
   // CHOOSE YOUR WALKING STYLE: 'silhouette' or 'purple' or 'photo' or 'animated'
   const walkingStyle = 'animated'; // Animated = real leg movement!
@@ -97,6 +99,39 @@ const AIRichard = () => {
 
     return () => clearInterval(frameInterval);
   }, [isOpen, walkingStyle, walkDirection]);
+
+  // Dance animation - cycle through dance frames when music is playing!
+  useEffect(() => {
+    if (isOpen || walkingStyle !== 'animated' || !isDancing) return;
+
+    const danceInterval = setInterval(() => {
+      setDanceFrame(prev => (prev >= 4 ? 1 : prev + 1)); // Cycle 1 -> 2 -> 3 -> 4 -> 1
+    }, 100); // FAST dance moves: Change frame every 100ms
+
+    return () => clearInterval(danceInterval);
+  }, [isOpen, walkingStyle, isDancing]);
+
+  // Audio detection - Detect when radio is playing music!
+  useEffect(() => {
+    const detectAudio = () => {
+      // Check if there's any audio element playing on the page
+      const audioElements = document.querySelectorAll('audio');
+      let isAudioPlaying = false;
+
+      audioElements.forEach(audio => {
+        if (!audio.paused && !audio.ended && audio.currentTime > 0) {
+          isAudioPlaying = true;
+        }
+      });
+
+      setIsDancing(isAudioPlaying);
+    };
+
+    // Check audio status every 500ms
+    const audioCheckInterval = setInterval(detectAudio, 500);
+
+    return () => clearInterval(audioCheckInterval);
+  }, []);
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
@@ -648,17 +683,19 @@ const AIRichard = () => {
                 </div>
               </div>
             ) : (
-              // NEW: Walking figure with REAL LEG MOVEMENT! (SLOWER & SMOOTHER)
+              // NEW: Walking OR Dancing figure with REAL LEG/DANCE MOVEMENT!
               <img 
                 src={
-                  walkingStyle === 'animated' 
-                    ? `/walk-frame-${walkFrame}.png`  // Cycle through frames for leg movement!
-                    : walkingStyle === 'silhouette' 
-                      ? '/richard-walking-silhouette.png' 
-                      : '/richard-walking-purple.png'
+                  isDancing 
+                    ? `/dance-frame-${danceFrame}.png`  // DANCING when music plays! 🕺
+                    : walkingStyle === 'animated' 
+                      ? `/walk-frame-${walkFrame}.png`  // Cycle through walk frames
+                      : walkingStyle === 'silhouette' 
+                        ? '/richard-walking-silhouette.png' 
+                        : '/richard-walking-purple.png'
                 }
                 alt="Richard Johnson Walking"
-                className="w-32 h-32 object-contain drop-shadow-2xl group-hover:scale-110 transition-all duration-200 ease-in-out"
+                className={`w-32 h-32 object-contain drop-shadow-2xl group-hover:scale-110 transition-all duration-200 ease-in-out ${isDancing ? 'animate-bounce' : ''}`}
                 style={{ 
                   transform: walkDirection === -1 ? 'scaleX(-1)' : 'scaleX(1)',
                   mixBlendMode: 'normal'
@@ -682,10 +719,19 @@ const AIRichard = () => {
             </div>
             
             {/* Welcome wave when first entering - shows for 3 seconds */}
-            {!hasEntered && walkPosition > -5 && (
+            {!hasEntered && walkPosition > -5 && !isDancing && (
               <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 animate-bounce">
                 <div className="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg whitespace-nowrap">
                   👋 Hello!
+                </div>
+              </div>
+            )}
+            
+            {/* Dancing indicator when music plays! */}
+            {isDancing && (
+              <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 animate-pulse">
+                <div className="bg-pink-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg whitespace-nowrap">
+                  🎵 Dancing!
                 </div>
               </div>
             )}
