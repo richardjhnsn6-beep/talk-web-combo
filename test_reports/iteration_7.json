@@ -1,0 +1,92 @@
+{
+  "summary": "Frontend voice feature testing for AI Richard chat widget. Voice toggle, Free Voice, and Premium Voice UI buttons all work correctly. CRITICAL: Premium Voice backend TTS endpoint returns 500 error due to incorrect API key usage.",
+  "backend_issues": {
+    "critical": [
+      {
+        "endpoint": "POST /api/tts/tts",
+        "issue": "TTS endpoint returns 500 error. The tts.py route uses native OpenAI client with EMERGENT_LLM_KEY directly, but this key is meant for Emergent's LiteLLM integration, not direct OpenAI API calls. Error: 'Incorrect API key provided: sk-emerg******************e7b5'",
+        "priority": "CRITICAL"
+      }
+    ],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "Premium Voice TTS",
+        "issue": "Frontend correctly calls /api/tts/tts endpoint when Premium Voice is selected, but backend returns 500 error. Free Voice (browser TTS) works correctly.",
+        "affected_selectors": ["button:has-text('Premium Voice')"]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "CRITICAL: Fix /app/backend/routes/tts.py - The TTS endpoint uses native OpenAI client with EMERGENT_LLM_KEY, but this key is for Emergent's LiteLLM integration. Either: (1) Use emergentintegrations SDK like ai_richard.py does, or (2) Add a separate OPENAI_API_KEY for direct OpenAI TTS calls",
+    "OPTIONAL: Add data-testid attributes to AIRichard.js for better automated testing (voice-toggle-btn, free-voice-btn, premium-voice-btn, stop-speaking-btn)"
+  ],
+  "critical_code_review_comments": [
+    "tts.py line 11: Uses OpenAI(api_key=os.environ.get('EMERGENT_LLM_KEY')) - EMERGENT_LLM_KEY is not a valid OpenAI API key",
+    "ai_richard.py correctly uses emergentintegrations.llm.openai.LlmChat with EMERGENT_LLM_KEY - TTS should follow similar pattern or use different key"
+  ],
+  "updated_files": [],
+  "success_rate": {
+    "backend": "N/A - Backend testing skipped per request",
+    "frontend": "90% - All UI features work, Premium Voice integration blocked by backend error"
+  },
+  "test_credentials": "No credentials needed",
+  "seed_data_creation": "None",
+  "retest_needed": true,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Voice feature UI is fully functional. Free Voice (browser speechSynthesis) works. Premium Voice UI works but backend TTS endpoint fails with 401/500 due to API key issue. Once backend is fixed, Premium Voice should work.",
+  "features_tested": {
+    "voice_toggle_button": {
+      "status": "PASS",
+      "details": "Voice toggle in chat header enables/disables voice output correctly"
+    },
+    "voice_quality_selector_visibility": {
+      "status": "PASS",
+      "details": "Voice quality selector (Free/Premium buttons) appears when voice is enabled, hides when disabled"
+    },
+    "free_voice_button": {
+      "status": "PASS",
+      "details": "Free Voice button is visible, selectable, shows correct styling when selected (bg-gray-700)"
+    },
+    "premium_voice_button": {
+      "status": "PASS",
+      "details": "Premium Voice button is visible, selectable, shows correct styling when selected (gradient purple-blue)"
+    },
+    "free_voice_tts": {
+      "status": "PASS",
+      "details": "Free Voice uses browser speechSynthesis API - no console errors"
+    },
+    "premium_voice_tts": {
+      "status": "FAIL",
+      "details": "Premium Voice correctly calls /api/tts/tts but backend returns 500 error due to invalid API key"
+    },
+    "voice_selection_persistence": {
+      "status": "PASS",
+      "details": "Voice quality selection persists when toggling voice on/off"
+    },
+    "visual_indication": {
+      "status": "PASS",
+      "details": "Selected voice button has distinct styling - Free Voice: dark gray, Premium Voice: purple gradient"
+    }
+  },
+  "rca_of_the_issue": {
+    "premium_voice_500_error": {
+      "symptom": "Premium Voice TTS returns 500 Internal Server Error",
+      "root_cause": "tts.py uses native OpenAI client with EMERGENT_LLM_KEY (sk-emergent-...) which is not a valid OpenAI API key. This key is meant for Emergent's LiteLLM integration, not direct OpenAI API calls.",
+      "reproduction_steps": [
+        "1. Open AI Richard chat widget",
+        "2. Enable voice (click speaker icon)",
+        "3. Select Premium Voice",
+        "4. Send any message",
+        "5. Observe console error: 'Speech error: Error: TTS API failed'",
+        "6. Backend logs show: 'TTS Error: Error code: 401 - Incorrect API key provided'"
+      ],
+      "mitigation": "Modify /app/backend/routes/tts.py to either: (1) Use emergentintegrations SDK for TTS if available, or (2) Add a separate OPENAI_API_KEY environment variable for direct OpenAI TTS API calls"
+    }
+  }
+}
