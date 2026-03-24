@@ -94,7 +94,7 @@ const AIRichard = () => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
             text: text,
-            voice: 'nova' // Energetic, upbeat - dynamic voice with better clarity
+            voice: 'onyx' // Deep, authoritative male voice - best fit for Richard Johnson
           })
         });
         
