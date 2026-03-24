@@ -180,6 +180,13 @@ const AIRichard = () => {
         const transcript = event.results[0][0].transcript;
         setInputValue(transcript);
         setIsListening(false);
+        
+        // Auto-send after voice input for natural conversation flow
+        setTimeout(() => {
+          if (transcript.trim()) {
+            handleSendMessage();
+          }
+        }, 500);
       };
 
       recognitionRef.current.onerror = (event) => {
