@@ -87,6 +87,13 @@ const AIRichard = () => {
   const speakText = async (text) => {
     setIsSpeaking(true);
     
+    // Pause radio while AI is speaking
+    const radioPlayer = document.querySelector('audio');
+    const wasPlaying = radioPlayer && !radioPlayer.paused;
+    if (wasPlaying) {
+      radioPlayer.pause();
+    }
+    
     try {
       if (voiceQuality === 'premium') {
         // PREMIUM: OpenAI TTS
@@ -110,6 +117,10 @@ const AIRichard = () => {
         audio.onended = () => {
           setIsSpeaking(false);
           URL.revokeObjectURL(audioUrl);
+          // Resume radio if it was playing and not in continuous mode
+          if (wasPlaying && !continuousMode && radioPlayer) {
+            radioPlayer.play();
+          }
           // Restart listening if continuous mode is on
           if (continuousMode && recognitionRef.current) {
             setTimeout(() => {
@@ -121,6 +132,10 @@ const AIRichard = () => {
         audio.onerror = () => {
           setIsSpeaking(false);
           URL.revokeObjectURL(audioUrl);
+          // Resume radio on error
+          if (wasPlaying && !continuousMode && radioPlayer) {
+            radioPlayer.play();
+          }
           // Restart listening even on error
           if (continuousMode && recognitionRef.current) {
             setTimeout(() => {
@@ -144,6 +159,10 @@ const AIRichard = () => {
           
           utterance.onend = () => {
             setIsSpeaking(false);
+            // Resume radio if it was playing and not in continuous mode
+            if (wasPlaying && !continuousMode && radioPlayer) {
+              radioPlayer.play();
+            }
             // Restart listening if continuous mode is on
             if (continuousMode && recognitionRef.current) {
               setTimeout(() => {
@@ -154,6 +173,10 @@ const AIRichard = () => {
           };
           utterance.onerror = () => {
             setIsSpeaking(false);
+            // Resume radio on error
+            if (wasPlaying && !continuousMode && radioPlayer) {
+              radioPlayer.play();
+            }
             // Restart listening even on error
             if (continuousMode && recognitionRef.current) {
               setTimeout(() => {
@@ -166,11 +189,19 @@ const AIRichard = () => {
           window.speechSynthesis.speak(utterance);
         } else {
           setIsSpeaking(false);
+          // Resume radio if speech synthesis not available
+          if (wasPlaying && radioPlayer) {
+            radioPlayer.play();
+          }
         }
       }
     } catch (error) {
       console.error('Speech error:', error);
       setIsSpeaking(false);
+      // Resume radio on error
+      if (wasPlaying && !continuousMode && radioPlayer) {
+        radioPlayer.play();
+      }
       // Restart listening even on error
       if (continuousMode && recognitionRef.current) {
         setTimeout(() => {
@@ -313,6 +344,15 @@ const AIRichard = () => {
       setContinuousMode(true);
       setVoiceEnabled(true); // Auto-enable voice output
       setInputValue('');
+      
+      // Pause radio if playing
+      const radioPlayer = document.querySelector('audio');
+      if (radioPlayer && !radioPlayer.paused) {
+        radioPlayer.pause();
+        // Store that we paused it
+        radioPlayer.dataset.pausedByAI = 'true';
+      }
+      
       recognitionRef.current.start();
       setIsListening(true);
     } else {
@@ -320,6 +360,13 @@ const AIRichard = () => {
       setContinuousMode(false);
       recognitionRef.current.stop();
       setIsListening(false);
+      
+      // Resume radio if we paused it
+      const radioPlayer = document.querySelector('audio');
+      if (radioPlayer && radioPlayer.dataset.pausedByAI === 'true') {
+        radioPlayer.play();
+        delete radioPlayer.dataset.pausedByAI;
+      }
     }
   };
 
@@ -499,8 +546,13 @@ const AIRichard = () => {
                   )}
                 </button>
                 {continuousMode && (
-                  <div className="text-xs text-center mt-2 text-blue-600 font-medium">
-                    💬 Just speak naturally - no buttons needed!
+                  <div className="text-xs text-center mt-2 space-y-1">
+                    <div className="text-blue-600 font-medium">
+                      💬 Just speak naturally - no buttons needed!
+                    </div>
+                    <div className="text-orange-600 font-medium">
+                      📻 Radio auto-paused for clear conversation
+                    </div>
                   </div>
                 )}
               </div>
