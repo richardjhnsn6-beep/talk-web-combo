@@ -608,7 +608,8 @@ const AIRichard = () => {
           className="fixed bottom-6 z-50 cursor-pointer group transition-all duration-200 ease-linear"
           style={{ 
             left: `${walkPosition}rem`,
-            transform: walkDirection === -1 ? 'scaleX(-1)' : 'scaleX(1)' // Flip horizontally when walking left
+            transform: walkDirection === -1 ? 'scaleX(-1)' : 'scaleX(1)',
+            isolation: 'isolate' // Prevent background bleed
           }}
         >
           {/* Walking Figure or Photo */}
