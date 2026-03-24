@@ -47,7 +47,7 @@ async def get_mixed_playlist():
     Special handling for Morning Stretch:
     - Only plays once per day
     - Only during morning hours (6 AM - 10 AM)
-    - Excluded from regular rotation to prevent over-exercising
+    - Tracks if already played today to prevent repeats
     """
     
     from datetime import datetime, timezone
@@ -74,17 +74,35 @@ async def get_mixed_playlist():
         return tracks  # No announcements, just return tracks
     
     # Check if it's morning time (6 AM - 10 AM UTC)
-    # Note: Adjust timezone as needed for user's location
     now_utc = datetime.now(timezone.utc)
     current_hour = now_utc.hour
     is_morning = 6 <= current_hour < 10
+    today_date = now_utc.date().isoformat()
+    
+    # Check if Morning Stretch has already been played today
+    should_include_morning_stretch = False
+    
+    if is_morning and morning_stretch:
+        play_record = await db.morning_stretch_plays.find_one(
+            {"date": today_date},
+            {"_id": 0}
+        )
+        
+        if not play_record:
+            # Not played yet today - include it and mark as played
+            should_include_morning_stretch = True
+            await db.morning_stretch_plays.insert_one({
+                "date": today_date,
+                "timestamp": now_utc.isoformat(),
+                "played": True
+            })
     
     # Mix regular announcements between tracks (every 3 tracks)
     mixed_playlist = []
     announcement_index = 0
     
-    # If it's morning time, add Morning Stretch as the very first item
-    if is_morning and morning_stretch:
+    # Add Morning Stretch as first item ONLY if conditions are met
+    if should_include_morning_stretch:
         mixed_playlist.append({
             **morning_stretch,
             "type": "announcement",
