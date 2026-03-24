@@ -79,15 +79,24 @@ const AIRichard = () => {
   }, [isOpen, walkDirection, hasEntered]);
 
   // Leg animation - cycle through walking frames FASTER for snappier leg movement!
+  // IMPORTANT: Reverse frame direction when walking left to prevent moonwalking!
   useEffect(() => {
     if (isOpen || walkingStyle !== 'animated') return;
 
     const frameInterval = setInterval(() => {
-      setWalkFrame(prev => (prev >= 4 ? 1 : prev + 1)); // Cycle 1 -> 2 -> 3 -> 4 -> 1
-    }, 120); // FASTER leg movement: Change frame every 120ms (was 200ms)
+      setWalkFrame(prev => {
+        if (walkDirection === 1) {
+          // Walking RIGHT: frames go forward 1 -> 2 -> 3 -> 4 -> 1
+          return prev >= 4 ? 1 : prev + 1;
+        } else {
+          // Walking LEFT: frames go backward 4 -> 3 -> 2 -> 1 -> 4
+          return prev <= 1 ? 4 : prev - 1;
+        }
+      });
+    }, 120); // FASTER leg movement: Change frame every 120ms
 
     return () => clearInterval(frameInterval);
-  }, [isOpen, walkingStyle]);
+  }, [isOpen, walkingStyle, walkDirection]);
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
