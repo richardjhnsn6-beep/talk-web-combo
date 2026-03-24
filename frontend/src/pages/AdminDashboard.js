@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Crown, Sparkles, TrendingUp } from 'lucide-react';
 
 const AdminDashboard = () => {
@@ -8,6 +8,7 @@ const AdminDashboard = () => {
   const [error, setError] = useState(null);
   const [lastTransactionCount, setLastTransactionCount] = useState(0);
   const [newSaleAlert, setNewSaleAlert] = useState(null);
+  const pageViewsRef = useRef(null);
 
   useEffect(() => {
     fetchDashboardData();
@@ -101,6 +102,10 @@ const AdminDashboard = () => {
     } catch (err) {
       console.error('Audio playback error:', err);
     }
+  };
+
+  const scrollToPageViews = () => {
+    pageViewsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   if (loading) {
@@ -211,10 +216,16 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-purple-500 transform hover:scale-105 transition-all">
+          <div 
+            onClick={scrollToPageViews}
+            className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-purple-500 transform hover:scale-105 transition-all cursor-pointer hover:shadow-xl"
+          >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-500 text-sm font-semibold mb-1">Total Page Views</p>
+                <p className="text-gray-500 text-sm font-semibold mb-1 flex items-center gap-1">
+                  Total Page Views
+                  <span className="text-xs text-purple-500">↓ Click for details</span>
+                </p>
                 <p className="text-4xl font-bold text-purple-600">
                   {stats?.page_views?.total_views || 0}
                 </p>
@@ -375,7 +386,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Page Views by Section */}
-        <div className="bg-white rounded-lg shadow-lg p-6">
+        <div ref={pageViewsRef} className="bg-white rounded-lg shadow-lg p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">📄 Page Views by Section</h2>
           {stats?.page_views?.by_page && Object.keys(stats.page_views.by_page).length > 0 ? (
             <div className="space-y-3">
