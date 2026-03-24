@@ -9,6 +9,7 @@ const AdminDashboard = () => {
   const [lastTransactionCount, setLastTransactionCount] = useState(0);
   const [newSaleAlert, setNewSaleAlert] = useState(null);
   const pageViewsRef = useRef(null);
+  const aiChatStatsRef = useRef(null);
 
   useEffect(() => {
     fetchDashboardData();
@@ -108,6 +109,10 @@ const AdminDashboard = () => {
     pageViewsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  const scrollToAIChatStats = () => {
+    aiChatStatsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -200,12 +205,16 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-500 to-pink-500 text-white rounded-lg shadow-lg p-6 border-l-4 border-purple-700 transform hover:scale-105 transition-all">
+          <div 
+            onClick={scrollToAIChatStats}
+            className="bg-gradient-to-br from-purple-500 to-pink-500 text-white rounded-lg shadow-lg p-6 border-l-4 border-purple-700 transform hover:scale-105 transition-all cursor-pointer hover:shadow-xl"
+          >
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-purple-100 text-sm font-semibold mb-1 flex items-center gap-1">
                   <Crown className="w-4 h-4" />
                   AI Chat Revenue
+                  <span className="text-xs text-purple-200">↓ Click</span>
                 </p>
                 <p className="text-4xl font-bold text-white">
                   ${aiChatStats?.monthly_recurring_revenue?.toFixed(2) || '0.00'}
@@ -275,7 +284,7 @@ const AdminDashboard = () => {
 
         {/* AI Chat Stats Section */}
         {aiChatStats && (
-          <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg shadow-lg p-6 mb-8 text-white">
+          <div ref={aiChatStatsRef} className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg shadow-lg p-6 mb-8 text-white">
             <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
               <Sparkles className="w-6 h-6" />
               🤖 AI Chat Revenue System
