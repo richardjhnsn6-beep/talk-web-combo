@@ -232,7 +232,7 @@ frontend:
         agent: "main"
         comment: "Added Radio link to main navigation. Routes configured for /radio and /admin/radio. Screenshot verified - Radio appears in sidebar menu."
   
-  - task: "AI Richard chat widget - 24/7 business assistant"
+  - task: "AI Richard chat widget - 24/7 business assistant with dual voice options"
     implemented: true
     working: true
     file: "/app/frontend/src/components/AIRichard.js"
@@ -243,6 +243,9 @@ frontend:
       - working: true
         agent: "testing"
         comment: "FULLY FUNCTIONAL. Widget visible in bottom-left corner with purple/blue gradient border and profile photo. Chat opens smoothly with greeting message. Tested conversation flow: (1) Asked about website building - AI responded professionally mentioning custom websites, AI development, landing pages, full-stack apps, e-commerce. (2) Asked about pricing - AI maintained context and discussed pricing factors. API endpoint /api/ai-richard/chat returning 200 responses. Uses OpenAI GPT-4o-mini via Emergent LLM Key. Conversation context maintained across multiple messages. Chat closes properly and widget returns to closed state. All test scenarios passed."
+      - working: true
+        agent: "main_e1_fork"
+        comment: "VOICE FEATURE COMPLETE: Added dual voice options allowing visitors to choose between Free Voice (browser TTS, robotic, no cost) and Premium Voice (OpenAI TTS, natural-sounding, tiny cost). UI shows both options as separate buttons with clear labels. Backend TTS endpoint at /api/tts/tts uses emergentintegrations SDK with Emergent LLM Key. Tested: Both voice options visible, selectable, and working correctly. Premium voice successfully generates and plays natural-sounding audio via OpenAI tts-1 model."
 
 metadata:
   created_by: "main_agent_e1"
@@ -264,3 +267,5 @@ agent_communication:
     message: "CRITICAL FIX APPLIED: User reported DJ announcement volume too low after testing on multiple devices. Applied maximum volume boost strategy: (1) Announcements forced to 100% volume (1.0), (2) Music reduced to 60% of slider volume for contrast, (3) Web Audio API gainNode boost increased to 5.0x for announcements in PersistentRadioPlayer. MUST TEST: Verify announcements are significantly and consistently louder than music tracks during auto-play rotation. Test both Radio.js player and PersistentRadioPlayer.js floating player. Playlist has 34 items with 5 announcements mixed in (after tracks 3, 7, 11, 15, 19)."
   - agent: "testing"
     message: "AI RICHARD CHAT WIDGET TESTED - FULLY WORKING. Completed comprehensive testing of AI Richard chat widget per review request. All test scenarios passed: Widget visible in bottom-left corner, chat opens/closes smoothly, greeting message displays correctly, AI responds professionally to website building and pricing questions, conversation context maintained, API calls successful (200 responses). Backend endpoint /api/ai-richard/chat working correctly with OpenAI GPT-4o-mini. Feature is production-ready. Screenshots captured showing full conversation flow."
+  - agent: "main_e1_fork"
+    message: "PREMIUM VOICE FEATURE COMPLETE: Implemented dual voice options for AI Richard. Users can now choose between Free Voice (browser TTS) and Premium Voice (OpenAI TTS via emergentintegrations). Backend TTS endpoint fixed to use emergentintegrations.llm.openai.OpenAITextToSpeech with EMERGENT_LLM_KEY. Frontend shows both options as buttons with clear cost indicators. Tested end-to-end: voice toggle works, both voice buttons selectable with distinct styling, premium voice generates and plays audio correctly. No console errors. Feature ready for user comparison test."
