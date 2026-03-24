@@ -15,9 +15,10 @@ const AIRichard = () => {
   const [walkPosition, setWalkPosition] = useState(-10); // Walking animation position (starts OFF-SCREEN)
   const [walkDirection, setWalkDirection] = useState(1); // 1 = right, -1 = left
   const [hasEntered, setHasEntered] = useState(false); // Track if Richard has walked onto screen
+  const [walkFrame, setWalkFrame] = useState(1); // Current walking animation frame (1-4)
   
-  // CHOOSE YOUR WALKING STYLE: 'silhouette' or 'purple' or 'photo'
-  const walkingStyle = 'purple'; // Change this to switch between styles
+  // CHOOSE YOUR WALKING STYLE: 'silhouette' or 'purple' or 'photo' or 'animated'
+  const walkingStyle = 'animated'; // Animated = real leg movement!
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
   const synthRef = useRef(null);
@@ -76,6 +77,17 @@ const AIRichard = () => {
 
     return () => clearInterval(walkInterval);
   }, [isOpen, walkDirection, hasEntered]);
+
+  // Leg animation - cycle through walking frames for realistic movement!
+  useEffect(() => {
+    if (isOpen || walkingStyle !== 'animated') return;
+
+    const frameInterval = setInterval(() => {
+      setWalkFrame(prev => (prev >= 4 ? 1 : prev + 1)); // Cycle 1 -> 2 -> 3 -> 4 -> 1
+    }, 150); // Change frame every 150ms for smooth walking
+
+    return () => clearInterval(frameInterval);
+  }, [isOpen, walkingStyle]);
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
@@ -627,11 +639,17 @@ const AIRichard = () => {
                 </div>
               </div>
             ) : (
-              // NEW: Walking figure - REMOVE ALL BACKGROUNDS!
+              // NEW: Walking figure with REAL LEG MOVEMENT!
               <img 
-                src={walkingStyle === 'silhouette' ? '/richard-walking-silhouette.png' : '/richard-walking-purple.png'}
+                src={
+                  walkingStyle === 'animated' 
+                    ? `/walk-frame-${walkFrame}.png`  // Cycle through frames for leg movement!
+                    : walkingStyle === 'silhouette' 
+                      ? '/richard-walking-silhouette.png' 
+                      : '/richard-walking-purple.png'
+                }
                 alt="Richard Johnson Walking"
-                className="w-32 h-32 object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-300 animate-bounce-subtle"
+                className="w-32 h-32 object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-100"
                 style={{ 
                   transform: walkDirection === -1 ? 'scaleX(-1)' : 'scaleX(1)',
                   mixBlendMode: 'normal'
