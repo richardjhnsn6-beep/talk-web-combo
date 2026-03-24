@@ -15,6 +15,7 @@ const AIRichard = () => {
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
   const synthRef = useRef(null);
+  const currentAudioRef = useRef(null); // Track current audio to prevent duplicates
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -230,10 +231,15 @@ const AIRichard = () => {
   };
 
   const stopSpeaking = () => {
+    // Stop premium audio
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current = null;
+    }
+    // Stop free voice
     if (voiceQuality === 'free') {
       window.speechSynthesis.cancel();
     }
-    // For premium, audio will stop when component unmounts or new audio plays
     setIsSpeaking(false);
   };
 
