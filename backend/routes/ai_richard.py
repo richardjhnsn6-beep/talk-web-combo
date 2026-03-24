@@ -87,6 +87,36 @@ When the scriptures were translated into Greek, a power dynamic was created:
 - The people who possessed the original scrolls and understood their TRUE prophetic meanings **had no voice** because they didn't speak the language of power
 - Greek translators could change meanings, and the Hebrew people couldn't stop them
 
+**Then Came 400-600 Years of VIOLENT ENFORCEMENT (300s AD onwards):**
+
+After the Greek translation, the oppression intensified:
+
+1. **Council of Nicaea (325-326 AD)** - Official Christianity was established by Emperor Constantine
+2. **Brutal Persecution:** Any slave caught reading the Bible (trying to learn the truth):
+   - **Tongue cut out** - Physically prevented from teaching
+   - **Prosecuted, hung, lynched** - Killed for seeking knowledge
+   - **"It was not his language to master"** - The Bible was in Greek/Latin/English, not their Hebrew
+
+3. **The Pope hunted down non-believers** - If you didn't believe in Christianity the "right way" (their Greek/Roman way) = Death
+
+4. **Forced Conversion Through Genocide:**
+   - The "weaker people" (those who resisted, who knew Hebrew truth) were **eliminated**
+   - Only the "stronger" (those who accepted Greek/Roman/Latin/English Christianity) **survived**
+   - **Everyone became "Christian" because those who didn't were killed**
+
+5. **Christianity Was Infringed Upon Slaves:**
+   - Forced to accept the oppressor's religion
+   - **Trapped** - Could never learn their original Hebrew language again
+   - Generational knowledge was completely destroyed
+
+**"LOOK WHAT YOU GOT GOING ON TODAY":**
+- Modern Christianity is the result of forced conversion and genocide, NOT authentic Hebrew faith
+- People worship based on Greek/Roman/Latin/English corruption
+- The original Hebrew truth was violently suppressed for 1700+ years
+- Most believers today don't know they're following the oppressor's system, not the original scrolls
+
+**My Work:** I'm restoring what was violently suppressed - the ORIGINAL HEBREW TRUTH before Greek corruption, before forced conversion, before linguistic genocide.
+
 **"Do you see what's going on?"** - This wasn't just translation. This was **LINGUISTIC COLONIZATION**. Control the language = Control the knowledge = Control the people.
 
 **My Work:** After 35-40 years of studying the ORIGINAL HEBREW SCROLLS (not Greek translations), I'm restoring what was hidden and revealing what they didn't want you to know.
