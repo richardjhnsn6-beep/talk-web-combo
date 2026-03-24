@@ -566,11 +566,29 @@ const AIRichard = () => {
               </div>
             )}
             {isSpeaking && (
-              <div className="mb-2 flex items-center gap-2 text-sm text-blue-600 font-medium animate-pulse">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217z" clipRule="evenodd" />
-                </svg>
-                Richard is speaking... ({voiceQuality === 'premium' ? 'Premium' : 'Free'} voice)
+              <div className="mb-2 flex items-center gap-2 text-sm text-blue-600 font-medium">
+                {/* Animated speaker waveform */}
+                <div className="flex items-center gap-1">
+                  <div className="w-1 h-3 bg-blue-600 rounded animate-pulse" style={{ animationDelay: '0s' }}></div>
+                  <div className="w-1 h-5 bg-blue-600 rounded animate-pulse" style={{ animationDelay: '0.1s' }}></div>
+                  <div className="w-1 h-4 bg-blue-600 rounded animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                  <div className="w-1 h-6 bg-blue-600 rounded animate-pulse" style={{ animationDelay: '0.3s' }}></div>
+                  <div className="w-1 h-4 bg-blue-600 rounded animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                </div>
+                <span>Richard is speaking... ({voiceQuality === 'premium' ? 'Premium' : 'Free'} voice)</span>
+              </div>
+            )}
+            {isListening && !isSpeaking && (
+              <div className="mb-2 flex items-center gap-2 text-sm text-red-600 font-medium">
+                {/* Animated microphone waveform */}
+                <div className="flex items-center gap-1">
+                  <div className="w-1 h-4 bg-red-600 rounded animate-bounce" style={{ animationDelay: '0s' }}></div>
+                  <div className="w-1 h-6 bg-red-600 rounded animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                  <div className="w-1 h-5 bg-red-600 rounded animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  <div className="w-1 h-7 bg-red-600 rounded animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+                  <div className="w-1 h-5 bg-red-600 rounded animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                </div>
+                <span>🎤 Listening... Speak now!</span>
               </div>
             )}
             <div className="flex gap-2">
