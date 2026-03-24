@@ -87,7 +87,32 @@ const AIRichard = () => {
 
   // Text-to-Speech function (FREE or PREMIUM)
   const speakText = async (text) => {
+    console.log('🔊 speakText called, Voice:', voiceQuality);
+    
+    // CRITICAL: Stop any existing premium audio
+    if (currentAudioRef.current) {
+      console.log('⏹️ Stopping existing premium audio');
+      try {
+        currentAudioRef.current.pause();
+        currentAudioRef.current.currentTime = 0;
+      } catch (e) {}
+      currentAudioRef.current = null;
+    }
+    
+    // CRITICAL: Stop any browser TTS
+    if ('speechSynthesis' in window) {
+      console.log('⏹️ Canceling browser TTS');
+      window.speechSynthesis.cancel();
+    }
+    
+    // Prevent double execution
+    if (isSpeaking) {
+      console.log('⚠️ Already speaking, waiting...');
+      return;
+    }
+    
     setIsSpeaking(true);
+    console.log('✅ Starting speech...');
     
     // Pause radio while AI is speaking
     const radioPlayer = document.querySelector('audio');
@@ -116,9 +141,15 @@ const AIRichard = () => {
         const audioUrl = URL.createObjectURL(audioBlob);
         const audio = new Audio(audioUrl);
         
+        // Store reference to prevent duplicates
+        currentAudioRef.current = audio;
+        console.log('📢 Premium audio created and stored');
+        
         audio.onended = () => {
+          console.log('✅ Audio ended');
           setIsSpeaking(false);
           URL.revokeObjectURL(audioUrl);
+          currentAudioRef.current = null;
           // Resume radio if it was playing and not in continuous mode
           if (wasPlaying && !continuousMode && radioPlayer) {
             radioPlayer.play();
@@ -137,8 +168,10 @@ const AIRichard = () => {
           }
         };
         audio.onerror = () => {
+          console.log('❌ Audio error');
           setIsSpeaking(false);
           URL.revokeObjectURL(audioUrl);
+          currentAudioRef.current = null;
           // Resume radio on error
           if (wasPlaying && !continuousMode && radioPlayer) {
             radioPlayer.play();
