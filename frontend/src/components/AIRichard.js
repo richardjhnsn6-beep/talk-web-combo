@@ -272,12 +272,12 @@ const AIRichard = () => {
           {/* Avatar circle */}
           <div className="relative">
             <div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 p-1 shadow-2xl group-hover:scale-110 transition-transform duration-300">
-              <div className="w-full h-full rounded-full overflow-hidden" style={{ backgroundColor: '#F5E6D3' }}>
+              <div className="w-full h-full rounded-full overflow-hidden bg-white">
                 <img 
-                  src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/ekj6e45z_IMG_1807.png"
+                  src="/richard-avatar.jpg"
                   alt="Richard Johnson"
                   className="w-full h-full object-cover"
-                  style={{ objectPosition: '50% 45%' }}
+                />
                 />
               </div>
             </div>
@@ -305,12 +305,12 @@ const AIRichard = () => {
           {/* Header */}
           <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white" style={{ backgroundColor: '#F5E6D3' }}>
+              <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white bg-white">
                 <img 
-                  src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/ekj6e45z_IMG_1807.png"
+                  src="/richard-avatar.jpg"
                   alt="Richard Johnson"
                   className="w-full h-full object-cover"
-                  style={{ objectPosition: '50% 45%' }}
+                />
                 />
               </div>
               <div className="text-white">
@@ -383,15 +383,6 @@ const AIRichard = () => {
             )}
             
             <div ref={messagesEndRef} />
-          </div>
-
-          {/* Business Card */}
-          <div className="px-4 pt-3 pb-2 border-t border-gray-200 bg-gray-50">
-            <img 
-              src="/business-card.jpg" 
-              alt="Richard Johnson Business Card"
-              className="w-full rounded-lg shadow-md"
-            />
           </div>
 
           {/* Input area */}
