@@ -12,11 +12,11 @@ const AIRichard = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [continuousMode, setContinuousMode] = useState(false); // NEW: Always-on listening
   const [isRecognitionActive, setIsRecognitionActive] = useState(false); // Track if recognition is running
-  const [audioLocked, setAudioLocked] = useState(false); // Prevent overlapping audio
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
   const synthRef = useRef(null);
   const currentAudioRef = useRef(null); // Track current audio to prevent duplicates
+  const audioLockedRef = useRef(false); // Use ref for instant updates
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -88,16 +88,18 @@ const AIRichard = () => {
 
   // Text-to-Speech function (FREE or PREMIUM)
   const speakText = async (text) => {
-    console.log('🔊 speakText called, Voice:', voiceQuality, 'Locked:', audioLocked);
+    console.log('🔊 speakText called, Voice:', voiceQuality, 'Locked:', audioLockedRef.current, 'isSpeaking:', isSpeaking);
     
     // ABSOLUTE LOCK - Do not proceed if audio is locked
-    if (audioLocked || isSpeaking) {
+    if (audioLockedRef.current || isSpeaking) {
       console.log('🔒 BLOCKED - Audio already playing!');
       return;
     }
     
-    // Set lock immediately
-    setAudioLocked(true);
+    // Set lock immediately (ref updates instantly)
+    audioLockedRef.current = true;
+    setIsSpeaking(true);
+    console.log('🔓 Lock acquired, starting audio...');
     
     // Pause radio while AI is speaking
     const radioPlayer = document.querySelector('audio');
@@ -131,9 +133,9 @@ const AIRichard = () => {
         console.log('📢 Premium audio created and stored');
         
         audio.onended = () => {
-          console.log('✅ Audio ended');
+          console.log('✅ Audio ended - releasing lock');
           setIsSpeaking(false);
-          setAudioLocked(false); // Release lock
+          audioLockedRef.current = false; // Release lock (instant)
           URL.revokeObjectURL(audioUrl);
           currentAudioRef.current = null;
           // Resume radio if it was playing and not in continuous mode
@@ -154,9 +156,9 @@ const AIRichard = () => {
           }
         };
         audio.onerror = () => {
-          console.log('❌ Audio error');
+          console.log('❌ Audio error - releasing lock');
           setIsSpeaking(false);
-          setAudioLocked(false); // Release lock
+          audioLockedRef.current = false; // Release lock (instant)
           URL.revokeObjectURL(audioUrl);
           currentAudioRef.current = null;
           // Resume radio on error
@@ -185,8 +187,9 @@ const AIRichard = () => {
           utterance.volume = 1.0;
           
           utterance.onend = () => {
+            console.log('✅ Free voice ended - releasing lock');
             setIsSpeaking(false);
-            setAudioLocked(false); // Release lock for free voice
+            audioLockedRef.current = false; // Release lock for free voice
             // Resume radio if it was playing and not in continuous mode
             if (wasPlaying && !continuousMode && radioPlayer) {
               radioPlayer.play();
@@ -205,8 +208,9 @@ const AIRichard = () => {
             }
           };
           utterance.onerror = () => {
+            console.log('❌ Free voice error - releasing lock');
             setIsSpeaking(false);
-            setAudioLocked(false); // Release lock on error
+            audioLockedRef.current = false; // Release lock on error
             // Resume radio on error
             if (wasPlaying && !continuousMode && radioPlayer) {
               radioPlayer.play();
@@ -227,8 +231,9 @@ const AIRichard = () => {
           
           window.speechSynthesis.speak(utterance);
         } else {
+          console.log('❌ No speech synthesis - releasing lock');
           setIsSpeaking(false);
-          setAudioLocked(false); // Release lock if no speech synthesis
+          audioLockedRef.current = false; // Release lock if no speech synthesis
           // Resume radio if speech synthesis not available
           if (wasPlaying && radioPlayer) {
             radioPlayer.play();
@@ -236,9 +241,9 @@ const AIRichard = () => {
         }
       }
     } catch (error) {
-      console.error('Speech error:', error);
+      console.error('Speech error:', error, '- releasing lock');
       setIsSpeaking(false);
-      setAudioLocked(false); // CRITICAL: Release lock on error
+      audioLockedRef.current = false; // CRITICAL: Release lock on error
       // Resume radio on error
       if (wasPlaying && !continuousMode && radioPlayer) {
         radioPlayer.play();
