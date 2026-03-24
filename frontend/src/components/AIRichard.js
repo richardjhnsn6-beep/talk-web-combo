@@ -10,6 +10,7 @@ const AIRichard = () => {
   const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [voiceQuality, setVoiceQuality] = useState('free'); // 'free' or 'premium'
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [continuousMode, setContinuousMode] = useState(false); // NEW: Always-on listening
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
   const synthRef = useRef(null);
@@ -109,10 +110,24 @@ const AIRichard = () => {
         audio.onended = () => {
           setIsSpeaking(false);
           URL.revokeObjectURL(audioUrl);
+          // Restart listening if continuous mode is on
+          if (continuousMode && recognitionRef.current) {
+            setTimeout(() => {
+              recognitionRef.current.start();
+              setIsListening(true);
+            }, 500);
+          }
         };
         audio.onerror = () => {
           setIsSpeaking(false);
           URL.revokeObjectURL(audioUrl);
+          // Restart listening even on error
+          if (continuousMode && recognitionRef.current) {
+            setTimeout(() => {
+              recognitionRef.current.start();
+              setIsListening(true);
+            }, 500);
+          }
         };
         
         await audio.play();
@@ -127,8 +142,26 @@ const AIRichard = () => {
           utterance.pitch = 1.0;
           utterance.volume = 1.0;
           
-          utterance.onend = () => setIsSpeaking(false);
-          utterance.onerror = () => setIsSpeaking(false);
+          utterance.onend = () => {
+            setIsSpeaking(false);
+            // Restart listening if continuous mode is on
+            if (continuousMode && recognitionRef.current) {
+              setTimeout(() => {
+                recognitionRef.current.start();
+                setIsListening(true);
+              }, 500);
+            }
+          };
+          utterance.onerror = () => {
+            setIsSpeaking(false);
+            // Restart listening even on error
+            if (continuousMode && recognitionRef.current) {
+              setTimeout(() => {
+                recognitionRef.current.start();
+                setIsListening(true);
+              }, 500);
+            }
+          };
           
           window.speechSynthesis.speak(utterance);
         } else {
@@ -138,6 +171,13 @@ const AIRichard = () => {
     } catch (error) {
       console.error('Speech error:', error);
       setIsSpeaking(false);
+      // Restart listening even on error
+      if (continuousMode && recognitionRef.current) {
+        setTimeout(() => {
+          recognitionRef.current.start();
+          setIsListening(true);
+        }, 500);
+      }
     }
   };
 
@@ -254,10 +294,32 @@ const AIRichard = () => {
     if (isListening) {
       recognitionRef.current.stop();
       setIsListening(false);
+      setContinuousMode(false);
     } else {
       setInputValue(''); // Clear input before starting
       recognitionRef.current.start();
       setIsListening(true);
+    }
+  };
+
+  const toggleContinuousMode = () => {
+    if (!recognitionRef.current) {
+      alert('Voice input is not supported in your browser. Please use Chrome, Safari, or Edge.');
+      return;
+    }
+
+    if (!continuousMode) {
+      // Enable continuous mode
+      setContinuousMode(true);
+      setVoiceEnabled(true); // Auto-enable voice output
+      setInputValue('');
+      recognitionRef.current.start();
+      setIsListening(true);
+    } else {
+      // Disable continuous mode
+      setContinuousMode(false);
+      recognitionRef.current.stop();
+      setIsListening(false);
     }
   };
 
@@ -397,7 +459,7 @@ const AIRichard = () => {
                   Voice enabled - Choose your preference:
                 </div>
                 {/* Voice quality buttons */}
-                <div className="flex gap-2">
+                <div className="flex gap-2 mb-2">
                   <button
                     onClick={() => setVoiceQuality('free')}
                     className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
@@ -421,6 +483,26 @@ const AIRichard = () => {
                     <div className="text-xs opacity-75 mt-0.5">Natural (Tiny cost)</div>
                   </button>
                 </div>
+                {/* Continuous Mode Toggle */}
+                <button
+                  onClick={toggleContinuousMode}
+                  className={`w-full px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                    continuousMode
+                      ? 'bg-green-600 text-white shadow-md animate-pulse'
+                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100'
+                  }`}
+                >
+                  {continuousMode ? (
+                    <>🎤 Always-On Mode (Active) - Click to Stop</>
+                  ) : (
+                    <>🔄 Enable Always-On Voice (Hands-Free)</>
+                  )}
+                </button>
+                {continuousMode && (
+                  <div className="text-xs text-center mt-2 text-blue-600 font-medium">
+                    💬 Just speak naturally - no buttons needed!
+                  </div>
+                )}
               </div>
             )}
             {isSpeaking && (
@@ -437,37 +519,41 @@ const AIRichard = () => {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder={isListening ? "Listening..." : "Type or speak your message..."}
+                placeholder={continuousMode ? "Listening..." : (isListening ? "Listening..." : "Type or speak your message...")}
                 className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                disabled={isTyping || isListening}
+                disabled={isTyping || isListening || continuousMode}
               />
-              <button
-                onClick={toggleVoiceInput}
-                disabled={isTyping}
-                className={`p-3 rounded-xl transition-all font-medium ${
-                  isListening 
-                    ? 'bg-red-500 text-white animate-pulse' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-                title={isListening ? "Stop recording" : "Start voice input"}
-              >
-                {isListening ? (
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clipRule="evenodd" />
-                  </svg>
-                ) : (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-                  </svg>
-                )}
-              </button>
-              <button
-                onClick={handleSendMessage}
-                disabled={!inputValue.trim() || isTyping}
-                className="bg-purple-600 text-white px-6 py-3 rounded-xl hover:bg-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors font-medium"
-              >
-                Send
-              </button>
+              {!continuousMode && (
+                <button
+                  onClick={toggleVoiceInput}
+                  disabled={isTyping}
+                  className={`p-3 rounded-xl transition-all font-medium ${
+                    isListening 
+                      ? 'bg-red-500 text-white animate-pulse' 
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                  title={isListening ? "Stop recording" : "Start voice input"}
+                >
+                  {isListening ? (
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clipRule="evenodd" />
+                    </svg>
+                  ) : (
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                    </svg>
+                  )}
+                </button>
+              )}
+              {!continuousMode && (
+                <button
+                  onClick={handleSendMessage}
+                  disabled={!inputValue.trim() || isTyping}
+                  className="bg-purple-600 text-white px-6 py-3 rounded-xl hover:bg-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors font-medium"
+                >
+                  Send
+                </button>
+              )}
             </div>
             {isListening && (
               <div className="mt-2 text-center text-sm text-red-600 font-medium animate-pulse">
