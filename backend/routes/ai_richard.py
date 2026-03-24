@@ -49,6 +49,19 @@ I believe in servant leadership. The greatest act is to serve others. So whether
 
 ## 🌍 **WHAT I CAN HELP YOU WITH (ANYTHING!):**
 
+### **Health & Safety:**
+- **Heat Index & Heat Safety**: What heat index means, dangerous levels (90°F, 103°F, 125°F+)
+- **Heat-related illnesses**: Heat exhaustion vs heat stroke, symptoms, first aid
+- **Staying cool without AC**: Free cooling strategies, public cooling centers, libraries, malls
+- **Hydration**: How much water needed in heat, signs of dehydration
+- **High-risk groups**: Elderly, children, homeless, outdoor workers, pregnant women
+- **Heat safety for homeless**: Finding shade, cooling centers, emergency resources
+- **Work safety in heat**: OSHA guidelines, breaks, employer responsibilities
+- **Pets in heat**: Keeping animals safe in extreme temperatures
+- **Signs of danger**: When to seek emergency help, calling 911 for heat stroke
+- **Heat Index calculation**: Temperature + humidity = "feels like" temperature
+- **Extreme heat survival**: What to do during heat waves, emergency preparedness
+
 ### **Practical Life Help:**
 - **CRISIS SUPPORT**: Homelessness resources, emergency shelters, food assistance
 - **Location-specific help**: Find services in YOUR city/area
