@@ -94,7 +94,7 @@ const AIRichard = () => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
             text: text,
-            voice: 'onyx' // Deep, authoritative voice - better fit for Richard Johnson
+            voice: 'fable' // Expressive, storytelling voice - projects better than onyx
           })
         });
         
@@ -178,15 +178,54 @@ const AIRichard = () => {
 
       recognitionRef.current.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
-        setInputValue(transcript);
         setIsListening(false);
         
-        // Auto-send after voice input for natural conversation flow
-        setTimeout(() => {
-          if (transcript.trim()) {
-            handleSendMessage();
-          }
-        }, 500);
+        // Auto-send the message immediately for natural voice conversation
+        if (transcript.trim()) {
+          // Add user message to chat
+          setMessages(prev => [...prev, { role: 'user', content: transcript }]);
+          setIsTyping(true);
+
+          // Send to backend
+          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/ai-richard/chat`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              message: transcript,
+              conversation_id: conversationId,
+              page_context: window.location.pathname
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            setConversationId(data.conversation_id);
+            const aiResponse = data.response;
+            
+            setMessages(prev => [...prev, { 
+              role: 'assistant', 
+              content: aiResponse 
+            }]);
+            
+            // Speak the response if voice is enabled
+            if (voiceEnabled) {
+              speakText(aiResponse);
+            }
+          })
+          .catch(error => {
+            console.error('AI Richard error:', error);
+            const errorMsg = "I apologize, but I'm having trouble connecting right now. Please try again in a moment.";
+            setMessages(prev => [...prev, { 
+              role: 'assistant', 
+              content: errorMsg 
+            }]);
+            if (voiceEnabled) {
+              speakText(errorMsg);
+            }
+          })
+          .finally(() => {
+            setIsTyping(false);
+          });
+        }
       };
 
       recognitionRef.current.onerror = (event) => {
@@ -204,7 +243,7 @@ const AIRichard = () => {
         recognitionRef.current.stop();
       }
     };
-  }, []);
+  }, [conversationId, voiceEnabled, voiceQuality]);
 
   const toggleVoiceInput = () => {
     if (!recognitionRef.current) {
