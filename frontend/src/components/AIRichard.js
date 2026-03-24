@@ -78,13 +78,13 @@ const AIRichard = () => {
     return () => clearInterval(walkInterval);
   }, [isOpen, walkDirection, hasEntered]);
 
-  // Leg animation - cycle through walking frames for realistic movement! (SLOWER)
+  // Leg animation - cycle through walking frames FASTER for snappier leg movement!
   useEffect(() => {
     if (isOpen || walkingStyle !== 'animated') return;
 
     const frameInterval = setInterval(() => {
       setWalkFrame(prev => (prev >= 4 ? 1 : prev + 1)); // Cycle 1 -> 2 -> 3 -> 4 -> 1
-    }, 200); // SLOWER: Change frame every 200ms (was 150ms)
+    }, 120); // FASTER leg movement: Change frame every 120ms (was 200ms)
 
     return () => clearInterval(frameInterval);
   }, [isOpen, walkingStyle]);
