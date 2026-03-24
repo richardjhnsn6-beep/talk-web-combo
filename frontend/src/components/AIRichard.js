@@ -12,8 +12,9 @@ const AIRichard = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [continuousMode, setContinuousMode] = useState(false); // NEW: Always-on listening
   const [isRecognitionActive, setIsRecognitionActive] = useState(false); // Track if recognition is running
-  const [walkPosition, setWalkPosition] = useState(6); // Walking animation position (in rem units)
+  const [walkPosition, setWalkPosition] = useState(-10); // Walking animation position (starts OFF-SCREEN)
   const [walkDirection, setWalkDirection] = useState(1); // 1 = right, -1 = left
+  const [hasEntered, setHasEntered] = useState(false); // Track if Richard has walked onto screen
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
   const synthRef = useRef(null);
@@ -38,7 +39,7 @@ const AIRichard = () => {
     }
   }, [isOpen]);
 
-  // Walking animation effect
+  // Walking animation effect - RICHARD WALKS ONTO SCENE!
   useEffect(() => {
     if (isOpen) return; // Don't walk when chat is open
 
@@ -49,12 +50,21 @@ const AIRichard = () => {
         // Check boundaries (walk between 6rem and 80% of screen width)
         const maxPosition = (window.innerWidth * 0.8) / 16; // Convert to rem
         
-        if (newPos >= maxPosition) {
-          setWalkDirection(-1); // Turn around, walk left
-          return maxPosition;
-        } else if (newPos <= 6) {
-          setWalkDirection(1); // Turn around, walk right
+        // First entrance - walk onto screen from left
+        if (!hasEntered && newPos >= 6) {
+          setHasEntered(true);
           return 6;
+        }
+        
+        // After entrance, do normal back-and-forth walking
+        if (hasEntered) {
+          if (newPos >= maxPosition) {
+            setWalkDirection(-1); // Turn around, walk left
+            return maxPosition;
+          } else if (newPos <= 6) {
+            setWalkDirection(1); // Turn around, walk right
+            return 6;
+          }
         }
         
         return newPos;
@@ -62,7 +72,7 @@ const AIRichard = () => {
     }, 50); // Update every 50ms for smooth animation
 
     return () => clearInterval(walkInterval);
-  }, [isOpen, walkDirection]);
+  }, [isOpen, walkDirection, hasEntered]);
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
@@ -588,7 +598,7 @@ const AIRichard = () => {
 
   return (
     <>
-      {/* Floating button - Always visible - WALKS ACROSS SCREEN */}
+      {/* Floating button - WALKS ONTO SCENE FROM LEFT! */}
       {!isOpen && (
         <div 
           onClick={() => setIsOpen(true)}
@@ -623,6 +633,15 @@ const AIRichard = () => {
                 <span className="text-xs opacity-50">👣</span>
               </div>
             </div>
+            
+            {/* Welcome wave when first entering - shows for 3 seconds */}
+            {!hasEntered && walkPosition > -5 && (
+              <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <div className="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg whitespace-nowrap">
+                  👋 Hello!
+                </div>
+              </div>
+            )}
           </div>
           
           {/* Label */}
