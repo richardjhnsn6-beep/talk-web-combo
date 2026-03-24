@@ -24,6 +24,9 @@ import FloatingChatButton from './components/FloatingChatButton';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
 import AdminLogin from './components/AdminLogin';
 import AIRichard from './components/AIRichard';
+import OrdersDashboard from './pages/OrdersDashboard';
+import OrderSuccess from './pages/OrderSuccess';
+import OrderCancelled from './pages/OrderCancelled';
 
 const Navigation = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
@@ -157,6 +160,11 @@ function App() {
             <Route path="/admin/radio" element={<AdminLogin><AdminRadio /></AdminLogin>} />
             <Route path="/admin/ai-chat" element={<AdminLogin><AdminAIChat /></AdminLogin>} />
             <Route path="/admin/pricing" element={<AdminLogin><AdminPricingConfig /></AdminLogin>} />
+            <Route path="/admin/orders" element={<AdminLogin><OrdersDashboard /></AdminLogin>} />
+            
+            {/* Order Confirmation Pages */}
+            <Route path="/order-success" element={<OrderSuccess />} />
+            <Route path="/order-cancelled" element={<OrderCancelled />} />
             
             <Route path="/contact" element={<Contact />} />
           </Routes>
