@@ -94,7 +94,7 @@ const AIRichard = () => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
             text: text,
-            voice: 'alloy' // Can make this configurable later
+            voice: 'onyx' // Deep, authoritative voice - better fit for Richard Johnson
           })
         });
         
