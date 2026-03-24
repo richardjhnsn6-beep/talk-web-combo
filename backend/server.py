@@ -15,6 +15,7 @@ from routes.radio import router as radio_router
 from routes.ai_chat import router as ai_chat_router
 from routes.ai_richard import router as ai_richard_router
 from routes.website_orders import router as website_orders_router
+from routes.tts import router as tts_router
 
 
 ROOT_DIR = Path(__file__).parent
@@ -43,6 +44,8 @@ api_router.include_router(ai_chat_router, prefix="/ai-chat", tags=["ai-chat"])
 api_router.include_router(ai_richard_router, prefix="/ai-richard", tags=["ai-richard"])
 # Include Website Orders routes with /website-orders prefix
 api_router.include_router(website_orders_router, prefix="/website-orders", tags=["website-orders"])
+# Include TTS routes with /tts prefix
+api_router.include_router(tts_router, prefix="/tts", tags=["tts"])
 
 
 # Define Models

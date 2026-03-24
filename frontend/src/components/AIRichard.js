@@ -8,6 +8,7 @@ const AIRichard = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [voiceEnabled, setVoiceEnabled] = useState(false);
+  const [voiceQuality, setVoiceQuality] = useState('free'); // 'free' or 'premium'
   const [isSpeaking, setIsSpeaking] = useState(false);
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
@@ -81,36 +82,81 @@ const AIRichard = () => {
     }
   };
 
-  // Text-to-Speech function (FREE browser TTS)
-  const speakText = (text) => {
-    if ('speechSynthesis' in window) {
-      // Cancel any ongoing speech
-      window.speechSynthesis.cancel();
-      
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 0.9; // Slightly slower for clarity
-      utterance.pitch = 1.0;
-      utterance.volume = 1.0;
-      
-      utterance.onstart = () => setIsSpeaking(true);
-      utterance.onend = () => setIsSpeaking(false);
-      utterance.onerror = () => setIsSpeaking(false);
-      
-      window.speechSynthesis.speak(utterance);
+  // Text-to-Speech function (FREE or PREMIUM)
+  const speakText = async (text) => {
+    setIsSpeaking(true);
+    
+    try {
+      if (voiceQuality === 'premium') {
+        // PREMIUM: OpenAI TTS
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tts/tts`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            text: text,
+            voice: 'alloy' // Can make this configurable later
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error('TTS API failed');
+        }
+        
+        const audioBlob = await response.blob();
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
+        
+        audio.onended = () => {
+          setIsSpeaking(false);
+          URL.revokeObjectURL(audioUrl);
+        };
+        audio.onerror = () => {
+          setIsSpeaking(false);
+          URL.revokeObjectURL(audioUrl);
+        };
+        
+        await audio.play();
+        
+      } else {
+        // FREE: Browser TTS
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.rate = 0.9;
+          utterance.pitch = 1.0;
+          utterance.volume = 1.0;
+          
+          utterance.onend = () => setIsSpeaking(false);
+          utterance.onerror = () => setIsSpeaking(false);
+          
+          window.speechSynthesis.speak(utterance);
+        } else {
+          setIsSpeaking(false);
+        }
+      }
+    } catch (error) {
+      console.error('Speech error:', error);
+      setIsSpeaking(false);
     }
   };
 
   const toggleVoice = () => {
     if (voiceEnabled) {
       // Turning off - stop any current speech
-      window.speechSynthesis.cancel();
+      if (voiceQuality === 'free') {
+        window.speechSynthesis.cancel();
+      }
       setIsSpeaking(false);
     }
     setVoiceEnabled(!voiceEnabled);
   };
 
   const stopSpeaking = () => {
-    window.speechSynthesis.cancel();
+    if (voiceQuality === 'free') {
+      window.speechSynthesis.cancel();
+    }
+    // For premium, audio will stop when component unmounts or new audio plays
     setIsSpeaking(false);
   };
 
@@ -297,11 +343,22 @@ const AIRichard = () => {
           <div className="p-4 bg-white border-t border-gray-200">
             {/* Voice status indicator */}
             {voiceEnabled && (
-              <div className="mb-2 flex items-center gap-2 text-sm text-green-600 font-medium">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                Voice enabled - AI Richard will speak to you
+              <div className="mb-2">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 text-sm text-green-600 font-medium">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Voice enabled - {voiceQuality === 'premium' ? '🎙️ Premium' : '🤖 Free'}
+                  </div>
+                  {/* Voice quality toggle */}
+                  <button
+                    onClick={() => setVoiceQuality(voiceQuality === 'free' ? 'premium' : 'free')}
+                    className="text-xs px-3 py-1 rounded-full bg-purple-100 text-purple-700 hover:bg-purple-200 transition-colors font-medium"
+                  >
+                    Switch to {voiceQuality === 'free' ? 'Premium' : 'Free'}
+                  </button>
+                </div>
               </div>
             )}
             {isSpeaking && (
@@ -309,7 +366,7 @@ const AIRichard = () => {
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217z" clipRule="evenodd" />
                 </svg>
-                Richard is speaking...
+                Richard is speaking... ({voiceQuality === 'premium' ? 'Premium' : 'Free'} voice)
               </div>
             )}
             <div className="flex gap-2">
