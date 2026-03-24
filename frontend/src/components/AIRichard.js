@@ -342,7 +342,12 @@ const AIRichard = () => {
     if (!continuousMode) {
       // Enable continuous mode
       setContinuousMode(true);
-      setVoiceEnabled(true); // Auto-enable voice output
+      
+      // CRITICAL: Force voice output ON
+      if (!voiceEnabled) {
+        setVoiceEnabled(true);
+      }
+      
       setInputValue('');
       
       // Pause radio if playing
@@ -353,8 +358,11 @@ const AIRichard = () => {
         radioPlayer.dataset.pausedByAI = 'true';
       }
       
-      recognitionRef.current.start();
-      setIsListening(true);
+      // Small delay to ensure voiceEnabled state updates
+      setTimeout(() => {
+        recognitionRef.current.start();
+        setIsListening(true);
+      }, 100);
     } else {
       // Disable continuous mode
       setContinuousMode(false);
@@ -536,22 +544,22 @@ const AIRichard = () => {
                   className={`w-full px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                     continuousMode
                       ? 'bg-green-600 text-white shadow-md animate-pulse'
-                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100'
+                      : 'bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700 shadow-md'
                   }`}
                 >
                   {continuousMode ? (
                     <>🎤 Always-On Mode (Active) - Click to Stop</>
                   ) : (
-                    <>🔄 Enable Always-On Voice (Hands-Free)</>
+                    <>🔄 Enable Always-On Voice (Full Conversation)</>
                   )}
                 </button>
                 {continuousMode && (
                   <div className="text-xs text-center mt-2 space-y-1">
                     <div className="text-blue-600 font-medium">
-                      💬 Just speak naturally - no buttons needed!
+                      💬 Speak naturally - I'll respond with voice!
                     </div>
                     <div className="text-orange-600 font-medium">
-                      📻 Radio auto-paused for clear conversation
+                      📻 Radio paused for clear conversation
                     </div>
                   </div>
                 )}
