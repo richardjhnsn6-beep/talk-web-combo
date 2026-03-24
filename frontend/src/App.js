@@ -45,7 +45,12 @@ const Navigation = ({ isOpen, setIsOpen }) => {
     { path: '/hebrew-alphabet', label: 'Hebrew Alphabet' },
     { path: '/book-of-amos', label: 'Amos Sample' },
     { path: '/contact', label: 'Contact' }
-    // Admin dashboard removed from public navigation
+  ];
+
+  const adminItems = [
+    { path: '/admin', label: '🔐 Admin Dashboard' },
+    { path: '/admin/radio', label: '📻 Manage Radio' },
+    { path: '/admin/orders', label: '💼 Orders' }
   ];
 
   const handleLinkClick = () => {
@@ -83,6 +88,28 @@ const Navigation = ({ isOpen, setIsOpen }) => {
           </li>
         ))}
       </ul>
+
+      {/* Admin Quick Access */}
+      <div className="border-t border-teal-600 pt-4 mb-4">
+        <h3 className="text-sm font-bold mb-2 opacity-75">Admin Access</h3>
+        <ul className="space-y-2">
+          {adminItems.map((item) => (
+            <li key={item.path}>
+              <Link
+                to={item.path}
+                onClick={handleLinkClick}
+                className={`block px-4 py-2 rounded transition-colors text-sm ${
+                  location.pathname === item.path
+                    ? 'bg-orange-600 font-semibold'
+                    : 'bg-orange-700 hover:bg-orange-600'
+                }`}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       {/* Bearing of the Truth Section */}
       <div className="border-t border-teal-600 pt-6 mt-6">
