@@ -280,32 +280,82 @@ const AIRichard = () => {
             // Speak the response if voice is enabled
             if (voiceEnabled) {
               speakText(aiResponse);
+            } else {
+              // If voice not enabled but continuous mode is on, restart listening
+              if (continuousMode) {
+                setTimeout(() => {
+                  recognitionRef.current.start();
+                  setIsListening(true);
+                }, 500);
+              }
             }
           })
           .catch(error => {
             console.error('AI Richard error:', error);
-            const errorMsg = "I apologize, but I'm having trouble connecting right now. Please try again in a moment.";
+            const errorMsg = "I apologize, but I'm having trouble connecting right now. Please try again.";
             setMessages(prev => [...prev, { 
               role: 'assistant', 
               content: errorMsg 
             }]);
             if (voiceEnabled) {
               speakText(errorMsg);
+            } else {
+              // Restart listening even on error if continuous mode
+              if (continuousMode) {
+                setTimeout(() => {
+                  recognitionRef.current.start();
+                  setIsListening(true);
+                }, 500);
+              }
             }
           })
           .finally(() => {
             setIsTyping(false);
           });
+        } else {
+          // Empty transcript - restart listening immediately
+          if (continuousMode) {
+            setTimeout(() => {
+              recognitionRef.current.start();
+              setIsListening(true);
+            }, 500);
+          }
         }
       };
 
       recognitionRef.current.onerror = (event) => {
         console.error('Speech recognition error:', event.error);
         setIsListening(false);
+        
+        // Auto-restart if continuous mode and error is not fatal
+        if (continuousMode && event.error !== 'aborted') {
+          setTimeout(() => {
+            try {
+              recognitionRef.current.start();
+              setIsListening(true);
+            } catch (err) {
+              console.error('Failed to restart recognition:', err);
+            }
+          }, 1000);
+        }
       };
 
       recognitionRef.current.onend = () => {
         setIsListening(false);
+        
+        // Auto-restart if continuous mode is still active
+        if (continuousMode) {
+          setTimeout(() => {
+            try {
+              recognitionRef.current.start();
+              setIsListening(true);
+            } catch (err) {
+              console.error('Failed to restart recognition:', err);
+              // If it fails, turn off continuous mode
+              setContinuousMode(false);
+            }
+          }, 500);
+        }
       };
     }
 
