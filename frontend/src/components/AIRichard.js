@@ -138,7 +138,7 @@ const AIRichard = () => {
                   src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/ekj6e45z_IMG_1807.png"
                   alt="Richard Johnson"
                   className="w-full h-full object-cover"
-                  style={{ objectPosition: '50% 45%', objectFit: 'cover', transform: 'scale(2)' }}
+                  style={{ objectPosition: '50% 50%', objectFit: 'cover', transform: 'scale(2)' }}
                 />
               </div>
             </div>
@@ -171,7 +171,7 @@ const AIRichard = () => {
                   src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/ekj6e45z_IMG_1807.png"
                   alt="Richard Johnson"
                   className="w-full h-full object-cover"
-                  style={{ objectPosition: '50% 45%', objectFit: 'cover', transform: 'scale(2)' }}
+                  style={{ objectPosition: '50% 50%', objectFit: 'cover', transform: 'scale(2)' }}
                 />
               </div>
               <div className="text-white">
