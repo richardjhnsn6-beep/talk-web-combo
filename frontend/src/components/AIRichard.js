@@ -12,6 +12,7 @@ const AIRichard = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [continuousMode, setContinuousMode] = useState(false); // NEW: Always-on listening
   const [isRecognitionActive, setIsRecognitionActive] = useState(false); // Track if recognition is running
+  const [audioLocked, setAudioLocked] = useState(false); // Prevent overlapping audio
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
   const synthRef = useRef(null);
@@ -87,32 +88,16 @@ const AIRichard = () => {
 
   // Text-to-Speech function (FREE or PREMIUM)
   const speakText = async (text) => {
-    console.log('🔊 speakText called, Voice:', voiceQuality);
+    console.log('🔊 speakText called, Voice:', voiceQuality, 'Locked:', audioLocked);
     
-    // CRITICAL: Stop any existing premium audio
-    if (currentAudioRef.current) {
-      console.log('⏹️ Stopping existing premium audio');
-      try {
-        currentAudioRef.current.pause();
-        currentAudioRef.current.currentTime = 0;
-      } catch (e) {}
-      currentAudioRef.current = null;
-    }
-    
-    // CRITICAL: Stop any browser TTS
-    if ('speechSynthesis' in window) {
-      console.log('⏹️ Canceling browser TTS');
-      window.speechSynthesis.cancel();
-    }
-    
-    // Prevent double execution
-    if (isSpeaking) {
-      console.log('⚠️ Already speaking, waiting...');
+    // ABSOLUTE LOCK - Do not proceed if audio is locked
+    if (audioLocked || isSpeaking) {
+      console.log('🔒 BLOCKED - Audio already playing!');
       return;
     }
     
-    setIsSpeaking(true);
-    console.log('✅ Starting speech...');
+    // Set lock immediately
+    setAudioLocked(true);
     
     // Pause radio while AI is speaking
     const radioPlayer = document.querySelector('audio');
@@ -148,6 +133,7 @@ const AIRichard = () => {
         audio.onended = () => {
           console.log('✅ Audio ended');
           setIsSpeaking(false);
+          setAudioLocked(false); // Release lock
           URL.revokeObjectURL(audioUrl);
           currentAudioRef.current = null;
           // Resume radio if it was playing and not in continuous mode
@@ -170,6 +156,7 @@ const AIRichard = () => {
         audio.onerror = () => {
           console.log('❌ Audio error');
           setIsSpeaking(false);
+          setAudioLocked(false); // Release lock
           URL.revokeObjectURL(audioUrl);
           currentAudioRef.current = null;
           // Resume radio on error
@@ -325,14 +312,23 @@ const AIRichard = () => {
             }]);
             
             // Speak the response if voice is enabled
-            if (voiceEnabled) {
+            if (voiceEnabled && !isSpeaking) {
+              console.log('📞 Calling speakText from fetch success');
               speakText(aiResponse);
+            } else if (isSpeaking) {
+              console.log('⚠️ Skipping speakText - already speaking');
+              // Queue it instead of speaking immediately
             } else {
               // If voice not enabled but continuous mode is on, restart listening
-              if (continuousMode) {
+              if (continuousMode && !isRecognitionActive) {
                 setTimeout(() => {
-                  recognitionRef.current.start();
-                  setIsListening(true);
+                  try {
+                    recognitionRef.current.start();
+                    setIsListening(true);
+                    setIsRecognitionActive(true);
+                  } catch (err) {
+                    console.error('Restart failed:', err);
+                  }
                 }, 500);
               }
             }
