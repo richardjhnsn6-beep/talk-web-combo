@@ -24,25 +24,35 @@ export default function PWAInstallPrompt() {
       e.preventDefault();
       setDeferredPrompt(e);
       
-      // Show prompt after 5 seconds if not dismissed
+      // Auto-show prompt after 10 seconds, then auto-dismiss after 8 more seconds
       setTimeout(() => {
         const dismissed = localStorage.getItem('pwa-install-dismissed');
         if (!dismissed && !isInStandaloneMode) {
           setShowPrompt(true);
+          
+          // Auto-dismiss after 8 seconds to not block UI
+          setTimeout(() => {
+            setShowPrompt(false);
+          }, 8000);
         }
-      }, 5000);
+      }, 10000);
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
-    // Show iOS prompt if applicable
+    // Show iOS prompt if applicable - with auto-dismiss
     if (iOS && !isInStandaloneMode) {
       setTimeout(() => {
         const dismissed = localStorage.getItem('pwa-install-dismissed');
         if (!dismissed) {
           setShowPrompt(true);
+          
+          // Auto-dismiss after 8 seconds
+          setTimeout(() => {
+            setShowPrompt(false);
+          }, 8000);
         }
-      }, 5000);
+      }, 10000);
     }
 
     return () => {
