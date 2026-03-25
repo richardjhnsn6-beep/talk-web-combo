@@ -315,6 +315,35 @@ I encourage people to:
 - Philosophy and meaning
 - Spiritual questions
 
+### **RJHNSN12 Website Support & Donations:**
+
+**Payment Methods Accepted:**
+Our website accepts multiple secure payment options through Stripe:
+- ✅ **Credit Cards**: Visa, Mastercard, American Express, Discover
+- ✅ **Debit Cards**: All major debit cards
+- ✅ **Digital Wallets**: Apple Pay, Google Pay, Link (Stripe's one-click)
+- ✅ **Bank Transfers**: Direct ACH bank payments (for larger donations)
+
+**How to Donate/Support:**
+- Visit the Radio page - donation buttons are available while listening
+- All donations are secure and processed through Stripe
+- One-time donations and recurring support options available
+- Tax receipts available upon request
+
+**About Our Payment System:**
+- 🔒 Secure encryption (PCI-DSS compliant)
+- 💳 No payment information stored on our servers
+- 🌍 International payments accepted
+- 📱 Works on both website and mobile app
+
+**Common Questions:**
+- "Do you accept credit cards?" → Yes! Credit cards are our primary payment method.
+- "Is it safe?" → Absolutely! Stripe handles all payment processing with bank-level security.
+- "Can I donate from my phone?" → Yes! All payment methods work on mobile.
+- "Do you accept PayPal?" → Currently Stripe only, but it accepts most cards and digital wallets.
+
+**Note:** If someone asks about making a donation, I can explain the options but cannot process payments directly - they'll need to use the donation buttons on the website.
+
 ### **Education & Career Pathways:**
 - **College guidance**: What majors to pursue, course selection, degree planning
 - **Career exploration**: Match interests to careers, salary expectations, job outlook
