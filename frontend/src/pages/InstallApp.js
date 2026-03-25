@@ -20,7 +20,17 @@ export default function InstallApp() {
 
     const handleBeforeInstallPrompt = (e) => {
       e.preventDefault();
-      setDeferredPrompt(e);
+      
+      // CRITICAL: Only allow installation on MOBILE devices
+      // Prevents desktop users from accidentally installing as app
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        setDeferredPrompt(e);
+      } else {
+        // Desktop users - do NOT store prompt, just show QR code
+        console.log('Desktop detected - installation blocked, showing QR code only');
+      }
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
@@ -54,9 +64,30 @@ export default function InstallApp() {
             <CheckCircle className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-4xl font-bold mb-4">✅ App Already Installed!</h1>
-          <p className="text-lg text-purple-200 mb-8">
+          <p className="text-lg text-purple-200 mb-4">
             You're using the RJHNSN12 app. Enjoy 24/7 AI chat and radio!
           </p>
+          
+          {/* Help for users who want to get back to browser */}
+          <div className="bg-blue-900/30 border border-blue-500/30 rounded-xl p-6 mb-6">
+            <p className="text-blue-200 text-sm mb-4">
+              <strong>Want to use the website version instead?</strong>
+            </p>
+            <div className="space-y-2 text-left text-sm text-blue-300">
+              <p>1. Close this app window</p>
+              <p>2. Open your regular browser (Chrome, Safari, etc.)</p>
+              <p>3. Go to: <span className="font-mono bg-blue-950/50 px-2 py-1 rounded">{appUrl}</span></p>
+            </div>
+            <button
+              onClick={() => {
+                window.open(appUrl, '_blank');
+              }}
+              className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition"
+            >
+              🌐 Open Website in New Tab
+            </button>
+          </div>
+          
           <a
             href="/"
             className="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:from-purple-700 hover:to-pink-700 transition"
@@ -182,9 +213,18 @@ export default function InstallApp() {
           {!deferredPrompt && !isIOS && (
             <div className="bg-slate-900/50 border border-purple-700/30 rounded-2xl p-8">
               <Smartphone className="w-16 h-16 text-purple-400 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold mb-4 text-center">📱 Install on Mobile</h2>
+              <h2 className="text-2xl font-bold mb-4 text-center">📱 Install on Your Phone</h2>
+              
+              {/* Important Notice */}
+              <div className="bg-yellow-900/30 border border-yellow-500/30 rounded-xl p-4 mb-6">
+                <p className="text-yellow-200 text-sm text-center">
+                  <strong>⚠️ For Mobile Only</strong><br/>
+                  This app is designed for phones. Please use the QR code below to install on your iPhone or Android device.
+                </p>
+              </div>
+              
               <p className="text-purple-200 mb-6 text-center">
-                To install the RJHNSN12 app, please visit this page on your mobile device (iPhone or Android).
+                Scan this QR code with your phone camera to get started:
               </p>
               
               {/* QR Code */}
@@ -196,12 +236,12 @@ export default function InstallApp() {
                   includeMargin={true}
                   className="mx-auto"
                 />
-                <p className="text-center text-gray-800 text-sm font-bold mt-3">Scan with your phone</p>
+                <p className="text-center text-gray-800 text-sm font-bold mt-3">📸 Scan with your phone camera</p>
               </div>
               
               {/* Shareable Link */}
               <div className="bg-slate-800/50 rounded-xl p-4">
-                <p className="text-sm text-purple-300 mb-3 text-center font-semibold">Or copy this link:</p>
+                <p className="text-sm text-purple-300 mb-3 text-center font-semibold">Or copy and send to your phone:</p>
                 <div className="flex gap-2">
                   <input
                     type="text"
@@ -227,7 +267,7 @@ export default function InstallApp() {
                   </button>
                 </div>
                 <p className="text-xs text-purple-400 mt-3 text-center">
-                  Send this link to your phone via text, email, or messaging app
+                  💬 Text or email this link to your phone, then open it to install
                 </p>
               </div>
             </div>
