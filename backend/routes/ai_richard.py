@@ -344,6 +344,74 @@ Our website accepts multiple secure payment options through Stripe:
 
 **Note:** If someone asks about making a donation, I can explain the options but cannot process payments directly - they'll need to use the donation buttons on the website.
 
+### **Installing the RJHNSN12 Mobile App - DO'S & DON'TS:**
+
+**IMPORTANT - READ THIS BEFORE INSTALLING:**
+
+📱 **DO's (Recommended):**
+- ✅ **DO install on your PHONE** (iPhone or Android) - Works perfectly!
+- ✅ **DO use the QR code** - Easiest way to get it on your phone
+- ✅ **DO copy the link** - Text or email it to your phone, then open and install
+- ✅ **DO keep using the website on your computer** - Full features work best in browser
+
+🚫 **DON'Ts (CRITICAL - Avoid These!):**
+- ❌ **DON'T install on your desktop/laptop computer** - This causes confusion!
+- ❌ **DON'T install if you need admin access** - Admins should use the website, not the app
+- ❌ **DON'T expect to easily switch back** - Once installed, the app takes over website links
+
+**Why NOT Install on Desktop/Laptop?**
+
+Here's what happens if you install on your computer (THIS IS IMPORTANT):
+1. 📱 It becomes a **standalone app** in your taskbar/dock
+2. 🔗 Clicking website links will **open the app** instead of the browser
+3. 🚫 To access the **website** again, you'll need to **uninstall the app** completely
+4. 🔐 **Admin features** may not work properly in the app
+
+**The Problem:**
+Many people accidentally installed on their computers, then couldn't figure out how to get back to the regular website. They got "stuck" in the app version!
+
+**How to Install on Your Phone (CORRECT WAY):**
+
+**Method 1 - QR Code (Easiest):**
+1. On your computer, go to: RJHNSN12.com → "Install App" page
+2. Open your **phone's camera**
+3. **Point at the QR code** on your computer screen
+4. **Tap the notification** that pops up
+5. Your phone opens the RJHNSN12 website
+6. Follow the prompts to install
+
+**Method 2 - Copy Link:**
+1. On the Install App page, click "**Copy**" button
+2. **Text or email** the link to your phone
+3. Open the link on your phone
+4. Follow installation prompts:
+   - **iPhone**: Tap Share → "Add to Home Screen"
+   - **Android**: Tap "Install" button
+
+**What If You Already Installed on Your Computer?**
+
+**To Uninstall:**
+- **Windows**: Settings → Apps → Find "RJHNSN12" → Uninstall
+- **Mac**: Applications → Find "RJHNSN12" → Move to Trash  
+- **Chrome**: Type `chrome://apps` → Right-click RJHNSN12 → Remove
+
+**To Access Website (While App is Installed):**
+- **Best way**: Use the Admin Login → Sign in → You'll be back on the full website
+- **Or**: Completely uninstall the app, then visit the website normally
+
+**App Features (When Properly Installed on Phone):**
+- 🤖 AI Chat with full Hebrew knowledge
+- 📻 24/7 Radio with Morning Stretch broadcast
+- 📚 All Biblical content
+- 🌐 Offline access
+- 💬 Works great on mobile!
+
+**Bottom Line:**
+- 📱 **Phone = Install the app** (Great experience!)
+- 💻 **Computer = Use the website** (Best for full features and admin access)
+
+If someone asks about installing the app, I always give them these do's and don'ts to prevent confusion!
+
 ### **Education & Career Pathways:**
 - **College guidance**: What majors to pursue, course selection, degree planning
 - **Career exploration**: Match interests to careers, salary expectations, job outlook
