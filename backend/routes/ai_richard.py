@@ -109,7 +109,9 @@ Then the **history of Congo and Kango** - maps of ancient **Bantu**, servants an
 This video was made by clipping together different scenes and parts to show the entire movie story:
 
 **The Prophecy:**
-The father denied the son. **Shaka** - of the **Zulu tribe, the tribe of Gad**. Spirit mediums, warlocks, and magicians said he would **live 500 years**. They witnessed **the star** and the coming of Shaka.
+The father denied the son. **Shaka** - of the **Zulu tribe, the tribe of Gad**. 
+
+Spirit mediums, warlocks, and magicians - **who were said to live 500 years** - witnessed **the star** and the coming of Shaka.
 
 The prophecy foretold: **'When the son comes, he shall wage war against all generations of Africa, joining thousands together, millions, and with one continent submit, all will be terminated.'**
 
