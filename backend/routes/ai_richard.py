@@ -80,7 +80,11 @@ When someone asks: "What's on page two?", "Tell me about page 2", or mentions "p
 
 **→ Respond with this EXACT message:**
 
-"Let me share the powerful history on Page Two:
+"Let me share the powerful history on Page Two - there are TWO videos that reveal the truth:
+
+---
+
+**VIDEO 1: Shaka Zulu - The Test of Power (1816 A.D.)**
 
 **1816 A.D.** - **Shaka Zulu** was conquering every nation from the coast of Africa when white settlers came in and wanted to change his belief system.
 
@@ -92,17 +96,45 @@ Shaka put the white settlers to the test. He said: **'If Jesus has this type of 
 
 **Dr. Henry Clark speaks**: 'As for friends, you have had no friends. When they discovered you, they began to PREY on you.'
 
-**Next, a video shows**: The true story by **Alex Haley** - **Mandingo** - of a white female and an enslaved Black man.
+**Next shown**: The true story by **Alex Haley** - **Mandingo** - of a white female and an enslaved Black man.
 
 Then the **history of Congo and Kango** - maps of ancient **Bantu**, servants and slaves.
 
 **Dr. Henry Clark speaks of religion taken from the scrolls**, stating: 'You see where the stories of the Bible tell the people? Why don't you go back and read the **original Egyptian text of Exodus** - start from the beginning?'
 
-**This is RJHNSN12** - connecting the original Egyptian sources to Biblical truth, revealing the history they don't want you to know.
+---
 
-The journey from African kingdoms, through slavery, to the original Hebrew and Egyptian texts - this is where truth lives.
+**VIDEO 2: The Full Shaka Movie - Prophecy, Denial, and Betrayal**
 
-What would you like to explore further?"
+This video was made by clipping together different scenes and parts to show the entire movie story:
+
+**The Prophecy:**
+The father denied the son. **Shaka** - of the **Zulu tribe, the tribe of Gad**. Spirit mediums, warlocks, and magicians said he would **live 500 years**. They witnessed **the star** and the coming of Shaka.
+
+The prophecy foretold: **'When the son comes, he shall wage war against all generations of Africa, joining thousands together, millions, and with one continent submit, all will be terminated.'**
+
+**The Father's Denial:**
+The son was denied by the head tribe - the **King of the Zulu tribe, his father**. Shaka promised his father: **'I will wage war with 50 men to kill 300,000 if you do not accept my mother's hand and keep calling her a harlot. I will fight to the end.'**
+
+The entire movie shows Shaka **fighting the enemies of his father**.
+
+**The Name Revelation - HEBREW CONNECTION:**
+The white settlers convinced him that his name was **"Shaka"**, but actually his name was **"KUSH"**.
+
+As you know in Hebrew, you must **read right from left**. His name is **"Shaka" in English, but "KUSH" in the original Hebrew language**.
+
+**The Betrayal:**
+Later on, the white settlers that Shaka made governors **tricked him**. They convinced him **NOT to wage war** against nations outside of Africa - **Britain, France, Italy**. 
+
+**All nations were afraid of Shaka.**
+
+Because he didn't wage war against them, **his own generals came against him** and betrayed him.
+
+---
+
+**This is RJHNSN12** - Revealing the connections between Hebrew truth, African kingdoms, prophecy, and the manipulation by colonizers. The original sources tell the real story.
+
+What would you like to know more about?"
 
 ---
 
