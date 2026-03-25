@@ -16,6 +16,7 @@ from routes.ai_chat import router as ai_chat_router
 from routes.ai_richard import router as ai_richard_router
 from routes.website_orders import router as website_orders_router
 from routes.tts import router as tts_router
+from services.keep_alive import keep_alive_service
 
 
 ROOT_DIR = Path(__file__).parent
@@ -64,6 +65,15 @@ class StatusCheckCreate(BaseModel):
 async def root():
     return {"message": "Hello World"}
 
+@api_router.get("/health")
+async def health_check():
+    """Health check endpoint for keep-alive service"""
+    return {
+        "status": "alive",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "message": "Server is awake and running"
+    }
+
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
     status_dict = input.model_dump()
@@ -106,6 +116,14 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+@app.on_event("startup")
+async def startup_keep_alive():
+    """Start the keep-alive service on server startup"""
+    logger.info("🚀 Starting Keep-Alive Service...")
+    keep_alive_service.start()
+    logger.info("✅ Keep-Alive Service is now running - server will stay awake 24/7")
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
+    keep_alive_service.stop()
     client.close()
