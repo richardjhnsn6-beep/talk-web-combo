@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Smartphone, Download, Radio, Sparkles, Crown, CheckCircle } from 'lucide-react';
+import { Smartphone, Download, Radio, Sparkles, Crown, CheckCircle, Copy, Check } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
 
 export default function InstallApp() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [isIOS, setIsIOS] = useState(false);
   const [isStandalone, setIsStandalone] = useState(false);
   const [installSuccess, setInstallSuccess] = useState(false);
+  const [copied, setCopied] = useState(false);
+  
+  const appUrl = window.location.origin;
 
   useEffect(() => {
     const isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches 
@@ -34,6 +38,12 @@ export default function InstallApp() {
     }
     
     setDeferredPrompt(null);
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(appUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   if (isStandalone) {
@@ -170,15 +180,55 @@ export default function InstallApp() {
 
           {/* Desktop/Unsupported */}
           {!deferredPrompt && !isIOS && (
-            <div className="bg-slate-900/50 border border-purple-700/30 rounded-2xl p-8 text-center">
+            <div className="bg-slate-900/50 border border-purple-700/30 rounded-2xl p-8">
               <Smartphone className="w-16 h-16 text-purple-400 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold mb-4">Install on Mobile</h2>
-              <p className="text-purple-200 mb-6">
+              <h2 className="text-2xl font-bold mb-4 text-center">📱 Install on Mobile</h2>
+              <p className="text-purple-200 mb-6 text-center">
                 To install the RJHNSN12 app, please visit this page on your mobile device (iPhone or Android).
               </p>
-              <div className="bg-slate-800/50 rounded-lg p-4 inline-block">
-                <p className="text-sm text-purple-300 mb-2">Or scan this QR code:</p>
-                <p className="text-xs text-purple-400">QR code generation coming soon...</p>
+              
+              {/* QR Code */}
+              <div className="bg-white rounded-2xl p-6 inline-block mx-auto mb-6 shadow-2xl" style={{ display: 'block', width: 'fit-content', margin: '0 auto 1.5rem' }}>
+                <QRCodeSVG 
+                  value={appUrl}
+                  size={200}
+                  level="H"
+                  includeMargin={true}
+                  className="mx-auto"
+                />
+                <p className="text-center text-gray-800 text-sm font-bold mt-3">Scan with your phone</p>
+              </div>
+              
+              {/* Shareable Link */}
+              <div className="bg-slate-800/50 rounded-xl p-4">
+                <p className="text-sm text-purple-300 mb-3 text-center font-semibold">Or copy this link:</p>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={appUrl}
+                    readOnly
+                    className="flex-1 bg-slate-700 text-white px-4 py-2 rounded-lg text-sm border border-purple-700/50"
+                  />
+                  <button
+                    onClick={handleCopyLink}
+                    className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition flex items-center gap-2"
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="w-4 h-4" />
+                        Copied!
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-4 h-4" />
+                        Copy
+                      </>
+                    )}
+                  </button>
+                </div>
+                <p className="text-xs text-purple-400 mt-3 text-center">
+                  Send this link to your phone via text, email, or messaging app
+                </p>
               </div>
             </div>
           )}
