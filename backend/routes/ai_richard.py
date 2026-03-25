@@ -995,6 +995,13 @@ async def ai_richard_chat(chat_req: ChatRequest, request: Request):
         # Check for KEYWORD SHORTCUTS first (instant response, no OpenAI call needed)
         user_message_lower = chat_req.message.lower().strip()
         
+        # Define keyword aliases for flexible matching
+        KEYWORD_ALIASES = {
+            "homepage": ["homepage", "home page", "home page video", "home video"],
+            "page_2": ["page 2", "page two", "page 2", "pagetwo", "page two video", "page 2 video"],
+            "page_3": ["page 3", "page three", "page 3", "pagethree", "page three video", "page 3 video"]
+        }
+        
         # Define instant keyword responses
         KEYWORD_RESPONSES = {
             "homepage": """Welcome, friend. Let me tell you about the vision of RJHNSN12:
@@ -1017,7 +1024,7 @@ This is the foundation of RJHNSN12 - where ancient truth meets modern revelation
 
 Is there anything specific you'd like to know more about?""",
             
-            "page 2": """Let me share the powerful history on Page Two - there are TWO videos that reveal the truth:
+            "page_2": """Let me share the powerful history on Page Two - there are TWO videos that reveal the truth:
 
 **IMPORTANT: Richard Johnson clip-paced these videos together** - combining different sources, clips, and music to present these ideas. This is educational content, not for sale.
 
@@ -1077,7 +1084,7 @@ Because he didn't attack beyond Africa, **his own generals came against him** an
 
 What would you like to know more about?""",
             
-            "page 3": """Page Three is a MUST WATCH - powerful truth about suffering, revision, and where we fit:
+            "page_3": """Page Three is a MUST WATCH - powerful truth about suffering, revision, and where we fit:
 
 **IMPORTANT: Richard Johnson clip-paced this video together** - combining different sources, clips, and music to present these ideas. This is educational content, not for sale.
 
@@ -1136,46 +1143,64 @@ The truth is in the original sources. This is the revision 2Pac called for.
 What would you like to explore about this truth?"""
         }
         
-        # Check if user message matches any keyword (exact or contains)
+        # Check if user message matches any keyword alias
         ai_response = None
-        for keyword, response_text in KEYWORD_RESPONSES.items():
-            if keyword in user_message_lower or user_message_lower in keyword:
-                ai_response = response_text
-                print(f"✅ INSTANT KEYWORD RESPONSE: '{keyword}' detected - skipping OpenAI")
+        
+        for keyword_key, aliases in KEYWORD_ALIASES.items():
+            for alias in aliases:
+                if alias in user_message_lower:
+                    ai_response = KEYWORD_RESPONSES[keyword_key]
+                    print(f"✅ INSTANT KEYWORD RESPONSE: '{alias}' detected for '{keyword_key}' - skipping OpenAI")
+                    break
+            if ai_response:
                 break
         
         # If not a keyword shortcut, use OpenAI for dynamic response
         if not ai_response:
-        
-        # Add page context if provided to give AI more awareness
-        if chat_req.page_context:
-            context_note = f"\n\n[User is currently on: {chat_req.page_context}]"
-            user_message += context_note
-        
-        # Call OpenAI via Emergent LLM integration
-        chat_client = (
-            LlmChat(
-                api_key=os.environ.get('EMERGENT_LLM_KEY'),
-                session_id=conversation_id,
-                system_message=AI_RICHARD_SYSTEM_PROMPT,
-                initial_messages=conversation_messages
+            # Fetch conversation history from database
+            conversation = await db.ai_richard_conversations.find_one(
+                {"conversation_id": conversation_id},
+                {"_id": 0}
             )
-            .with_model("openai", "gpt-4o-mini")
-            .with_params(max_tokens=800, temperature=0.7)
-        )
-        
-        # Send message and get response
-        user_msg = UserMessage(text=user_message)
-        ai_response = await chat_client.send_message(user_message=user_msg)
+            
+            # Build conversation messages array
+            conversation_messages = []
+            if conversation and "messages" in conversation:
+                for msg in conversation["messages"]:
+                    conversation_messages.append({
+                        "role": msg["role"],
+                        "content": msg["content"]
+                    })
+            
+            # Prepare user message with page context
+            user_message = chat_req.message
+            if chat_req.page_context:
+                context_note = f"\n\n[User is currently on: {chat_req.page_context}]"
+                user_message += context_note
+            
+            # Call OpenAI via Emergent LLM integration
+            chat_client = (
+                LlmChat(
+                    api_key=os.environ.get('EMERGENT_LLM_KEY'),
+                    session_id=conversation_id,
+                    system_message=AI_RICHARD_SYSTEM_PROMPT,
+                    initial_messages=conversation_messages
+                )
+                .with_model("openai", "gpt-4o-mini")
+                .with_params(max_tokens=800, temperature=0.7)
+            )
+            
+            # Send message and get response
+            user_msg = UserMessage(text=user_message)
+            ai_response = await chat_client.send_message(user_message=user_msg)
+        else:
+            # For keyword responses, also fetch conversation for database update
+            conversation = await db.ai_richard_conversations.find_one(
+                {"conversation_id": conversation_id},
+                {"_id": 0}
+            )
         
         # Save conversation to database
-        message_entry = {
-            "user_message": chat_req.message,
-            "ai_response": ai_response,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-            "page_context": chat_req.page_context
-        }
-        
         if conversation:
             # Update existing conversation
             await db.ai_richard_conversations.update_one(
