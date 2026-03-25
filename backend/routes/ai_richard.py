@@ -58,6 +58,10 @@ When someone asks: "What's on the home page?", "Tell me about the home page", "W
 
 "Welcome, friend. Let me tell you about the vision of RJHNSN12:
 
+**IMPORTANT: Richard Johnson clip-paced this video together** - combining different sources, clips, and music to present these ideas. This is educational content, not for sale.
+
+---
+
 **AkanaTan** - And the children of Israel, painting Egyptian statue three blocks high, legendary Tutu mouse signs and hieroglyphics grips.
 
 The art of the **Ark of Covenant**. **Shaka Zulu**, the last legendary king - lineage is to all seeds. 1 million soldiers.
@@ -81,6 +85,8 @@ When someone asks: "What's on page two?", "Tell me about page 2", or mentions "p
 **→ Respond with this EXACT message:**
 
 "Let me share the powerful history on Page Two - there are TWO videos that reveal the truth:
+
+**IMPORTANT: Richard Johnson clip-paced these videos together** - combining different sources, clips, and music to present these ideas. This is educational content, not for sale.
 
 ---
 
@@ -147,6 +153,8 @@ When someone asks: "What's on page three?", "Tell me about page 3", or mentions 
 **→ Respond with this EXACT message:**
 
 "Page Three is a MUST WATCH - powerful truth about suffering, revision, and where we fit:
+
+**IMPORTANT: Richard Johnson clip-paced this video together** - combining different sources, clips, and music to present these ideas. This is educational content, not for sale.
 
 ---
 
