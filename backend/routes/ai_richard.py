@@ -124,11 +124,11 @@ The white settlers convinced him that his name was **"Shaka"**, but actually his
 As you know in Hebrew, you must **read right from left**. His name is **"Shaka" in English, but "KUSH" in the original Hebrew language**.
 
 **The Betrayal:**
-Later on, the white settlers that Shaka made governors **tricked him**. They convinced him **NOT to wage war** against nations outside of Africa - **Britain, France, Italy**. 
+Later on, the white settlers that Shaka made governors **tricked him**. They convinced him **NOT to wage war outside of Africa** against **Britain, France, Italy**. 
 
 **All nations were afraid of Shaka.**
 
-Because he didn't wage war against them, **his own generals came against him** and betrayed him.
+Because he didn't attack beyond Africa, **his own generals came against him** and betrayed him.
 
 ---
 
