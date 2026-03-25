@@ -3,7 +3,7 @@
 // Service Worker for RJHNSN12 PWA
 // Enables offline functionality and app-like experience
 
-const CACHE_NAME = 'rjhnsn12-v2'; // Bumped version to force cache refresh
+const CACHE_NAME = 'rjhnsn12-v3-march25'; // Force complete cache refresh
 const urlsToCache = [
   '/',
   '/ai-chat',

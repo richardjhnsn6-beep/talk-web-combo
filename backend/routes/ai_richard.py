@@ -1082,7 +1082,12 @@ async def ai_richard_chat(chat_req: ChatRequest, request: Request):
         
         return ChatResponse(
             response=ai_response,
-            conversation_id=conversation_id
+            conversation_id=conversation_id,
+            headers={
+                "Cache-Control": "no-cache, no-store, must-revalidate",
+                "Pragma": "no-cache",
+                "Expires": "0"
+            }
         )
         
     except Exception as e:
