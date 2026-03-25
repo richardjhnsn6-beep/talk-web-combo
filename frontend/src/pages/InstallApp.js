@@ -63,36 +63,64 @@ export default function InstallApp() {
           <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-4xl font-bold mb-4">✅ App Already Installed!</h1>
-          <p className="text-lg text-purple-200 mb-4">
-            You're using the RJHNSN12 app. Enjoy 24/7 AI chat and radio!
+          <h1 className="text-4xl font-bold mb-4">✅ You're Using the Installed App!</h1>
+          <p className="text-lg text-purple-200 mb-6">
+            The RJHNSN12 app is installed. Enjoy 24/7 AI chat and radio!
           </p>
           
-          {/* Help for users who want to get back to browser */}
-          <div className="bg-blue-900/30 border border-blue-500/30 rounded-xl p-6 mb-6">
-            <p className="text-blue-200 text-sm mb-4">
-              <strong>Want to use the website version instead?</strong>
+          {/* Open in Browser Option */}
+          <div className="bg-blue-900/30 border-2 border-blue-500/50 rounded-xl p-6 mb-6">
+            <h3 className="text-xl font-bold text-blue-200 mb-3">🌐 Need the Website Version?</h3>
+            <p className="text-blue-300 text-sm mb-4">
+              The installed app and website work differently. Click below to open the full website in your browser:
             </p>
-            <div className="space-y-2 text-left text-sm text-blue-300">
-              <p>1. Close this app window</p>
-              <p>2. Open your regular browser (Chrome, Safari, etc.)</p>
-              <p>3. Go to: <span className="font-mono bg-blue-950/50 px-2 py-1 rounded">{appUrl}</span></p>
-            </div>
             <button
               onClick={() => {
-                window.open(appUrl, '_blank');
+                const websiteUrl = window.location.origin;
+                window.open(websiteUrl, '_blank');
+                alert('Opening website in browser! The app will stay installed. To remove the app completely, see instructions below.');
               }}
-              className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-bold transition shadow-lg"
             >
-              🌐 Open Website in New Tab
+              🌐 Open Full Website in Browser
             </button>
           </div>
+          
+          {/* Uninstall Instructions */}
+          <details className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 text-left mb-6">
+            <summary className="cursor-pointer font-bold text-purple-300 hover:text-purple-200">
+              🗑️ How to Uninstall This App
+            </summary>
+            <div className="mt-4 space-y-4 text-sm text-purple-200">
+              <div>
+                <p className="font-semibold mb-2">Windows:</p>
+                <ol className="list-decimal list-inside space-y-1 text-xs">
+                  <li>Settings → Apps → Installed Apps</li>
+                  <li>Search "rjhnsn12" → Click ⋮ → Uninstall</li>
+                </ol>
+              </div>
+              <div>
+                <p className="font-semibold mb-2">Mac:</p>
+                <ol className="list-decimal list-inside space-y-1 text-xs">
+                  <li>Finder → Applications</li>
+                  <li>Find "RJHNSN12" → Move to Trash</li>
+                </ol>
+              </div>
+              <div>
+                <p className="font-semibold mb-2">Chrome:</p>
+                <ol className="list-decimal list-inside space-y-1 text-xs">
+                  <li>Type: chrome://apps</li>
+                  <li>Right-click RJHNSN12 → Remove from Chrome</li>
+                </ol>
+              </div>
+            </div>
+          </details>
           
           <a
             href="/"
             className="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:from-purple-700 hover:to-pink-700 transition"
           >
-            Go to Home
+            📻 Go to Radio
           </a>
         </div>
       </div>
@@ -144,6 +172,26 @@ export default function InstallApp() {
             <h3 className="font-bold text-lg mb-2">Offline Access</h3>
             <p className="text-sm text-purple-300">
               Browse content even without internet connection
+            </p>
+          </div>
+        </div>
+        
+        {/* IMPORTANT WARNING for Desktop Users */}
+        <div className="max-w-3xl mx-auto mb-8 bg-orange-900/30 border-2 border-orange-500/50 rounded-xl p-6">
+          <h3 className="text-xl font-bold text-orange-200 mb-3 flex items-center justify-center gap-2">
+            <span>⚠️</span> Important: App vs Website
+          </h3>
+          <div className="text-orange-100 text-sm space-y-2">
+            <p>
+              <strong>Once you install this app:</strong>
+            </p>
+            <ul className="list-disc list-inside space-y-1 ml-4">
+              <li>It becomes a <strong>standalone app</strong> on your device</li>
+              <li>Clicking our website links will <strong>open the app</strong> instead</li>
+              <li>To access the website again, you'll need to <strong>uninstall the app</strong></li>
+            </ul>
+            <p className="mt-4 pt-4 border-t border-orange-500/30">
+              <strong>💡 Recommendation:</strong> Install on your <strong>phone only</strong>, use the website on your computer for full features.
             </p>
           </div>
         </div>
