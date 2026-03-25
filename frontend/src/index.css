@@ -127,3 +127,53 @@ code {
 .animate-bounce-subtle {
     animation: bounce-subtle 0.6s ease-in-out infinite;
 }
+
+/* Landscape Mode Optimization for Mobile PWA */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+    /* Adjust bottom elements for landscape mode */
+    
+    /* AI Richard Avatar - move to bottom-left with less vertical space */
+    .fixed.bottom-4.left-4 {
+        bottom: 0.5rem !important;
+    }
+    
+    /* Floating Chat Button (pink circle) - move to bottom-right closer */
+    .fixed.bottom-6.right-6 {
+        bottom: 0.5rem !important;
+        right: 1rem !important;
+    }
+    
+    /* Install App Banner - adjust for landscape */
+    .fixed.bottom-20.right-6 {
+        bottom: 3.5rem !important;
+        right: 1rem !important;
+        width: 18rem !important;
+    }
+    
+    /* Made with Emergent badge - keep at bottom */
+    .fixed.bottom-2.left-2 {
+        bottom: 0.25rem !important;
+    }
+    
+    /* Radio player controls - compact in landscape */
+    .radio-player-controls {
+        padding: 0.5rem !important;
+    }
+    
+    /* Chat widget - adjust max height for landscape */
+    .chat-widget-container {
+        max-height: 70vh !important;
+    }
+}
+
+/* Additional landscape optimizations for tablets */
+@media screen and (min-width: 768px) and (max-height: 600px) and (orientation: landscape) {
+    /* Spread out buttons more on larger landscape screens */
+    .fixed.bottom-6.right-6 {
+        right: 2rem !important;
+    }
+    
+    .fixed.bottom-20.right-6 {
+        right: 2rem !important;
+    }
+}

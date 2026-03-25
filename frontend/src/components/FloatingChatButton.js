@@ -96,7 +96,7 @@ export default function FloatingChatButton() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-96 h-[600px] bg-slate-900 border border-purple-700/50 rounded-2xl shadow-2xl z-50 flex flex-col">
+        <div className="chat-widget-container fixed bottom-6 right-6 w-96 h-[600px] bg-slate-900 border border-purple-700/50 rounded-2xl shadow-2xl z-50 flex flex-col landscape:h-[85vh] landscape:bottom-2 landscape:right-2 landscape:w-[28rem]">
           {/* Header */}
           <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-4 rounded-t-2xl flex items-center justify-between">
             <div className="flex items-center gap-2">
