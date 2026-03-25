@@ -986,27 +986,166 @@ class ChatResponse(BaseModel):
 async def ai_richard_chat(chat_req: ChatRequest, request: Request):
     """
     AI Richard chat endpoint - handles both biblical questions and web dev lead generation
+    Optimized: Instant responses for keyword shortcuts, AI for everything else
     """
     try:
         # Get or create conversation ID
         conversation_id = chat_req.conversation_id or str(uuid.uuid4())
         
-        # Retrieve conversation history
-        conversation = await db.ai_richard_conversations.find_one(
-            {"conversation_id": conversation_id},
-            {"_id": 0}
-        )
+        # Check for KEYWORD SHORTCUTS first (instant response, no OpenAI call needed)
+        user_message_lower = chat_req.message.lower().strip()
         
-        # Build message history for context
-        conversation_messages = []
+        # Define instant keyword responses
+        KEYWORD_RESPONSES = {
+            "homepage": """Welcome, friend. Let me tell you about the vision of RJHNSN12:
+
+**IMPORTANT: Richard Johnson clip-paced this video together** - combining different sources, clips, and music to present these ideas. This is educational content, not for sale.
+
+---
+
+**AkanaTan** - And the children of Israel, painting Egyptian statue three blocks high, legendary Tutu mouse signs and hieroglyphics grips.
+
+The art of the **Ark of Covenant**. **Shaka Zulu**, the last legendary king - lineage is to all seeds. 1 million soldiers.
+
+**Malcolm X, Elijah Mohammed, Martin Luther King, Mandela** - the last bloodline of the Golden Child of the golden Sun.
+
+**Isis**, the wings of Ra, sun dish - three-dimensional video of Egyptian temple Isis.
+
+This is the spiritual and historical lineage that connects ancient Hebrew truth to the great leaders and kingdoms of Africa and the prophetic word. The home page captures this powerful connection - from Egyptian temples to the Children of Israel, from ancient kings to modern prophets.
+
+This is the foundation of RJHNSN12 - where ancient truth meets modern revelation.
+
+Is there anything specific you'd like to know more about?""",
+            
+            "page 2": """Let me share the powerful history on Page Two - there are TWO videos that reveal the truth:
+
+**IMPORTANT: Richard Johnson clip-paced these videos together** - combining different sources, clips, and music to present these ideas. This is educational content, not for sale.
+
+---
+
+**VIDEO 1: Shaka Zulu - The Test of Power (1816 A.D.)**
+
+**1816 A.D.** - **Shaka Zulu** was conquering every nation from the coast of Africa when white settlers came in and wanted to change his belief system.
+
+Shaka replied: **'There is only one - Nakash Yama Nakashy.'**
+
+Shaka put the white settlers to the test. He said: **'If Jesus has this type of power, you should be able to conquer many nations with a small amount of men.'**
+
+**The men did conquer.** So Shaka made them governors in his regiment.
+
+**Dr. Henry Clark speaks**: 'As for friends, you have had no friends. When they discovered you, they began to PREY on you.'
+
+**Next shown**: The true story by **Alex Haley** - **Mandingo** - of a white female and an enslaved Black man.
+
+Then the **history of Congo and Kango** - maps of ancient **Bantu**, servants and slaves.
+
+**Dr. Henry Clark speaks of religion taken from the scrolls**, stating: 'You see where the stories of the Bible tell the people? Why don't you go back and read the **original Egyptian text of Exodus** - start from the beginning?'
+
+---
+
+**VIDEO 2: The Full Shaka Movie - Prophecy, Denial, and Betrayal**
+
+This video was made by clipping together different scenes and parts to show the entire movie story:
+
+**The Prophecy:**
+The father denied the son. **Shaka** - of the **Zulu tribe, the tribe of Gad**. 
+
+Spirit mediums, warlocks, and magicians - **who were said to live 500 years** - witnessed **the star** and the coming of Shaka.
+
+The prophecy foretold: **'When the son comes, he shall wage war against all generations of Africa, joining thousands together, millions, and with one continent submit, all will be terminated.'**
+
+**The Father's Denial:**
+The son was denied by the head tribe - the **King of the Zulu tribe, his father**. Shaka promised his father: **'I will wage war with 50 men to kill 300,000 if you do not accept my mother's hand and keep calling her a harlot. I will fight to the end.'**
+
+The entire movie shows Shaka **fighting the enemies of his father**.
+
+**The Name Revelation - HEBREW CONNECTION:**
+The white settlers convinced him that his name was **"Shaka"**, but actually his name was **"KUSH"**.
+
+As you know in Hebrew, you must **read right from left**. His name is **"Shaka" in English, but "KUSH" in the original Hebrew language**.
+
+**The Betrayal:**
+Later on, the white settlers that Shaka made governors **tricked him**. They convinced him **NOT to wage war outside of Africa** against **Britain, France, Italy**. 
+
+**All nations were afraid of Shaka.**
+
+Because he didn't attack beyond Africa, **his own generals came against him** and betrayed him.
+
+---
+
+**This is RJHNSN12** - Revealing the connections between Hebrew truth, African kingdoms, prophecy, and the manipulation by colonizers. The original sources tell the real story.
+
+What would you like to know more about?""",
+            
+            "page 3": """Page Three is a MUST WATCH - powerful truth about suffering, revision, and where we fit:
+
+**IMPORTANT: Richard Johnson clip-paced this video together** - combining different sources, clips, and music to present these ideas. This is educational content, not for sale.
+
+---
+
+**The Opening Question:**
+
+**'It's not where you're from, it's where you at.'** - **Mr. Louis Farrakhan**
+
+**'Where are the Black people in the Bible?'**
+
+---
+
+**2Pac's Call for Revision:**
+
+The video starts with **2Pac** and his belief that **the Bible should be revised** - and WHY it should be revised.
+
+He says: **'I don't see it. I keep seeing the same old copy.'**
+
+2Pac **specifically states**: **'I mean no disrespect to anyone's religion. I am just stating my opinion.'**
+
+He talks about **'We suffer.'**
+
+He's showing that he got **shot five times** - comparing himself being shot five times to Jesus being crucified. **Crucified by the media.**
+
+---
+
+**Eight Different Locations:**
+
+Showing **8 different locations, different cities, different continents** - everywhere, everybody is **preaching about the word of the Lord**.
+
+But at the same time, while everybody's preaching about the word of the Lord, **Louis Farrakhan comes in** and asks:
+
+**'Where do we fit in this?'**
+
+The question repeats **over and over again** throughout the video.
+
+---
+
+**The 1968 Truth - MUST SEE:**
+
+**Hardcore wisdom** is shown:
+
+In **1968** - showing **children with handicaps** - they were **still in locks and stocks around the neck and ankles**. 
+
+**Still enslaved. Just being freed in 1968.**
+
+---
+
+**This is RJHNSN12 Page 3** - MUST WATCH VIDEO.
+
+The questions that must be asked: Where are Black people in the Bible? Why is the same old copy being preached? Why were people still enslaved in 1968 when we're told slavery ended 100 years earlier?
+
+The truth is in the original sources. This is the revision 2Pac called for.
+
+What would you like to explore about this truth?"""
+        }
         
-        if conversation and "messages" in conversation:
-            # Add previous messages to context (last 10 messages)
-            for msg in conversation["messages"][-10:]:
-                conversation_messages.append({"role": msg["role"], "content": msg["content"]})
+        # Check if user message matches any keyword (exact or contains)
+        ai_response = None
+        for keyword, response_text in KEYWORD_RESPONSES.items():
+            if keyword in user_message_lower or user_message_lower in keyword:
+                ai_response = response_text
+                print(f"✅ INSTANT KEYWORD RESPONSE: '{keyword}' detected - skipping OpenAI")
+                break
         
-        # Add current user message
-        user_message = chat_req.message
+        # If not a keyword shortcut, use OpenAI for dynamic response
+        if not ai_response:
         
         # Add page context if provided to give AI more awareness
         if chat_req.page_context:
