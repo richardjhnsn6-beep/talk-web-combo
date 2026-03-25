@@ -3,7 +3,7 @@
 // Service Worker for RJHNSN12 PWA
 // Enables offline functionality and app-like experience
 
-const CACHE_NAME = 'rjhnsn12-v1';
+const CACHE_NAME = 'rjhnsn12-v2'; // Bumped version to force cache refresh
 const urlsToCache = [
   '/',
   '/ai-chat',
@@ -66,31 +66,60 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Cache-first strategy for static assets
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request).then((response) => {
-          // Cache successful responses
-          if (!response || response.status !== 200 || response.type === 'error') {
+  // Cache-first strategy for static assets ONLY (images, fonts)
+  // Network-first for HTML pages to ensure fresh content
+  if (event.request.url.includes('.png') || 
+      event.request.url.includes('.jpg') || 
+      event.request.url.includes('.css') ||
+      event.request.url.includes('.js') && !event.request.url.includes('hot-update')) {
+    
+    // Cache-first for static assets
+    event.respondWith(
+      caches.match(event.request)
+        .then((response) => {
+          if (response) {
             return response;
           }
+          return fetch(event.request).then((response) => {
+            if (!response || response.status !== 200 || response.type === 'error') {
+              return response;
+            }
+            const responseToCache = response.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseToCache);
+            });
+            return response;
+          });
+        })
+        .catch(() => {
+          return new Response('Offline', { headers: { 'Content-Type': 'text/plain' } });
+        })
+    );
+  } else {
+    // Network-first for HTML pages (ensures fresh content on refresh)
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          // Cache the fresh response
           const responseToCache = response.clone();
           caches.open(CACHE_NAME).then((cache) => {
             cache.put(event.request, responseToCache);
           });
           return response;
-        });
-      })
-      .catch(() => {
-        // Offline fallback
-        return new Response(
-          '<h1>Offline</h1><p>Please check your internet connection.</p>',
-          { headers: { 'Content-Type': 'text/html' } }
-        );
-      })
-  );
+        })
+        .catch(() => {
+          // Fallback to cache if offline
+          return caches.match(event.request)
+            .then((response) => {
+              if (response) {
+                return response;
+              }
+              return new Response(
+                '<h1>Offline</h1><p>Please check your internet connection.</p>',
+                { headers: { 'Content-Type': 'text/html' } }
+              );
+            });
+        })
+    );
+  }
 });
