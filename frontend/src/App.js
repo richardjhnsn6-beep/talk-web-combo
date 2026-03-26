@@ -24,6 +24,7 @@ import FloatingChatButton from './components/FloatingChatButton';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
 import AdminLogin from './components/AdminLogin';
 import AIRichard from './components/AIRichard';
+import VisitorTracker from './components/VisitorTracker';
 import OrdersDashboard from './pages/OrdersDashboard';
 import OrderSuccess from './pages/OrderSuccess';
 import OrderCancelled from './pages/OrderCancelled';
@@ -141,6 +142,9 @@ function App() {
   return (
     <div className="App" data-testid="app-container">
       <BrowserRouter>
+        {/* Visitor Tracker - sends heartbeat every 30 seconds */}
+        <VisitorTracker />
+        
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}

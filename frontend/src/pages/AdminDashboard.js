@@ -4,6 +4,7 @@ import { Crown, Sparkles, TrendingUp } from 'lucide-react';
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
   const [aiChatStats, setAiChatStats] = useState(null);
+  const [liveVisitors, setLiveVisitors] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [lastTransactionCount, setLastTransactionCount] = useState(0);
@@ -11,14 +12,17 @@ const AdminDashboard = () => {
   const pageViewsRef = useRef(null);
   const aiChatStatsRef = useRef(null);
   const transactionsRef = useRef(null);
+  const liveVisitorsRef = useRef(null);
 
   useEffect(() => {
     fetchDashboardData();
     fetchAIChatStats();
-    // Check for new sales every 5 seconds
+    fetchLiveVisitors();
+    // Check for new sales and live visitors every 5 seconds
     const interval = setInterval(() => {
       checkForNewSales();
       fetchAIChatStats();
+      fetchLiveVisitors();
     }, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -45,6 +49,17 @@ const AdminDashboard = () => {
       setAiChatStats(data);
     } catch (err) {
       console.error('Failed to fetch AI chat stats:', err);
+    }
+  };
+
+  const fetchLiveVisitors = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/visitors/active`);
+      if (!response.ok) return;
+      const data = await response.json();
+      setLiveVisitors(data);
+    } catch (err) {
+      console.error('Failed to fetch live visitors:', err);
     }
   };
 
@@ -118,6 +133,10 @@ const AdminDashboard = () => {
     transactionsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  const scrollToLiveVisitors = () => {
+    liveVisitorsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -168,6 +187,46 @@ const AdminDashboard = () => {
               <strong>LIVE</strong> (checks every 5 seconds)
             </span>
           </p>
+        </div>
+
+        {/* LIVE VISITORS - Real-time tracking */}
+        <div 
+          ref={liveVisitorsRef}
+          className="bg-gradient-to-r from-red-500 to-orange-500 rounded-lg shadow-2xl p-6 mb-8 border-4 border-red-600"
+        >
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+              <span className="animate-pulse inline-block w-3 h-3 bg-white rounded-full"></span>
+              👥 Live Visitors Now
+            </h2>
+            <div className="text-5xl font-bold text-white">
+              {liveVisitors?.total_active || 0}
+            </div>
+          </div>
+          
+          {liveVisitors && liveVisitors.total_active > 0 ? (
+            <div className="bg-white/20 rounded-lg p-4">
+              <p className="text-white font-semibold mb-3">Currently Viewing:</p>
+              <div className="space-y-2">
+                {Object.entries(liveVisitors.by_page || {}).map(([page, count]) => (
+                  <div key={page} className="flex justify-between items-center bg-white/30 rounded px-3 py-2">
+                    <span className="text-white font-medium">📍 {page}</span>
+                    <span className="bg-white text-red-600 font-bold px-3 py-1 rounded-full text-sm">
+                      {count} {count === 1 ? 'visitor' : 'visitors'}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-white/80 text-xs mt-3">
+                ⏱️ Updates every 5 seconds • Last update: {liveVisitors.timestamp ? new Date(liveVisitors.timestamp).toLocaleTimeString() : 'N/A'}
+              </p>
+            </div>
+          ) : (
+            <div className="bg-white/20 rounded-lg p-4 text-center">
+              <p className="text-white text-lg">No visitors online right now</p>
+              <p className="text-white/80 text-sm mt-1">Visitors are tracked when they view any page</p>
+            </div>
+          )}
         </div>
 
         {/* Revenue Stats */}
