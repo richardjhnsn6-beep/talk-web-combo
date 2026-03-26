@@ -186,13 +186,6 @@ const Radio = () => {
     handleDonation(amount);
   };
 
-  // Auto-play next track when audio is loaded
-  useEffect(() => {
-    if (audioRef.current && isPlaying && currentTrack) {
-      audioRef.current.play();
-    }
-  }, [currentTrackIndex]);
-
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-teal-900 flex items-center justify-center">

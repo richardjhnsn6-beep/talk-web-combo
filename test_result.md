@@ -156,7 +156,7 @@ backend:
 frontend:
   - task: "Radio page with audio player and DJ announcements"
     implemented: true
-    working: false
+    working: "fixed"
     file: "/app/frontend/src/pages/Radio.js"
     stuck_count: 2
     priority: "critical"
@@ -168,6 +168,9 @@ frontend:
       - working: "fixing"
         agent: "main_e1"
         comment: "Applied MAXIMUM volume fix: Announcements now play at 100% volume (1.0), music reduced to 60% of slider volume for better contrast. Changed base volume from 0.7 to 0.5. Need to verify this creates sufficient volume difference."
+      - working: "fixed"
+        agent: "main_e1_fork3"
+        comment: "CRITICAL BUG FOUND AND FIXED: Discovered duplicate useEffect hooks at lines 124-129 and 190-194 in Radio.js. Both were calling audio.play() when currentTrackIndex changed, causing DOUBLE PLAYBACK - this created the echo/stutter effect user reported ('This is Richard Johnson. This is Richard Johnson' and 'RJHNSN 12 RJHNSN 1212'). REMOVED the second useEffect (lines 190-194). Also verified no duplicate audio data in MongoDB - all announcements are unique. This was a pure frontend playback duplication issue."
   
   - task: "Persistent floating radio player with announcements"
     implemented: true
@@ -271,3 +274,5 @@ agent_communication:
     message: "PREMIUM VOICE FEATURE COMPLETE: Implemented dual voice options for AI Richard. Users can now choose between Free Voice (browser TTS) and Premium Voice (OpenAI TTS via emergentintegrations). Backend TTS endpoint fixed to use emergentintegrations.llm.openai.OpenAITextToSpeech with EMERGENT_LLM_KEY. Frontend shows both options as buttons with clear cost indicators. Tested end-to-end: voice toggle works, both voice buttons selectable with distinct styling, premium voice generates and plays audio correctly. No console errors. Feature ready for user comparison test."
   - agent: "main_e1_fork2"
     message: "MORNING STRETCH BROADCAST ADDED - BLOCKER RESOLVED: Successfully generated and added 'Morning Stretch with Richard Johnson' fitness broadcast to RJHNSN12 Radio. Used the existing /api/radio/dj/announcement endpoint which properly handles audio generation (OpenAI TTS), processing (normalize + compression + 6dB boost), and database insertion. Database now has 14 total announcements (13 original + 1 new). Playlist endpoint verified: Returns 61 items (47 tracks + 14 announcements). Morning Stretch broadcast positioned at slot 56 with 'onyx' voice, ~2-3 minute duration, includes complete stretching routine from AI Richard's fitness knowledge. Radio page tested and loads correctly. Issue: Previous agent attempted to add this but failed to persist properly - now resolved."
+  - agent: "main_e1_fork3"
+    message: "P0 RADIO DJ DOUBLE ECHO BUG FIXED: User reported hearing double echoes like 'This is Richard Johnson. This is Richard Johnson' and 'RJHNSN 12 RJHNSN 1212' while driving. Root cause investigation revealed: (1) Audio data in MongoDB is clean - no duplicates found. (2) FOUND THE BUG: Radio.js had TWO useEffect hooks both triggering on currentTrackIndex change - lines 124-129 called handlePlay() AND lines 190-194 called audioRef.current.play() again, causing DOUBLE PLAYBACK. FIXED by removing the redundant second useEffect. This was causing announcements to play twice simultaneously, creating the echo effect. Also confirmed: Python requirements.txt already contains APScheduler==3.11.2 and tzlocal==5.3.1 - no need to freeze. PERSISTENT MEMORY: Reviewed ai_richard.py - conversation persistence is ALREADY IMPLEMENTED (lines 1161-1231) via MongoDB ai_richard_conversations collection. Previous agent's 'credit checking' promise was impossible - Emergent doesn't expose billing APIs to deployed apps. Current implementation successfully stores and retrieves conversation history. NEEDS TESTING: Radio double-play fix, conversation memory retention."
