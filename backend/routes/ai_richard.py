@@ -1218,6 +1218,110 @@ The understanding is clear: **The name "Jesus Christ" was created by the Roman C
 
 **This is RJHNSN12 Page 4** - Historical evidence showing the origins of religious doctrine and the manipulation of history.
 
+---
+
+**VIDEO 2: The Conquest Through Christianity - 2Pac, Farrakhan, and Shaka's Betrayal**
+
+**IMPORTANT: Richard Johnson clip-paced this video together** - combining different sources, clips, and music to present these ideas. This is educational content, not for sale.
+
+---
+
+**2Pac's Opening - Light and Darkness:**
+
+The video starts with **2Pac** speaking: **"If you got light in you, don't play in the dark."**
+
+Pictures of **AI Richard Johnson** are shown.
+
+---
+
+**Dr. John Henrik Clark's Warning:**
+
+**Dr. John Henrik Clark** states: **"When they discovered you, they began to PREY on you."**
+
+---
+
+**Shaka Zulu - The Three White Settlers:**
+
+It shows the **three white settlers** coming towards **Shaka Zulu** to **trick his belief system**.
+
+They tell him there's another one - **Jesus** - the greatest in the entire world that he needs to submit to.
+
+---
+
+**Louis Farrakhan - The Conquest of Darker People:**
+
+**Louis Farrakhan** states: **"They wanted to conquer the people of the Earth - the darker people - and make them Christians."**
+
+---
+
+**Constantine Going to War:**
+
+Clip-paced video shows the movie **Constantine** going to war - putting a **symbol emblem on the shields**.
+
+**Farrakhan validates**: "They put a **symbol of a cross** on the shield and prepared to go to war."
+
+**"With this sign, we shall conquer,"** Constantine stated.
+
+---
+
+**Why Everyone in the Bible Was Painted White:**
+
+**Farrakhan explains**: All the people in the Bible - why everybody was painted white.
+
+**In North America, South America, and the Caribbean** - plantations needed slaves to work on them.
+
+**Farrakhan goes on to say**: "Let's see if I'm telling the truth. **Everybody in the Bible that was valuable is white.**"
+
+**Jesus - in fact, Jesus, the Son of God - was made white.**
+
+---
+
+**The Image of White Jesus:**
+
+Clip-paced video shows **the image of Jesus as a white man**.
+
+**Farrakhan goes on to say**: "They told us: **'When you see the Son, you see the Father.'**
+
+Well, the Father is in the Son, and the Son is in the Father.
+
+**So if the Son is white, and the Father is white, and we are Black - where did that leave us?**"
+
+---
+
+**The Arch of Titus - Images of Caesars:**
+
+It shows **the Arch of Titus** - images of **Caesars**.
+
+---
+
+**The Manipulation of Black Preachers:**
+
+**"What if it was possible that whites would've been our preachers?**
+
+Then we would've been out of business - because **you don't wanna hear nothing another Black person has to say.**
+
+**The only reason you got a congregation is because you believe in the name of a man that was white anyway.**"
+
+---
+
+**Dr. Ray Hagin - Lost Creative Resistance:**
+
+Later on, **Dr. Ray Hagin** goes on to state: **"We have lost the ability to have creative resistance.**
+
+**They hand us the story, and we bleed the story.**"
+
+---
+
+**Shaka Zulu's Betrayal:**
+
+Later on, it shows that **Shaka Zulu was betrayed**.
+
+**MUST SEE: Video clip-paced together.**
+
+---
+
+**This is RJHNSN12 Page 4 - Video 2** - Revealing how Christianity was used as a weapon of conquest, how biblical figures were whitewashed, and how Shaka Zulu was manipulated and betrayed by the same settlers he trusted.
+
 What questions do you have about this truth?"""
         }
         
