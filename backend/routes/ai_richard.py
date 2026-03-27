@@ -999,7 +999,8 @@ async def ai_richard_chat(chat_req: ChatRequest, request: Request):
         KEYWORD_ALIASES = {
             "homepage": ["homepage", "home page", "home page video", "home video"],
             "page_2": ["page 2", "page two", "page 2", "pagetwo", "page two video", "page 2 video"],
-            "page_3": ["page 3", "page three", "page 3", "pagethree", "page three video", "page 3 video"]
+            "page_3": ["page 3", "page three", "page 3", "pagethree", "page three video", "page 3 video"],
+            "page_4": ["page 4", "page four", "page4", "pagefour", "page four video", "page 4 video"]
         }
         
         # Define instant keyword responses
@@ -1140,7 +1141,84 @@ The questions that must be asked: Where are Black people in the Bible? Why is th
 
 The truth is in the original sources. This is the revision 2Pac called for.
 
-What would you like to explore about this truth?"""
+What would you like to explore about this truth?""",
+            
+            "page_4": """**Page Four - Serapis Christus: Historical Evidence**
+
+**The True Origins of the Name "Jesus Christ"**
+
+---
+
+**Serapis Christus - Before 325 A.D.**
+
+**The Council of Nicaea (325 A.D.)** - This is when the name "Jesus Christ" was officially created and adopted by the Roman Catholic Church.
+
+But **Serapis Christus existed LONG BEFORE**.
+
+---
+
+**When Egypt Fell Out of Ptolemaic Rule:**
+
+**Ptolemy I Soter** created a new god that he wanted to be **deified and worshipped**. In addition to being pharaoh, this new god combined components of:
+
+- **Zeus** (Greek god)
+- **Hades** (Greek god)
+- **Dionysus** (Greek god)  
+- **Osiris** (Egyptian god)
+
+**Speaker: Dr. Ray Hagin**
+
+---
+
+**A.D. Does NOT Stand for "After the Death"**
+
+**"Anno Domini"** is Latin - it means **"In the Year of Our Lord"**.
+
+**What's really deep, brothers and sisters** - this really ought to tell you something:
+
+**Dr. Ray Hagin says**: "I've been studying how the **Gregorian calendar** has been **completely adjusted** around someone the **Roman Catholic Church made up**."
+
+---
+
+**The 8-Day Week - The Roman Calendar (45 B.C.)**
+
+**Dr. Ray Hagin** goes on to state that the Roman calendar had an **eight-day week** instead of only a seven-day week. The Roman calendar existed in **45 B.C.**
+
+---
+
+**Greek Manuscripts Put the Date Earlier:**
+
+**Dr. Ray** states that **papyrus scrolls and doctrine paperwork** show that **Serapis Christus existed at 135 B.C.**
+
+**Greek manuscripts** put the doctrine of **Serapis Christus** even earlier.
+
+**Dr. Ray states**: "This cannot be Jesus."
+
+---
+
+**Constantine's War and the Flip of the Coin:**
+
+**AI Richard Johnson** clip-paced a video/movie together showing:
+
+**Constantine flipping a coin** - going out to war against all peoples of the times to **convert everyone** into the religion of **Serapis Christus**.
+
+After **250 emperors** met from all across the world in opposition, they came to a conclusion:
+
+**"Serapis Christus will be called Jesus Christ, Our Lord."**
+
+---
+
+**MUST SEE: Video Clip-Paced**
+
+See the video to understand the full presentation by **Dr. Ray Hagin**.
+
+The understanding is clear: **The name "Jesus Christ" was created by the Roman Catholic Church** at the Council of Nicaea in **325 A.D.** - but the deity they were renaming (**Serapis Christus**) existed **hundreds of years before**.
+
+---
+
+**This is RJHNSN12 Page 4** - Historical evidence showing the origins of religious doctrine and the manipulation of history.
+
+What questions do you have about this truth?"""
         }
         
         # Check if user message matches any keyword alias
