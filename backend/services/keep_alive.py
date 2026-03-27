@@ -55,11 +55,11 @@ class KeepAliveService:
     
     def start(self):
         """Start the keep-alive service"""
-        # Ping every 3 minutes (180 seconds)
+        # Ping every 90 seconds (1.5 minutes) - more aggressive to prevent preview sleep
         self.scheduler.add_job(
             self.ping_self,
             'interval',
-            minutes=3,
+            seconds=90,
             id='keep_alive_ping',
             name='Keep Server Awake',
             replace_existing=True
@@ -67,7 +67,7 @@ class KeepAliveService:
         
         self.scheduler.start()
         logger.info("🚀 Keep-Alive Service started - server will stay awake 24/7")
-        logger.info("⏰ Pinging every 3 minutes to prevent sleep")
+        logger.info("⏰ Pinging every 90 seconds (1.5 minutes) to prevent sleep - aggressive mode")
         
         # Trigger immediate first ping (don't wait 3 minutes for first ping)
         import asyncio
