@@ -1007,7 +1007,8 @@ async def ai_richard_chat(chat_req: ChatRequest, request: Request):
             "homepage": ["homepage", "home page", "home page video", "home video"],
             "page_2": ["page 2", "page two", "page 2", "pagetwo", "page two video", "page 2 video"],
             "page_3": ["page 3", "page three", "page 3", "pagethree", "page three video", "page 3 video"],
-            "page_4": ["page 4", "page four", "page4", "pagefour", "page four video", "page 4 video"]
+            "page_4": ["page 4", "page four", "page4", "pagefour", "page four video", "page 4 video"],
+            "page_5": ["page 5", "page five", "page5", "pagefive", "page five video", "page 5 video", "history", "bible history", "biblical history"]
         }
         
         # Define instant keyword responses
@@ -1329,7 +1330,65 @@ Later on, it shows that **Shaka Zulu was betrayed**.
 
 **This is RJHNSN12 Page 4 - Video 2** - Revealing how Christianity was used as a weapon of conquest, how biblical figures were whitewashed, and how Shaka Zulu was manipulated and betrayed by the same settlers he trusted.
 
-What questions do you have about this truth?"""
+What questions do you have about this truth?""",
+            
+            "page_5": """**Page Five - History of the Bible: Old & New Testament Origins**
+
+📜 **History on the making of the Bible, starting with the Old Testament:**
+
+**Johannes Gutenberg & The Printing Press (1437 A.D.)**
+
+Johannes Gutenberg created a printing press with movable print for Europeans in 1437 A.D. To fund this, he borrowed money from Johann Fust—a lumber merchant and money lender—with a high interest rate. When Gutenberg couldn't pay back the loan, Johann Fust confiscated the printing press.
+
+**The Old Testament & Judaism's Origins (12th Century A.D.)**
+
+The Old Testament, also called the Pentateuch (the first 5 books of Moses), was created by **Moses Maimonides in 1180 A.D.** (12th century). This was created FOR Christians, not Jews—because Jews already had their Torah and Talmud, and they don't believe Christianity is from God.
+
+**Judaism as a religion cannot be predated before the early 12th Century.** Moses Maimonides was the one who formulated and created Judaism as an organized religion. The formula for Judaism came from the Hebrew word **"yesar"** (meaning upright), created by someone named **Rasheem**.
+
+This emerged from conflicts between the Barons and Christians of Europe. In England, you'll find **Lombard Street**—where the money-lending houses are today (House of Rothschild, Solomon, etc.). These institutions are just offshoots of the Barons. Christianity had ongoing conflicts with these various Barons and money lenders.
+
+**The First Printed Bible (1475 A.D.)**
+
+The first Bible was printed in **1475 A.D.**, known as the Old Testament, and it was written and created FOR Christians. Why? Because the Roman Baptist Church spoke out against the Barons, money lenders, and Templars.
+
+---
+
+📖 **The New Testament - Origins & Creation:**
+
+**Desiderius Erasmus & The New Testament**
+
+The New Testament was written by **Desiderius Erasmus**, a former Roman Catholic priest. In **1516 A.D.**, he created what is known as the **Synoptic Gospels** (the three gospels: Mark, Matthew, and Luke), originally called **"Novum Instrumentum."**
+
+In **1535 A.D.**, the name was changed to **"Novum Testamentum,"** and eventually became the **"New Testament."**
+
+Erasmus was commissioned by **Pope Alexander VI in 1500 A.D.** to write something on the subject of Christianity, specifically about **Jesus the Christ**. After 16 years of formulating his writings, he published his work in 1516 A.D.
+
+He later added **6 other books** (Epistles to the Romans, 1 & 2 Peter, 1 & 2 Corinthians, Galatians). He had **9 manuscripts** that made up the New Testament.
+
+**Jacob Van Liesvelt (1527 A.D.)**
+
+**Jacob Van Liesvelt**, a Swedish theologian, created the New Testament in **1527 A.D.**, independent of the Old Testament.
+
+**Martin Luther (1535 A.D.)**
+
+In **1535 A.D.**, **Martin Luther** put the Old and New Testaments together **under one cover** for the first time.
+
+**King James Version (1611 A.D.)**
+
+In **1611 A.D.**, a group of theologians led by **Lancelot Andrewes** created the **King James Version**.
+
+Here's something NO ONE is telling you: The King James Version was financed by **Jewish money**—by Jews and Jewish money lenders.
+
+The **Fourth Gospel of John** came out, and if you get a Bible concordance and look it up, they will refer to **Jesus being a Jew in the Gospel of John**. That's where **Jesus FIRST became a Jew** in biblical text.
+
+That's how Christianity was connected with Judaism—**it wasn't done in an original or historical fashion, it was done by cunning design.**
+
+---
+
+**This is RJHNSN12 Page 5 - Bible History** - Revealing the true origins of the Old and New Testaments, the financial powers behind biblical publications, and the deliberate connection between Christianity and Judaism.
+
+What questions do you have about this history?"""
         }
         
         # Check if user message matches any keyword alias
