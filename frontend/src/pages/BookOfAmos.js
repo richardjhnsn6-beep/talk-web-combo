@@ -243,8 +243,13 @@ const BookOfAmos = () => {
     },
     { 
       verse: 3, 
-      hebrew: "kah amar YaChuwshuah aw shalowsh pasha al Dammashaq aw aw arba law Shawb cawr Avan al Cham hayach dawsh Galaad ad charats dachavah barazal",
-      english: "Thus saith the LORD; For three transgressions of Damascus, and for four, I will not turn away the punishment thereof; because they have threshed Gilead with threshing instruments of iron"
+      hebrew: "kah amar YaChuwshuah aw shalowsh pasha al Dammashaq aw aw arba law Shawb cawr Avan al Cham hayach dawsh Galaad ad",
+      english: "Thus saith the LORD; For three transgressions of Damascus, and for four, I will not turn away the punishment thereof; because they have threshed Gilead"
+    },
+    { 
+      verse: 3, 
+      hebrew: "charats dachavah barazal",
+      english: "with threshing instruments of iron"
     },
     { 
       verse: 4, 
