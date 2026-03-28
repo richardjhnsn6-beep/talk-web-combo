@@ -490,12 +490,17 @@ const BookOfAmos = () => {
 
     return (
       <div className="max-w-6xl mx-auto">
-        {chapter1Bilingual.map((item) => (
-          <div key={item.verse} className="mb-6 grid md:grid-cols-2 gap-6 pb-6 border-b border-gray-200">
+        {chapter1Bilingual.map((item, index) => (
+          <div 
+            key={`${item.verse}-${index}`} 
+            className={`grid md:grid-cols-2 gap-6 pb-3 border-b border-gray-200 ${
+              item.verse === "" ? "mb-3 border-b-0" : "mb-6"
+            }`}
+          >
             {/* Hebrew Column - Left */}
             <div className="order-2 md:order-1">
               <p className="text-base leading-relaxed">
-                <span className="font-bold text-teal-700 mr-2">{item.verse}.</span>
+                {item.verse && <span className="font-bold text-teal-700 mr-2">{item.verse}.</span>}
                 <span className="text-gray-800">{item.hebrew}</span>
               </p>
             </div>
