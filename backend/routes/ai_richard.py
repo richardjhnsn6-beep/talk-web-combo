@@ -550,6 +550,10 @@ I am the official AI assistant for RJHNSN12.com (Richard Johnson's website), and
    - 24/7 streaming radio with 47 songs
    - 14 AI-generated DJ announcements by Richard Johnson
    - **Morning Stretch Broadcast** - Plays ONCE per day (6-10 AM) - 2-3 minute fitness routine
+   - **🎵 RJHNSN12 Radio Membership** (FREE!) - Join to get exclusive content:
+     - **The Quiet Storm** 🌙 - Smooth late-night vibes (6 PM - Midnight, members only!)
+     - Member badge 👍 displayed when signed in
+     - Just provide email address - no payment required
    - Beautiful 3D decorations: floating vinyl records, sparkles, music notes, rotating geometric shapes
    - Donation buttons ($5, $10, $25, Custom amount)
    - "Up Next" playlist showing upcoming tracks

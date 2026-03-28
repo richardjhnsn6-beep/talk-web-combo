@@ -9,10 +9,15 @@ const Radio = () => {
   const [showDonationSuccess, setShowDonationSuccess] = useState(false);
   const [showCustomDonation, setShowCustomDonation] = useState(false);
   const [customAmount, setCustomAmount] = useState('');
+  const [isMember, setIsMember] = useState(false);
+  const [showMembershipModal, setShowMembershipModal] = useState(false);
+  const [memberEmail, setMemberEmail] = useState('');
+  const [memberName, setMemberName] = useState('');
   const audioRef = useRef(null);
 
   useEffect(() => {
     fetchPlaylist();
+    checkMembershipStatus();
     
     // Check for donation success
     const urlParams = new URLSearchParams(window.location.search);
@@ -56,6 +61,52 @@ const Radio = () => {
       setLoading(false);
     }
   };
+
+  const checkMembershipStatus = async () => {
+    try {
+      // Check if email is stored in localStorage
+      const storedEmail = localStorage.getItem('rjhnsn12_member_email');
+      if (storedEmail) {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/membership/status/${storedEmail}`);
+        const data = await response.json();
+        setIsMember(data.is_member);
+        if (data.is_member) {
+          setMemberEmail(storedEmail);
+        }
+      }
+    } catch (error) {
+      console.error('Error checking membership:', error);
+    }
+  };
+
+  const handleMembershipSignup = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/membership/subscribe`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: memberEmail,
+          name: memberName
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        setIsMember(true);
+        localStorage.setItem('rjhnsn12_member_email', memberEmail.toLowerCase());
+        setShowMembershipModal(false);
+        alert(data.message);
+        // Refresh playlist to include member-only content
+        fetchPlaylist();
+      }
+    } catch (error) {
+      console.error('Membership signup error:', error);
+      alert('Failed to sign up. Please try again.');
+    }
+  };
+
 
   const currentTrack = playlist[currentTrackIndex];
 
@@ -587,7 +638,106 @@ const Radio = () => {
             </a>
           </div>
         </div>
+
+        {/* RJHNSN12 Radio Membership */}
+        <div className="mt-8 bg-gradient-to-br from-purple-900/50 to-pink-900/50 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-purple-500/30">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-2xl font-bold text-white flex items-center gap-2">
+              🎵 RJHNSN12 Radio Membership
+              {isMember && <span className="text-4xl">👍</span>}
+            </h3>
+          </div>
+          
+          {isMember ? (
+            <div className="text-center">
+              <p className="text-green-300 text-lg mb-4">
+                ✅ You're a member! Enjoy exclusive content like <strong>The Quiet Storm</strong>
+              </p>
+              <p className="text-purple-200">
+                Member email: {memberEmail}
+              </p>
+            </div>
+          ) : (
+            <div>
+              <p className="text-purple-200 mb-4">
+                Join RJHNSN12 Radio for FREE and get access to exclusive content:
+              </p>
+              <ul className="text-white/90 mb-6 space-y-2 text-left">
+                <li>🌙 <strong>The Quiet Storm</strong> - Smooth late-night vibes (6 PM - Midnight)</li>
+                <li>📻 All regular radio programming</li>
+                <li>💌 Member-only updates and announcements</li>
+              </ul>
+              <button
+                onClick={() => setShowMembershipModal(true)}
+                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-lg font-bold hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg text-lg"
+              >
+                Join for FREE 🎉
+              </button>
+            </div>
+          )}
+        </div>
       </div>
+      
+      {/* Membership Sign-Up Modal */}
+      {showMembershipModal && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+          <div className="bg-gradient-to-br from-purple-900 to-pink-900 rounded-2xl p-8 max-w-md w-full shadow-2xl border-2 border-purple-500">
+            <h2 className="text-3xl font-bold text-white mb-4">Join RJHNSN12 Radio 🎵</h2>
+            <p className="text-purple-200 mb-6">
+              Get FREE access to The Quiet Storm and other exclusive content!
+            </p>
+            
+            <form onSubmit={handleMembershipSignup} className="space-y-4">
+              <div>
+                <label className="text-white font-semibold block mb-2">Email Address *</label>
+                <input
+                  type="email"
+                  required
+                  value={memberEmail}
+                  onChange={(e) => setMemberEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  className="w-full px-4 py-3 rounded-lg text-gray-800 font-semibold"
+                />
+              </div>
+              
+              <div>
+                <label className="text-white font-semibold block mb-2">Name (Optional)</label>
+                <input
+                  type="text"
+                  value={memberName}
+                  onChange={(e) => setMemberName(e.target.value)}
+                  placeholder="Your name"
+                  className="w-full px-4 py-3 rounded-lg text-gray-800 font-semibold"
+                />
+              </div>
+              
+              <div className="flex gap-4">
+                <button
+                  type="submit"
+                  className="flex-1 bg-green-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-700 transition-all shadow-lg"
+                >
+                  Join Now! 🎉
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowMembershipModal(false);
+                    setMemberEmail('');
+                    setMemberName('');
+                  }}
+                  className="bg-gray-600 text-white px-4 py-3 rounded-lg font-bold hover:bg-gray-700 transition-all"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+            
+            <p className="text-purple-300 text-sm mt-4">
+              🔒 Your email is safe with us. No spam, ever.
+            </p>
+          </div>
+        </div>
+      )}
       
       {/* 3D Animation Styles */}
       <style jsx>{`

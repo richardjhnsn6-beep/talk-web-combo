@@ -17,6 +17,7 @@ from routes.ai_richard import router as ai_richard_router
 from routes.website_orders import router as website_orders_router
 from routes.tts import router as tts_router
 from routes.live_visitors import router as live_visitors_router
+from routes.membership import router as membership_router
 from services.keep_alive import keep_alive_service
 
 
@@ -50,6 +51,8 @@ api_router.include_router(website_orders_router, prefix="/website-orders", tags=
 api_router.include_router(tts_router, prefix="/tts", tags=["tts"])
 # Include Live Visitors routes with /visitors prefix
 api_router.include_router(live_visitors_router, prefix="/visitors", tags=["live-visitors"])
+# Include Membership routes with /membership prefix
+api_router.include_router(membership_router, prefix="/membership", tags=["membership"])
 
 
 # Define Models
