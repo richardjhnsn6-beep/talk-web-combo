@@ -228,8 +228,13 @@ const BookOfAmos = () => {
     },
     { 
       verse: "1b", 
-      hebrew: "al yasharaal al yowm Ozayah Malak al Yahadah aw al yowm Yaraboam ban Yoash Malak al yasharaal shanaym shana al raash",
-      english: "concerning Israel in the days of Uzziah king of Judah and in the days of Jeroboam the son of Joash king of Israel two years before the earthquake"
+      hebrew: "al yasharaal al yowm Ozayah Malak al Yahadah aw al yowm Yaraboam",
+      english: "concerning Israel in the days of Uzziah king of Judah and in the days of Jeroboam"
+    },
+    { 
+      verse: "1c", 
+      hebrew: "ban Yoash Malak al yasharaal shanaym shana al raash",
+      english: "the son of Joash king of Israel two years before the earthquake"
     },
     { 
       verse: 2, 
