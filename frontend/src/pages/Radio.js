@@ -651,21 +651,29 @@ const Radio = () => {
           {isMember ? (
             <div className="text-center">
               <p className="text-green-300 text-lg mb-4">
-                ✅ You're a member! Enjoy exclusive content like <strong>The Quiet Storm</strong>
+                ✅ You're a member! Enjoy all RJHNSN12 benefits:
               </p>
-              <p className="text-purple-200">
+              <ul className="text-white/90 mb-4 space-y-2 text-left max-w-2xl mx-auto">
+                <li>🌙 <strong>The Quiet Storm</strong> - Exclusive radio content</li>
+                <li>📚 <strong>Book Discounts</strong> - Save on Hebrew literature</li>
+                <li>📖 <strong>Hebrew Learning</strong> - Access to Book of Amos translations</li>
+                <li>💬 <strong>AI Chat Priority</strong> - Enhanced support from AI Richard</li>
+              </ul>
+              <p className="text-purple-200 text-sm">
                 Member email: {memberEmail}
               </p>
             </div>
           ) : (
             <div>
               <p className="text-purple-200 mb-4">
-                Join RJHNSN12 Radio for FREE and get access to exclusive content:
+                Join RJHNSN12 for FREE and unlock exclusive benefits across the entire platform:
               </p>
               <ul className="text-white/90 mb-6 space-y-2 text-left">
-                <li>🌙 <strong>The Quiet Storm</strong> - Smooth late-night vibes (6 PM - Midnight)</li>
-                <li>📻 All regular radio programming</li>
-                <li>💌 Member-only updates and announcements</li>
+                <li>🌙 <strong>The Quiet Storm</strong> - Exclusive late-night radio vibes (6 PM - Midnight)</li>
+                <li>📚 <strong>Book Discounts</strong> - Save 15% on Hebrew literature & Book of Amos</li>
+                <li>📖 <strong>Hebrew Learning</strong> - Access to original 20-letter Hebrew system</li>
+                <li>💬 <strong>AI Chat Priority</strong> - Enhanced guidance from AI Richard</li>
+                <li>💌 <strong>Member Updates</strong> - Exclusive announcements and content</li>
               </ul>
               <button
                 onClick={() => setShowMembershipModal(true)}
@@ -682,9 +690,9 @@ const Radio = () => {
       {showMembershipModal && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
           <div className="bg-gradient-to-br from-purple-900 to-pink-900 rounded-2xl p-8 max-w-md w-full shadow-2xl border-2 border-purple-500">
-            <h2 className="text-3xl font-bold text-white mb-4">Join RJHNSN12 Radio 🎵</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">Join RJHNSN12 🎵</h2>
             <p className="text-purple-200 mb-6">
-              Get FREE access to The Quiet Storm and other exclusive content!
+              Get FREE access to exclusive content across the entire platform: The Quiet Storm radio, Book discounts, Hebrew learning, and more!
             </p>
             
             <form onSubmit={handleMembershipSignup} className="space-y-4">
