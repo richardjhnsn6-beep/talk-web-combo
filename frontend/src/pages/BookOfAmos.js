@@ -242,14 +242,9 @@ const BookOfAmos = () => {
       english: "And he said The LORD will roar from Zion and from Jerusalem utter his voice and the habitations of the shepherds shall mourn and the top of Carmel shall wither"
     },
     { 
-      verse: "3a", 
-      hebrew: "kah amar YaChuwshuah aw shalowsh pasha al Dammashaq aw aw arba law Shawb cawr Avan al Cham hayach dawsh Galaad ad",
-      english: "Thus saith the LORD; For three transgressions of Damascus, and for four, I will not turn away the punishment thereof; because they have threshed Gilead"
-    },
-    { 
-      verse: "3b", 
-      hebrew: "charats dachavah barazal",
-      english: "with threshing instruments of iron"
+      verse: 3, 
+      hebrew: "kah amar YaChuwshuah aw shalowsh pasha al Dammashaq aw aw arba law Shawb cawr Avan al Cham hayach dawsh Galaad ad charats dachavah barazal",
+      english: "Thus saith the LORD; For three transgressions of Damascus, and for four, I will not turn away the punishment thereof; because they have threshed Gilead with threshing instruments of iron"
     },
     { 
       verse: 4, 
