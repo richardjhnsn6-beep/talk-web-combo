@@ -494,7 +494,7 @@ const BookOfAmos = () => {
           <div 
             key={`${item.verse}-${index}`} 
             className={`grid md:grid-cols-2 gap-6 ${
-              item.verse === "" ? "mb-0 pb-1" : "mb-6 pb-2 border-b border-gray-200"
+              item.verse === "" ? "mb-0 pb-0" : "mb-6 pb-2 border-b border-gray-200"
             }`}
           >
             {/* Hebrew Column - Left */}
