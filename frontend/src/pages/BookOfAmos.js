@@ -493,8 +493,8 @@ const BookOfAmos = () => {
         {chapter1Bilingual.map((item, index) => (
           <div 
             key={`${item.verse}-${index}`} 
-            className={`grid md:grid-cols-2 gap-6 pb-3 border-b border-gray-200 ${
-              item.verse === "" ? "mb-3 border-b-0" : "mb-6"
+            className={`grid md:grid-cols-2 gap-6 pb-2 ${
+              item.verse === "" ? "mb-1 border-b-0" : "mb-6 border-b border-gray-200"
             }`}
           >
             {/* Hebrew Column - Left */}
