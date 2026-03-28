@@ -247,7 +247,7 @@ const BookOfAmos = () => {
       english: "Thus saith the LORD; For three transgressions of Damascus, and for four, I will not turn away the punishment thereof; because they have threshed Gilead"
     },
     { 
-      verse: 3, 
+      verse: "", 
       hebrew: "charats dachavah barazal",
       english: "with threshing instruments of iron"
     },
