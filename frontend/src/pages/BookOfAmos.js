@@ -222,17 +222,17 @@ const BookOfAmos = () => {
   // Sample content for Chapter 1 - Bilingual (old format kept for reference)
   const chapter1Bilingual = [
     { 
-      verse: "1a", 
+      verse: 1, 
       hebrew: "Dabar al Amac Ashar hayach Bayn Naqad al Taqawa Asar chazah",
       english: "The words of Amos who was among the herdsmen of Tekoa which he saw"
     },
     { 
-      verse: "1b", 
+      verse: "", 
       hebrew: "al yasharaal al yowm Ozayah Malak al Yahadah aw al yowm Yaraboam",
       english: "concerning Israel in the days of Uzziah king of Judah and in the days of Jeroboam"
     },
     { 
-      verse: "1c", 
+      verse: "", 
       hebrew: "ban Yoash Malak al yasharaal shanaym shana al raash",
       english: "the son of Joash king of Israel two years before the earthquake"
     },
