@@ -237,9 +237,14 @@ const BookOfAmos = () => {
       english: "the son of Joash king of Israel two years before the earthquake"
     },
     { 
-      verse: 2, 
-      hebrew: "aw huw amar YaChuwshuah al Tsayown sha'agh aw al Yaruwshalayim Nathon qowl aw abal Nayah Raah aw yabash rosh al Karmal",
-      english: "And he said, The LORD will roar from Zion, and utter his voice from Jerusalem; and the habitations of the shepherds shall mourn, and the top of Carmel shall wither."
+      verse: "2a", 
+      hebrew: "aw huw amar YaChuwshuah al Tsayown sha'agh aw al Yaruwshalayim Nathon",
+      english: "And he said The LORD will roar from Zion and from Jerusalem utter"
+    },
+    { 
+      verse: "2b", 
+      hebrew: "qowl aw abal Nayah Raah aw yabash rosh al Karmal",
+      english: "his voice and the habitations of the shepherds shall mourn and the top of Carmel shall wither"
     },
     { 
       verse: 3, 
