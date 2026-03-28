@@ -28,6 +28,7 @@ import VisitorTracker from './components/VisitorTracker';
 import OrdersDashboard from './pages/OrdersDashboard';
 import OrderSuccess from './pages/OrderSuccess';
 import OrderCancelled from './pages/OrderCancelled';
+import WakeServer from './pages/WakeServer';
 
 const Navigation = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
@@ -196,6 +197,9 @@ function App() {
             {/* Order Confirmation Pages */}
             <Route path="/order-success" element={<OrderSuccess />} />
             <Route path="/order-cancelled" element={<OrderCancelled />} />
+            
+            {/* Wake Server - Mobile-friendly wake-up button */}
+            <Route path="/wake" element={<WakeServer />} />
             
             <Route path="/contact" element={<Contact />} />
           </Routes>
