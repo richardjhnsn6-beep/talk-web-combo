@@ -222,9 +222,14 @@ const BookOfAmos = () => {
   // Sample content for Chapter 1 - Bilingual (old format kept for reference)
   const chapter1Bilingual = [
     { 
-      verse: 1, 
-      hebrew: "dabar al Amac Ashar hayach bayn Naqad al Taqowa Ashar chazeh al yasharaal yowm al yachuwshuahzzah Malak al yachadah aw yowm al yaraboam ban al yasharaal shanaym shana rayash",
-      english: "The words of Amos, who was among the herdmen of Tekoa, which he saw concerning Israel in the days of Uzziah king of Judah, and in the days of Jeroboam the son of Joash king of Israel, two years before the earthquake."
+      verse: "1a", 
+      hebrew: "Dabar al Amac Ashar hayach Bayn Naqad al Taqawa Asar chazah",
+      english: "The words of Amos who was among the herdsmen of Tekoa which he saw"
+    },
+    { 
+      verse: "1b", 
+      hebrew: "al yasharaal al yowm Ozayah Malak al Yahadah aw al yowm Yaraboam ban Yoash Malak al yasharaal shanaym shana al raash",
+      english: "concerning Israel in the days of Uzziah king of Judah and in the days of Jeroboam the son of Joash king of Israel two years before the earthquake"
     },
     { 
       verse: 2, 
@@ -233,7 +238,7 @@ const BookOfAmos = () => {
     },
     { 
       verse: 3, 
-      hebrew: "kah amar YaChuwshuah aw shalowsh pasha al Dammashaq aw aw arba law shu[w]b kiy dawsh kharsth al yahd al Galaad",
+      hebrew: "kah amar YaChuwshuah aw shalowsh pasha al Dammashaq aw aw arba law shu[w]b Ky dawsh kharsth al yahd al Galaad",
       english: "Thus saith the LORD; For three transgressions of Damascus, and for four, I will not turn away the punishment thereof; because they have threshed Gilead with threshing instruments of iron:"
     },
     { 
