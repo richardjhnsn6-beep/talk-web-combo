@@ -19,8 +19,8 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-# Configure Stripe - Using test mode (keys need to be updated by user)
-stripe.api_key = os.environ.get('STRIPE_API_KEY')
+# Configure Stripe - Use LIVE keys
+stripe.api_key = os.environ.get('STRIPE_LIVE_SECRET_KEY')
 
 # Fixed pricing packages (secure - not from frontend)
 PACKAGES = {
@@ -215,38 +215,7 @@ async def create_ai_sales_checkout(request: CheckoutRequest, http_request: Reque
     # Add metadata
     metadata = {**request.metadata, "product_id": request.package_id, "source": "ai_richard_sales"}
     
-    # 🚨 TEMPORARY: Mock Stripe checkout since keys are invalid
-    # TODO: Replace with real Stripe keys when available
-    print(f"⚠️ MOCKED CHECKOUT: {product_name} - ${amount}")
-    
-    # Generate mock session ID
-    mock_session_id = f"cs_test_mock_{request.package_id}_{datetime.now().timestamp()}"
-    
-    # Create mock checkout URL (redirects to success page immediately)
-    mock_checkout_url = f"{request.origin_url}/order-success?session_id={mock_session_id}&product={request.package_id}&amount={amount}"
-    
-    # Store mock transaction
-    transaction = {
-        "session_id": mock_session_id,
-        "amount": amount,
-        "currency": "usd",
-        "product_id": request.package_id,
-        "product_name": product_name,
-        "is_subscription": is_subscription,
-        "metadata": metadata,
-        "payment_status": "MOCKED",
-        "status": "mock_demo",
-        "created_at": datetime.now(timezone.utc).isoformat(),
-        "source": "ai_richard_sales",
-        "note": "MOCKED - Replace Stripe keys to enable real payments"
-    }
-    
-    await db.payment_transactions.insert_one(transaction)
-    
-    return CheckoutResponse(url=mock_checkout_url, session_id=mock_session_id)
-    
-    # ORIGINAL CODE (Commented out until valid Stripe keys)
-    """
+    # Create real Stripe checkout session
     try:
         if is_subscription:
             # Create SUBSCRIPTION checkout session
@@ -314,7 +283,6 @@ async def create_ai_sales_checkout(request: CheckoutRequest, http_request: Reque
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Stripe error: {str(e)}")
-    """  # End of commented code
 
 @router.post("/webhook/stripe")
 async def stripe_webhook(request: Request):
