@@ -19,8 +19,8 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-# Configure Stripe - Use LIVE keys
-stripe.api_key = os.environ.get('STRIPE_LIVE_SECRET_KEY')
+# Configure Stripe - Using TEST keys (live keys not accessible yet)
+stripe.api_key = os.environ.get('STRIPE_API_KEY')
 
 # Fixed pricing packages (secure - not from frontend)
 PACKAGES = {
