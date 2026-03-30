@@ -20,7 +20,6 @@ import AdminAIChat from './pages/AdminAIChat';
 import AdminPricingConfig from './pages/AdminPricingConfig';
 import InstallApp from './pages/InstallApp';
 import PersistentRadioPlayer from './components/PersistentRadioPlayer';
-import FloatingChatButton from './components/FloatingChatButton';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
 import AdminLogin from './components/AdminLogin';
 import AIRichard from './components/AIRichard';
@@ -208,10 +207,7 @@ function App() {
         {/* Persistent Radio Player - Shows on all pages except admin */}
         <PersistentRadioPlayer />
         
-        {/* Floating AI Chat Button - Shows on all pages except AI chat pages */}
-        <FloatingChatButton />
-        
-        {/* AI RICHARD - 24/7 Business Assistant */}
+        {/* AI RICHARD - 24/7 Business Assistant (handles all chat functionality) */}
         <AIRichard />
         
         {/* PWA Install Prompt - Shows on mobile devices */}

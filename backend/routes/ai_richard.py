@@ -1521,6 +1521,33 @@ What questions do you have about this history?"""
             # Send message and get response
             user_msg = UserMessage(text=user_message)
             ai_response = await chat_client.send_message(user_message=user_msg)
+            
+            # 💰 AI SALES AGENT: Detect sales opportunities and inject Stripe checkout links
+            sales_keywords = {
+                "membership": ["membership", "join", "subscribe", "member", "sign up", "monthly", "quiet storm"],
+                "book": ["book", "amos", "buy", "purchase", "hebrew", "translation", "interlinear"]
+            }
+            
+            user_msg_lower = chat_req.message.lower()
+            frontend_url = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
+            
+            # Check for membership interest
+            if any(keyword in user_msg_lower for keyword in sales_keywords["membership"]):
+                # Generate Stripe checkout link for membership
+                membership_pitch = f"\n\n💎 **Ready to join?** Only $5/month gives you:\n\n✅ **The Quiet Storm** - Exclusive late-night radio (6 PM - Midnight)\n✅ **20% off all books** including Book of Amos\n✅ **Early access** to new Hebrew translations\n✅ **Priority AI support** from me\n\n[CHECKOUT_BUTTON|Join Membership - $5/mo|membership_monthly|{frontend_url}]"
+                ai_response += membership_pitch
+            
+            # Check for book interest
+            elif any(keyword in user_msg_lower for keyword in sales_keywords["book"]):
+                # Generate Stripe checkout link for Book of Amos
+                book_pitch = f"\n\n📖 **Book of Amos - Complete Interlinear Translation**\n\n✅ **Word-by-word Hebrew-English alignment**\n✅ **Original 20-letter Hebrew alphabet**\n✅ **35+ years of research**\n✅ **Notarized & copyrighted (2003)**\n\n**Only $20** (one-time purchase)\n\n[CHECKOUT_BUTTON|Buy Book of Amos - $20|book_of_amos|{frontend_url}]"
+                ai_response += book_pitch
+            
+            # Check for general "help" or "what can you do" - offer both
+            elif any(word in user_msg_lower for word in ["help", "what can you", "what do you", "services", "offer"]):
+                both_pitch = f"\n\n💰 **How I Can Serve You:**\n\n📻 **Free Membership ($5/mo)** - The Quiet Storm radio + book discounts\n[CHECKOUT_BUTTON|Join Membership - $5/mo|membership_monthly|{frontend_url}]\n\n📖 **Book of Amos ($20)** - Complete Hebrew translation\n[CHECKOUT_BUTTON|Buy Book of Amos - $20|book_of_amos|{frontend_url}]"
+                ai_response += both_pitch
+        
         else:
             # For keyword responses, also fetch conversation for database update
             conversation = await db.ai_richard_conversations.find_one(

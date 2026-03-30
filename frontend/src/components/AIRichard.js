@@ -27,6 +27,73 @@ const AIRichard = () => {
   const currentAudioRef = useRef(null); // Track current audio to prevent duplicates
   const audioLockedRef = useRef(false); // Use ref for instant updates
 
+  // 💰 AI SALES AGENT: Parse checkout buttons from AI responses
+  const parseMessageContent = (content) => {
+    // Format: [CHECKOUT_BUTTON|Button Text|product_id|frontend_url]
+    const buttonRegex = /\[CHECKOUT_BUTTON\|([^\|]+)\|([^\|]+)\|([^\]]+)\]/g;
+    const parts = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = buttonRegex.exec(content)) !== null) {
+      // Add text before button
+      if (match.index > lastIndex) {
+        parts.push({
+          type: 'text',
+          content: content.substring(lastIndex, match.index)
+        });
+      }
+      
+      // Add button
+      parts.push({
+        type: 'button',
+        text: match[1],
+        productId: match[2],
+        frontendUrl: match[3]
+      });
+      
+      lastIndex = match.index + match[0].length;
+    }
+    
+    // Add remaining text
+    if (lastIndex < content.length) {
+      parts.push({
+        type: 'text',
+        content: content.substring(lastIndex)
+      });
+    }
+    
+    return parts.length > 0 ? parts : [{ type: 'text', content }];
+  };
+
+  // 💰 Handle Stripe checkout button click
+  const handleCheckoutClick = async (productId, frontendUrl) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/payments/ai-sales/checkout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          package_id: productId,
+          origin_url: frontendUrl,
+          metadata: {
+            conversation_id: conversationId,
+            source: 'ai_richard_chat'
+          }
+        })
+      });
+      
+      const data = await response.json();
+      
+      // Redirect to Stripe checkout
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('Sorry, there was an error processing your request. Please try again.');
+    }
+  };
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -164,9 +231,17 @@ const AIRichard = () => {
         content: aiResponse 
       }]);
       
-      // Speak the response if voice is enabled
+      // Speak the response if voice is enabled (but skip if response is too long)
       if (voiceEnabled) {
-        speakText(aiResponse);
+        // CRITICAL: Don't TTS massive responses (>1000 chars) - they freeze the app
+        if (aiResponse.length > 1000) {
+          console.log('⚠️ Response too long for TTS - skipping voice output');
+          // Show a brief notification to user
+          const ttsSkipMsg = "\n\n[Note: This response is too long for voice output. I've provided the full text for you to read.]";
+          // Don't actually append this - just log it
+        } else {
+          speakText(aiResponse);
+        }
       }
     } catch (error) {
       console.error('AI Richard error:', error);
@@ -459,10 +534,15 @@ const AIRichard = () => {
               content: aiResponse 
             }]);
             
-            // Speak the response if voice is enabled
+            // Speak the response if voice is enabled (but skip if response is too long)
             if (voiceEnabled && !isSpeaking) {
-              console.log('📞 Calling speakText from fetch success');
-              speakText(aiResponse);
+              // CRITICAL: Don't TTS massive responses (>1000 chars) - they freeze the app
+              if (aiResponse.length > 1000) {
+                console.log('⚠️ Response too long for TTS - skipping voice output');
+              } else {
+                console.log('📞 Calling speakText from fetch success');
+                speakText(aiResponse);
+              }
             } else if (isSpeaking) {
               console.log('⚠️ Skipping speakText - already speaking');
               // Queue it instead of speaking immediately
@@ -759,7 +839,6 @@ const AIRichard = () => {
                   alt="Richard Johnson"
                   className="w-full h-full object-cover"
                 />
-                />
               </div>
               <div className="text-white">
                 <div className="font-bold">Richard Johnson</div>
@@ -813,7 +892,32 @@ const AIRichard = () => {
                     ? 'bg-purple-600 text-white rounded-br-none' 
                     : 'bg-white text-gray-800 shadow-md rounded-bl-none border border-gray-200'
                 }`}>
-                  <div className="text-sm whitespace-pre-wrap">{msg.content}</div>
+                  {msg.role === 'assistant' ? (
+                    // Parse AI responses for checkout buttons
+                    <div className="text-sm space-y-2">
+                      {parseMessageContent(msg.content).map((part, partIdx) => (
+                        <React.Fragment key={partIdx}>
+                          {part.type === 'text' ? (
+                            <div className="whitespace-pre-wrap">{part.content}</div>
+                          ) : (
+                            // Render Stripe checkout button
+                            <button
+                              onClick={() => handleCheckoutClick(part.productId, part.frontendUrl)}
+                              className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all transform hover:scale-105 flex items-center justify-center gap-2"
+                            >
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                              </svg>
+                              {part.text}
+                            </button>
+                          )}
+                        </React.Fragment>
+                      ))}
+                    </div>
+                  ) : (
+                    // User messages - plain text
+                    <div className="text-sm whitespace-pre-wrap">{msg.content}</div>
+                  )}
                 </div>
               </div>
             ))}
