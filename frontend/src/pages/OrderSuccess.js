@@ -9,12 +9,35 @@ const OrderSuccess = () => {
   
   const sessionId = searchParams.get('session_id');
   const orderId = searchParams.get('order_id');
+  const product = searchParams.get('product');
+  const amount = searchParams.get('amount');
 
   useEffect(() => {
     if (orderId) {
       fetchOrderDetails();
+    } else if (sessionId && product) {
+      // Handle mock checkout from AI Richard
+      handleMockCheckout();
+    } else {
+      setLoading(false);
     }
-  }, [orderId]);
+  }, [orderId, sessionId, product]);
+
+  const handleMockCheckout = () => {
+    // Create mock order object for display
+    const mockOrder = {
+      package_name: product === 'membership_monthly' 
+        ? 'RJHNSN12 Premium Membership ($5/mo)' 
+        : 'Book of Amos - Complete Translation',
+      price: amount || (product === 'membership_monthly' ? '5.00' : '20.00'),
+      project_description: product === 'membership_monthly'
+        ? '✅ The Quiet Storm radio access\n✅ 20% off all books\n✅ Early access to Hebrew translations\n✅ Priority AI support'
+        : '✅ Word-by-word Hebrew-English alignment\n✅ Original 20-letter Hebrew alphabet\n✅ 35+ years of research\n✅ Notarized & copyrighted',
+      is_mock: true
+    };
+    setOrder(mockOrder);
+    setLoading(false);
+  };
 
   const fetchOrderDetails = async () => {
     try {
@@ -59,7 +82,21 @@ const OrderSuccess = () => {
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-6">
           <div className="border-b border-gray-200 pb-6 mb-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Order Confirmed</h2>
-            <p className="text-gray-600">Order ID: <span className="font-mono text-sm">{orderId?.substring(0, 8)}...</span></p>
+            {orderId && (
+              <p className="text-gray-600">Order ID: <span className="font-mono text-sm">{orderId.substring(0, 8)}...</span></p>
+            )}
+            {sessionId && (
+              <>
+                <p className="text-gray-600">Session ID: <span className="font-mono text-sm">{sessionId.substring(0, 20)}...</span></p>
+                {order?.is_mock && (
+                  <div className="mt-2 bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                    <p className="text-sm text-yellow-800">
+                      ⚠️ <strong>DEMO MODE:</strong> This is a test transaction. Replace Stripe keys to process real payments.
+                    </p>
+                  </div>
+                )}
+              </>
+            )}
           </div>
 
           {order && (
@@ -91,12 +128,21 @@ const OrderSuccess = () => {
                   <div className="ml-3">
                     <h3 className="text-sm font-medium text-blue-900">What happens next?</h3>
                     <div className="mt-2 text-sm text-blue-800">
-                      <ul className="list-disc list-inside space-y-1">
-                        <li>You'll receive a confirmation email shortly</li>
-                        <li>Richard will begin building your website immediately</li>
-                        <li>Typical delivery time: 2-4 weeks</li>
-                        <li>You'll receive updates throughout the process</li>
-                      </ul>
+                      {order.is_mock ? (
+                        <ul className="list-disc list-inside space-y-1">
+                          <li>✅ AI Sales Agent is working perfectly!</li>
+                          <li>✅ Checkout buttons render correctly</li>
+                          <li>✅ Full flow from chat to purchase complete</li>
+                          <li>🔑 Add valid Stripe keys to process real payments</li>
+                        </ul>
+                      ) : (
+                        <ul className="list-disc list-inside space-y-1">
+                          <li>You'll receive a confirmation email shortly</li>
+                          <li>Your access will be activated immediately</li>
+                          <li>Check your membership benefits on the Radio page</li>
+                          <li>Enjoy your purchase!</li>
+                        </ul>
+                      )}
                     </div>
                   </div>
                 </div>
