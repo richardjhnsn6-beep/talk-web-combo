@@ -94,6 +94,32 @@ const AIRichard = () => {
     }
   };
 
+  // iOS Audio Fix: Initialize speech synthesis on first user interaction
+  useEffect(() => {
+    const initializeAudio = () => {
+      // Initialize speech synthesis for iOS
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance('');
+        window.speechSynthesis.speak(utterance);
+        window.speechSynthesis.cancel();
+        console.log('✅ iOS audio initialized');
+      }
+      
+      // Remove listener after first interaction
+      document.removeEventListener('click', initializeAudio);
+      document.removeEventListener('touchstart', initializeAudio);
+    };
+    
+    // Listen for first user interaction to initialize audio
+    document.addEventListener('click', initializeAudio);
+    document.addEventListener('touchstart', initializeAudio);
+    
+    return () => {
+      document.removeEventListener('click', initializeAudio);
+      document.removeEventListener('touchstart', initializeAudio);
+    };
+  }, []);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
