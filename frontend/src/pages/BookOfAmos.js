@@ -326,7 +326,7 @@ const BookOfAmos = () => {
     },
     verse6: {
       hebrew: ["kah", "Amar", "al", "Yachuwshuah", "yth", "shalawsh", "pasha", "al", "yasharaA1", "aw", "yth", "Araba", "ahy", "aLah", "Shawb", "cawr", "Avan", "al", "Cham", "aMakar", "Tsaddayq", "ka", "caph", "Abyawn", "yth", "cawl", "al", "Naalaal"],
-      english: ["Thus", "saith", "the", "LORD", "for", "three", "transgressions", "of", "Israel", "and", "for", "four", "I will", "not", "turn", "away", "the punishment", "thereof", "because", "they sold", "the righteous", "for", "silver", "the poor", "for", "a pair", "of", "shoes"]
+      english: ["Thus", "saith", "the", "LORD", "for", "three", "transgressions", "of", "Israel", "and", "for", "four", "I will", "not", "turn", "away", "the punishment", "thereof because", "they", "sold", "the righteous", "for", "silver", "the poor", "for", "a pair", "of", "shoes"]
     },
     verse7: {
       hebrew: ["ky", "Shaaph", "achar", "aphar", "al", "Arats", "al", "Rash", "al", "Abyawn", "aw", "Natah", "adarak", "al", "ahayv", "aw", "Kash", "aw", "Naphash", "Ab", "ahy", "yalak", "huw", "Naarah", "Chalal", "Any", "qadash", "Sham"],
