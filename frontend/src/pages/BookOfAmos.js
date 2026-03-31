@@ -334,6 +334,46 @@ const BookOfAmos = () => {
     }
   };
 
+  // Chapter 3 - Interlinear (word-by-word alignment)
+  const chapter3Interlinear = {
+    verse8: {
+      hebrew: ["aw", "Cham", "Natah", "Cham", "yarad", "al", "bagad", "Shawm", "Chabal", "adarak", "kal", "aMazabaah", "aw", "Cham", "Shathah", "yayn", "al", "Anash", "al", "Bayth", "al", "Cham", "Ala", "Sham"],
+      english: ["And", "they", "lay themselves", "down upon", "clothes", "laid to", "pledge", "by", "every", "altar", "and", "they", "Drink", "the wine", "of the", "condemned", "in the", "house", "of their", "god"]
+    },
+    verse9: {
+      hebrew: ["awd", "Shamad", "Any", "phanym", "Cham", "Asar", "gabahh", "hayach", "kamah", "al", "Araz", "aw", "haw", "hayach", "Chacan", "allaw", "awd", "Any", "Shamad", "Naphash", "aphray", "amad", "Aw", "Naphash", "Sharash", "al", "Tachath"],
+      english: ["yet", "I destroyed", "his", "from above", "them", "whose", "height", "was", "like the", "cedars", "and", "he", "was", "strong", "as the", "oaks", "yet", "I", "destroyed", "his", "fruit", "from above", "and", "his", "roots", "from", "beneath"]
+    },
+    verse10: {
+      hebrew: ["gam", "Any", "Alah", "at", "Arats", "al", "Amaray", "phanym", "Cham", "Asar", "aMatsaraym", "aw", "yalak", "Araba", "Shanah", "al", "aMadAbar", "yarash", "Al", "Araz", "al", "Amaray"],
+      english: ["Also", "I", "brought", "you up", "from the", "land", "of the", "Amorites", "and", "led", "you", "forty", "years", "through the", "wilderness", "to possess", "the", "land", "of the", "Amorite"]
+    },
+    verse11: {
+      hebrew: ["aw", "Any", "qawm", "al", "Naphash", "ban", "yth", "Nabay", "aw", "al", "Naphash", "haw", "attanah", "al", "yasharaAl", "Amar", "al", "Yachuwshuah"],
+      english: ["and", "I", "raised up", "of", "your", "sons", "for", "prophets", "and", "of", "your", "young men", "for", "Nazarites", "Is it not", "even", "Thus O ye", "children of", "Israel", "saith", "the", "LORD"]
+    },
+    verse12: {
+      hebrew: ["han", "attanah", "Nazar", "yayn", "Shaqaqh", "aw", "Tsavah", "Nabay", "Naba", "aLahi"],
+      english: ["But", "ye gave", "the Nazarites", "wine", "to drink", "and", "commanded", "prophets", "saying", "prophecy not"]
+    },
+    verse13: {
+      hebrew: ["hannah", "hayach", "awq", "Tachath", "attanah", "al", "agalah", "awq", "Tachath", "attanah", "al", "agalah", "huw", "awq", "yash", "Mala", "al", "Amayr"],
+      english: ["behold", "I am", "pressed", "under", "you", "as a", "cart", "is", "pressed", "under", "you", "as a", "cart", "is", "pressed", "that is", "full", "of", "sheaves"]
+    },
+    verse14: {
+      hebrew: ["gam", "Manawc", "yash", "ahat", "al", "qal", "aw", "Chazaq", "yash", "aLah", "al", "Amats", "Naphash", "kaach", "aLah", "yash", "gabbawr", "aMalat", "Naphash"],
+      english: ["therefore", "the flight", "shall", "perish", "from the", "swift", "and", "the strong", "shall", "not", "strengthen", "his", "force", "neither", "shall the", "mighty", "deliver", "himself"]
+    },
+    verse15: {
+      hebrew: ["aLah", "yash", "Amad", "ky", "Taphash", "qashath", "aw", "haw", "qal", "ragal", "yash", "ky", "Rakab", "cawc", "aMalat", "Naphash", "aLah", "yash", "ky", "Rakaab", "cawc", "aMalat", "Naphash"],
+      english: ["neither", "shall", "he stand", "that", "handleth", "the bow", "and", "he that is", "swift", "of foot", "shall", "not", "deliver", "himself", "neither", "shall", "he that", "rideth", "the horse", "deliver", "himself"]
+    },
+    verse16: {
+      hebrew: ["Aw", "huw", "Amamyts", "aBayn", "gabbar", "yash", "Nawc", "cawr", "Arawm", "al", "ky", "yawm", "Amar", "al", "Yachuwshuah"],
+      english: ["And", "he that is", "courageous", "among the", "mighty", "shall", "flee away", "Naked", "in", "that", "day", "saith", "the", "LORD"]
+    }
+  };
+
   // Sample content for Chapter 1 - Bilingual (old format kept for reference)
   const chapter1Bilingual = [
     { 
@@ -379,7 +419,7 @@ const BookOfAmos = () => {
   ];
 
   const renderInterlinear = () => {
-    if (activeChapter !== 1 && activeChapter !== 2) {
+    if (activeChapter !== 1 && activeChapter !== 2 && activeChapter !== 3) {
       return (
         <div className="text-center py-12">
           <p className="text-gray-600 text-lg">
@@ -390,7 +430,9 @@ const BookOfAmos = () => {
     }
 
     // Select the appropriate chapter data
-    const chapterData = activeChapter === 1 ? chapter1Interlinear : chapter2Interlinear;
+    const chapterData = activeChapter === 1 ? chapter1Interlinear : 
+                        activeChapter === 2 ? chapter2Interlinear : 
+                        chapter3Interlinear;
 
     return (
       <div className="max-w-5xl mx-auto">
@@ -555,9 +597,9 @@ const BookOfAmos = () => {
           </>
         ) : (
           <>
-            {/* Chapter 2: All verses FREE */}
+            {/* Chapter 2 & 3: All verses FREE */}
             <div className="mb-6 p-4 bg-green-50 rounded-lg border-2 border-green-400 text-center">
-              <p className="text-green-800 font-semibold">✨ Chapter 2 - Completely Free!</p>
+              <p className="text-green-800 font-semibold">✨ Chapter {activeChapter} - Completely Free!</p>
             </div>
             
             {Object.entries(chapterData).map(([verseKey, verseData]) => {
