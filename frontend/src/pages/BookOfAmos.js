@@ -302,6 +302,38 @@ const BookOfAmos = () => {
     }
   };
   
+  // Chapter 2 - Interlinear (word-by-word alignment)
+  const chapter2Interlinear = {
+    verse1: {
+      hebrew: ["Kah", "Amar", "al", "Yachuwshuah", "yth", "Shalawsh", "pasha", "al", "Mawab", "aw", "yth", "Araba", "ahy", "aLah", "Shawb", "cawr", "Avan", "al", "huw", "Asaraph", "atsam", "al", "aMalak", "Al", "Adam", "al", "Asayad"],
+      english: ["Thus", "saith", "The", "LORD", "For", "three", "transgressions", "of", "Moab", "and", "For", "four", "I will", "not", "turn", "away", "the punishment", "thereof", "because", "he burned", "bones", "of the", "king", "of", "Edom", "into", "lime"]
+    },
+    verse2: {
+      hebrew: ["han", "ahy", "shalach", "Ash", "al", "aMawb", "aw", "yash", "akal", "Aramown", "al", "qaryawTh", "aw", "aMawb", "yash", "aMaw", "awd", "Shaawn", "awd", "Tarawah", "aw", "awd", "qawl", "Shaphar"],
+      english: ["but", "I will", "send", "a fire", "upon", "Moab", "and", "it shall", "devour", "the palaces", "of", "Kirioth", "and", "Moab", "shall", "die", "with", "Tumult", "with", "shouting", "and", "with", "the sound of the", "trumpet"]
+    },
+    verse3: {
+      hebrew: ["aw", "ahy", "karath", "al", "Shaphat", "al", "qarab", "Sham", "al", "aw", "ahy", "harag", "kal", "aSar", "al", "awd", "Naphash", "Amar", "al", "Yachuwahuah"],
+      english: ["And", "I will", "cut off", "the", "Judge", "from the", "Midst", "thereof", "and", "I will", "slay", "all the", "princes", "thereof", "with", "him", "saith", "the", "LORD"]
+    },
+    verse4: {
+      hebrew: ["Kah", "Amar", "al", "Yachuwshuah", "yth", "Shalawsh", "pasha", "al", "yachadad", "aw", "yth", "Araba", "ahy", "aLah", "Shawb", "cawr", "Avan", "shamal", "cham", "hayach", "aMaac", "Tarach", "al", "Yachuwshuah", "aw", "hayach", "aLah", "Sham", "Naphash", "chaq", "aw", "Cham", "kazab", "Nathan", "Cham", "taah", "achar", "Asar", "Cham", "Ab", "hayach", "halak"],
+      english: ["Thus", "said", "the", "LORD", "for", "three", "transgressions", "of", "Judah", "and", "for", "four", "I will", "not", "turn", "away", "the punishment", "thereof", "because", "they have", "despised", "the law", "of", "the LORD", "and", "have", "not", "kept", "his", "commandments", "and", "their", "lies", "caused", "them to", "err", "after the", "which", "their", "fathers", "have", "walked"]
+    },
+    verse5: {
+      hebrew: ["han", "ahy", "Shalac", "Ash", "al", "yachadad", "aw", "yash", "akal", "Aramawn", "al", "Shalam"],
+      english: ["but", "I will", "send", "a fire", "upon", "Judah", "and", "it shall", "devour", "the palaces", "of", "Jerusalem"]
+    },
+    verse6: {
+      hebrew: ["kah", "Amar", "al", "Yachuwshuah", "yth", "shalawsh", "pasha", "al", "yasharaA1", "aw", "yth", "Araba", "ahy", "aLah", "Shawb", "cawr", "Avan", "al", "Cham", "aMakar", "Tsaddayq", "ka", "caph", "Abyawn", "yth", "cawl", "al", "Naalaal"],
+      english: ["Thus", "saith", "the", "LORD", "for", "three", "transgressions", "of", "Israel", "and", "for", "four", "I will", "not", "turn", "away", "the punishment", "thereof", "because", "they sold", "the righteous", "for", "silver", "the poor", "for", "a pair", "of", "shoes"]
+    },
+    verse7: {
+      hebrew: ["ky", "Shaaph", "achar", "aphar", "al", "Arats", "al", "Rash", "al", "Abyawn", "aw", "Natah", "adarak", "al", "ahayv", "aw", "Kash", "aw", "Naphash", "Ab", "ahy", "yalak", "huw", "Naarah", "Chalal", "Any", "qadash", "Sham"],
+      english: ["That", "pant", "after", "the dust", "of the", "earth", "on the", "head", "of the", "poor", "and", "turn", "aside", "the", "way", "of the", "Meek", "and", "a man", "and", "his", "father", "will go", "in unto", "the same", "maid to", "profane", "my Holy", "name"]
+    }
+  };
+
   // Sample content for Chapter 1 - Bilingual (old format kept for reference)
   const chapter1Bilingual = [
     { 
@@ -347,7 +379,7 @@ const BookOfAmos = () => {
   ];
 
   const renderInterlinear = () => {
-    if (activeChapter !== 1) {
+    if (activeChapter !== 1 && activeChapter !== 2) {
       return (
         <div className="text-center py-12">
           <p className="text-gray-600 text-lg">
@@ -356,6 +388,9 @@ const BookOfAmos = () => {
         </div>
       );
     }
+
+    // Select the appropriate chapter data
+    const chapterData = activeChapter === 1 ? chapter1Interlinear : chapter2Interlinear;
 
     return (
       <div className="max-w-5xl mx-auto">
@@ -420,79 +455,14 @@ const BookOfAmos = () => {
           </div>
         </div>
 
-        {/* Verses 1-5 (FREE SAMPLE) */}
-        {Object.entries(chapter1Interlinear)
-          .filter(([verseKey]) => {
-            const verseNum = parseInt(verseKey.replace('verse', ''));
-            return verseNum <= 5;
-          })
-          .map(([verseKey, verseData]) => {
-            const verseNum = verseKey.replace('verse', '');
-            return (
-              <div key={verseKey} className="mb-10 p-6 bg-white rounded-lg border border-gray-300">
-                <h4 className="text-lg font-bold text-teal-700 mb-4">Verse {verseNum}</h4>
-                <div className="overflow-x-auto">
-                  <div className="inline-flex flex-wrap gap-x-4 gap-y-6 min-w-full">
-                    {verseData.hebrew.map((hWord, idx) => (
-                      <div key={idx} className="text-center min-w-[80px]">
-                        <div className="text-base font-semibold text-gray-800 mb-1">{hWord}</div>
-                        <div className="text-sm text-teal-700">{verseData.english[idx]}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-
-        {/* PAYMENT GATE - Unlock verses 6-15 */}
-        {!isUnlocked && !isProcessingPayment && (
-          <div className="my-12 p-8 bg-gradient-to-br from-green-50 to-teal-50 rounded-xl border-2 border-green-400 text-center">
-            <div className="max-w-2xl mx-auto">
-              <h3 className="text-2xl font-bold text-green-900 mb-3">🔒 Unlock Full Chapter 1</h3>
-              <p className="text-gray-700 mb-4 leading-relaxed">
-                You've just experienced verses 1-5 in the original 20-letter Hebrew system with word-by-word interlinear translation.
-              </p>
-              <p className="text-lg font-semibold text-gray-800 mb-6">
-                Unlock verses 6-15 to see the complete Chapter 1 in this revolutionary format!
-              </p>
-              <div className="bg-white p-6 rounded-lg mb-6 border border-green-300">
-                <p className="text-3xl font-bold text-green-700 mb-2">$4.99</p>
-                <p className="text-sm text-gray-600">One-time payment • Instant access • Verses 6-15</p>
-              </div>
-              <button
-                onClick={handleUnlockPayment}
-                className="px-8 py-4 bg-gradient-to-r from-green-600 to-teal-600 text-white text-lg font-bold rounded-lg hover:from-green-700 hover:to-teal-700 transition-all shadow-lg"
-              >
-                🔓 Unlock Now - $4.99
-              </button>
-              <p className="text-xs text-gray-500 mt-4">Secure payment via Stripe • Instant access</p>
-            </div>
-          </div>
-        )}
-
-        {/* Processing payment state */}
-        {isProcessingPayment && (
-          <div className="my-12 p-8 bg-blue-50 rounded-xl border-2 border-blue-400 text-center">
-            <div className="max-w-2xl mx-auto">
-              <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto mb-4"></div>
-              <h3 className="text-xl font-bold text-blue-900 mb-2">Processing Payment...</h3>
-              <p className="text-gray-700">Verifying your payment. Please wait a moment.</p>
-            </div>
-          </div>
-        )}
-
-        {/* Verses 6-15 (UNLOCKED CONTENT) */}
-        {isUnlocked && (
+        {/* Render verses based on chapter */}
+        {activeChapter === 1 ? (
           <>
-            <div className="my-8 p-4 bg-green-100 rounded-lg border-2 border-green-500 text-center">
-              <p className="text-green-800 font-semibold">✅ Content Unlocked! Thank you for your support.</p>
-            </div>
-            
+            {/* Chapter 1: Verses 1-5 (FREE SAMPLE) */}
             {Object.entries(chapter1Interlinear)
               .filter(([verseKey]) => {
                 const verseNum = parseInt(verseKey.replace('verse', ''));
-                return verseNum >= 6;
+                return verseNum <= 5;
               })
               .map(([verseKey, verseData]) => {
                 const verseNum = verseKey.replace('verse', '');
@@ -512,6 +482,102 @@ const BookOfAmos = () => {
                   </div>
                 );
               })}
+
+            {/* PAYMENT GATE - Unlock verses 6-15 (Chapter 1 only) */}
+            {!isUnlocked && !isProcessingPayment && (
+              <div className="my-12 p-8 bg-gradient-to-br from-green-50 to-teal-50 rounded-xl border-2 border-green-400 text-center">
+                <div className="max-w-2xl mx-auto">
+                  <h3 className="text-2xl font-bold text-green-900 mb-3">🔒 Unlock Full Chapter 1</h3>
+                  <p className="text-gray-700 mb-4 leading-relaxed">
+                    You've just experienced verses 1-5 in the original 20-letter Hebrew system with word-by-word interlinear translation.
+                  </p>
+                  <p className="text-lg font-semibold text-gray-800 mb-6">
+                    Unlock verses 6-15 to see the complete Chapter 1 in this revolutionary format!
+                  </p>
+                  <div className="bg-white p-6 rounded-lg mb-6 border border-green-300">
+                    <p className="text-3xl font-bold text-green-700 mb-2">$4.99</p>
+                    <p className="text-sm text-gray-600">One-time payment • Instant access • Verses 6-15</p>
+                  </div>
+                  <button
+                    onClick={handleUnlockPayment}
+                    className="px-8 py-4 bg-gradient-to-r from-green-600 to-teal-600 text-white text-lg font-bold rounded-lg hover:from-green-700 hover:to-teal-700 transition-all shadow-lg"
+                  >
+                    🔓 Unlock Now - $4.99
+                  </button>
+                  <p className="text-xs text-gray-500 mt-4">Secure payment via Stripe • Instant access</p>
+                </div>
+              </div>
+            )}
+
+            {/* Processing payment state */}
+            {isProcessingPayment && (
+              <div className="my-12 p-8 bg-blue-50 rounded-xl border-2 border-blue-400 text-center">
+                <div className="max-w-2xl mx-auto">
+                  <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto mb-4"></div>
+                  <h3 className="text-xl font-bold text-blue-900 mb-2">Processing Payment...</h3>
+                  <p className="text-gray-700">Verifying your payment. Please wait a moment.</p>
+                </div>
+              </div>
+            )}
+
+            {/* Chapter 1: Verses 6-15 (UNLOCKED CONTENT) */}
+            {isUnlocked && (
+              <>
+                <div className="my-8 p-4 bg-green-100 rounded-lg border-2 border-green-500 text-center">
+                  <p className="text-green-800 font-semibold">✅ Content Unlocked! Thank you for your support.</p>
+                </div>
+                
+                {Object.entries(chapter1Interlinear)
+                  .filter(([verseKey]) => {
+                    const verseNum = parseInt(verseKey.replace('verse', ''));
+                    return verseNum >= 6;
+                  })
+                  .map(([verseKey, verseData]) => {
+                    const verseNum = verseKey.replace('verse', '');
+                    return (
+                      <div key={verseKey} className="mb-10 p-6 bg-white rounded-lg border border-gray-300">
+                        <h4 className="text-lg font-bold text-teal-700 mb-4">Verse {verseNum}</h4>
+                        <div className="overflow-x-auto">
+                          <div className="inline-flex flex-wrap gap-x-4 gap-y-6 min-w-full">
+                            {verseData.hebrew.map((hWord, idx) => (
+                              <div key={idx} className="text-center min-w-[80px]">
+                                <div className="text-base font-semibold text-gray-800 mb-1">{hWord}</div>
+                                <div className="text-sm text-teal-700">{verseData.english[idx]}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            {/* Chapter 2: All verses FREE */}
+            <div className="mb-6 p-4 bg-green-50 rounded-lg border-2 border-green-400 text-center">
+              <p className="text-green-800 font-semibold">✨ Chapter 2 - Completely Free!</p>
+            </div>
+            
+            {Object.entries(chapterData).map(([verseKey, verseData]) => {
+              const verseNum = verseKey.replace('verse', '');
+              return (
+                <div key={verseKey} className="mb-10 p-6 bg-white rounded-lg border border-gray-300">
+                  <h4 className="text-lg font-bold text-teal-700 mb-4">Verse {verseNum}</h4>
+                  <div className="overflow-x-auto">
+                    <div className="inline-flex flex-wrap gap-x-4 gap-y-6 min-w-full">
+                      {verseData.hebrew.map((hWord, idx) => (
+                        <div key={idx} className="text-center min-w-[80px]">
+                          <div className="text-base font-semibold text-gray-800 mb-1">{hWord}</div>
+                          <div className="text-sm text-teal-700">{verseData.english[idx]}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </>
         )}
 
