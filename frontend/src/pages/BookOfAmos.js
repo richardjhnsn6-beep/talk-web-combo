@@ -330,7 +330,7 @@ const BookOfAmos = () => {
     },
     verse7: {
       hebrew: ["ky", "Shaaph", "achar", "aphar", "al", "Arats", "al", "Rash", "al", "Abyawn", "aw", "Natah", "adarak", "al", "ahayv", "aw", "Kash", "aw", "Naphash", "Ab", "ahy", "yalak", "huw", "Naarah", "Chalal", "Any", "qadash", "Sham"],
-      english: ["That", "pant", "after", "the dust", "of the", "earth", "on the", "head", "of the", "poor", "and", "turn", "aside", "the", "way", "of the", "Meek", "and", "a man", "and", "his", "father", "will go", "in unto", "the same", "maid", "to profane", "my", "Holy", "name"]
+      english: ["That", "pant", "after", "the dust", "of the", "earth", "on the", "head", "of the", "poor", "and", "turn", "aside", "the", "way", "of the", "Meek", "and", "a man", "father", "and his", "will go", "the same", "maid", "to profane", "my", "Holy", "name"]
     }
   };
 
