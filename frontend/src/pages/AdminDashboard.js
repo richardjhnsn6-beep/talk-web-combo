@@ -5,6 +5,7 @@ const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
   const [aiChatStats, setAiChatStats] = useState(null);
   const [liveVisitors, setLiveVisitors] = useState(null);
+  const [bookScrollStats, setBookScrollStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [lastTransactionCount, setLastTransactionCount] = useState(0);
@@ -13,16 +14,19 @@ const AdminDashboard = () => {
   const aiChatStatsRef = useRef(null);
   const transactionsRef = useRef(null);
   const liveVisitorsRef = useRef(null);
+  const bookScrollRef = useRef(null);
 
   useEffect(() => {
     fetchDashboardData();
     fetchAIChatStats();
     fetchLiveVisitors();
+    fetchBookScrollStats();
     // Check for new sales and live visitors every 5 seconds
     const interval = setInterval(() => {
       checkForNewSales();
       fetchAIChatStats();
       fetchLiveVisitors();
+      fetchBookScrollStats();
     }, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -60,6 +64,17 @@ const AdminDashboard = () => {
       setLiveVisitors(data);
     } catch (err) {
       console.error('Failed to fetch live visitors:', err);
+    }
+  };
+
+  const fetchBookScrollStats = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/analytics/book-scroll-stats`);
+      if (!response.ok) return;
+      const data = await response.json();
+      setBookScrollStats(data);
+    } catch (err) {
+      console.error('Failed to fetch book scroll stats:', err);
     }
   };
 
@@ -135,6 +150,10 @@ const AdminDashboard = () => {
 
   const scrollToLiveVisitors = () => {
     liveVisitorsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const scrollToBookScroll = () => {
+    bookScrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   if (loading) {
@@ -363,6 +382,120 @@ const AdminDashboard = () => {
             </a>
           </div>
         </div>
+
+        {/* Book of Amos Scroll Analytics */}
+        {bookScrollStats && (
+          <div ref={bookScrollRef} className="bg-gradient-to-br from-teal-500 to-blue-600 rounded-lg shadow-2xl p-6 mb-8 text-white">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+              📖 Book of Amos - Reading Engagement
+            </h2>
+            <div className="grid md:grid-cols-4 gap-4 mb-6">
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <p className="text-teal-100 text-sm mb-1">Total Readers</p>
+                <p className="text-4xl font-bold">{bookScrollStats.total_readers}</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <p className="text-teal-100 text-sm mb-1">Average Scroll Depth</p>
+                <p className="text-4xl font-bold text-yellow-300">
+                  {bookScrollStats.average_depth}%
+                </p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <p className="text-teal-100 text-sm mb-1">Reached 75%+</p>
+                <p className="text-4xl font-bold text-green-300">
+                  {bookScrollStats.depth_distribution["75%"]}
+                </p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <p className="text-teal-100 text-sm mb-1">Read to End (100%)</p>
+                <p className="text-4xl font-bold text-pink-300">
+                  {bookScrollStats.depth_distribution["100%"]}
+                </p>
+              </div>
+            </div>
+            
+            {/* Scroll Depth Distribution */}
+            <div className="bg-white/10 backdrop-blur rounded-lg p-6">
+              <h3 className="text-xl font-bold mb-4">📊 Scroll Depth Distribution</h3>
+              <div className="space-y-3">
+                <div className="flex items-center gap-4">
+                  <span className="text-white font-semibold w-24">Reached 25%:</span>
+                  <div className="flex-1 bg-white/20 rounded-full h-6 overflow-hidden">
+                    <div 
+                      className="bg-gradient-to-r from-yellow-400 to-yellow-500 h-full flex items-center justify-center text-xs font-bold text-gray-900"
+                      style={{ 
+                        width: `${bookScrollStats.total_readers > 0 ? (bookScrollStats.depth_distribution["25%"] / bookScrollStats.total_readers * 100) : 0}%`,
+                        minWidth: '30px'
+                      }}
+                    >
+                      {bookScrollStats.depth_distribution["25%"]}
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-4">
+                  <span className="text-white font-semibold w-24">Reached 50%:</span>
+                  <div className="flex-1 bg-white/20 rounded-full h-6 overflow-hidden">
+                    <div 
+                      className="bg-gradient-to-r from-orange-400 to-orange-500 h-full flex items-center justify-center text-xs font-bold text-gray-900"
+                      style={{ 
+                        width: `${bookScrollStats.total_readers > 0 ? (bookScrollStats.depth_distribution["50%"] / bookScrollStats.total_readers * 100) : 0}%`,
+                        minWidth: '30px'
+                      }}
+                    >
+                      {bookScrollStats.depth_distribution["50%"]}
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-4">
+                  <span className="text-white font-semibold w-24">Reached 75%:</span>
+                  <div className="flex-1 bg-white/20 rounded-full h-6 overflow-hidden">
+                    <div 
+                      className="bg-gradient-to-r from-green-400 to-green-500 h-full flex items-center justify-center text-xs font-bold text-gray-900"
+                      style={{ 
+                        width: `${bookScrollStats.total_readers > 0 ? (bookScrollStats.depth_distribution["75%"] / bookScrollStats.total_readers * 100) : 0}%`,
+                        minWidth: '30px'
+                      }}
+                    >
+                      {bookScrollStats.depth_distribution["75%"]}
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-4">
+                  <span className="text-white font-semibold w-24">Read to End:</span>
+                  <div className="flex-1 bg-white/20 rounded-full h-6 overflow-hidden">
+                    <div 
+                      className="bg-gradient-to-r from-pink-400 to-pink-500 h-full flex items-center justify-center text-xs font-bold text-gray-900"
+                      style={{ 
+                        width: `${bookScrollStats.total_readers > 0 ? (bookScrollStats.depth_distribution["100%"] / bookScrollStats.total_readers * 100) : 0}%`,
+                        minWidth: '30px'
+                      }}
+                    >
+                      {bookScrollStats.depth_distribution["100%"]}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-6 p-4 bg-white/20 rounded-lg">
+                <p className="text-sm text-white/90 mb-2">
+                  💡 <strong>Insight:</strong> {' '}
+                  {bookScrollStats.total_readers === 0 ? (
+                    "No reading data yet. Share the Book of Amos page to track engagement!"
+                  ) : bookScrollStats.average_depth >= 75 ? (
+                    `Great engagement! ${bookScrollStats.average_depth}% average scroll depth means readers are highly interested. Consider adding Chapter 2!`
+                  ) : bookScrollStats.average_depth >= 50 ? (
+                    `Moderate engagement. ${bookScrollStats.average_depth}% average scroll shows interest. Monitor for a few more days before adding Chapter 2.`
+                  ) : (
+                    `Lower engagement (${bookScrollStats.average_depth}% average). Consider improving the content or waiting for more data.`
+                  )}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* AI Chat Stats Section */}
         {aiChatStats && (

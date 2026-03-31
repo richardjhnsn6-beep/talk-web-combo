@@ -5,6 +5,13 @@ const BookOfAmos = () => {
   const [activeChapter, setActiveChapter] = useState(1);
   const [isUnlocked, setIsUnlocked] = useState(false); // Paywall ACTIVE - must pay to unlock
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [maxScrollDepth, setMaxScrollDepth] = useState(0);
+  const [scrollMilestones, setScrollMilestones] = useState({
+    25: false,
+    50: false,
+    75: false,
+    100: false
+  });
 
   // Check if content is unlocked (from localStorage or URL)
   useEffect(() => {
@@ -31,6 +38,82 @@ const BookOfAmos = () => {
       verifyPayment(sessionId);
     }
   }, []);
+
+  // Scroll tracking
+  useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Calculate scroll percentage
+      const scrollableHeight = documentHeight - windowHeight;
+      const scrollPercentage = Math.round((scrollTop / scrollableHeight) * 100);
+      
+      // Update max scroll depth
+      if (scrollPercentage > maxScrollDepth) {
+        setMaxScrollDepth(scrollPercentage);
+        
+        // Track milestones
+        const newMilestones = { ...scrollMilestones };
+        let shouldTrack = false;
+        
+        if (scrollPercentage >= 25 && !scrollMilestones[25]) {
+          newMilestones[25] = true;
+          shouldTrack = true;
+        }
+        if (scrollPercentage >= 50 && !scrollMilestones[50]) {
+          newMilestones[50] = true;
+          shouldTrack = true;
+        }
+        if (scrollPercentage >= 75 && !scrollMilestones[75]) {
+          newMilestones[75] = true;
+          shouldTrack = true;
+        }
+        if (scrollPercentage >= 100 && !scrollMilestones[100]) {
+          newMilestones[100] = true;
+          shouldTrack = true;
+        }
+        
+        if (shouldTrack) {
+          setScrollMilestones(newMilestones);
+          trackScrollDepth(scrollPercentage, scrollPercentage);
+        }
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [maxScrollDepth, scrollMilestones]);
+
+  const trackScrollDepth = async (scrollPercentage, maxDepth) => {
+    try {
+      let visitorId = localStorage.getItem('visitor_id');
+      if (!visitorId) {
+        visitorId = `visitor_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        localStorage.setItem('visitor_id', visitorId);
+      }
+      
+      let sessionId = sessionStorage.getItem('book_session_id');
+      if (!sessionId) {
+        sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        sessionStorage.setItem('book_session_id', sessionId);
+      }
+
+      await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/analytics/book-scroll`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          visitor_id: visitorId,
+          scroll_percentage: scrollPercentage,
+          max_depth: maxDepth,
+          session_id: sessionId
+        })
+      });
+    } catch (error) {
+      console.error('Scroll tracking error:', error);
+    }
+  };
 
   const trackPageView = async () => {
     try {
