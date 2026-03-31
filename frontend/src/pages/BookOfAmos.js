@@ -601,16 +601,7 @@ const BookOfAmos = () => {
               <p className="text-green-800 font-semibold">✨ Chapter {activeChapter} - Completely Free!</p>
             </div>
             
-            {Object.entries(chapterData)
-              .filter(([verseKey]) => {
-                // For Chapter 2, hide verses 10-11 until they're corrected
-                if (activeChapter === 2) {
-                  const verseNum = parseInt(verseKey.replace('verse', ''));
-                  return verseNum !== 10 && verseNum !== 11;
-                }
-                return true;
-              })
-              .map(([verseKey, verseData]) => {
+            {Object.entries(chapterData).map(([verseKey, verseData]) => {
               const verseNum = verseKey.replace('verse', '');
               return (
                 <div key={verseKey} className="mb-10 p-6 bg-white rounded-lg border border-gray-300">
