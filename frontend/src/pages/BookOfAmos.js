@@ -313,8 +313,8 @@ const BookOfAmos = () => {
       english: ["but", "I will", "send", "a fire", "upon", "Moab", "and", "it shall", "devour", "the palaces", "of", "Kirioth", "and", "Moab", "shall", "die", "with", "Tumult", "with", "shouting", "and", "with", "the sound of the", "trumpet"]
     },
     verse3: {
-      hebrew: ["aw", "ahy", "karath", "al", "Shaphat", "al", "qarab", "Sham", "al", "aw", "ahy", "harag", "kal", "aSar", "al", "awd", "Naphash", "Amar", "al", "Yachuwahuah"],
-      english: ["And", "I will", "cut off", "the", "Judge", "from the", "Midst", "thereof", "and", "I will", "slay", "all the", "princes", "thereof", "with", "him", "saith", "the", "LORD"]
+      hebrew: ["aw", "ahy", "karath", "al", "Shaphat", "al", "qarab", "Sham", "aw", "ahy", "harag", "kal", "aSar", "al", "awd", "Naphash", "Amar", "al", "Yachuwahuah"],
+      english: ["And", "I will", "cut off", "the", "Judge", "from the", "Midst", "thereof", "And", "I will", "slay", "all the", "princes", "thereof", "with", "him", "saith", "the", "LORD"]
     },
     verse4: {
       hebrew: ["Kah", "Amar", "al", "Yachuwshuah", "yth", "Shalawsh", "pasha", "al", "yachadad", "aw", "yth", "Araba", "ahy", "aLah", "Shawb", "cawr", "Avan", "shamal", "cham", "hayach", "aMaac", "Tarach", "al", "Yachuwshuah", "aw", "hayach", "aLah", "Sham", "Naphash", "chaq", "aw", "Cham", "kazab", "Nathan", "Cham", "taah", "achar", "Asar", "Cham", "Ab", "hayach", "halak"],
