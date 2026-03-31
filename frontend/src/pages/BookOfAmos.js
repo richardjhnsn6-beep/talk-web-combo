@@ -341,8 +341,8 @@ const BookOfAmos = () => {
       english: ["yet", "destroyed", "I", "before", "them", "Amorite", "whose", "height", "was", "like", "the", "cedars", "and", "he", "was", "strong as the", "oak", "yet", "I", "destroyed", "his", "fruit", "from above", "and", "his", "roots", "from", "beneath"]
     },
     verse10: {
-      hebrew: ["gam", "Any", "Alah", "attanah", "al", "Arats", "al", "aMatsaraym", "aw", "yalak", "attanah", "Araba", "Shanah", "al", "aMadAbar", "al", "yarash", "Arats", "al", "Amaray"],
-      english: ["Also", "I", "brought", "you", "from", "the land", "of", "Egypt", "and", "led", "you", "forty", "years", "through the", "wilderness", "to", "possess", "the land", "of the", "Amorite"]
+      hebrew: ["gam", "Any", "Alah", "attanah", "al", "Arats", "al", "aMatsaraym", "aw", "yalak", "attanah", "Araba", "Shanah", "al", "aMadAbar", "yarash", "Arats", "al", "Amaray"],
+      english: ["Also", "I", "brought", "you", "from", "the land", "of", "Egypt", "and", "led", "you", "forty", "years", "through the", "wilderness", "to possess", "the land", "of the", "Amorite"]
     },
     verse11: {
       hebrew: ["aw", "Any", "qawm", "al", "Naphash", "ban", "yth", "Nabay", "aw", "al", "Naphash", "haw", "attanah", "al", "yasharaAl", "Amar", "al", "Yachuwshuah"],
