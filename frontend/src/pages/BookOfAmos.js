@@ -331,11 +331,7 @@ const BookOfAmos = () => {
     verse7: {
       hebrew: ["ky", "Shaaph", "achar", "aphar", "al", "Arats", "al", "Rash", "al", "Abyawn", "aw", "Natah", "adarak", "al", "ahayv", "aw", "Kash", "aw", "Naphash", "Ab", "ahy", "yalak", "huw", "Naarah", "Chalal", "Any", "qadash", "Sham"],
       english: ["That", "pant", "after", "the dust", "of the", "earth", "on the", "head", "of the", "poor", "and", "turn aside", "the way", "of the", "Meek", "and", "a man", "and", "his", "father", "will", "go in unto", "the same", "maid", "to profane", "my", "Holy", "name"]
-    }
-  };
-
-  // Chapter 3 - Interlinear (word-by-word alignment)
-  const chapter3Interlinear = {
+    },
     verse8: {
       hebrew: ["aw", "Cham", "Natah", "Cham", "yarad", "al", "bagad", "Shawm", "Chabal", "adarak", "kal", "aMazabaah", "aw", "Cham", "Shathah", "yayn", "al", "Anash", "al", "Bayth", "al", "Cham", "Ala", "Sham"],
       english: ["And", "they", "lay themselves", "down upon", "clothes", "laid to", "pledge", "by", "every", "altar", "and", "they", "Drink", "the wine", "of the", "condemned", "in the", "house", "of their", "god"]
@@ -372,6 +368,11 @@ const BookOfAmos = () => {
       hebrew: ["Aw", "huw", "Amamyts", "aBayn", "gabbar", "yash", "Nawc", "cawr", "Arawm", "al", "ky", "yawm", "Amar", "al", "Yachuwshuah"],
       english: ["And", "he that is", "courageous", "among the", "mighty", "shall", "flee away", "Naked", "in", "that", "day", "saith", "the", "LORD"]
     }
+  };
+
+  // Chapter 3 - Interlinear (word-by-word alignment) - PLACEHOLDER
+  const chapter3Interlinear = {
+    // Chapter 3 content will be added when provided
   };
 
   // Sample content for Chapter 1 - Bilingual (old format kept for reference)
@@ -419,7 +420,7 @@ const BookOfAmos = () => {
   ];
 
   const renderInterlinear = () => {
-    if (activeChapter !== 1 && activeChapter !== 2 && activeChapter !== 3) {
+    if (activeChapter !== 1 && activeChapter !== 2) {
       return (
         <div className="text-center py-12">
           <p className="text-gray-600 text-lg">
@@ -430,9 +431,7 @@ const BookOfAmos = () => {
     }
 
     // Select the appropriate chapter data
-    const chapterData = activeChapter === 1 ? chapter1Interlinear : 
-                        activeChapter === 2 ? chapter2Interlinear : 
-                        chapter3Interlinear;
+    const chapterData = activeChapter === 1 ? chapter1Interlinear : chapter2Interlinear;
 
     return (
       <div className="max-w-5xl mx-auto">
