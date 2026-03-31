@@ -353,8 +353,8 @@ const BookOfAmos = () => {
       english: ["But", "ye gave", "the Nazarites", "wine", "to drink", "and", "commanded", "prophets", "saying", "prophecy not"]
     },
     verse13: {
-      hebrew: ["hannah", "hayach", "awq", "Tachath", "attanah", "al", "agalah", "awq", "Tachath", "attanah", "al", "agalah", "huw", "awq", "yash", "Mala", "al", "Amayr"],
-      english: ["behold", "I am", "pressed", "under", "you", "as", "a cart", "is pressed", "under", "you", "as", "a cart", "is pressed", "that is", "full", "of", "sheaves"]
+      hebrew: ["hannah", "hayach", "awq", "Tachath", "attanah", "al", "agalah", "huw", "awq", "yash", "Tachath", "attanah", "al", "agalah", "huw", "awq", "Mala", "al", "Amayr"],
+      english: ["behold", "I am", "pressed", "under", "you", "as", "a cart", "is", "pressed", "that is", "under", "you", "as", "a cart", "is", "pressed", "full", "of", "sheaves"]
     },
     verse14: {
       hebrew: ["gam", "Manawc", "yash", "ahat", "al", "qal", "aw", "Chazaq", "yash", "aLah", "Amats", "Naphash", "kaach", "aLah", "yash", "gabbawr", "aMalat", "Naphash"],
