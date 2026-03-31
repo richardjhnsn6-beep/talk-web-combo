@@ -345,8 +345,8 @@ const BookOfAmos = () => {
       english: ["Also", "I", "brought", "you", "from", "the land", "of", "Egypt", "and", "led", "you", "forty", "years", "through the", "wilderness", "to possess", "the land", "of the", "Amorite"]
     },
     verse11: {
-      hebrew: ["aw", "Any", "qawm", "al", "Naphash", "ban", "yth", "Nabay", "aw", "al", "Naphash", "haw", "attanah", "al", "yasharaAl", "Amar", "al", "Yachuwshuah"],
-      english: ["and", "I", "raised up", "of", "your", "sons", "for", "prophets", "and", "of", "your", "young men", "for", "Nazarites", "Is it not", "even", "Thus O ye", "children of", "Israel", "saith", "the", "LORD"]
+      hebrew: ["aw", "Any", "qawm", "al", "Naphash", "ban", "yth", "Nabay", "aw", "al", "Naphash", "attanah", "yth", "Nazar", "aLah", "aph", "Zath", "ban", "yasharaal", "Amar", "Yachuwshuah"],
+      english: ["and", "I", "raised up", "of", "your", "sons", "for", "prophets", "and", "of", "your", "young men", "for", "Nazarites", "Is it not", "even", "thus", "O ye children", "of", "Israel", "saith", "the", "LORD"]
     },
     verse12: {
       hebrew: ["han", "attanah", "Nazar", "yayn", "Shaqaqh", "aw", "Tsavah", "Nabay", "Naba", "aLah"],
