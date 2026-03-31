@@ -337,7 +337,7 @@ const BookOfAmos = () => {
       english: ["And", "they", "lay", "themselves", "down", "upon", "clothes", "laid to", "pledge", "by", "every", "altar", "and", "they", "Drink", "the wine", "of", "the condemned", "in", "the house", "of", "their", "god"]
     },
     verse9: {
-      hebrew: ["awd", "Shamad", "Any", "phanym", "Cham", "Asar", "gabahh", "hayach", "kamah", "al", "Araz", "aw", "haw", "hayach", "Chacan", "allaw", "awd", "Any", "Shamad", "Naphash", "aphray", "amad", "Aw", "Naphash", "Sharash", "al", "Tachath"],
+      hebrew: ["awd", "Shamad", "Any", "phanym", "Cham", "Asar", "gabahh", "hayach", "kamah", "al", "Araz", "aw", "haw", "hayach", "Chacan", "allaw", "awd", "Any", "Shamad", "Naphash", "aphray", "Maal", "Aw", "Naphash", "Sharash", "al", "Tachath"],
       english: ["yet", "destroyed", "I", "before them", "whose", "height", "was", "like the", "cedars", "and", "he", "was", "strong as the", "oak", "yet", "I", "destroyed", "his", "fruit", "from above", "and", "his", "roots", "from", "beneath"]
     },
     verse10: {
