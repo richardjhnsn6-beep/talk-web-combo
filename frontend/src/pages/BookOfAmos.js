@@ -468,7 +468,7 @@ const BookOfAmos = () => {
       english: ["So", "Two", "or", "Three", "Cities", "wandered", "unto", "one", "City", "to drink", "water", "but", "they", "were", "not", "Satisfied", "yet", "have", "ye", "not", "returned", "unto", "me", "saith", "the", "LORD"]
     },
     verse9: {
-      hebrew: ["yash", "Nakah", "attah", "owd", "Shadaphah", "aw", "yaraqown", "Asar", "Naphash", "gannah", "aw", "Naphash", "Taan", "aTs", "aw", "Naphash", "aTs", "RabaH", "gazam", "akal", "Cham", "owd", "havah", "attah", "Lah", "Shuwb", "al", "any", "Naam", "al", "YaChuwshuah"],
+      hebrew: ["yash", "Nakah", "attah", "owd", "Shadaphah", "aw", "yaraqown", "Asar", "Naphash", "gannah", "aw", "Naphash", "Taan", "aTs", "aw", "Naphash", "aTs", "Rabah", "gazam", "akal", "Cham", "owd", "havah", "attah", "Lah", "Shuwb", "al", "any", "Naam", "al", "YaChuwshuah"],
       english: ["I have", "smitten", "you", "with", "blasting", "and", "mildew", "when", "your", "gardens", "and", "your", "fig", "trees", "and", "your", "trees", "increased", "the palmerworm", "devoured", "them", "yet", "have", "ye", "not", "returned", "unto", "me", "saith", "the", "LORD"]
     },
     verse10: {
