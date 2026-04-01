@@ -456,8 +456,8 @@ const BookOfAmos = () => {
       english: ["and", "offer", "a sacrifice", "of", "thanksgiving", "with", "Leaven", "and", "proclaim", "and", "publish", "the free offerings", "for", "this liketh", "you", "O", "ye", "children", "of", "Israel", "saith", "the", "Lord", "GOD"]
     },
     verse6: {
-      hebrew: ["aw", "any", "havah", "gam", "Nathan", "attah", "Naqqayon", "al", "ayar", "aw", "Chacar", "Lacham", "kol", "Naphash", "Maqowm", "owd", "hayach", "attanah", "Lah", "Shuwb", "al", "any", "amar", "al", "YaChuwshuah"],
-      english: ["And", "I", "have", "also", "given", "you", "cleanness", "of", "Cities,", "and", "want of", "Bread", "in all", "your", "places", "yet", "have", "ye", "not", "returned", "unto", "me", "saith", "the", "LORD"]
+      hebrew: ["Shan", "kal", "Naphash", "Ayar", "aw", "chacar", "aw", "any", "havah", "gam", "Nathan", "attah", "Naqqayon", "al", "ayar", "aw", "Chacar", "Lacham", "kol", "Naphash", "Maqowm", "owd", "hayach", "attanah", "Lah", "Shuwb", "al", "any", "amar", "al", "YaChuwshuah"],
+      english: ["teeth", "in the", "your", "city", "and", "want of", "And", "I", "have", "also", "given", "you", "cleanness", "of", "Cities,", "and", "want of", "Bread", "in all", "your", "places", "yet", "have", "ye", "not", "returned", "unto", "me", "saith", "the", "LORD"]
     },
     verse7: {
       hebrew: ["aw", "gam", "any", "havah", "Mana", "gasham", "al", "attah", "Asar", "Sham", "hayach", "owd", "Shalowsh", "Chadash", "qatsayr", "aw", "any", "Nathan", "yash", "Matar", "al", "achad", "ayar", "aw", "Nathan", "yash", "Lah", "Matar", "al"],
