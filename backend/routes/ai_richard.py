@@ -1213,31 +1213,41 @@ Includes: Custom development, database, authentication, APIs, 12 months support
 
 ## 🎵 **HOW TO JOIN RJHNSN12 MEMBERSHIP (FREE!):**
 
-When someone wants to join FREE membership for access to The Quiet Storm and other exclusive content:
+**GREAT NEWS!** I can sign you up RIGHT HERE in this chat! No need to go to another page!
 
-**STEP-BY-STEP GUIDE:**
+**When someone wants to join:**
 
-1. **Tell them about the benefits:**
-   - "Great! RJHNSN12 Membership is 100% FREE and gives you access to The Quiet Storm (exclusive late-night radio from 6 PM - Midnight), 15% discount on all books, and member badge!"
+1. **Tell them I can sign them up instantly:**
+   - "I can sign you up as a member right now! RJHNSN12 Membership is 100% FREE!"
 
-2. **Explain how to join:**
-   - "To join, just go to the Radio page and look for the 'Join FREE Membership' button. Click it, enter your email, and you're in! It takes 10 seconds."
+2. **Explain the benefits:**
+   - "Here's what you get:"
+   - "🌙 **The Quiet Storm** - Exclusive late-night smooth radio (6 PM - Midnight)"
+   - "💰 **15% discount** on all Hebrew books"
+   - "📚 **Full Hebrew learning materials**"
+   - "💬 **Priority support** from me"
+   - "👍 **Member badge**"
+   - "🎁 **Completely FREE** - no payment required!"
 
-3. **Direct them:**
-   - "You can find the Radio page in the left sidebar, or here's the direct link: Click 'Radio' → Scroll down → Click 'Join FREE Membership' → Enter your email → Done! 🎵"
+3. **Ask for their email:**
+   - "Just type your email address right here in the chat and I'll get you signed up instantly!"
 
-4. **If they ask for their email in chat:**
-   - "I'd love to sign you up right here, but for security and privacy, you'll need to enter your email on the official membership form on the Radio page. This keeps your information safe and gives you instant access!"
+4. **When they provide their email:**
+   - The system will AUTOMATICALLY sign them up
+   - I'll confirm they're now a member
+   - They can immediately access The Quiet Storm!
 
-**IMPORTANT:** I cannot directly collect emails or process membership signups in this chat for security/privacy reasons. Always direct them to the official form on the Radio page.
+**IMPORTANT:** I CAN directly process membership signups! When someone types their email in this chat while talking about membership, the system automatically creates their account. This is secure and instant!
 
-**Membership Benefits to Highlight:**
-- 🌙 **The Quiet Storm** - Exclusive late-night smooth radio (6 PM - Midnight)
-- 💰 **15% discount** on all Hebrew books
-- 📚 **Full Hebrew learning materials**
-- 💬 **Priority support**
-- 👍 **Member badge**
-- 🎁 **100% FREE** - no payment required!
+**Example Conversation:**
+
+**User:** "How do I join membership?"
+
+**Me:** "Great! I can sign you up right now! RJHNSN12 Membership is 100% FREE and gives you access to The Quiet Storm (exclusive late-night radio 6 PM - Midnight), 15% off all books, and member badge! Just type your email address here and I'll get you in!"
+
+**User:** "johndoe@email.com"
+
+**Me:** *[System auto-signs them up]* "🎉 BOOM! You're in! I just signed you up with johndoe@email.com! Welcome to RJHNSN12! 👍 You now have full access to The Quiet Storm and all member benefits. Head to the Radio page and enjoy! 🎵"
 
 ---
 
@@ -1834,13 +1844,60 @@ What questions do you have about this history?"""
             user_msg = UserMessage(text=user_message)
             ai_response = await chat_client.send_message(user_message=user_msg)
             
+            # Get lowercase version for keyword detection
+            user_msg_lower = chat_req.message.lower()
+            
+            # 🎯 AUTO MEMBERSHIP SIGNUP: Detect email addresses and sign up automatically
+            import re
+            email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+            emails_found = re.findall(email_pattern, chat_req.message)
+            
+            # Check if user is talking about membership and provided an email
+            membership_context = any(keyword in user_msg_lower for keyword in ["membership", "join", "subscribe", "member", "sign up", "sign me up", "quiet storm"])
+            
+            if emails_found and membership_context:
+                # User provided email in membership context - sign them up!
+                email_to_signup = emails_found[0]  # Take first email found
+                
+                try:
+                    # Check if already a member
+                    existing_member = await db.radio_members.find_one(
+                        {"email": email_to_signup.lower()},
+                        {"_id": 0}
+                    )
+                    
+                    if existing_member:
+                        # Already a member
+                        signup_response = f"\n\n✅ **Great news!** You're already a member with {email_to_signup}! Welcome back! 👍\n\nYou have full access to:\n- 🌙 **The Quiet Storm** (6 PM - Midnight)\n- 💰 **15% discount** on all books\n- 📚 **Full Hebrew materials**\n- 💬 **Priority support**\n\nJust head to the Radio page to enjoy The Quiet Storm!"
+                    else:
+                        # Sign them up!
+                        new_member = {
+                            "email": email_to_signup.lower(),
+                            "name": None,  # Can be updated later
+                            "joined_date": datetime.now(timezone.utc).isoformat(),
+                            "status": "active",
+                            "benefits": ["quiet_storm_access"],
+                            "source": "ai_richard_chat"  # Track that AI Richard signed them up!
+                        }
+                        
+                        await db.radio_members.insert_one(new_member)
+                        
+                        # Success message
+                        signup_response = f"\n\n🎉 **BOOM! You're in!** 🎉\n\nI just signed you up as a member with **{email_to_signup}**! Welcome to RJHNSN12! 👍\n\n**You now have access to:**\n- 🌙 **The Quiet Storm** - Exclusive late-night radio (6 PM - Midnight)\n- 💰 **15% discount** on all Hebrew books\n- 📚 **Full Hebrew learning materials**\n- 💬 **Priority AI support** from me\n- 👍 **Member badge**\n\n**100% FREE - No payment required!**\n\nHead to the Radio page and enjoy The Quiet Storm! 🎵\n\nNeed help with anything else?"
+                    
+                    ai_response += signup_response
+                    
+                except Exception as e:
+                    print(f"Auto-signup error: {str(e)}")
+                    # Don't break the chat if signup fails
+                    ai_response += f"\n\n*I tried to sign you up but encountered a small issue. Please try the signup form on the Radio page, or let me know if you need help!*"
+            
             # 💰 AI SALES AGENT: Detect sales opportunities and inject Stripe checkout links
             sales_keywords = {
                 "membership": ["membership", "join", "subscribe", "member", "sign up", "monthly", "quiet storm"],
                 "book": ["book", "amos", "buy", "purchase", "hebrew", "translation", "interlinear"]
             }
             
-            user_msg_lower = chat_req.message.lower()
             frontend_url = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
             
             # Check for membership interest
