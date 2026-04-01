@@ -405,8 +405,8 @@ const BookOfAmos = () => {
       english: ["the", "lion", "hath", "roared", "who", "will", "not", "fear", "the", "LORD", "God", "hath", "spoken", "who", "Can", "but", "prophesy"]
     },
     verse9: {
-      hebrew: ["Shama", "al", "Aramawn", "aw", "Ashadawd", "aw", "al", "Aramawn", "al", "Arats", "al", "aMattsaraym", "aw", "Amar", "acaph", "Naphash", "al", "har", "al", "Shamarwn", "aw", "raah", "Rab", "aMahawmah", "qaraB", "Sham", "al", "Ashaq", "tavak", "Sham", "al"],
-      english: ["publish", "in", "the palaces", "at", "Ashdod", "and", "in", "the palaces", "in", "the land", "of", "Egypt", "and", "say", "Assemble", "yourselves", "upon", "the mountain", "of", "Samaria", "and", "behold", "the great", "Tumults", "in", "the Midst", "there of", "and", "the oppressed", "in", "the Midst there of"]
+      hebrew: ["Shama", "al", "Aramawn", "aw", "Ashadawd", "aw", "al", "Aramawn", "al", "Arats", "al", "aMatsaraym", "aw", "Amar", "acaph", "Naphash", "al", "har", "al", "Shamarwn", "aw", "raah", "Rab", "aMahawmah", "qarab", "shamal", "aw", "Ashaq", "tavak", "shamal"],
+      english: ["publish", "in", "the palaces", "at", "Ashdod", "and", "in", "the palaces", "in", "the land", "of", "Egypt", "and", "say", "Assemble", "yourselves", "upon", "the mountain", "of", "Samaria", "and", "behold", "the great", "Tumults", "in the midst", "thereof", "and", "the oppressed", "in the midst", "thereof"]
     },
     verse10: {
       hebrew: ["Kan", "Cham", "yada", "aLah", "Ashah", "Nakacah", "Naam", "al", "Yachuwshuah", "My", "atsar", "Chamac", "aw", "Shad", "al", "Cham"],
