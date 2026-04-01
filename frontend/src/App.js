@@ -23,6 +23,7 @@ import PersistentRadioPlayer from './components/PersistentRadioPlayer';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
 import AdminLogin from './components/AdminLogin';
 import AIRichard from './components/AIRichard';
+import AIRichardPopup from './components/AIRichardPopup';
 import VisitorTracker from './components/VisitorTracker';
 import OrdersDashboard from './pages/OrdersDashboard';
 import OrderSuccess from './pages/OrderSuccess';
@@ -144,6 +145,9 @@ function App() {
       <BrowserRouter>
         {/* Visitor Tracker - sends heartbeat every 30 seconds */}
         <VisitorTracker />
+        
+        {/* AI Richard Auto-Popup - Engages visitors after 10 seconds */}
+        <AIRichardPopup />
         
         {/* Mobile Menu Button */}
         <button
