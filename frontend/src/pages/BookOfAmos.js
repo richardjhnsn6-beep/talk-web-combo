@@ -413,8 +413,8 @@ const BookOfAmos = () => {
       english: ["For", "they", "know", "not", "to do", "right", "saith", "the", "LORD", "who", "store up", "violence", "and", "robbery", "in", "their", "palaces"]
     },
     verse11: {
-      hebrew: ["al", "kan", "Amar", "al", "Adanay", "Yachuwshuah", "tzar", "hx", "Naphash", "Az", "al", "attanah", "aw", "Naphash", "Aramawn", "yash", "thy", "bazaz"],
-      english: ["Therefore", "thus", "saith", "the", "LORD", "God", "adversary", "the", "soul", "will", "consume", "yea", "consume", "from", "you", "and", "the palaces", "shall", "be broken"]
+      hebrew: ["al", "kan", "Amar", "al", "Adanay", "Yachuwshuah", "tsar", "aw", "yarad", "attanah", "al", "Az", "aw", "Aramawn", "yash", "bazaz"],
+      english: ["Therefore", "thus", "said", "the", "LORD", "God", "an adversary", "and", "bring down", "thy", "from", "Strength", "and", "palaces", "shall be", "Spoiled"]
     },
     verse12: {
       hebrew: ["kah", "Amar", "al", "Yachuwshuah", "al", "Raah", "Natsal", "al", "pah", "al", "Aray", "Shanaym", "kara", "aw", "Badal", "Azan", "kan", "yash", "ban", "al", "yasharaAl", "Natsal", "ky", "yashab", "Shanatwn", "al", "paah", "al", "aMattah", "aw", "al", "Damamashaq", "Arash"],
