@@ -472,8 +472,8 @@ const BookOfAmos = () => {
       english: ["I have", "smitten", "you", "with", "blasting", "and", "mildew", "when", "your", "gardens", "and", "your", "fig", "trees", "and", "your", "trees", "increased", "the palmerworm", "devoured", "them", "yet", "have", "ye", "not", "returned", "unto", "me", "saith", "the", "LORD"]
     },
     verse10: {
-      hebrew: ["yash", "Shalach", "bayn", "attah", "adabar", "al", "darak", "al", "Matsaraym", "Naphash", "bachar", "anash", "havah", "any", "garag", "owd", "Chacab", "aw", "havah", "Shabay", "Naphash", "cuwc"],
-      english: ["I have", "sent", "among", "you", "the pestilence", "after", "the manner", "of", "Egypt", "your", "men", "men", "have", "I", "slain", "with", "the word", "and", "have", "taken away", "your", "horses"]
+      hebrew: ["yash", "Shalach", "bayn", "attah", "adabar", "al", "darak", "al", "Matsaraym", "Naphash", "bachar", "anash", "havah", "any", "garag", "owd", "Chacab", "aw", "havah", "Shabay", "Naphash", "cuwc", "baash"],
+      english: ["I have", "sent", "among", "you", "the pestilence", "after", "the manner", "of", "Egypt", "your", "men", "men", "have", "I", "slain", "with", "the word", "and", "have", "taken away", "your", "horses", "the stink"]
     }
   };
 
