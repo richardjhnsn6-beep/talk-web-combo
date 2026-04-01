@@ -383,6 +383,34 @@ const BookOfAmos = () => {
     verse3: {
       hebrew: ["halak", "Shanaym", "Yalak", "yachad", "Balaty", "Cham", "yaad"],
       english: ["Can", "two", "walk", "together", "except", "they", "be agreed"]
+    },
+    verse4: {
+      hebrew: ["Ahy", "Aray", "ShaaG", "al", "yaar", "Asar", "huw", "hayach", "Ayn", "Taraph", "ahy", "kaphayr", "Nathan", "al", "Naphash", "Maawnah", "huw", "hayach", "aLakad", "abalaty"],
+      english: ["Will", "a lion", "roar", "in", "the forest", "when", "he", "hath", "no", "prey", "Will", "a young lion", "cry out", "of", "his den", "if", "he", "have", "taken", "nothing"]
+    },
+    verse5: {
+      hebrew: ["yakar", "Tsaappar", "Naphal", "Phach", "al", "Arats", "ayach", "aLah", "am", "aLah", "Charad", "yash", "sham", "Ra", "al", "Ayyar", "aw", "al", "Yachuwshuah", "hayach", "aLah", "Ashah", "ky", "al"],
+      english: ["Can", "a bird", "fall", "in a snare", "upon", "the earth", "where", "no", "gin", "is", "for him", "Shall", "one", "take up", "a snare", "from", "the earth", "and", "have", "taken", "nothing", "at all"]
+    },
+    verse6: {
+      hebrew: ["ash", "Shaphar", "Taqa", "al", "Ayyar", "aw", "Am", "aLah", "Charad", "yash", "sham", "Ra", "al", "Ayyar", "aw", "al", "Yachuwshuah", "hayach", "aLah", "Ashah", "ky", "al"],
+      english: ["shall", "a trumpet", "be blown", "in", "the City", "and", "the people", "not", "be afraid", "Shall", "there", "be", "evil", "in", "the city", "and", "the LORD", "hath", "not", "done", "it"]
+    },
+    verse7: {
+      hebrew: ["Ky", "al", "Adanay", "Yachuwshuah", "ahy", "Ashah", "aLah", "han", "huw", "galah", "Naphash", "cawd", "al", "Naphash", "Abad", "Nabay"],
+      english: ["Surely", "the", "LORD", "God", "will", "do", "nothing", "but", "he", "revealeth", "his secret", "unto", "his", "servants", "the", "prophets"]
+    },
+    verse8: {
+      hebrew: ["al", "Aray", "hayach", "ShaaG", "my", "ahy", "aLah", "yara", "al", "Adanay", "Yachuwshuah", "hayach", "adaBar", "My", "yakal", "han", "Naba"],
+      english: ["the", "lion", "hath", "roared", "who", "will", "not", "fear", "the", "LORD", "God", "hath", "spoken", "who", "Can", "but", "prophesy"]
+    },
+    verse9: {
+      hebrew: ["Shama", "al", "Aramawn", "aw", "Ashadawd", "aw", "al", "Aramawn", "al", "Arats", "al", "aMattsaraym", "aw", "Amar", "acaph", "Naphash", "al", "har", "al", "Shamarwn", "aw", "raah", "Rab", "aMahawmah", "qaraB", "Sham", "al", "Ashaq", "tavak", "Sham", "al"],
+      english: ["publish", "in", "the palaces", "at", "Ashdod", "and", "in", "the palaces", "in", "the land", "of", "Egypt", "and", "say", "Assemble", "yourselves", "upon", "the mountain", "of", "Samaria", "and", "behold", "the great", "Tumults", "in", "the Midst", "there of", "and", "the oppressed", "in", "the Midst there of"]
+    },
+    verse10: {
+      hebrew: ["Kan", "Cham", "yada", "aLah", "Ashah", "Nakacah", "Naam", "al", "Yachuwshuah", "My", "atsar", "Chamac", "aw", "Shad", "al", "Cham"],
+      english: ["For", "they", "know", "not", "to do", "right", "saith", "the", "LORD", "who", "store up", "violence", "and", "robbery", "in", "their"]
     }
   };
 
