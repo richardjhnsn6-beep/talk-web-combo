@@ -372,7 +372,10 @@ const BookOfAmos = () => {
 
   // Chapter 3 - Interlinear (word-by-word alignment) - PLACEHOLDER
   const chapter3Interlinear = {
-    // Chapter 3 content will be added when provided
+    verse1: {
+      hebrew: ["Shama", "Zath", "adAbar", "ky", "al", "Yachuwshua", "Hayah", "adAbAr", "al", "attanah", "havy", "ban", "al", "yasharaA"],
+      english: ["HEAR", "this", "word", "that", "the", "LORD", "hath", "spoken", "against", "you", "O", "children", "of", "Israel"]
+    }
   };
 
   // Sample content for Chapter 1 - Bilingual (old format kept for reference)
@@ -548,7 +551,7 @@ const BookOfAmos = () => {
   ];
 
   const renderInterlinear = () => {
-    if (activeChapter !== 1 && activeChapter !== 2) {
+    if (activeChapter !== 1 && activeChapter !== 2 && activeChapter !== 3) {
       return (
         <div className="text-center py-12">
           <p className="text-gray-600 text-lg">
@@ -559,7 +562,9 @@ const BookOfAmos = () => {
     }
 
     // Select the appropriate chapter data
-    const chapterData = activeChapter === 1 ? chapter1Interlinear : chapter2Interlinear;
+    const chapterData = activeChapter === 1 ? chapter1Interlinear : 
+                        activeChapter === 2 ? chapter2Interlinear : 
+                        chapter3Interlinear;
 
     return (
       <div className="max-w-5xl mx-auto">
