@@ -7,6 +7,7 @@ const AdminDashboard = () => {
   const [aiRichardStats, setAiRichardStats] = useState(null);
   const [liveVisitors, setLiveVisitors] = useState(null);
   const [bookScrollStats, setBookScrollStats] = useState(null);
+  const [membershipStats, setMembershipStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [lastTransactionCount, setLastTransactionCount] = useState(0);
@@ -17,6 +18,7 @@ const AdminDashboard = () => {
   const transactionsRef = useRef(null);
   const liveVisitorsRef = useRef(null);
   const bookScrollRef = useRef(null);
+  const membershipRef = useRef(null);
 
   useEffect(() => {
     fetchDashboardData();
@@ -24,6 +26,7 @@ const AdminDashboard = () => {
     fetchAIRichardStats();
     fetchLiveVisitors();
     fetchBookScrollStats();
+    fetchMembershipStats();
     // Check for new sales and live visitors every 5 seconds
     const interval = setInterval(() => {
       checkForNewSales();
@@ -31,6 +34,7 @@ const AdminDashboard = () => {
       fetchAIRichardStats();
       fetchLiveVisitors();
       fetchBookScrollStats();
+      fetchMembershipStats();
     }, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -90,6 +94,18 @@ const AdminDashboard = () => {
       setAiRichardStats(data);
     } catch (err) {
       console.error('Failed to fetch AI Richard stats:', err);
+    }
+  };
+
+
+  const fetchMembershipStats = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/membership/stats`);
+      if (!response.ok) throw new Error('Failed to fetch membership stats');
+      const data = await response.json();
+      setMembershipStats(data);
+    } catch (err) {
+      console.error('Error fetching membership stats:', err);
     }
   };
 
@@ -261,6 +277,44 @@ const AdminDashboard = () => {
               <p className="text-white/80 text-sm mt-1">Visitors are tracked when they view any page</p>
             </div>
           )}
+        </div>
+
+        {/* MEMBERSHIP STATS - Track member growth */}
+        <div 
+          ref={membershipRef}
+          className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg shadow-2xl p-6 mb-8 border-4 border-purple-600"
+        >
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+              <Crown className="w-7 h-7" />
+              👍 RJHNSN12 Members
+            </h2>
+            <div className="text-5xl font-bold text-white">
+              {membershipStats?.total_members || 0}
+            </div>
+          </div>
+          
+          <div className="bg-white/20 rounded-lg p-4">
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-white/30 rounded-lg p-4 text-center">
+                <p className="text-white/80 text-sm mb-1">Total Members</p>
+                <p className="text-4xl font-bold text-white">{membershipStats?.total_members || 0}</p>
+              </div>
+              <div className="bg-white/30 rounded-lg p-4 text-center">
+                <p className="text-white/80 text-sm mb-1">New Today</p>
+                <p className="text-4xl font-bold text-white">{membershipStats?.new_members_today || 0}</p>
+                <Sparkles className="w-6 h-6 text-yellow-300 mx-auto mt-1" />
+              </div>
+            </div>
+            <div className="mt-4 bg-green-500/30 rounded-lg p-3 text-center">
+              <p className="text-white font-semibold">
+                ✅ {membershipStats?.total_members || 0} people have access to The Quiet Storm!
+              </p>
+            </div>
+            <p className="text-white/80 text-xs mt-3 text-center">
+              ⏱️ Updates every 5 seconds • Members get exclusive radio access
+            </p>
+          </div>
         </div>
 
         {/* Revenue Stats */}
