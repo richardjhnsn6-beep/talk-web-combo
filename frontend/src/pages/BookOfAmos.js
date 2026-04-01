@@ -373,7 +373,7 @@ const BookOfAmos = () => {
   // Chapter 3 - Interlinear (word-by-word alignment) - PLACEHOLDER
   const chapter3Interlinear = {
     verse1: {
-      hebrew: ["Shama", "Zath", "adAbar", "ky", "al", "Yachuwshua", "Hayah", "adAbAr", "al", "attanah", "havy", "ban", "al", "yasharaA"],
+      hebrew: ["Shama", "Zath", "adAbar", "ky", "al", "Yachuwshua", "Hayah", "adAbar", "al", "attanah", "havy", "ban", "al", "yasharaAl"],
       english: ["HEAR", "this", "word", "that", "the", "LORD", "hath", "spoken", "against", "you", "O", "children", "of", "Israel"]
     }
   };
