@@ -31,15 +31,10 @@ const Radio = () => {
 
   useEffect(() => {
     if (audioRef.current && playlist.length > 0) {
-      const track = playlist[currentTrackIndex];
-      // Apply volume based on track type - announcements always at 100%, music at 60% of slider
-      if (track?.type === 'announcement') {
-        audioRef.current.volume = 1.0;
-        console.log(`🔊 Volume set: 1.0 (100%) for ANNOUNCEMENT`);
-      } else {
-        audioRef.current.volume = volume * 0.6;
-        console.log(`🔊 Volume set: ${(volume * 0.6).toFixed(2)} (${Math.round(volume * 60)}%) for MUSIC`);
-      }
+      // Apply consistent volume for all tracks
+      // User controls volume with slider - no automatic adjustments
+      audioRef.current.volume = volume;
+      console.log(`🔊 Volume set: ${volume.toFixed(2)} (${Math.round(volume * 100)}%)`);
     }
   }, [volume, playlist, currentTrackIndex]);
 
