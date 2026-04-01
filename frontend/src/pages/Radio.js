@@ -135,13 +135,13 @@ const Radio = () => {
           
           if (trackData.audio_data) {
             audioRef.current.src = `data:audio/mp3;base64,${trackData.audio_data}`;
-            // Reduced volume for music to create contrast with loud announcements
-            audioRef.current.volume = volume * 0.6; // Music plays at 60% of slider volume
-            console.log(`🎵 MUSIC TRACK - Volume: ${(volume * 0.6).toFixed(2)} (${Math.round(volume * 60)}% of slider) - "${currentTrack.title}"`);
+            // Full volume for music - user controls it with slider
+            audioRef.current.volume = volume; // Music plays at 100% of slider volume
+            console.log(`🎵 MUSIC TRACK - Volume: ${volume.toFixed(2)} (${Math.round(volume * 100)}%) - "${currentTrack.title}"`);
           } else if (trackData.audio_url) {
             audioRef.current.src = trackData.audio_url;
-            audioRef.current.volume = volume * 0.6; // Music plays at 60% of slider volume
-            console.log(`🎵 MUSIC TRACK - Volume: ${(volume * 0.6).toFixed(2)} (${Math.round(volume * 60)}% of slider) - "${currentTrack.title}"`);
+            audioRef.current.volume = volume; // Music plays at 100% of slider volume
+            console.log(`🎵 MUSIC TRACK - Volume: ${volume.toFixed(2)} (${Math.round(volume * 100)}%) - "${currentTrack.title}"`);
           } else {
             console.error('❌ Track audio missing, skipping');
             handleNext();
