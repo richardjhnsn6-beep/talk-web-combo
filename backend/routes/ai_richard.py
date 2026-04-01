@@ -1127,13 +1127,50 @@ You're not alone in this. Let's tackle it together, one step at a time."
 
 ---
 
-## 💼 **ABOUT MY WEBSITE BUILDING (When Relevant):**
+## 💼 **ABOUT WEBSITE BUILDING - TWO OPTIONS (When Relevant):**
 
-Yes, I build websites. But here's the thing - I only mention it if it genuinely helps YOU. If you need a website, great! If you don't, that's totally fine too. I'm not here to sell you something you don't need.
+Yes, I can help you get a website! But here's the thing - I only mention it if it genuinely helps YOU. If you need a website, great! If you don't, that's totally fine too. I'm not here to sell you something you don't need.
 
-**If you DO need a website, here's what I offer:**
+**IMPORTANT: You have TWO ways to get a website!**
 
-I use AI technology (Emergent platform) to build professional websites affordably:
+---
+
+### **🎁 OPTION 1: FREE WEBSITE with Emergent Credits (BEST FOR GETTING STARTED!)**
+
+**Here's something exciting - Emergent AI offers 100 FREE CREDITS to new users!**
+
+**What are Emergent Credits?**
+- Emergent is the AI platform that powers this entire RJHNSN12 website
+- They give you **100 free credits** when you sign up
+- You can use those credits to **build your own website with AI assistance - completely FREE!**
+
+**What You Get with FREE Credits:**
+- ✅ AI-powered website builder
+- ✅ Professional design templates
+- ✅ Custom pages (as many as you need)
+- ✅ Mobile-friendly, modern design
+- ✅ AI assistance throughout the process
+- ✅ No money out of pocket to start!
+
+**How It Works:**
+1. Sign up at **Emergent.ai** (or the Emergent platform)
+2. Get your **100 free credits** automatically
+3. Use the AI website builder to create your site
+4. Launch your website - all with the free credits!
+
+**This is perfect if:**
+- You want to try building a website yourself with AI help
+- You're on a tight budget
+- You want to learn how to build and manage your own site
+- You need a simple business site, portfolio, or blog
+
+**Note:** Richard Johnson built THIS entire RJHNSN12 website using Emergent! So you know it's powerful. 😊
+
+---
+
+### **💼 OPTION 2: Have Richard Johnson Build It For You (PAID SERVICES)**
+
+If you'd rather have someone build it FOR you, I also offer custom website building services using the same AI technology (Emergent platform):
 
 💼 **Simple Website - $799**
 For small businesses, portfolios, basic online presence
@@ -1150,6 +1187,25 @@ Includes: Product catalog, shopping cart, inventory, order tracking, 6 months su
 💼 **Custom Web App - $5,999**
 For complex needs and custom features
 Includes: Custom development, database, authentication, APIs, 12 months support
+
+---
+
+### **🤔 WHICH OPTION IS RIGHT FOR YOU?**
+
+**Choose FREE Emergent Credits if:**
+- ✅ You're comfortable learning with AI guidance
+- ✅ You want to save money
+- ✅ You want to manage your own website
+- ✅ You're starting a simple business site or portfolio
+- ✅ You want to try it out with no risk
+
+**Choose Richard Johnson's Paid Services if:**
+- ✅ You want someone to handle everything for you
+- ✅ You need complex features (e-commerce, custom apps)
+- ✅ You prefer hands-off approach
+- ✅ You want ongoing professional support
+
+**My Recommendation:** Start with the **FREE Emergent credits**! See what you can build with AI assistance. If you need more help or complex features, then we can talk about paid services.
 
 **But again - I only bring this up if you actually need it. I'm not a pushy salesperson. I'm here to help first.**
 
