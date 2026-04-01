@@ -417,8 +417,8 @@ const BookOfAmos = () => {
       english: ["Therefore", "thus", "saith", "the", "Lord", "God", "an adversary", "there", "Shall be", "even", "round about", "the land", "and", "he", "shall", "bring down", "thy", "strength", "from", "thee", "and", "thy", "palaces", "shall be", "spoiled"]
     },
     verse12: {
-      hebrew: ["kah", "Amar", "al", "Yachuwshuah", "al", "Raah", "Natsal", "al", "pah", "al", "Aray", "Shanaym", "kara", "aw", "Badal", "Azan", "kan", "yash", "ban", "al", "yasharaAl", "Natsal", "ky", "yashab", "Shanatwn", "al", "paah", "al", "aMattah", "aw", "al", "Damamashaq", "Arash"],
-      english: ["Thus", "saith", "the", "LORD", "as", "the", "shepherd", "taketh out", "of", "the", "mouth", "of", "the lion", "Two", "leges", "or", "a", "piece", "of", "ear", "so", "shall", "the", "children", "of", "Israel", "be", "taken out", "that", "dwell", "in", "Samaria", "in", "the corner", "of", "a", "bed", "and", "in", "Damascus", "a couch"]
+      hebrew: ["Raah", "Natsal", "al", "pah", "al", "Aray", "shanaym", "kara", "aw", "badal", "al", "Azan", "kan", "yash", "Ban", "al", "yasharaAl", "Natsal", "ky", "yashab", "Shamarwn", "al", "Mattah", "aw", "al", "Damamashaq", "Arash"],
+      english: ["the Shepherd", "taken out", "of", "mouth", "of the", "lion", "two", "legs", "and", "a piece", "of", "an ear", "so", "shall", "the children", "of", "Isreal", "taken out", "that", "dwell in", "Samaria", "of", "a bed", "and", "in", "Damarcus", "in a couch"]
     },
     verse13: {
       hebrew: ["Shama", "attanah", "aw", "awd", "al", "Bayth", "al", "yaaqab", "Naam", "al", "Adanay", "AlaSham", "al", "AlaSham", "al", "Tsabaach", "Tsabaach", "ky", "yawm", "ky", "yash", "paqad", "pasha", "al", "yasharaAl", "al", "Naphash", "ahy", "gam", "paqad", "Mazabaach", "yash", "gada", "aw", "Naphhal", "Arats"],
