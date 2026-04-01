@@ -377,8 +377,8 @@ const BookOfAmos = () => {
       english: ["HEAR", "this", "word", "that", "the", "LORD", "hath", "spoken", "against", "you", "O", "children", "of", "Israel", "The whole", "family", "which", "I", "brought up", "from the", "land", "of", "Egypt", "saying"]
     },
     verse2: {
-      hebrew: ["attanah", "raq", "yash", "yada", "al", "kal", "aMashphachah"],
-      english: ["you", "only", "have", "I known", "of", "all the", "family"]
+      hebrew: ["attanah", "raq", "yash", "yada", "al", "kal", "aMashphachah", "al", "Arats", "al", "ahy", "paqad", "attanah", "kan", "kal", "Naphash", "Avan"],
+      english: ["you", "only", "have", "I known", "of", "all the", "family", "of the", "earth", "therefore", "I will", "punish", "you", "for", "all", "your", "iniquity"]
     }
   };
 
