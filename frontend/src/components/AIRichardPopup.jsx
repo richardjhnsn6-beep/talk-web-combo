@@ -123,7 +123,7 @@ const AIRichardPopup = () => {
             {/* Membership teaser */}
             <div className="mt-4 text-center">
               <p className="text-white/80 text-xs">
-                Want the <strong>complete books</strong> with full concordance?
+                Want the <strong>complete books</strong> with deeper study tools?
               </p>
               <a 
                 href="/membership" 
