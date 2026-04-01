@@ -379,6 +379,10 @@ const BookOfAmos = () => {
     verse2: {
       hebrew: ["attanah", "raq", "yash", "yada", "al", "kal", "aMashphachah", "al", "Arats", "al", "ahy", "paqad", "attanah", "kan", "kal", "Naphash", "Avan"],
       english: ["you", "only", "have", "I known", "of", "all the", "family", "of the", "earth", "therefore", "I will", "punish", "you", "for", "all", "your", "iniquity"]
+    },
+    verse3: {
+      hebrew: ["halak", "Shanaym", "Yalak", "yachad", "Balaty", "Cham", "yaad"],
+      english: ["Can", "two", "walk", "together", "except", "they", "be agreed"]
     }
   };
 
