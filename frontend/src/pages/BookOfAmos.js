@@ -449,7 +449,7 @@ const BookOfAmos = () => {
     },
     verse4: {
       hebrew: ["bow", "Baythal", "aw", "pasha", "aw", "Galgal", "Rabah", "pasha", "aw", "bow", "Naphash", "Zabach", "Kashhash", "aw", "Naphash", "MaASar", "al", "shalowsh", "yowm"],
-      english: ["come to", "Beth-el", "and", "Transgress;", "at", "Gilgal", "Multiply", "Transgression", "and", "bring", "your", "sacrifices", "every", "morning", "and", "your", "tithes", "after", "three", "years"]
+      english: ["come to", "Beth-el", "and", "Transgress;", "at", "Gilgal", "Multiply", "Transgression", "and", "bring", "your", "a sacrifice", "every", "morning", "and", "your", "tithes", "after", "three", "years"]
     },
     verse5: {
       hebrew: ["aw", "qatar", "Zabach", "al", "Tow dah", "owd", "ChamatZ", "aw", "qara", "aw", "Shama", "habahab", "al", "kah", "attana", "howy", "attah", "ban", "al", "yasharaAI", "Naam", "al", "Adanay", "YaChuwshuah"],
