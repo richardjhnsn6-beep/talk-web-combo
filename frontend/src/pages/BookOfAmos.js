@@ -460,8 +460,20 @@ const BookOfAmos = () => {
       english: ["And", "I", "have", "also", "given", "you", "cleanness", "of", "teeth", "and all", "your", "city", "and", "want of", "bread", "in all", "your", "places", "yet", "have", "ye", "not", "returned", "unto", "me", "saith", "the", "LORD"]
     },
     verse7: {
-      hebrew: ["aw", "gam", "any", "havah", "Mana", "gasham", "al", "attah", "Asar", "Sham", "hayach", "owd", "Shalowsh", "Chadash", "qatsayr", "aw", "any", "Nathan", "yash", "Matar", "al", "achad", "ayar", "aw", "Nathan", "yash", "Lah", "Matar", "al", "achad", "Ayar", "achad"],
-      english: ["And", "also", "I", "have", "withholden", "the rain", "from", "you", "when", "there", "were", "yet", "three", "Months", "to the harvest", "and", "I", "caused", "it", "to rain", "upon", "one", "City", "and", "caused", "it", "not", "to rain", "upon", "another", "City", "one"]
+      hebrew: ["aw", "gam", "any", "havah", "Mana", "gasham", "al", "attah", "Asar", "Sham", "hayach", "owd", "Shalowsh", "Chadash", "qatsayr", "aw", "any", "Nathan", "yash", "Matar", "al", "achad", "ayar", "aw", "Nathan", "yash", "Lah", "Matar", "al", "achad", "Ayar", "achad", "badal", "Matar", "aw", "al", "badal", "Asar", "al", "Matar", "Lah", "yabash"],
+      english: ["And", "also", "I", "have", "withholden", "the rain", "from", "you", "when", "there", "were", "yet", "three", "Months", "to the harvest", "and", "I", "caused", "it", "to rain", "upon", "one", "City", "and", "caused", "it", "not", "to rain", "upon", "another", "City", "one", "piece", "rained", "and", "the", "piece", "where", "upon", "rained", "not", "withered"]
+    },
+    verse8: {
+      hebrew: ["kan", "Shanaym", "aw", "Shalowsh", "ayar", "Nuwa", "al", "achad", "ayar", "Shathah", "Maym", "han", "Cham", "hayach", "Lah", "Shabaa", "owd", "hayach", "attah", "Lah", "Shuwb", "al", "any", "Naam", "al", "YaChuwshuah"],
+      english: ["So", "Two", "or", "Three", "Cities", "wandered", "unto", "one", "City", "to drink", "water", "but", "they", "were", "not", "Satisfied", "yet", "have", "ye", "not", "returned", "unto", "me", "saith", "the", "LORD"]
+    },
+    verse9: {
+      hebrew: ["yash", "Nakah", "attah", "owd", "Shadaphah", "aw", "yaraqown", "Asar", "Naphash", "gannah", "aw", "Naphash", "Taan", "aTs", "aw", "Naphash", "Naphash", "aTs", "RabaH", "gazam", "akal", "Chamt", "owd", "havah", "attah", "Lah", "Shuwb", "al", "any", "Naam", "al", "YaChuwshuah"],
+      english: ["I have", "smitten", "you", "with", "blasting", "and", "mildew", "when", "your", "gardens", "and", "your", "fig", "trees", "and", "your", "your", "trees", "increased", "the palmerworm", "devoured", "them", "yet", "have", "ye", "not", "returned", "unto", "me", "saith", "the", "LORD"]
+    },
+    verse10: {
+      hebrew: ["yash", "Shalach", "bayn", "attah", "adabar", "al", "darak", "al", "Matsaraym", "Naphash", "bachar", "anash", "havah", "any", "garag", "owd", "Chacab", "aw", "havah", "Shabay", "Naphash", "cuwc"],
+      english: ["I have", "sent", "among", "you", "the pestilence", "after", "the manner", "of", "Egypt", "your", "men", "men", "have", "I", "slain", "with", "the word", "and", "have", "taken away", "your", "horses"]
     }
   };
 
