@@ -119,10 +119,10 @@ const Radio = () => {
           
           if (announcement && announcement.audio_data) {
             audioRef.current.src = `data:audio/mp3;base64,${announcement.audio_data}`;
-            // MAXIMUM volume boost for announcements - 8x boost capped at 1.0 (100%)
-            audioRef.current.volume = 1.0; // Force max volume for announcements
-            console.log(`📢 DJ ANNOUNCEMENT - Volume: 1.0 (100% MAX) - "${currentTrack.title}"`);
-            console.log(`🔊 VOLUME COMPARISON: Announcement=1.0 vs Music would be=${(volume * 0.6).toFixed(2)}`)
+            // Reduced volume for announcements - music should be louder
+            audioRef.current.volume = 0.65; // DJ at 65% so music (100%) stays dominant
+            console.log(`📢 DJ ANNOUNCEMENT - Volume: 0.65 (65%) - "${currentTrack.title}"`);
+            console.log(`🔊 VOLUME COMPARISON: Announcement=0.65 vs Music=${volume.toFixed(2)}`)
           } else {
             console.error('❌ Announcement audio missing, skipping');
             handleNext();
