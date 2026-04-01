@@ -489,6 +489,144 @@ const BookOfAmos = () => {
     }
   };
 
+  // Chapter 4 - Pure Hebrew (continuous text)
+  const chapter4PureHebrew = [
+    {
+      verse: 1,
+      hebrew: "Shama Zah adabar attanah pharach al Bashan ky hy al har al Shamarwn Asar Ashaq dal Asar ratsats abyown Cham adabar amar Cham adown bow aw yanach anachnw Shathah",
+      english: "Hear this word ye kine of Bashan that are in the mountain of Samaria which oppress the poor which Crush the needy their word say to their masters bring and Let us drink"
+    },
+    {
+      verse: 2,
+      hebrew: "al Adanay YaChuwshuah baal Shaba darak Naphash qadash han yowm yash bow al attahah han huw ahy Nasa attanah Nasa owd Tsannah aw Naphash acharyth owd cayr",
+      english: "The Lord GOD hath sworn by his holiness that the days shall come upon you that he will take you away with hooks and your posterity with fish, hooks"
+    },
+    {
+      verse: 3,
+      hebrew: "aw yash yatsa aw pharats Kashashah pharach aw han Asar Nadan Naphash aw yash Shalak Cham al haramown Naam al YaChuwshuah",
+      english: "and ye shall go out at the breaches every cow at that which is before her and ye shall cast them into the palaces saith the LORD"
+    },
+    {
+      verse: 4,
+      hebrew: "bow Baythal aw pasha aw Galgal Rabah pasha aw bow Naphash Zabach Kashhash aw Naphash MaASar al shalowsh yowm",
+      english: "come to Beth-el and Transgress; at Gilgal Multiply Transgression and bring your a sacrifice every morning and your tithes after three years"
+    },
+    {
+      verse: 5,
+      hebrew: "aw qatar Zabach al Tow dah owd ChamatZ aw qara aw Shama habahab al kah attana howy attah ban al yasharaAI Naam al Adanay YaChuwshuah",
+      english: "and offer a sacrifice of thanksgiving with Leaven and proclaim and publish the free offerings for this liketh you O ye children of Israel saith the Lord GOD"
+    },
+    {
+      verse: 6,
+      hebrew: "aw Any hayah gam Nathan attah Naqqayan al Shan kal Naphash Ayar aw Chacar Lacham kal Naphash Maqawn awd hayah attanah Lah shawb al Any Amar al Yachuwshuah",
+      english: "And I have also given you cleanness of teeth and all your city and want of bread in all your places yet have ye not returned unto me saith the LORD"
+    },
+    {
+      verse: 7,
+      hebrew: "aw gam any havah Mana gasham al attah Asar Sham hayach owd Shalowsh Chadash qatsayr aw any Nathan yash Matar al achad ayar aw Nathan yash Lah Matar al achad Ayar achad badal Matar aw al badal Asar al Matar Lah yabash",
+      english: "And also I have withholden the rain from you when there were yet three Months to the harvest and I caused it to rain upon one City and caused it not to rain upon another City one piece rained and the piece where upon rained not withered"
+    },
+    {
+      verse: 8,
+      hebrew: "kan Shanaym aw Shalowsh ayar Nuwa al achad ayar Shathah Maym han Cham hayach Lah Shabaa owd hayach attah Lah Shuwb al any Naam al YaChuwshuah",
+      english: "So Two or Three Cities wandered unto one City to drink water but they were not Satisfied yet have ye not returned unto me saith the LORD"
+    },
+    {
+      verse: 9,
+      hebrew: "yash Nakah attah owd Shadaphah aw yaraqown Asar Naphash gannah aw Naphash Taan aTs aw Naphash aTs Rabah gazam akal Cham owd havah attah Lah Shuwb al any Naam al YaChuwshuah",
+      english: "I have smitten you with blasting and mildew when your gardens and your fig trees and your trees increased the palmerworm devoured them yet have ye not returned unto me saith the LORD"
+    },
+    {
+      verse: 10,
+      hebrew: "yash Shalach bayn attah adabar al darak al Matsaraym Naphash bachar anash havah any garag owd Chacab aw havah Shabay Naphash cuwc aw Any havah Ashah baash al Naphash Machanah alah al Naphash aph owd havah attah Lah Shuwb al any Naam al YaChuwshuah",
+      english: "I have sent among you the pestilence after the manner of Egypt your men men have I slain with the word and have taken away your horses and I have made the stink of your camps to come up unto your Nostrils yet have ye not returned unto me saith the LORD"
+    },
+    {
+      verse: 11,
+      hebrew: "yash haphak allah al attah hy AlaSham Mahapakah cadam aw Amarah aw attah hayach hy uwd Natsal al Asaraphah owd havah attah Lah Shuwb al any Naam al YaChuwshuah",
+      english: "I have overthrown some of you as God overthrew Sodom and Gomorrah and ye were as firebrand plucked out of the burning yet have ye not returned unto me saith the LORD"
+    },
+    {
+      verse: 12,
+      hebrew: "al kan ahy aw aqab ky ahy ashah kan al attah kuwn qarah attah AlaSham howy yasharaAl",
+      english: "Therefore Thus will I and because I will do this unto thee prepare to meet thy God O Israel"
+    },
+    {
+      verse: 13,
+      hebrew: "al han hy ky yatsar har aw bara ruwach aw Nagad al Adam My hy Naphash Shach ky ashah Shachar ayphah aw darak al bamah Maqowm al Arats al YaChuwshuah Tsabaach hy Naphash Sham",
+      english: "For Lo he that formeth the mountains and createth the wind and declareth unto man what is his thought that Maketh the morning darkness and treadeth upon the high places of the earth the LORD host is his name"
+    }
+  ];
+
+  // Chapter 4 - Bilingual (side-by-side format)
+  const chapter4Bilingual = [
+    { 
+      verse: 1, 
+      hebrew: "Shama Zah adabar attanah pharach al Bashan ky hy al har al Shamarwn Asar Ashaq dal Asar ratsats abyown Cham adabar amar Cham adown bow aw yanach anachnw Shathah",
+      english: "Hear this word ye kine of Bashan that are in the mountain of Samaria which oppress the poor which Crush the needy their word say to their masters bring and Let us drink"
+    },
+    { 
+      verse: 2, 
+      hebrew: "al Adanay YaChuwshuah baal Shaba darak Naphash qadash han yowm yash bow al attahah han huw ahy Nasa attanah Nasa owd Tsannah aw Naphash acharyth owd cayr",
+      english: "The Lord GOD hath sworn by his holiness that the days shall come upon you that he will take you away with hooks and your posterity with fish, hooks"
+    },
+    { 
+      verse: 3, 
+      hebrew: "aw yash yatsa aw pharats Kashashah pharach aw han Asar Nadan Naphash aw yash Shalak Cham al haramown Naam al YaChuwshuah",
+      english: "and ye shall go out at the breaches every cow at that which is before her and ye shall cast them into the palaces saith the LORD"
+    },
+    { 
+      verse: 4, 
+      hebrew: "bow Baythal aw pasha aw Galgal Rabah pasha aw bow Naphash Zabach Kashhash aw Naphash MaASar al shalowsh yowm",
+      english: "come to Beth-el and Transgress; at Gilgal Multiply Transgression and bring your a sacrifice every morning and your tithes after three years"
+    },
+    { 
+      verse: 5, 
+      hebrew: "aw qatar Zabach al Tow dah owd ChamatZ aw qara aw Shama habahab al kah attana howy attah ban al yasharaAI Naam al Adanay YaChuwshuah",
+      english: "and offer a sacrifice of thanksgiving with Leaven and proclaim and publish the free offerings for this liketh you O ye children of Israel saith the Lord GOD"
+    },
+    { 
+      verse: 6, 
+      hebrew: "aw Any hayah gam Nathan attah Naqqayan al Shan kal Naphash Ayar aw Chacar Lacham kal Naphash Maqawn awd hayah attanah Lah shawb al Any Amar al Yachuwshuah",
+      english: "And I have also given you cleanness of teeth and all your city and want of bread in all your places yet have ye not returned unto me saith the LORD"
+    },
+    { 
+      verse: 7, 
+      hebrew: "aw gam any havah Mana gasham al attah Asar Sham hayach owd Shalowsh Chadash qatsayr aw any Nathan yash Matar al achad ayar aw Nathan yash Lah Matar al achad Ayar achad badal Matar aw al badal Asar al Matar Lah yabash",
+      english: "And also I have withholden the rain from you when there were yet three Months to the harvest and I caused it to rain upon one City and caused it not to rain upon another City one piece rained and the piece where upon rained not withered"
+    },
+    { 
+      verse: 8, 
+      hebrew: "kan Shanaym aw Shalowsh ayar Nuwa al achad ayar Shathah Maym han Cham hayach Lah Shabaa owd hayach attah Lah Shuwb al any Naam al YaChuwshuah",
+      english: "So Two or Three Cities wandered unto one City to drink water but they were not Satisfied yet have ye not returned unto me saith the LORD"
+    },
+    { 
+      verse: 9, 
+      hebrew: "yash Nakah attah owd Shadaphah aw yaraqown Asar Naphash gannah aw Naphash Taan aTs aw Naphash aTs Rabah gazam akal Cham owd havah attah Lah Shuwb al any Naam al YaChuwshuah",
+      english: "I have smitten you with blasting and mildew when your gardens and your fig trees and your trees increased the palmerworm devoured them yet have ye not returned unto me saith the LORD"
+    },
+    { 
+      verse: 10, 
+      hebrew: "yash Shalach bayn attah adabar al darak al Matsaraym Naphash bachar anash havah any garag owd Chacab aw havah Shabay Naphash cuwc aw Any havah Ashah baash al Naphash Machanah alah al Naphash aph owd havah attah Lah Shuwb al any Naam al YaChuwshuah",
+      english: "I have sent among you the pestilence after the manner of Egypt your men men have I slain with the word and have taken away your horses and I have made the stink of your camps to come up unto your Nostrils yet have ye not returned unto me saith the LORD"
+    },
+    { 
+      verse: 11, 
+      hebrew: "yash haphak allah al attah hy AlaSham Mahapakah cadam aw Amarah aw attah hayach hy uwd Natsal al Asaraphah owd havah attah Lah Shuwb al any Naam al YaChuwshuah",
+      english: "I have overthrown some of you as God overthrew Sodom and Gomorrah and ye were as firebrand plucked out of the burning yet have ye not returned unto me saith the LORD"
+    },
+    { 
+      verse: 12, 
+      hebrew: "al kan ahy aw aqab ky ahy ashah kan al attah kuwn qarah attah AlaSham howy yasharaAl",
+      english: "Therefore Thus will I and because I will do this unto thee prepare to meet thy God O Israel"
+    },
+    { 
+      verse: 13, 
+      hebrew: "al han hy ky yatsar har aw bara ruwach aw Nagad al Adam My hy Naphash Shach ky ashah Shachar ayphah aw darak al bamah Maqowm al Arats al YaChuwshuah Tsabaach hy Naphash Sham",
+      english: "For Lo he that formeth the mountains and createth the wind and declareth unto man what is his thought that Maketh the morning darkness and treadeth upon the high places of the earth the LORD host is his name"
+    }
+  ];
+
   // Sample content for Chapter 1 - Bilingual (old format kept for reference)
   const chapter1Bilingual = [
     { 
@@ -877,7 +1015,7 @@ const BookOfAmos = () => {
   };
 
   const renderPureHebrew = () => {
-    if (activeChapter !== 1 && activeChapter !== 2) {
+    if (activeChapter !== 1 && activeChapter !== 2 && activeChapter !== 4) {
       return (
         <div className="text-center py-12">
           <p className="text-gray-600 text-lg">
@@ -887,7 +1025,7 @@ const BookOfAmos = () => {
       );
     }
 
-    const pureHebrewData = activeChapter === 1 ? chapter1PureHebrew : chapter2PureHebrew;
+    const pureHebrewData = activeChapter === 1 ? chapter1PureHebrew : activeChapter === 2 ? chapter2PureHebrew : chapter4PureHebrew;
 
     return (
       <div className="max-w-3xl mx-auto space-y-6">
@@ -911,22 +1049,21 @@ const BookOfAmos = () => {
   };
 
   const renderBilingual = () => {
-    if (activeChapter !== 1) {
+    if (activeChapter !== 1 && activeChapter !== 4) {
       return (
         <div className="text-center py-12">
           <p className="text-gray-600 text-lg">
-            Chapter {activeChapter} content will be added soon.
-          </p>
-          <p className="text-gray-500 text-sm mt-4">
-            This is a sample page showing Chapter 1 format.
+            Chapter {activeChapter} Bilingual content will be added soon.
           </p>
         </div>
       );
     }
 
+    const bilingualData = activeChapter === 1 ? chapter1Bilingual : chapter4Bilingual;
+
     return (
       <div className="max-w-6xl mx-auto">
-        {chapter1Bilingual.map((item, index) => (
+        {bilingualData.map((item, index) => (
           <div 
             key={`${item.verse}-${index}`} 
             className={`grid md:grid-cols-2 gap-6 ${
