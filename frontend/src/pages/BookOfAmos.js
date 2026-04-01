@@ -460,8 +460,8 @@ const BookOfAmos = () => {
       english: ["And", "I", "have", "also", "given", "you", "cleanness", "of", "teeth", "and all", "your", "city", "and", "want of", "bread", "in all", "your", "places", "yet", "have", "ye", "not", "returned", "unto", "me", "saith", "the", "LORD"]
     },
     verse7: {
-      hebrew: ["aw", "gam", "any", "havah", "Mana", "gasham", "al", "attah", "Asar", "Sham", "hayach", "owd", "Shalowsh", "Chadash", "qatsayr", "aw", "any", "Nathan", "yash", "Matar", "al", "achad", "ayar", "aw", "Nathan", "yash", "Lah", "Matar", "al"],
-      english: ["And", "also", "I", "have", "withholden", "the rain", "from", "you", "when", "there", "were", "yet", "three", "Months", "to the harvest", "and", "I", "caused", "it", "to rain", "upon", "one", "City", "and", "caused", "it", "not", "to rain", "upon"]
+      hebrew: ["aw", "gam", "any", "havah", "Mana", "gasham", "al", "attah", "Asar", "Sham", "hayach", "owd", "Shalowsh", "Chadash", "qatsayr", "aw", "any", "Nathan", "yash", "Matar", "al", "achad", "ayar", "aw", "Nathan", "yash", "Lah", "Matar", "al", "achad", "Ayar", "achad"],
+      english: ["And", "also", "I", "have", "withholden", "the rain", "from", "you", "when", "there", "were", "yet", "three", "Months", "to the harvest", "and", "I", "caused", "it", "to rain", "upon", "one", "City", "and", "caused", "it", "not", "to rain", "upon", "another", "City", "one"]
     }
   };
 
