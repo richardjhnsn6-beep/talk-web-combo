@@ -393,8 +393,8 @@ const BookOfAmos = () => {
       english: ["can", "a bird", "fall in", "a snare", "Upon the", "earth", "where", "no", "gin", "is", "for", "him", "shall", "one", "take up", "a snare", "from the", "earth", "and", "have", "taken", "nothing", "at", "all"]
     },
     verse6: {
-      hebrew: ["ash", "Shaphar", "Taqa", "al", "Ayyar", "aw", "Am", "aLah", "Charad", "yash", "sham", "Ra", "al", "Ayyar", "aw", "al", "Yachuwshuah", "hayach", "aLah", "Ashah", "ky", "al"],
-      english: ["shall", "a trumpet", "be blown", "in", "the City", "and", "the people", "not", "be afraid", "Shall", "there", "be", "evil", "in", "the city", "and", "the LORD", "hath", "not", "done", "it"]
+      hebrew: ["yash", "shaphar", "Taqa", "Ayar", "aw", "Am", "Lah", "charad", "yash", "sham", "ra", "al", "Ayar", "aw", "al", "yachuwshuah", "lah", "Ashah", "yash"],
+      english: ["shall", "a trumpet", "be blown", "city", "and", "the people", "not", "be afraid", "shall", "there", "be evil", "in", "a city", "and", "the", "LORD", "not", "done", "it"]
     },
     verse7: {
       hebrew: ["Ky", "al", "Adanay", "Yachuwshuah", "ahy", "Ashah", "aLah", "han", "huw", "galah", "Naphash", "cawd", "al", "Naphash", "Abad", "Nabay"],
