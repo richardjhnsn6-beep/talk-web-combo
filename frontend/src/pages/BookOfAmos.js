@@ -453,7 +453,7 @@ const BookOfAmos = () => {
     },
     verse5: {
       hebrew: ["aw", "qatar", "Zabach", "al", "Tow dah", "owd", "ChamatZ", "aw", "qara", "aw", "Shama", "habahab", "al", "kah", "attana", "howy", "attah", "ban", "al", "yasharaAI", "Naam", "al", "Adanay", "YaChuwshuah"],
-      english: ["and", "offer a", "a sacrifice", "of", "thanksgiving", "with", "Leaven", "and", "proclaim", "and", "publish", "the free offerings", "for", "this liketh", "you", "O", "ye", "children", "of", "Israel", "saith", "the", "Lord", "GOD"]
+      english: ["and", "Offer", "a sacrifice", "of", "thanksgiving", "with", "Leaven", "and", "proclaim", "and", "publish", "the free offerings", "for", "this liketh", "you", "O", "ye", "children", "of", "Israel", "saith", "the", "Lord", "GOD"]
     },
     verse6: {
       hebrew: ["aw", "any", "havah", "gam", "Nathan", "attah", "Naqqayon", "al", "ayar", "aw", "Chacar", "Lacham", "kol", "Naphash", "Maqowm", "owd", "hayach", "attanah", "Lah", "Shuwb", "al", "any", "amar", "al", "YaChuwshuah"],
