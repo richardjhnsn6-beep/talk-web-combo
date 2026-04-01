@@ -429,8 +429,8 @@ const BookOfAmos = () => {
       english: ["that in the", "the day", "that", "I shall", "visit", "transgressions", "of", "Isreal", "upon", "him", "I will", "also", "visit", "the altars", "of", "Bethel", "and", "the horns", "of", "Altar", "shall be", "cut off", "and", "fall to", "the ground"]
     },
     verse15: {
-      hebrew: ["aw", "ahy", "Nakah", "charaph", "bayth", "awd", "qayats", "aBayth", "aw", "al", "aBayth", "al", "Shan", "yash", "bad", "aw", "rab", "Bayth", "yash", "hayach", "cawph", "Naam", "Yachuwshuah", "the"],
-      english: ["And", "I", "will", "smite", "the", "winter", "house", "with", "the", "summer", "house", "and", "the", "house", "of", "Ivory", "shall", "perish", "and", "the", "Great", "house", "shall", "have", "an end", "saith", "the LORD"]
+      hebrew: ["aw", "ahy", "Nakah", "charaph", "Bayth", "awd", "qayarts", "Bayth", "aw", "al", "Bayth", "al", "shan", "yash", "Bad", "aw", "Rab", "bayth", "yash", "hayach", "cawph", "Naam", "Yachuwshuah"],
+      english: ["And", "I will", "smite", "the winter", "house", "with", "the summer", "house", "and", "the", "house", "of", "ivory", "shall", "perish", "and", "the great", "houses", "shall", "have", "an end", "saith", "LORD"]
     }
   };
 
