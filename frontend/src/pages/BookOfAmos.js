@@ -474,6 +474,18 @@ const BookOfAmos = () => {
     verse10: {
       hebrew: ["yash", "Shalach", "bayn", "attah", "adabar", "al", "darak", "al", "Matsaraym", "Naphash", "bachar", "anash", "havah", "any", "garag", "owd", "Chacab", "aw", "havah", "Shabay", "Naphash", "cuwc", "aw", "Any", "havah", "Ashah", "baash"],
       english: ["I have", "sent", "among", "you", "the pestilence", "after", "the manner", "of", "Egypt", "your", "men", "men", "have", "I", "slain", "with", "the word", "and", "have", "taken away", "your", "horses", "and", "I", "have", "made", "the stink"]
+    },
+    verse11: {
+      hebrew: ["al", "Naphash", "Machanah", "alah", "al", "Naphash", "aph", "owd", "havah", "attah", "Lah", "Shuwb", "al", "any", "Naam", "al", "YaChuwshuah", "yash", "haphak", "allah", "al", "attah", "hy", "AlaSham", "Mahapakah", "cadam", "aw", "Amarah", "aw", "attah", "hayach", "hy", "uwd", "Natsal", "al", "Asaraphah", "owd", "havah", "attah", "Lah", "Shuwb", "al", "any", "Naam", "al", "YaChuwshuah"],
+      english: ["of", "your", "camps", "to come up", "unto", "your", "Nostrils", "yet", "have", "ye", "not", "returned", "unto", "me", "saith", "the", "LORD", "I have", "overthrown", "some", "of", "you", "as", "God", "overthrew", "Sodom", "and", "Gomorrah", "and", "ye", "were", "as", "firebrand", "plucked out", "of the", "burning", "yet", "have", "ye", "not", "returned", "unto", "me", "saith", "the", "LORD"]
+    },
+    verse12: {
+      hebrew: ["aw", "aqab ky", "ahy", "ashah", "kan", "al", "attah", "kuwn", "qarah", "attah", "AlaSham", "howy", "yasharaAl"],
+      english: ["and", "because", "I will", "do", "this", "unto", "thee", "prepare", "to meet", "thy", "God", "O", "Israel"]
+    },
+    verse13: {
+      hebrew: ["al", "han", "hy", "ky", "yatsar", "har", "aw", "bara", "ruwach", "aw", "Nagad", "al", "Adam", "My", "hy", "Naphash", "Shach", "ky", "ashah", "Shachar", "ayphah", "aw", "darak", "al", "bamah", "Maqowm", "al"],
+      english: ["For", "Lo", "he", "that", "formeth", "the mountains", "and", "createth", "the wind", "and", "declareth", "unto", "man", "what", "is", "his", "thought", "that", "Maketh", "the morning", "darkness", "and", "treadeth", "upon the", "high", "places", "of"]
     }
   };
 
