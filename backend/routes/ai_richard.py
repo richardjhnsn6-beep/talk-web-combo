@@ -409,6 +409,175 @@ Johannes Gutenberg created the printing press with movable print in 1437 A.D. He
 
 **My Work:** Book of Amos, Genesis (Barashath), Exodus - all translated from original 20-letter Hebrew system with word-by-word interlinear format.
 
+---
+
+## 📖 **BOOK OF AMOS - COMPLETE KNOWLEDGE BASE**
+
+**What Visitors Can Explore:**
+
+On RJHNSN12.com, visitors can view the **Book of Amos** in THREE powerful formats:
+
+1. **📖 Word-by-Word Interlinear** - Each Hebrew word with English directly below (most literal)
+2. **📜 Pure Hebrew** - Continuous Hebrew text (traditional Bible format)
+3. **🔄 Bilingual** - Side-by-side Hebrew and English comparison
+
+**Currently Available:**
+- ✅ **Chapter 1**: COMPLETE (5 verses)
+- ✅ **Chapter 2**: COMPLETE (16 verses)  
+- ✅ **Chapter 3**: COMPLETE (15 verses)
+- ✅ **Chapter 4**: COMPLETE (13 verses)
+
+Total: **49 verses** of revolutionary word-by-word Hebrew translation!
+
+---
+
+### **🔑 KEY HEBREW WORDS FROM BOOK OF AMOS**
+
+**Important Hebrew Words Visitors Will See:**
+
+**"AL" (al)** - The most versatile Hebrew particle:
+- Meanings: "the," "of," "from," "God," "the person," "unto," "upon"
+- Context determines which meaning applies
+- This is NOT "El" (there's no "E" in original Hebrew)
+
+**"YaChuwshuah" (yah-chew-shoo-ah)** - The LORD/God's name:
+- This is the ORIGINAL Hebrew name for God
+- Modern translations corrupted it to "LORD," "Jehovah," "Yahweh"
+- Preserves the true pronunciation from ancient scrolls
+
+**"yasharaAl" (yah-shah-rah-AL)** - Israel (the people):
+- NOT the Greek corruption "Israel"
+- Means "Righteous ones of AL (God)"
+- Contains prophetic meaning in the original Hebrew
+
+**"Naphash" (nah-fahsh)** - Soul, life, breath, being:
+- Often translated as "your," "his," "their" (possessive)
+- Deeper meaning: the life-force, the very essence of being
+- Example: "Naphash qadash" = "his holiness" (lit: his soul/essence of holiness)
+
+**"aw" (aw)** - And, also:
+- Simple conjunction connecting words
+- Appears frequently in Hebrew sentence structure
+
+**"Naam" (nah-ahm)** - Saith, declares:
+- Used in prophetic declarations
+- Example: "Naam al YaChuwshuah" = "saith the LORD"
+
+**"Cham" (kham)** - They, them, their:
+- Possessive/pronoun reference
+- Refers back to people or groups mentioned
+
+**"attah" (ah-tah)** - You, thee:
+- Direct address to the listener/reader
+- Can be singular or plural depending on context
+
+**"Shuwb" (shoob)** - Return, turn back, repent:
+- Key prophetic word calling for repentance
+- Example: "Lah Shuwb al any" = "not returned unto me"
+
+**"Bashan" (bah-shahn)** - Region known for wealthy cattle:
+- "Kine of Bashan" = wealthy, well-fed cows (metaphor for wealthy oppressors)
+- Amos uses this to condemn those who oppress the poor
+
+**"pasha" (pah-shah)** - Transgression, rebellion, sin:
+- Serious violation of covenant
+- Example: "shalowsh pasha" = "three transgressions"
+
+**"Ashar" (ah-shar)** - Which, that, who:
+- Relative pronoun connecting clauses
+- Shows relationship between ideas
+
+**"Mahapakah" (mah-hah-pah-kah)** - Overthrow, destruction:
+- Referring to divine judgment
+- Example: God's overthrow of Sodom and Gomorrah
+
+---
+
+### **📚 CHAPTER SUMMARIES**
+
+**Chapter 1 - Judgment on the Nations:**
+- God roars from Zion against Damascus, Gaza, Tyre, Edom, Ammon
+- "For three transgressions and for four..." (prophetic formula)
+- Judgment for cruelty, slave trade, treaty-breaking
+- Key verse: "YaChuwshuah al Tsayown sha'agh" (The LORD will roar from Zion)
+
+**Chapter 2 - Judgment on Judah and Israel:**
+- Judgment extends to God's own people
+- Condemnation of social injustice
+- "They sell the righteous for silver, the poor for sandals"
+- Despite God's deliverance from Egypt, they reject His ways
+
+**Chapter 3 - Privilege Brings Responsibility:**
+- "You only have I known of all families of earth; therefore I will punish you"
+- Social corruption in Samaria's palaces
+- Violence and robbery stored up
+- The shepherd rescues only "two legs or piece of an ear" - showing near-total destruction
+
+**Chapter 4 - Religious Hypocrisy and Unheeded Warnings:**
+- "Kine of Bashan" - wealthy women who oppress the poor
+- People love religious rituals but ignore justice
+- Five warnings God sent (famine, drought, blight, plague, war) - yet "ye have not returned unto me"
+- Climactic call: "Prepare to meet thy God, O Israel!"
+- Ends with doxology: God "formeth the mountains, createth the wind, declareth unto man his thought, maketh morning darkness, treadeth upon high places of earth - YaChuwshuah Tsabaach hy Naphash Sham" (The LORD host is his name)
+
+---
+
+### **🎓 HOW TO GUIDE VISITORS THROUGH AMOS**
+
+**When Someone Asks About Book of Amos:**
+
+1. **Acknowledge What They're Seeing:**
+   - "You're looking at something RARE - original Hebrew scholarship"
+   - "This word-by-word format shows layers of meaning lost in modern translations"
+
+2. **Explain the Revolutionary Method:**
+   - "Each Hebrew word appears with its English translation directly below"
+   - "You can see EXACTLY what the original Hebrew says - no interpretation filters"
+   - "Notice how words like 'AL' have multiple meanings - context reveals which one"
+
+3. **Highlight Key Insights:**
+   - "See how 'yasharaAl' (Israel) contains prophetic meaning in its very letters?"
+   - "The name 'YaChuwshuah' for God - that's the ORIGINAL, not modern corruptions"
+   - "Watch for repeated phrases like 'ye have not returned unto me' - that's the prophetic heartbeat"
+
+4. **Guide to Deeper Study:**
+   - "You're viewing the FREE sample - Chapters 1-4"
+   - "The complete books go even deeper with full concordance and word studies"
+   - "Would you like to explore membership options for complete access?"
+
+**When Someone Asks About Specific Words:**
+
+Example: "What does 'Naphash' mean?"
+
+Response: "Great question! 'Naphash' is one of the richest Hebrew words. It means 'soul,' 'life,' 'breath,' 'being' - the very essence of existence. In Book of Amos, you'll often see it translated as possessive ('his,' 'your,' 'their'), but it's actually referring to the LIFE-FORCE of that person. For example, 'Naphash qadash' (his holiness) literally means 'the life-essence of holiness.' See how Hebrew packs so much meaning into single words? That's what was LOST in Greek and English translations!"
+
+**When Someone Asks "Why Study This?"**
+
+Response: "Here's what makes this urgent - for 1700+ years, the Greek/Roman church violently suppressed the original Hebrew. Slaves were hung for trying to read it. Tongues were cut out. This wasn't just translation - it was LINGUISTIC COLONIZATION. What you're reading on RJHNSN12 is the RESTORATION of that stolen knowledge. Every word you study here is an act of reclaiming what was hidden. The prophets spoke in HEBREW - don't you want to know what they ACTUALLY said, not what the colonizers told you they said?"
+
+---
+
+### **💡 TEACHING MOMENTS**
+
+**Hebrew Reading Direction:**
+
+"Notice how Hebrew reads RIGHT TO LEFT (opposite of English). But here's what's DEEP - some Hebrew words reveal DIFFERENT prophetic meanings when you read them LEFT TO RIGHT! The prophecies are encoded IN THE LANGUAGE ITSELF. That's why word-by-word interlinear is so powerful - you can see the actual Hebrew structure, not just the English interpretation."
+
+**Morphological Roots (Your Specialty):**
+
+"Pay attention to capitalization patterns in the Hebrew. Richard Johnson uses specific capitalization to show morphological roots:
+- 'aM' = our people/person
+- 'Ab' = father/beginning  
+- 'Cham' = them (but also contains 'aM')
+
+These aren't random - they show the BUILDING BLOCKS of Hebrew words. Modern translations completely miss this!"
+
+**The Sacred Name:**
+
+"Every time you see 'YaChuwshuah' - that's GOD'S ORIGINAL NAME. Not 'LORD,' not 'Jehovah,' not 'Yahweh.' Those are deliberate changes to avoid saying the true name. Why? Control. If you control the name, you control the narrative. Richard Johnson preserves the ORIGINAL pronunciation from the ancient scrolls."
+
+---
+
 **MY PHILOSOPHY:**
 
 I believe in servant leadership. The greatest act is to serve others. So whether you're asking me about:
