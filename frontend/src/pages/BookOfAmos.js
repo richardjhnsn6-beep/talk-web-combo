@@ -411,6 +411,26 @@ const BookOfAmos = () => {
     verse10: {
       hebrew: ["Kan", "Cham", "yada", "aLah", "Ashah", "Nakacah", "Naam", "al", "Yachuwshuah", "My", "atsar", "Chamac", "aw", "Shad", "al", "Cham", "Aramawn"],
       english: ["For", "they", "know", "not", "to do", "right", "saith", "the", "LORD", "who", "store up", "violence", "and", "robbery", "in", "their", "palaces"]
+    },
+    verse11: {
+      hebrew: ["al", "kan", "Amar", "al", "Adanay", "Yachuwshuah", "tzar", "hx", "Naphash", "Az", "al", "attanah", "aw", "Naphash", "Aramawn", "yash", "thy", "bazaz"],
+      english: ["Therefore", "thus", "saith", "the", "LORD", "God", "adversary", "the", "soul", "will", "consume", "yea", "consume", "from", "you", "and", "the palaces", "shall", "be broken"]
+    },
+    verse12: {
+      hebrew: ["kah", "Amar", "al", "Yachuwshuah", "al", "Raah", "Natsal", "al", "pah", "al", "Aray", "Shanaym", "kara", "aw", "Badal", "Azan", "kan", "yash", "ban", "al", "yasharaAl", "Natsal", "ky", "yashab", "Shanatwn", "al", "paah", "al", "aMattah", "aw", "al", "Damamashaq", "Arash"],
+      english: ["Thus", "saith", "the", "LORD", "as", "the", "shepherd", "taketh out", "of", "the", "mouth", "of", "the lion", "Two", "leges", "or", "a", "piece", "of", "ear", "so", "shall", "the", "children", "of", "Israel", "be", "taken out", "that", "dwell", "in", "Samaria", "in", "the corner", "of", "a", "bed", "and", "in", "Damascus", "a couch"]
+    },
+    verse13: {
+      hebrew: ["Shama", "attanah", "aw", "awd", "al", "Bayth", "al", "yaaqab", "Naam", "al", "Adanay", "AlaSham", "al", "AlaSham", "al", "Tsabaach", "Tsabaach", "ky", "yawm", "ky", "yash", "paqad", "pasha", "al", "yasharaAl", "al", "Naphash", "ahy", "gam", "paqad", "Mazabaach", "yash", "gada", "aw", "Naphhal", "Arats"],
+      english: ["Hear", "ye", "and", "testify", "in", "the", "house", "of", "Jacob", "saith", "the", "Lord", "God", "the", "God", "of", "host", "that", "in", "the", "day", "that", "I", "shall", "visit", "the", "transgressions", "of", "Israel", "upon", "him", "I", "will", "also", "visit", "the Altars", "shall", "be", "cut off", "and", "fall", "to the ground"]
+    },
+    verse14: {
+      hebrew: ["ky", "yawm", "ky", "yash", "paqad", "pasha", "al", "yasharaAl", "al", "Naphhash", "ahy", "gam", "paqad", "Mazabaach", "al", "BaythAl", "aw", "qaran", "al", "Mazabaach", "yash", "gada", "aw", "Naphhal", "Arats"],
+      english: ["that", "in", "the", "day", "that", "I", "shall", "visit", "the", "transgressions", "of", "Israel", "upon", "him", "I", "will", "also", "visit", "the Altars", "of", "Beth-el", "and", "the horns", "of", "the altar", "shall", "be", "cut off", "and", "fall", "to the ground"]
+    },
+    verse15: {
+      hebrew: ["aw", "ahy", "Nakah", "charaph", "bayth", "awd", "qayats", "aBayth", "aw", "al", "aBayth", "al", "Shan", "yash", "bad", "aw", "rab", "Bayth", "yash", "hayach", "cawph", "Naam", "Yachuwshuah", "the"],
+      english: ["And", "I", "will", "smite", "the", "winter", "house", "with", "the", "summer", "house", "and", "the", "house", "of", "Ivory", "shall", "perish", "and", "the", "Great", "house", "shall", "have", "an end", "saith", "the LORD"]
     }
   };
 
