@@ -171,3 +171,104 @@ async def get_book_scroll_stats():
         "depth_distribution": depth_dist,
         "unique_visitors": unique_visitors
     }
+
+
+
+@router.get("/ai-richard")
+async def get_ai_richard_analytics():
+    """Get AI Richard conversation analytics"""
+    from datetime import timedelta
+    
+    # Get all conversations
+    all_conversations = await db.ai_richard_conversations.find({}, {"_id": 0}).to_list(10000)
+    
+    # Calculate date ranges
+    now = datetime.now(timezone.utc)
+    today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    week_start = now - timedelta(days=7)
+    
+    # Stats
+    total_conversations = len(all_conversations)
+    conversations_today = 0
+    conversations_week = 0
+    total_messages = 0
+    
+    # Track keywords for hot leads
+    hot_keywords = ["membership", "member", "join", "subscribe", "purchase", "buy", "book", "price", "cost", "pay"]
+    hot_leads = []
+    
+    # Recent conversations (last 20)
+    recent_conversations = []
+    
+    for conv in all_conversations:
+        # Count total messages
+        messages = conv.get("messages", [])
+        message_count = len(messages)
+        total_messages += message_count
+        
+        # Parse created_at
+        created_str = conv.get("created_at", "")
+        try:
+            if isinstance(created_str, str):
+                created_at = datetime.fromisoformat(created_str.replace('Z', '+00:00'))
+            else:
+                created_at = created_str
+            
+            # Count today and week
+            if created_at >= today_start:
+                conversations_today += 1
+            if created_at >= week_start:
+                conversations_week += 1
+        except Exception:
+            created_at = now
+        
+        # Check for hot lead keywords
+        is_hot_lead = False
+        conversation_text = " ".join([msg.get("content", "").lower() for msg in messages])
+        for keyword in hot_keywords:
+            if keyword in conversation_text:
+                is_hot_lead = True
+                break
+        
+        if is_hot_lead:
+            # Get first user message as preview
+            first_message = next((msg.get("content", "")[:100] for msg in messages if msg.get("role") == "user"), "No messages")
+            hot_leads.append({
+                "session_id": conv.get("session_id", "unknown"),
+                "created_at": created_str,
+                "message_count": message_count,
+                "preview": first_message
+            })
+        
+        # Add to recent conversations (all conversations)
+        first_message = next((msg.get("content", "")[:100] for msg in messages if msg.get("role") == "user"), "No messages")
+        recent_conversations.append({
+            "session_id": conv.get("session_id", "unknown"),
+            "created_at": created_str,
+            "message_count": message_count,
+            "preview": first_message,
+            "is_hot_lead": is_hot_lead
+        })
+    
+    # Sort recent conversations by date (newest first)
+    recent_conversations.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+    recent_conversations = recent_conversations[:20]  # Last 20
+    
+    # Sort hot leads by date
+    hot_leads.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+    
+    # Calculate averages
+    avg_messages = round(total_messages / total_conversations, 1) if total_conversations > 0 else 0
+    
+    return {
+        "overview": {
+            "total_conversations": total_conversations,
+            "conversations_today": conversations_today,
+            "conversations_this_week": conversations_week,
+            "total_messages": total_messages,
+            "avg_messages_per_conversation": avg_messages
+        },
+        "hot_leads": hot_leads[:10],  # Top 10 hot leads
+        "recent_conversations": recent_conversations,
+        "hot_lead_count": len(hot_leads)
+    }

@@ -4,6 +4,7 @@ import { Crown, Sparkles, TrendingUp } from 'lucide-react';
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
   const [aiChatStats, setAiChatStats] = useState(null);
+  const [aiRichardStats, setAiRichardStats] = useState(null);
   const [liveVisitors, setLiveVisitors] = useState(null);
   const [bookScrollStats, setBookScrollStats] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,6 +13,7 @@ const AdminDashboard = () => {
   const [newSaleAlert, setNewSaleAlert] = useState(null);
   const pageViewsRef = useRef(null);
   const aiChatStatsRef = useRef(null);
+  const aiRichardStatsRef = useRef(null);
   const transactionsRef = useRef(null);
   const liveVisitorsRef = useRef(null);
   const bookScrollRef = useRef(null);
@@ -19,12 +21,14 @@ const AdminDashboard = () => {
   useEffect(() => {
     fetchDashboardData();
     fetchAIChatStats();
+    fetchAIRichardStats();
     fetchLiveVisitors();
     fetchBookScrollStats();
     // Check for new sales and live visitors every 5 seconds
     const interval = setInterval(() => {
       checkForNewSales();
       fetchAIChatStats();
+      fetchAIRichardStats();
       fetchLiveVisitors();
       fetchBookScrollStats();
     }, 5000);
@@ -75,6 +79,17 @@ const AdminDashboard = () => {
       setBookScrollStats(data);
     } catch (err) {
       console.error('Failed to fetch book scroll stats:', err);
+    }
+  };
+
+  const fetchAIRichardStats = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/analytics/ai-richard`);
+      if (!response.ok) return;
+      const data = await response.json();
+      setAiRichardStats(data);
+    } catch (err) {
+      console.error('Failed to fetch AI Richard stats:', err);
     }
   };
 
@@ -630,6 +645,112 @@ const AdminDashboard = () => {
               <div className="text-6xl mb-4">📢</div>
               <p className="text-gray-500 text-lg">No page views tracked yet</p>
               <p className="text-gray-400 text-sm mt-2">Share your site to start tracking visitor activity!</p>
+            </div>
+          )}
+        </div>
+
+        {/* AI Richard Analytics */}
+        <div ref={aiRichardStatsRef} className="bg-white rounded-lg shadow-lg p-6">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">🤖 AI Richard Analytics</h2>
+          
+          {aiRichardStats ? (
+            <>
+              {/* Overview Stats */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg p-4 text-white">
+                  <div className="text-3xl font-bold">{aiRichardStats.overview.total_conversations}</div>
+                  <div className="text-purple-100 text-sm">Total Conversations</div>
+                </div>
+                <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg p-4 text-white">
+                  <div className="text-3xl font-bold">{aiRichardStats.overview.conversations_today}</div>
+                  <div className="text-blue-100 text-sm">Today</div>
+                </div>
+                <div className="bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg p-4 text-white">
+                  <div className="text-3xl font-bold">{aiRichardStats.overview.conversations_this_week}</div>
+                  <div className="text-teal-100 text-sm">This Week</div>
+                </div>
+              </div>
+
+              {/* Engagement Metrics */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="text-gray-600 text-sm mb-1">Total Messages</div>
+                  <div className="text-2xl font-bold text-gray-800">{aiRichardStats.overview.total_messages}</div>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="text-gray-600 text-sm mb-1">Avg Messages/Chat</div>
+                  <div className="text-2xl font-bold text-gray-800">{aiRichardStats.overview.avg_messages_per_conversation}</div>
+                </div>
+              </div>
+
+              {/* Hot Leads */}
+              {aiRichardStats.hot_leads && aiRichardStats.hot_leads.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-lg font-bold text-gray-800 mb-3 flex items-center gap-2">
+                    🔥 Hot Leads 
+                    <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-semibold">
+                      {aiRichardStats.hot_lead_count}
+                    </span>
+                  </h3>
+                  <div className="space-y-2">
+                    {aiRichardStats.hot_leads.slice(0, 5).map((lead, idx) => (
+                      <div key={idx} className="bg-red-50 border border-red-200 rounded-lg p-3">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs text-gray-500">
+                            {new Date(lead.created_at).toLocaleString()}
+                          </span>
+                          <span className="text-xs bg-red-200 text-red-800 px-2 py-1 rounded">
+                            {lead.message_count} messages
+                          </span>
+                        </div>
+                        <div className="text-sm text-gray-700 italic">
+                          "{lead.preview}..."
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Recent Conversations */}
+              <div>
+                <h3 className="text-lg font-bold text-gray-800 mb-3">💬 Recent Conversations</h3>
+                <div className="space-y-2 max-h-96 overflow-y-auto">
+                  {aiRichardStats.recent_conversations.map((conv, idx) => (
+                    <div 
+                      key={idx} 
+                      className={`border rounded-lg p-3 ${
+                        conv.is_hot_lead ? 'bg-yellow-50 border-yellow-300' : 'bg-gray-50 border-gray-200'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs text-gray-500">
+                          {new Date(conv.created_at).toLocaleString()}
+                        </span>
+                        <div className="flex items-center gap-2">
+                          {conv.is_hot_lead && (
+                            <span className="text-xs bg-yellow-300 text-yellow-900 px-2 py-1 rounded font-semibold">
+                              🔥 Hot Lead
+                            </span>
+                          )}
+                          <span className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded">
+                            {conv.message_count} msgs
+                          </span>
+                        </div>
+                      </div>
+                      <div className="text-sm text-gray-700">
+                        {conv.preview}...
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">🤖</div>
+              <p className="text-gray-500 text-lg">No conversations yet</p>
+              <p className="text-gray-400 text-sm mt-2">AI Richard is ready to help visitors!</p>
             </div>
           )}
         </div>
