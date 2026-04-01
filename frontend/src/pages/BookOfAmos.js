@@ -419,6 +419,134 @@ const BookOfAmos = () => {
     },
   ];
 
+  // Chapter 2 - Pure Hebrew (continuous text for printing)
+  const chapter2PureHebrew = [
+    {
+      verse: 1,
+      hebrew: "Kah Amar al Yachuwshuah yth Shalawsh pasha al Mawab aw yth Araba ahy aLah Shawb cawr Avan al huw Asaraph atsam al aMalak Al Adam al Asayad",
+      english: "Thus saith The LORD For three transgressions of Moab and For four I will not turn away the punishment thereof because he burned bones of the king of Edom into lime"
+    },
+    {
+      verse: 2,
+      hebrew: "han ahy shalach Ash al aMawb aw yash akal Aramown al qaryawTh aw aMawb yash aMaw awd Shaawn awd Tarawah aw awd qawl Shaphar",
+      english: "but I will send a fire upon Moab and it shall devour the palaces of Kirioth and Moab shall die with Tumult with shouting and with the sound of the trumpet"
+    },
+    {
+      verse: 3,
+      hebrew: "aw ahy karath al Shaphat al qarab Sham aw ahy harag kal aSar al awd Naphash Amar al Yachuwahuah",
+      english: "And I will cut off the Judge from the Midst thereof And I will slay all the princes thereof with him saith the LORD"
+    },
+    {
+      verse: 4,
+      hebrew: "Kah Amar al Yachuwshuah yth Shalawsh pasha al yachadad aw yth Araba ahy aLah Shawb cawr Avan shamal cham hayach aMaac Tarach al Yachuwshuah aw hayach aLah Sham Naphash chaq aw Cham kazab Nathan Cham taah achar Asar Cham Ab hayach halak",
+      english: "Thus said the LORD for three transgressions of Judah and for four I will not turn away the punishment thereof because they have despised the law of the LORD and have not kept his commandments and their lies caused them to err after the which their fathers have walked"
+    },
+    {
+      verse: 5,
+      hebrew: "han ahy Shalac Ash al yachadad aw yash akal Aramawn al Shalam",
+      english: "but I will send a fire upon Judah and it shall devour the palaces of Jerusalem"
+    },
+    {
+      verse: 6,
+      hebrew: "kah Amar al Yachuwshuah yth shalawsh pasha al yasharaA1 aw yth Araba ahy aLah Shawb cawr Avan al Cham aMakar Tsaddayq ka caph Abyawn yth cawl al Naalaal",
+      english: "Thus saith the LORD for three transgressions of Israel and for four I will not turn away the punishment thereof because they sold the righteous for silver the poor for a pair of shoes"
+    },
+    {
+      verse: 7,
+      hebrew: "ky Shaaph achar aphar al Arats al Rash al Abyawn aw Natah adarak al ahayv aw Kash aw Naphash Ab ahy yalak huw Naarah Chalal Any qadash Sham",
+      english: "That pant after the dust of the earth on the head of the poor and turn aside the way of the Meek and a man and his father will go in unto the same maid to profane my Holy name"
+    },
+    {
+      verse: 8,
+      hebrew: "aw Cham Natah Cham yarad al bagad Shawm Chabal adarak kal aMazabaah aw Cham Shathah yayn al Anash al Bayth al Cham AlaSham",
+      english: "And they lay themselves down upon clothes laid to pledge by every altar and they Drink the wine of the condemned in the house of their god"
+    },
+    {
+      verse: 9,
+      hebrew: "awd Shamad Any phanym Cham Amaray Asar gabahh hayach kamah al Araz aw haw hayach Chacan allaw awd Any Shamad Naphash aphray Maal Aw Naphash Sharash al Tachath",
+      english: "yet destroyed I before them Amorite whose height was like the cedars and he was strong as the oak yet I destroyed his fruit from above and his roots from beneath"
+    },
+    {
+      verse: 10,
+      hebrew: "gam Any Alah attanah al Arats al aMatsaraym aw yalak attanah Araba Shanah al aMadAbar yarash Arats al Amaray",
+      english: "Also I brought you from the land of Egypt and led you forty years through the wilderness to possess the land of the Amorite"
+    },
+    {
+      verse: 11,
+      hebrew: "aw Any qawm al Naphash ban yth Nabay aw al Naphash Bachawr yth Nazar yash aLah aph Zath hawy attanah ban yasharaal Amar Yachuwshuah",
+      english: "and I raised up of your sons for prophets and of your young for Nazarites is it not even thus O ye children of Israel saith the LORD"
+    },
+    {
+      verse: 12,
+      hebrew: "han attanah Nazar yayn Shaqaqh aw Tsavah Nabay Naba aLah",
+      english: "But ye gave the Nazarites wine to drink and commanded prophets prophecy not"
+    },
+    {
+      verse: 13,
+      hebrew: "hannah hayach awq Tachath attanah al agalah huw awq yash Tachath attanah al agalah huw awq Mala al Amayr",
+      english: "behold I am pressed under you as a cart is pressed under you as a cart is pressed full of sheaves"
+    },
+    {
+      verse: 14,
+      hebrew: "gam Manawc yash Abad al qal aw Chazaq yash aLah Amats Naphash kaach aLah yash gabbawr aMalat Naphash",
+      english: "therefore the flight shall perish from the swift and the strong shall not strengthen his force neither shall the mighty deliver himself"
+    },
+    {
+      verse: 15,
+      hebrew: "aLah yash Amad ky Taphash qashath aw huw qal ragal yash aLah aMalat Naphash aLah yash huw ky Rakab cawc aMalat Naphash",
+      english: "neither shall he stand that handleth the bow and he that is swift of foot shall not deliver himself neither shall he that rideth the horse deliver himself"
+    },
+    {
+      verse: 16,
+      hebrew: "Aw huw Amamyts aBayn gabbar yash Nawc cawr Arawm al ky yawm Amar al Yachuwshuah",
+      english: "And he that is courageous among the mighty shall flee away Naked in that day saith the LORD"
+    }
+  ];
+
+  // Sample content for Chapter 1 - Bilingual (continued)
+  const chapter1BilingualContinued = [
+    { 
+      verse: 1, 
+      hebrew: "Dabar al Amac Ashar hayach Bayn Naqad al Taqawa Asar chazah",
+      english: "The words of Amos who was among the herdsmen of Tekoa which he saw"
+    },
+    { 
+      verse: "", 
+      hebrew: "al yasharaal al yowm Ozayah Malak al Yahadah aw al yowm Yaraboam",
+      english: "concerning Israel in the days of Uzziah king of Judah and in the days of Jeroboam"
+    },
+    { 
+      verse: "", 
+      hebrew: "ban Yoash Malak al yasharaal shanaym shana al raash",
+      english: "the son of Joash king of Israel two years before the earthquake"
+    },
+    { 
+      verse: 2, 
+      hebrew: "aw huw amar YaChuwshuah al Tsayown sha'agh aw al Yaruwshalayim Naphash qowl aw abal Nayah Raah aw yabash rosh al Karmal",
+      english: "And he said The LORD will roar from Zion and from Jerusalem utter his voice and the habitations of the shepherds shall mourn and the top of Carmel shall wither"
+    },
+    { 
+      verse: 3, 
+      hebrew: "kah amar YaChuwshuah aw shalowsh pasha al Dammashaq aw aw arba law Shawb cawr Avan al Cham hayach dawsh Galaad ad",
+      english: "Thus saith the LORD; For three transgressions of Damascus, and for four, I will not turn away the punishment thereof; because they have threshed Gilead"
+    },
+    { 
+      verse: "", 
+      hebrew: "charats dachavah barazal",
+      english: "with threshing instruments of iron"
+    },
+    { 
+      verse: 4, 
+      hebrew: "aw shalach esh al bayth al Chaza'Al aw akal Armon ban al Hadad",
+      english: "But I will send a fire into the house of Hazael, which shall devour the palaces of Ben-hadad."
+    },
+    { 
+      verse: 5, 
+      hebrew: "aw shabar bariyach al Dammashaq aw kareth yashab al bayth al Awan aw thamak shebeth al bayth al Adan aw galah Aram al Qiyr amar YaChuwshuah",
+      english: "I will break also the bar of Damascus, and cut off the inhabitant from the plain of Aven, and him that holdeth the sceptre from the house of Eden: and the people of Syria shall go into captivity unto Kir, saith the LORD."
+    },
+  ];
+
   const renderInterlinear = () => {
     if (activeChapter !== 1 && activeChapter !== 2) {
       return (
@@ -632,34 +760,35 @@ const BookOfAmos = () => {
   };
 
   const renderPureHebrew = () => {
-    if (activeChapter !== 1) {
+    if (activeChapter !== 1 && activeChapter !== 2) {
       return (
         <div className="text-center py-12">
           <p className="text-gray-600 text-lg">
-            Chapter {activeChapter} content will be added soon.
-          </p>
-          <p className="text-gray-500 text-sm mt-4">
-            This is a sample page showing Chapter 1 format.
+            Chapter {activeChapter} Pure Hebrew content will be added soon.
           </p>
         </div>
       );
     }
 
+    const pureHebrewData = activeChapter === 1 ? chapter1PureHebrew : chapter2PureHebrew;
+
     return (
-      <div className="max-w-3xl mx-auto">
-        {chapter1PureHebrew.map((item) => (
-          <div key={item.verse} className="mb-4">
-            <p className="text-lg leading-relaxed">
-              <span className="font-bold text-teal-700 mr-2">{item.verse}.</span>
-              <span className="text-gray-800">{item.text}</span>
+      <div className="max-w-3xl mx-auto space-y-6">
+        {pureHebrewData.map((item, idx) => (
+          <div key={idx} className="mb-6 p-6 bg-white rounded-lg border border-gray-200">
+            {item.verse && (
+              <span className="inline-block bg-teal-600 text-white px-3 py-1 rounded-full text-sm font-bold mb-3">
+                Verse {item.verse}
+              </span>
+            )}
+            <p className="text-lg leading-relaxed text-gray-800 mb-4 font-semibold" dir="rtl">
+              {item.hebrew}
+            </p>
+            <p className="text-base leading-relaxed text-gray-600 italic border-t pt-3">
+              {item.english}
             </p>
           </div>
         ))}
-        <div className="mt-8 p-4 bg-teal-50 rounded-lg border border-teal-200">
-          <p className="text-sm text-gray-600 italic text-center">
-            Sample verses shown. Full chapter contains 15 verses.
-          </p>
-        </div>
       </div>
     );
   };
