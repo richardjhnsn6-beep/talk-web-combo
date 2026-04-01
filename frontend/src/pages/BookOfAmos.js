@@ -448,8 +448,20 @@ const BookOfAmos = () => {
       english: ["and", "ye shall", "go out", "at", "the breaches", "every", "cow", "at", "that", "which is", "before", "her", "and", "ye shall", "cast", "them", "into the", "palaces", "saith", "the", "LORD"]
     },
     verse4: {
-      hebrew: ["bow", "Baythal", "aw", "pasha", "aw", "Galgal"],
-      english: ["come to", "Beth-el", "and", "Transgress;", "at", "Gilgal"]
+      hebrew: ["bow", "Baythal", "aw", "pasha", "aw", "Galgal", "Rabah", "pasha", "aw", "bow", "Naphash", "Zabach", "Kashhash", "aw", "Naphash", "MaASar", "al", "shalowsh", "yowm"],
+      english: ["come to", "Beth-el", "and", "Transgress;", "at", "Gilgal", "Multiply", "Transgression", "and", "bring", "your", "sacrifices", "every", "morning", "and", "your", "tithes", "after", "three", "years"]
+    },
+    verse5: {
+      hebrew: ["aw", "qatar", "Zabach", "al", "Tow dah", "owd", "ChamatZ", "aw", "qara", "aw", "Shama", "habahab", "al", "kah", "attana", "howy", "attah", "ban", "al", "yasharaAI", "Naam", "al", "Adanay", "YaChuwshuah"],
+      english: ["and", "offer a", "sacrifice", "of", "thanksgiving", "with", "Leaven", "and", "proclaim", "and", "publish", "the free offerings", "for", "this liketh", "you", "O", "ye", "children", "of", "Israel", "saith", "the", "Lord", "GOD"]
+    },
+    verse6: {
+      hebrew: ["aw", "any", "havah", "gam", "Nathan", "attah", "Naqqayon", "al", "ayar", "aw", "Chacar", "Lacham", "kol", "Naphash", "Maqowm", "owd", "hayach", "attanah", "Lah", "Shuwb", "al", "any", "amar", "al", "YaChuwshuah"],
+      english: ["And", "I", "have", "also", "given", "you", "cleanness", "of", "Cities,", "and", "want of", "Bread", "in all", "your", "places", "yet", "have", "ye", "not", "returned", "unto", "me", "saith", "the", "LORD"]
+    },
+    verse7: {
+      hebrew: ["aw", "gam", "any", "havah", "Mana", "gasham", "al", "attah", "Asar", "Sham", "hayach", "owd", "Shalowsh", "Chadash", "qatsayr", "aw", "any", "Nathan", "yash", "Matar", "al", "achad", "ayar", "aw", "Nathan", "yash", "Lah", "Matar", "al"],
+      english: ["And", "also", "I", "have", "withholden", "the rain", "from", "you", "when", "there", "were", "yet", "three", "Months", "to the harvest", "and", "I", "caused", "it", "to rain", "upon", "one", "City", "and", "caused", "it", "not", "to rain", "upon"]
     }
   };
 
