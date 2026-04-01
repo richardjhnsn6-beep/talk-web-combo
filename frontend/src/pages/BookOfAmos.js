@@ -434,6 +434,25 @@ const BookOfAmos = () => {
     }
   };
 
+  const chapter4Interlinear = {
+    verse1: {
+      hebrew: ["Shama", "Zah", "adabar", "attanah", "pharach", "al", "Bashan", "ky", "hy", "al", "har", "al", "Shamarwn", "Asar", "Ashaq", "dal", "Asar", "ratsats", "abyown", "Cham", "adabar", "amar", "Cham", "adown", "bow", "aw", "yanach", "anachnw", "Shathah"],
+      english: ["Hear", "this", "word", "ye", "kine", "of", "Bashan", "that", "are", "in the", "mountain", "of", "Samaria", "which", "oppress", "the poor", "which", "Crush", "the needy", "their", "word", "say to", "their", "masters", "bring", "and", "Let", "us", "drink"]
+    },
+    verse2: {
+      hebrew: ["al", "Adanay", "YaChuwshuah", "baal", "Shaba", "darak", "Naphash", "qadash", "han", "yowm", "yash", "bow", "al", "attahah", "baa", "huw", "ahy", "Nasa", "attanah", "Nasa", "owd", "Tsannah", "aw", "Naphash", "acharyth", "owd", "cayr"],
+      english: ["The", "Lord", "GOD", "hath", "sworn", "by", "his", "holiness", "that lo,", "the days", "shall", "come", "upon", "you", "that", "he", "will", "take", "you", "away", "with", "hooks", "and", "your", "posterity", "with", "fish, hooks"]
+    },
+    verse3: {
+      hebrew: ["aw", "yash", "yatsa", "aw", "pharats", "Kashashah", "pharach", "aw", "han", "Asar", "Nadan", "Naphash", "aw", "yash", "Shalak", "Cham", "al", "haramown", "Naam", "al", "YaChuwshuah"],
+      english: ["and", "ye shall", "go out", "at", "the breaches", "every", "cow", "at", "that", "which is", "before", "her", "and", "ye shall", "cast", "them", "into the", "palaces", "saith", "the", "LORD"]
+    },
+    verse4: {
+      hebrew: ["bow", "Baythal", "aw", "pasha", "aw", "Galgal"],
+      english: ["come to", "Beth-el", "and", "Transgress;", "at", "Gilgal"]
+    }
+  };
+
   // Sample content for Chapter 1 - Bilingual (old format kept for reference)
   const chapter1Bilingual = [
     { 
@@ -607,7 +626,7 @@ const BookOfAmos = () => {
   ];
 
   const renderInterlinear = () => {
-    if (activeChapter !== 1 && activeChapter !== 2 && activeChapter !== 3) {
+    if (activeChapter !== 1 && activeChapter !== 2 && activeChapter !== 3 && activeChapter !== 4) {
       return (
         <div className="text-center py-12">
           <p className="text-gray-600 text-lg">
@@ -619,8 +638,9 @@ const BookOfAmos = () => {
 
     // Select the appropriate chapter data
     const chapterData = activeChapter === 1 ? chapter1Interlinear : 
-                        activeChapter === 2 ? chapter2Interlinear : 
-                        chapter3Interlinear;
+                        activeChapter === 2 ? chapter2Interlinear :
+                        activeChapter === 3 ? chapter3Interlinear :
+                        chapter4Interlinear;
 
     return (
       <div className="max-w-5xl mx-auto">
@@ -785,7 +805,7 @@ const BookOfAmos = () => {
           </>
         ) : (
           <>
-            {/* Chapter 2 & 3: All verses FREE */}
+            {/* Chapter 2, 3, & 4: All verses FREE */}
             <div className="mb-6 p-4 bg-green-50 rounded-lg border-2 border-green-400 text-center">
               <p className="text-green-800 font-semibold">✨ Chapter {activeChapter} - Completely Free!</p>
             </div>
