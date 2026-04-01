@@ -409,8 +409,8 @@ const BookOfAmos = () => {
       english: ["publish", "in", "the palaces", "at", "Ashdod", "and", "in", "the palaces", "in", "the land", "of", "Egypt", "and", "say", "Assemble", "yourselves", "upon", "the mountain", "of", "Samaria", "and", "behold", "the great", "Tumults", "in the midst", "thereof", "and", "the oppressed", "in the midst", "thereof"]
     },
     verse10: {
-      hebrew: ["Kan", "Cham", "yada", "aLah", "Ashah", "Nakacah", "Naam", "al", "Yachuwshuah", "My", "atsar", "Chamac", "aw", "Shad", "al", "Cham"],
-      english: ["For", "they", "know", "not", "to do", "right", "saith", "the", "LORD", "who", "store up", "violence", "and", "robbery", "in", "their"]
+      hebrew: ["Kan", "Cham", "yada", "aLah", "Ashah", "Nakacah", "Naam", "al", "Yachuwshuah", "My", "atsar", "Chamac", "aw", "Shad", "al", "Cham", "Aramawn"],
+      english: ["For", "they", "know", "not", "to do", "right", "saith", "the", "LORD", "who", "store up", "violence", "and", "robbery", "in", "their", "palaces"]
     }
   };
 
