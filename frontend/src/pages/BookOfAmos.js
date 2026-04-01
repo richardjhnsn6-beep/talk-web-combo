@@ -413,8 +413,8 @@ const BookOfAmos = () => {
       english: ["For", "they", "know", "not", "to do", "right", "saith", "the", "LORD", "who", "store up", "violence", "and", "robbery", "in", "their", "palaces"]
     },
     verse11: {
-      hebrew: ["al", "kan", "Amar", "al", "Adanay", "Yachuwshuah", "tsar", "aw", "yarad", "attanah", "al", "Az", "aw", "Aramawn", "yash", "bazaz"],
-      english: ["Therefore", "thus", "said", "the", "LORD", "God", "an adversary", "and", "bring down", "thy", "from", "Strength", "and", "palaces", "shall be", "Spoiled"]
+      hebrew: ["al", "kan", "Amar", "al", "Adanay", "Yachuwshuah", "tsar", "Sham", "yash", "aph", "cabayb", "Arats", "aw", "huw", "yash", "yarad", "Naphash", "Az", "al", "attanah", "aw", "Naphash", "Aramawn", "yash", "bazaz"],
+      english: ["Therefore", "thus", "saith", "the", "Lord", "God", "an adversary", "there", "Shall be", "even", "round about", "the land", "and", "he", "shall", "bring down", "thy", "strength", "from", "thee", "and", "thy", "palaces", "shall be", "spoiled"]
     },
     verse12: {
       hebrew: ["kah", "Amar", "al", "Yachuwshuah", "al", "Raah", "Natsal", "al", "pah", "al", "Aray", "Shanaym", "kara", "aw", "Badal", "Azan", "kan", "yash", "ban", "al", "yasharaAl", "Natsal", "ky", "yashab", "Shanatwn", "al", "paah", "al", "aMattah", "aw", "al", "Damamashaq", "Arash"],
