@@ -397,8 +397,8 @@ const BookOfAmos = () => {
       english: ["shall", "a trumpet", "be blown", "city", "and", "the people", "not", "be afraid", "shall", "there", "be evil", "in", "a city", "and", "the", "LORD", "not", "done", "it"]
     },
     verse7: {
-      hebrew: ["Ky", "al", "Adanay", "Yachuwshuah", "ahy", "Ashah", "aLah", "han", "huw", "galah", "Naphash", "cawd", "al", "Naphash", "Abad", "Nabay"],
-      english: ["Surely", "the", "LORD", "God", "will", "do", "nothing", "but", "he", "revealeth", "his secret", "unto", "his", "servants", "the", "prophets"]
+      hebrew: ["Ky", "al", "Adanay", "Yachuwshuah", "ahy", "Ashah", "aLah", "han", "huw", "galah", "Naphash", "abad", "Nabay"],
+      english: ["Surely", "the", "LORD", "God", "will", "do", "nothing", "but", "he", "revealeth", "his", "servants", "prophets"]
     },
     verse8: {
       hebrew: ["al", "Aray", "hayach", "ShaaG", "my", "ahy", "aLah", "yara", "al", "Adanay", "Yachuwshuah", "hayach", "adaBar", "My", "yakal", "han", "Naba"],
