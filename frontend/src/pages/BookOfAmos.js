@@ -480,8 +480,8 @@ const BookOfAmos = () => {
       english: ["of", "your", "camps", "to come up", "unto", "your", "Nostrils", "yet", "have", "ye", "not", "returned", "unto", "me", "saith", "the", "LORD", "I have", "overthrown", "some", "of", "you", "as", "God", "overthrew", "Sodom", "and", "Gomorrah", "and", "ye", "were", "as", "firebrand", "plucked out", "of the", "burning", "yet", "have", "ye", "not", "returned", "unto", "me", "saith", "the", "LORD"]
     },
     verse12: {
-      hebrew: ["aw", "aqab ky", "ahy", "ashah", "kan", "al", "attah", "kuwn", "qarah", "attah", "AlaSham", "howy", "yasharaAl"],
-      english: ["and", "because", "I will", "do", "this", "unto", "thee", "prepare", "to meet", "thy", "God", "O", "Israel"]
+      hebrew: ["al", "kan", "ahy", "aw", "aqab ky", "ahy", "ashah", "kan", "al", "attah", "kuwn", "qarah", "attah", "AlaSham", "howy", "yasharaAl"],
+      english: ["Therefore", "Thus", "will I", "and", "because", "I will", "do", "this", "unto", "thee", "prepare", "to meet", "thy", "God", "O", "Israel"]
     },
     verse13: {
       hebrew: ["al", "han", "hy", "ky", "yatsar", "har", "aw", "bara", "ruwach", "aw", "Nagad", "al", "Adam", "My", "hy", "Naphash", "Shach", "ky", "ashah", "Shachar", "ayphah", "aw", "darak", "al", "bamah", "Maqowm", "al"],
