@@ -484,8 +484,8 @@ const BookOfAmos = () => {
       english: ["Therefore", "Thus", "will I", "and", "because", "I will", "do", "this", "unto", "thee", "prepare", "to meet", "thy", "God", "O", "Israel"]
     },
     verse13: {
-      hebrew: ["al", "han", "hy", "ky", "yatsar", "har", "aw", "bara", "ruwach", "aw", "Nagad", "al", "Adam", "My", "hy", "Naphash", "Shach", "ky", "ashah", "Shachar", "ayphah", "aw", "darak", "al", "bamah", "Maqowm", "al"],
-      english: ["For", "Lo", "he", "that", "formeth", "the mountains", "and", "createth", "the wind", "and", "declareth", "unto", "man", "what", "is", "his", "thought", "that", "Maketh", "the morning", "darkness", "and", "treadeth", "upon the", "high", "places", "of"]
+      hebrew: ["al", "han", "hy", "ky", "yatsar", "har", "aw", "bara", "ruwach", "aw", "Nagad", "al", "Adam", "My", "hy", "Naphash", "Shach", "ky", "ashah", "Shachar", "ayphah", "aw", "darak", "al", "bamah", "Maqowm", "al", "YaChuwshuah", "Tsabah", "Sham"],
+      english: ["For", "Lo", "he", "that", "formeth", "the mountains", "and", "createth", "the wind", "and", "declareth", "unto", "man", "what", "is", "his", "thought", "that", "Maketh", "the morning", "darkness", "and", "treadeth", "upon the", "high", "places", "of", "LORD", "hosts", "name"]
     }
   };
 
