@@ -389,8 +389,8 @@ const BookOfAmos = () => {
       english: ["Will", "a lion", "roar", "in", "the forest", "when", "he", "hath", "no", "prey", "Will", "a young lion", "cry out", "of", "his", "den", "he", "have", "taken", "nothing"]
     },
     verse5: {
-      hebrew: ["Naphal", "phach", "al", "Arats", "ayach", "lah", "Maqash", "yash", "kan", "Naphash", "Yash", "gabar", "alah", "phach", "al", "Arats", "aw", "hayach", "laqach", "lah", "aw", "kal"],
-      english: ["fall in", "a snare", "Upon the", "earth", "where", "no", "gin", "is", "for", "him", "shall", "one", "take up", "a snare", "from the", "earth", "and", "have", "taken", "nothing", "at", "all"]
+      hebrew: ["yakal", "Tsappar", "Naphal", "phach", "al", "Arats", "ayach", "lah", "Maqash", "yash", "kan", "Naphash", "Yash", "gabar", "alah", "phach", "al", "Arats", "aw", "hayach", "laqach", "lah", "aw", "kal"],
+      english: ["can", "a bird", "fall in", "a snare", "Upon the", "earth", "where", "no", "gin", "is", "for", "him", "shall", "one", "take up", "a snare", "from the", "earth", "and", "have", "taken", "nothing", "at", "all"]
     },
     verse6: {
       hebrew: ["ash", "Shaphar", "Taqa", "al", "Ayyar", "aw", "Am", "aLah", "Charad", "yash", "sham", "Ra", "al", "Ayyar", "aw", "al", "Yachuwshuah", "hayach", "aLah", "Ashah", "ky", "al"],
