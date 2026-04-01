@@ -385,8 +385,8 @@ const BookOfAmos = () => {
       english: ["Can", "two", "walk", "together", "except", "they", "be agreed"]
     },
     verse4: {
-      hebrew: ["Ahy", "Aray", "ShaaG", "al", "yaar", "Asar", "huw", "hayach", "Ayn", "Taraph", "ahy", "kaphayr", "Nathan", "al", "Naphash", "Maawnah", "huw", "hayach", "aLakad", "abalaty"],
-      english: ["Will", "a lion", "roar", "in", "the forest", "when", "he", "hath", "no", "prey", "Will", "a young lion", "cry out", "of", "his den", "if", "he", "have", "taken", "nothing"]
+      hebrew: ["Ahy", "Aray", "ShaaG", "al", "yaar", "Asar", "huw", "hayach", "Ayn", "Taraph", "ahy", "kaphayr", "Nathan", "al", "Naphash", "Mawnah", "huw", "hayach", "aLakad", "abalaty"],
+      english: ["Will", "a lion", "roar", "in", "the forest", "when", "he", "hath", "no", "prey", "Will", "a young lion", "cry out", "of", "his", "den", "he", "have", "taken", "nothing"]
     },
     verse5: {
       hebrew: ["yakar", "Tsaappar", "Naphal", "Phach", "al", "Arats", "ayach", "aLah", "am", "aLah", "Charad", "yash", "sham", "Ra", "al", "Ayyar", "aw", "al", "Yachuwshuah", "hayach", "aLah", "Ashah", "ky", "al"],
