@@ -441,7 +441,7 @@ const BookOfAmos = () => {
     },
     verse2: {
       hebrew: ["al", "Adanay", "YaChuwshuah", "baal", "Shaba", "darak", "Naphash", "qadash", "han", "yowm", "yash", "bow", "al", "attahah", "baa", "huw", "ahy", "Nasa", "attanah", "Nasa", "owd", "Tsannah", "aw", "Naphash", "acharyth", "owd", "cayr"],
-      english: ["The", "Lord", "GOD", "hath", "sworn", "by", "his", "holiness", "that lo,", "the days", "shall", "come", "upon", "you", "that", "he", "will", "take", "you", "away", "with", "hooks", "and", "your", "posterity", "with", "fish, hooks"]
+      english: ["The", "Lord", "GOD", "hath", "sworn", "by", "his", "holiness", "that", "the days", "shall", "come", "upon", "you", "that", "he", "will", "take", "you", "away", "with", "hooks", "and", "your", "posterity", "with", "fish, hooks"]
     },
     verse3: {
       hebrew: ["aw", "yash", "yatsa", "aw", "pharats", "Kashashah", "pharach", "aw", "han", "Asar", "Nadan", "Naphash", "aw", "yash", "Shalak", "Cham", "al", "haramown", "Naam", "al", "YaChuwshuah"],
