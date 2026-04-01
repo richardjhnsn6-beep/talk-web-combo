@@ -421,12 +421,12 @@ const BookOfAmos = () => {
       english: ["the Shepherd", "taken out", "of", "mouth", "of the", "lion", "two", "legs", "and", "a piece", "of", "an ear", "so", "shall", "the children", "of", "Isreal", "taken out", "that", "dwell in", "Samaria", "of", "a bed", "and", "in", "Damarcus", "in a couch"]
     },
     verse13: {
-      hebrew: ["Shama", "attanah", "aw", "awd", "al", "Bayth", "al", "yaaqab", "Naam", "al", "Adanay", "AlaSham", "al", "AlaSham", "al", "Tsabaach", "Tsabaach", "ky", "yawm", "ky", "yash", "paqad", "pasha", "al", "yasharaAl", "al", "Naphash", "ahy", "gam", "paqad", "Mazabaach", "yash", "gada", "aw", "Naphhal", "Arats"],
-      english: ["Hear", "ye", "and", "testify", "in", "the", "house", "of", "Jacob", "saith", "the", "Lord", "God", "the", "God", "of", "host", "that", "in", "the", "day", "that", "I", "shall", "visit", "the", "transgressions", "of", "Israel", "upon", "him", "I", "will", "also", "visit", "the Altars", "shall", "be", "cut off", "and", "fall", "to the ground"]
+      hebrew: ["shama", "attanah", "aw", "awd", "al", "Bayth", "al", "Yaaqab", "Naam", "al", "Adanay", "AlaShham", "al", "Tsabaach"],
+      english: ["Hear", "ye", "and", "Testify", "in the", "house", "of", "Jacob", "saith", "the", "Lord", "God", "of", "host"]
     },
     verse14: {
-      hebrew: ["ky", "yawm", "ky", "yash", "paqad", "pasha", "al", "yasharaAl", "al", "Naphhash", "ahy", "gam", "paqad", "Mazabaach", "al", "BaythAl", "aw", "qaran", "al", "Mazabaach", "yash", "gada", "aw", "Naphhal", "Arats"],
-      english: ["that", "in", "the", "day", "that", "I", "shall", "visit", "the", "transgressions", "of", "Israel", "upon", "him", "I", "will", "also", "visit", "the Altars", "of", "Beth-el", "and", "the horns", "of", "the altar", "shall", "be", "cut off", "and", "fall", "to the ground"]
+      hebrew: ["Ky", "yawm", "ky", "yash", "paqad", "pasha", "al", "yasharaAl", "al", "Naphash", "ahy", "gam", "paqad", "Mazabaach", "al", "Baythal", "aw", "qaran", "al", "Mazabaach", "yash", "gada", "aw", "Naphal", "Arats"],
+      english: ["that in the", "the day", "that", "I shall", "visit", "transgressions", "of", "Isreal", "upon", "him", "I will", "also", "visit", "the altars", "of", "Bethel", "and", "the horns", "of", "Altar", "shall be", "cut off", "and", "fall to", "the ground"]
     },
     verse15: {
       hebrew: ["aw", "ahy", "Nakah", "charaph", "bayth", "awd", "qayats", "aBayth", "aw", "al", "aBayth", "al", "Shan", "yash", "bad", "aw", "rab", "Bayth", "yash", "hayach", "cawph", "Naam", "Yachuwshuah", "the"],
