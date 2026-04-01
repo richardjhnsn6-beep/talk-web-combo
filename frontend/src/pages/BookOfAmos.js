@@ -361,8 +361,8 @@ const BookOfAmos = () => {
       english: ["therefore", "the flight", "shall", "perish", "from the", "swift", "and", "the strong", "shall", "not", "strengthen", "his", "force", "neither", "shall the", "mighty", "deliver", "himself"]
     },
     verse15: {
-      hebrew: ["aLah", "yash", "Amad", "ky", "Taphash", "qashath", "aw", "huw", "qal", "ragal", "yash", "aLah", "aMalat", "Naphash", "ky", "Rakab", "cawc", "aMalat", "Naphash"],
-      english: ["neither", "shall", "he stand", "that", "handleth", "the bow", "and", "he that is", "swift", "of foot", "shall", "not", "deliver", "himself", "neither shall he that", "rideth", "the horse", "deliver", "himself"]
+      hebrew: ["aLah", "yash", "Amad", "ky", "Taphash", "qashath", "aw", "huw", "qal", "ragal", "yash", "aLah", "aMalat", "Naphash", "aLah", "yash", "huw", "ky", "Rakab", "cawc", "aMalat", "Naphash"],
+      english: ["neither", "shall", "he stand", "that", "handleth", "the bow", "and", "he that is", "swift", "of foot", "shall", "not", "deliver", "himself", "neither", "shall", "he", "that", "rideth", "the horse", "deliver", "himself"]
     },
     verse16: {
       hebrew: ["Aw", "huw", "Amamyts", "aBayn", "gabbar", "yash", "Nawc", "cawr", "Arawm", "al", "ky", "yawm", "Amar", "al", "Yachuwshuah"],
