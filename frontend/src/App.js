@@ -134,7 +134,9 @@ const Navigation = ({ isOpen, setIsOpen }) => {
             HAM, SHEM, AND JAPHETH
           </p>
         </div>
-        </div>
+      </div>
+      {/* End Bearing of Truth */}
+      
       </div>
       {/* End scrollable wrapper */}
     </nav>
