@@ -29,6 +29,7 @@ import OrdersDashboard from './pages/OrdersDashboard';
 import OrderSuccess from './pages/OrderSuccess';
 import OrderCancelled from './pages/OrderCancelled';
 import WakeServer from './pages/WakeServer';
+import TestVoice from './pages/TestVoice';
 
 const Navigation = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
@@ -206,6 +207,7 @@ function App() {
             {/* Order Confirmation Pages */}
             <Route path="/order-success" element={<OrderSuccess />} />
             <Route path="/order-cancelled" element={<OrderCancelled />} />
+            <Route path="/test-voice" element={<TestVoice />} />
             
             {/* Wake Server - Mobile-friendly wake-up button */}
             <Route path="/wake" element={<WakeServer />} />
