@@ -174,15 +174,15 @@ const Books = () => {
             {/* Know Thyself - Spanish */}
             <div className="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow">
               <img 
-                src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/bpdwmvzv_IMG_2028.png"
-                alt="Conócete a ti mismo (Spanish Edition)"
+                src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/dh7jxt50_IMG_2032.png"
+                alt="Conócete a Ti Mismo (Spanish Edition)"
                 className="w-full h-64 object-contain rounded mb-4"
               />
-              <h3 className="text-lg font-bold text-teal-800 mb-2">Know Thyself <span className="text-sm">(Spanish Edition)</span></h3>
+              <h3 className="text-lg font-bold text-teal-800 mb-2">Conócete a Ti Mismo <span className="text-sm">(Edición en Español 🇪🇸)</span></h3>
               <p className="text-sm text-gray-600 mb-2">by Richard Johnson</p>
-              <p className="text-xs text-gray-500 mb-4">MainSpring Books | 🇪🇸 Español</p>
+              <p className="text-xs text-gray-500 mb-4">MainSpring Books | Spanish Edition</p>
               <div className="flex gap-2">
-                <a href="https://www.amazon.com/s?k=Know+Thyself+Spanish+Richard+Johnson" target="_blank" rel="noopener noreferrer" className="flex-1 bg-teal-600 text-white text-sm px-3 py-2 rounded text-center hover:bg-teal-700">Amazon</a>
+                <a href="https://www.amazon.com/s?k=Conocete+Ti+Mismo+Richard+Johnson" target="_blank" rel="noopener noreferrer" className="flex-1 bg-teal-600 text-white text-sm px-3 py-2 rounded text-center hover:bg-teal-700">Amazon</a>
                 <a href="https://www.barnesandnoble.com/s/Richard+Johnson" target="_blank" rel="noopener noreferrer" className="flex-1 bg-teal-600 text-white text-sm px-3 py-2 rounded text-center hover:bg-teal-700">B&N</a>
               </div>
             </div>
