@@ -556,13 +556,8 @@ const AIRichard = () => {
             
             // Speak the response if voice is enabled (but skip if response is too long)
             if (voiceEnabled && !isSpeaking) {
-              // CRITICAL: Don't TTS massive responses (>1000 chars) - they freeze the app
-              if (aiResponse.length > 1000) {
-                console.log('⚠️ Response too long for TTS - skipping voice output');
-              } else {
-                console.log('📞 Calling speakText from fetch success');
-                speakText(aiResponse);
-              }
+              console.log('📞 Calling speakText from fetch success');
+              speakText(aiResponse);
             } else if (isSpeaking) {
               console.log('⚠️ Skipping speakText - already speaking');
               // Queue it instead of speaking immediately
