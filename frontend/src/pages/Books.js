@@ -26,26 +26,22 @@ const Books = () => {
         {/* Book Feature */}
         <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
           <div className="flex flex-col md:flex-row gap-8 items-start mb-8">
-            {/* Real Book Cover Images */}
-            <div className="flex-shrink-0">
-              <div className="space-y-4 w-80">
-                {/* Main Cover Image - Larger and more prominent */}
-                <div className="bg-gradient-to-br from-amber-50 to-amber-100 p-4 rounded-xl">
+            {/* Book Cover - Simple and Mobile-Friendly */}
+            <div className="flex-shrink-0 w-full md:w-80">
+              <div className="space-y-4">
+                {/* Main Cover Image */}
+                <div className="bg-amber-50 p-4 rounded-xl">
                   <img 
-                    src="https://m.media-amazon.com/images/I/71n9YqVQIlL._SL1500_.jpg"
-                    alt="Barashath in the Beginning by Richard Johnson"
-                    className="w-full rounded-lg shadow-2xl hover:shadow-3xl transition-shadow"
+                    src="https://m.media-amazon.com/images/I/71n9YqVQIlL.jpg"
+                    alt="Barashath in the Beginning"
+                    className="w-full rounded-lg shadow-2xl"
                   />
                 </div>
-                {/* THICKNESS EMPHASIS */}
-                <div className="bg-gradient-to-r from-orange-500 to-red-600 text-white p-4 rounded-lg shadow-xl">
-                  <p className="text-2xl font-black text-center mb-2">📏 1.09" THICK</p>
-                  <p className="text-lg font-bold text-center">538 PAGES</p>
-                  <p className="text-sm text-center mt-2 italic">Not a thin booklet - SUBSTANTIAL Hebrew scholarship!</p>
-                </div>
-                <div className="text-center bg-teal-50 p-3 rounded-lg border-2 border-teal-300">
-                  <p className="text-sm text-gray-700 font-semibold">6 x 1.09 x 9 inches</p>
-                  <p className="text-xs text-gray-600 mt-1">Over 1 inch of deep biblical research!</p>
+                {/* Thickness Info */}
+                <div className="bg-orange-500 text-white p-4 rounded-lg text-center">
+                  <p className="text-2xl font-bold">1.09" THICK</p>
+                  <p className="text-lg font-bold">538 PAGES</p>
+                  <p className="text-sm mt-2">Substantial Hebrew scholarship!</p>
                 </div>
               </div>
             </div>
