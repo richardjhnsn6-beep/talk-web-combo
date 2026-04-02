@@ -411,6 +411,32 @@ const PersistentRadioPlayer = () => {
               <p className="text-center text-xs text-purple-300 mt-3">
                 Track {currentTrackIndex + 1} of {playlist.length}
               </p>
+
+              {/* 🔊 TEST AI RICHARD VOICE */}
+              <button
+                onClick={async () => {
+                  try {
+                    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tts/tts`, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        text: "Hello, I'm AI Richard. Welcome to RJHNSN12 Radio, where we reveal the original Hebrew truth. Ask me anything about the Bible or ancient scripture.",
+                        voice: 'nova'
+                      })
+                    });
+                    const audioBlob = await response.blob();
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    const audio = new Audio(audioUrl);
+                    audio.play();
+                    audio.onended = () => URL.revokeObjectURL(audioUrl);
+                  } catch (error) {
+                    console.error('Voice test failed:', error);
+                  }
+                }}
+                className="mt-3 w-full py-2 px-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg font-medium hover:from-pink-600 hover:to-purple-700 transition-all shadow-lg text-sm"
+              >
+                🎤 Hear AI Richard's Voice
+              </button>
             </div>
           )}
         </div>
