@@ -63,10 +63,11 @@ const Navigation = ({ isOpen, setIsOpen }) => {
 
   return (
     <nav 
-      className={`bg-teal-700 text-white w-64 min-h-screen fixed left-0 top-0 p-6 overflow-y-auto z-50 transition-transform duration-300 ease-in-out ${
+      className={`bg-teal-700 text-white w-64 h-screen fixed left-0 top-0 p-6 overflow-y-auto z-50 transition-transform duration-300 ease-in-out ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       } md:translate-x-0`}
       data-testid="main-navigation"
+      style={{ maxHeight: '100vh', overflowY: 'auto' }}
     >
       <div className="mb-8">
         <h2 className="text-xl font-bold mb-2">rjhnsn12</h2>
@@ -114,7 +115,7 @@ const Navigation = ({ isOpen, setIsOpen }) => {
       </div>
 
       {/* Bearing of the Truth Section */}
-      <div className="border-t border-teal-600 pt-6 mt-6">
+      <div className="border-t border-teal-600 pt-6 mt-6 pb-8">
         <h3 className="text-lg font-bold mb-4" data-testid="bearing-truth-title">Bearing of the Truth</h3>
         <div className="text-xs leading-relaxed mb-4 opacity-90">
           <p className="mb-2">Meaning; most of all, it's up to you, to look carefully and read with the spirit of wisdom.</p>
