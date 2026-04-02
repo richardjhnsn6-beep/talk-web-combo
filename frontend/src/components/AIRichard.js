@@ -8,6 +8,7 @@ const AIRichard = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [voiceEnabled, setVoiceEnabled] = useState(false);
+  const [voiceQuality, setVoiceQuality] = useState('free'); // 'free' or 'premium'
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [continuousMode, setContinuousMode] = useState(false); // NEW: Always-on listening
   const [isRecognitionActive, setIsRecognitionActive] = useState(false); // Track if recognition is running
@@ -283,9 +284,10 @@ const AIRichard = () => {
     }
   };
 
-  // Text-to-Speech function (FREE browser voice only)
+  // Text-to-Speech function (FREE or PREMIUM)
   const speakText = async (text) => {
     console.log('🔊 speakText called');
+    console.log('   Voice:', voiceQuality);
     console.log('   Lock:', audioLockedRef.current);
     console.log('   isSpeaking:', isSpeaking);
     
@@ -328,24 +330,37 @@ const AIRichard = () => {
     }
     
     try {
-      // FREE: Browser TTS only (fast and instant)
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
+      if (voiceQuality === 'premium') {
+        // PREMIUM: OpenAI TTS
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tts/tts`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            text: text,
+            voice: 'onyx' // Deep, authoritative male voice
+          })
+        });
         
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 0.9;
-        utterance.pitch = 1.0;
-        utterance.volume = 1.0;
+        if (!response.ok) {
+          throw new Error('TTS API failed');
+        }
         
-        utterance.onend = () => {
-          console.log('✅ Voice ended - releasing lock');
+        const audioBlob = await response.blob();
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
+        
+        currentAudioRef.current = audio;
+        console.log('📢 Premium audio created');
+        
+        audio.onended = () => {
+          console.log('✅ Audio ended - releasing lock');
           setIsSpeaking(false);
           audioLockedRef.current = false;
-          // Resume radio if it was playing and not in continuous mode
+          URL.revokeObjectURL(audioUrl);
+          currentAudioRef.current = null;
           if (wasPlaying && !continuousMode && radioPlayer) {
             radioPlayer.play();
           }
-          // Restart listening if continuous mode is on
           if (continuousMode && recognitionRef.current && !isRecognitionActive) {
             setTimeout(() => {
               try {
@@ -355,50 +370,96 @@ const AIRichard = () => {
               } catch (err) {
                 console.error('Restart failed:', err);
               }
-            }, 500);
+            }, 3000);
           }
         };
-        utterance.onerror = () => {
-          console.log('❌ Voice error - releasing lock');
+        
+        audio.onerror = () => {
+          console.log('❌ Audio error - releasing lock');
           setIsSpeaking(false);
           audioLockedRef.current = false;
-          // Resume radio on error
+          URL.revokeObjectURL(audioUrl);
+          currentAudioRef.current = null;
           if (wasPlaying && !continuousMode && radioPlayer) {
             radioPlayer.play();
           }
-          // Restart listening even on error
-          if (continuousMode && recognitionRef.current && !isRecognitionActive) {
+          if (continuousMode && recognitionRef.current) {
             setTimeout(() => {
-              try {
-                recognitionRef.current.start();
-                setIsListening(true);
-                setIsRecognitionActive(true);
-              } catch (err) {
-                console.error('Restart failed:', err);
-              }
+              recognitionRef.current.start();
+              setIsListening(true);
             }, 500);
           }
         };
         
-        window.speechSynthesis.speak(utterance);
+        await audio.play();
+        
       } else {
-        console.log('❌ No speech synthesis - releasing lock');
-        setIsSpeaking(false);
-        audioLockedRef.current = false;
-        // Resume radio if speech synthesis not available
-        if (wasPlaying && radioPlayer) {
-          radioPlayer.play();
+        // FREE: Browser TTS
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.rate = 0.9;
+          utterance.pitch = 1.0;
+          utterance.volume = 1.0;
+          
+          utterance.onend = () => {
+            console.log('✅ Free voice ended - releasing lock');
+            setIsSpeaking(false);
+            audioLockedRef.current = false;
+            if (wasPlaying && !continuousMode && radioPlayer) {
+              radioPlayer.play();
+            }
+            if (continuousMode && recognitionRef.current && !isRecognitionActive) {
+              setTimeout(() => {
+                try {
+                  recognitionRef.current.start();
+                  setIsListening(true);
+                  setIsRecognitionActive(true);
+                } catch (err) {
+                  console.error('Restart failed:', err);
+                }
+              }, 500);
+            }
+          };
+          
+          utterance.onerror = () => {
+            console.log('❌ Free voice error - releasing lock');
+            setIsSpeaking(false);
+            audioLockedRef.current = false;
+            if (wasPlaying && !continuousMode && radioPlayer) {
+              radioPlayer.play();
+            }
+            if (continuousMode && recognitionRef.current && !isRecognitionActive) {
+              setTimeout(() => {
+                try {
+                  recognitionRef.current.start();
+                  setIsListening(true);
+                  setIsRecognitionActive(true);
+                } catch (err) {
+                  console.error('Restart failed:', err);
+                }
+              }, 500);
+            }
+          };
+          
+          window.speechSynthesis.speak(utterance);
+        } else {
+          console.log('❌ No speech synthesis - releasing lock');
+          setIsSpeaking(false);
+          audioLockedRef.current = false;
+          if (wasPlaying && radioPlayer) {
+            radioPlayer.play();
+          }
         }
       }
     } catch (error) {
       console.error('Speech error:', error, '- releasing lock');
       setIsSpeaking(false);
       audioLockedRef.current = false;
-      // Resume radio on error
       if (wasPlaying && !continuousMode && radioPlayer) {
         radioPlayer.play();
       }
-      // Restart listening even on error
       if (continuousMode && recognitionRef.current && !isRecognitionActive) {
         setTimeout(() => {
           try {
@@ -419,7 +480,9 @@ const AIRichard = () => {
     
     if (voiceEnabled) {
       // Turning off - stop any current speech
-      window.speechSynthesis.cancel();
+      if (voiceQuality === 'free') {
+        window.speechSynthesis.cancel();
+      }
       setIsSpeaking(false);
     } else {
       // Turning on - show confirmation
@@ -429,13 +492,15 @@ const AIRichard = () => {
   };
 
   const stopSpeaking = () => {
-    // Stop audio
+    // Stop premium audio
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current = null;
     }
-    // Stop browser voice
-    window.speechSynthesis.cancel();
+    // Stop free voice
+    if (voiceQuality === 'free') {
+      window.speechSynthesis.cancel();
+    }
     setIsSpeaking(false);
   };
 
@@ -619,7 +684,7 @@ const AIRichard = () => {
         recognitionRef.current.stop();
       }
     };
-  }, [conversationId, voiceEnabled]);
+  }, [conversationId, voiceEnabled, voiceQuality]);
 
   const toggleVoiceInput = () => {
     if (!recognitionRef.current) {
@@ -897,11 +962,37 @@ const AIRichard = () => {
 
           {/* Input area */}
           <div className="p-4 bg-white border-t border-gray-200">
-            {/* Voice status - SIMPLIFIED: Only Free Voice */}
+            {/* Voice Quality Selector - FREE or PREMIUM */}
             {voiceEnabled && (
-              <div className="mb-2 p-2 bg-blue-50 rounded-lg text-center border border-blue-200">
-                <p className="text-sm text-blue-700 font-medium">🔊 Voice ON</p>
-                <p className="text-xs text-gray-600 mt-1">Fast robotic voice enabled</p>
+              <div className="mb-3 p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
+                <p className="text-sm font-semibold text-gray-700 mb-2">🔊 Voice Quality:</p>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setVoiceQuality('free')}
+                    className={`flex-1 px-4 py-2 rounded-lg font-medium transition-all ${
+                      voiceQuality === 'free'
+                        ? 'bg-blue-600 text-white shadow-lg'
+                        : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                    }`}
+                  >
+                    ⚡ Free (Instant)
+                  </button>
+                  <button
+                    onClick={() => setVoiceQuality('premium')}
+                    className={`flex-1 px-4 py-2 rounded-lg font-medium transition-all ${
+                      voiceQuality === 'premium'
+                        ? 'bg-purple-600 text-white shadow-lg'
+                        : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                    }`}
+                  >
+                    ✨ Premium (OpenAI)
+                  </button>
+                </div>
+                <p className="text-xs text-gray-600 mt-2 text-center">
+                  {voiceQuality === 'free' 
+                    ? '⚡ Fast robotic voice - instant responses' 
+                    : '✨ High-quality AI voice - takes ~10 seconds'}
+                </p>
               </div>
             )}
             {isSpeaking && (
@@ -914,7 +1005,7 @@ const AIRichard = () => {
                   <div className="w-1 h-6 bg-blue-600 rounded animate-pulse" style={{ animationDelay: '0.3s' }}></div>
                   <div className="w-1 h-4 bg-blue-600 rounded animate-pulse" style={{ animationDelay: '0.4s' }}></div>
                 </div>
-                <span>Richard is speaking...</span>
+                <span>Richard is speaking... ({voiceQuality === 'premium' ? 'Premium' : 'Free'} voice)</span>
               </div>
             )}
             {isListening && !isSpeaking && (
