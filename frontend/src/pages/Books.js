@@ -44,7 +44,16 @@ const Books = () => {
               <h2 className="text-3xl font-bold text-teal-800 mb-2">
                 Barashath in the Beginning
               </h2>
-              <p className="text-xl text-gray-600 mb-4 italic">by Richard Johnson</p>
+              <p className="text-xl text-gray-600 mb-2 italic">by Richard Johnson</p>
+              
+              <div className="text-sm text-gray-600 mb-4 space-y-1">
+                <p><span className="font-semibold">📖 Pages:</span> 538</p>
+                <p><span className="font-semibold">🌍 Language:</span> Hebrew Edition</p>
+                <p><span className="font-semibold">📚 Publisher:</span> Mainspring Books</p>
+                <p><span className="font-semibold">📐 Dimensions:</span> 6 x 1.09 x 9 inches</p>
+                <p><span className="font-semibold">💵 Price:</span> $20.99</p>
+                <p><span className="font-semibold">📋 ISBN:</span> 979-8891141964</p>
+              </div>
               
               <div className="flex gap-4 mb-6">
                 <a 
