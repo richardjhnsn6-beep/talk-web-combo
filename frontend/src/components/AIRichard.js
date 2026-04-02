@@ -8,7 +8,7 @@ const AIRichard = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [voiceEnabled, setVoiceEnabled] = useState(false);
-  const [voiceQuality, setVoiceQuality] = useState('free'); // 'free' or 'premium'
+  const [voiceQuality, setVoiceQuality] = useState('premium'); // 'free' or 'premium' - DEFAULT TO PREMIUM
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [continuousMode, setContinuousMode] = useState(false); // NEW: Always-on listening
   const [isRecognitionActive, setIsRecognitionActive] = useState(false); // Track if recognition is running
@@ -422,7 +422,7 @@ const AIRichard = () => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
             text: text,
-            voice: 'onyx' // Deep, authoritative male voice
+            voice: 'nova' // Female, energetic voice
           })
         });
         
