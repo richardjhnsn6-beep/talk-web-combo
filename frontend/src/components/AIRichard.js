@@ -32,6 +32,45 @@ const AIRichard = () => {
   const currentAudioRef = useRef(null); // Track current audio to prevent duplicates
   const audioLockedRef = useRef(false); // Use ref for instant updates
 
+  // 💰 Check subscription status when component mounts
+  useEffect(() => {
+    const checkSubscription = async () => {
+      // Check localStorage for email
+      const storedEmail = localStorage.getItem('user_email');
+      if (!storedEmail) {
+        setHasSubscription(false);
+        return;
+      }
+      
+      setUserEmail(storedEmail);
+      
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/api/payments/ai-richard/check-subscription?email=${encodeURIComponent(storedEmail)}`
+        );
+        const data = await response.json();
+        setHasSubscription(data.has_subscription);
+      } catch (error) {
+        console.error('Subscription check failed:', error);
+        setHasSubscription(false);
+      }
+    };
+    
+    checkSubscription();
+  }, []);
+
+  // Check if user just subscribed (success redirect)
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('ai_richard_subscribed') === 'true') {
+      setHasSubscription(true);
+      setShowPaywall(false);
+      setIsOpen(true);
+      // Clean up URL
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, []);
+
   // 💰 AI SALES AGENT: Parse checkout buttons from AI responses
   const parseMessageContent = (content) => {
     // Format: [CHECKOUT_BUTTON|Button Text|product_id|frontend_url]
@@ -96,6 +135,47 @@ const AIRichard = () => {
     } catch (error) {
       console.error('Checkout error:', error);
       alert('Sorry, there was an error processing your request. Please try again.');
+    }
+  };
+
+
+  // 💰 Handle AI Richard subscription purchase
+  const handleSubscribe = async () => {
+    if (!userEmail || !userEmail.includes('@')) {
+      alert('Please enter a valid email address');
+      return;
+    }
+    
+    // Save email to localStorage
+    localStorage.setItem('user_email', userEmail);
+    
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/payments/ai-richard/subscribe`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: userEmail,
+          origin_url: window.location.origin
+        })
+      });
+      
+      const data = await response.json();
+      
+      // Redirect to Stripe checkout
+      window.location.href = data.url;
+      
+    } catch (error) {
+      console.error('Subscription error:', error);
+      alert('Error creating subscription. Please try again.');
+    }
+  };
+
+  // Open chat (with subscription check)
+  const openChat = () => {
+    if (hasSubscription === false) {
+      setShowPaywall(true);
+    } else {
+      setIsOpen(true);
     }
   };
 
@@ -760,7 +840,7 @@ const AIRichard = () => {
       {/* Floating button - WALKS ONTO SCENE FROM LEFT! */}
       {!isOpen && (
         <div 
-          onClick={() => setIsOpen(true)}
+          onClick={() => openChat()}
           className="fixed z-50 cursor-pointer group transition-all duration-200 ease-linear"
           style={{ 
             bottom: window.innerWidth < 640 ? '5rem' : '1.5rem', // 20 on mobile (5rem), 6 on desktop (1.5rem)
@@ -849,7 +929,7 @@ const AIRichard = () => {
       )}
 
       {/* Chat window - positioned above music player on mobile */}
-      {isOpen && (
+      {isOpen && hasSubscription === true && (
         <div className="chat-widget-container fixed bottom-20 sm:bottom-6 left-4 sm:left-6 w-[calc(100vw-2rem)] sm:w-96 h-[calc(100vh-10rem)] sm:h-[600px] bg-white rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden border border-gray-200 landscape:h-[85vh] landscape:bottom-2 landscape:left-2 landscape:w-[28rem]">
           {/* Header */}
           <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-4 flex items-center justify-between">
@@ -1075,6 +1155,73 @@ const AIRichard = () => {
                 🎤 Listening... Speak now
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* 💰 PAYWALL MODAL - AI Richard Chat Subscription */}
+      {showPaywall && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8">
+            <div className="text-center mb-6">
+              <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-4 border-purple-600">
+                <img 
+                  src="/richard-avatar.jpg"
+                  alt="Richard Johnson"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">AI Richard Chat Access</h2>
+              <p className="text-gray-600 text-sm">
+                The first two weeks of AI Richard conversations were free as a gift to help you learn. 
+                To continue chatting and support this Hebrew truth ministry, there's now a small monthly fee.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-6 mb-6 border-2 border-purple-200">
+              <div className="text-center">
+                <div className="text-4xl font-bold text-purple-600 mb-1">$2<span className="text-lg">/month</span></div>
+                <div className="text-sm text-gray-600">Unlimited AI Richard conversations</div>
+                <div className="mt-4 text-xs text-gray-500 space-y-1">
+                  <div>✅ Unlimited chat messages</div>
+                  <div>✅ Voice responses included</div>
+                  <div>✅ Biblical Hebrew research</div>
+                  <div>✅ Cancel anytime</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email Address
+              </label>
+              <input
+                type="email"
+                value={userEmail}
+                onChange={(e) => setUserEmail(e.target.value)}
+                placeholder="your@email.com"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              />
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowPaywall(false)}
+                className="flex-1 px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubscribe}
+                className="flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-bold hover:from-purple-700 hover:to-blue-700 transition-all shadow-lg"
+              >
+                Subscribe Now
+              </button>
+            </div>
+
+            <p className="text-xs text-gray-500 text-center mt-4">
+              Secure payment powered by Stripe. Cancel anytime.
+            </p>
           </div>
         </div>
       )}

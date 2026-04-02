@@ -313,8 +313,25 @@ async def stripe_webhook(request: Request):
             session = event['data']['object']
             session_id = session['id']
             payment_status = session['payment_status']
+            customer_email = session.get('customer_email') or session.get('customer_details', {}).get('email')
+            metadata = session.get('metadata', {})
             
-            # Update database
+            # Check if this is an AI Richard subscription
+            if metadata.get('product') == 'ai_richard_chat':
+                # Save subscription to database
+                subscription_doc = {
+                    "email": customer_email,
+                    "stripe_session_id": session_id,
+                    "stripe_customer_id": session.get('customer'),
+                    "stripe_subscription_id": session.get('subscription'),
+                    "status": "active",
+                    "created_at": datetime.now(timezone.utc).isoformat()
+                }
+                
+                await db.ai_richard_subscriptions.insert_one(subscription_doc)
+                print(f"✅ AI Richard subscription activated for {customer_email}")
+            
+            # Update general payment transaction
             await db.payment_transactions.update_one(
                 {"session_id": session_id},
                 {
@@ -329,6 +346,19 @@ async def stripe_webhook(request: Request):
             )
             
             print(f"✅ Payment completed: {session_id}")
+        
+        elif event['type'] == 'customer.subscription.deleted':
+            # Handle subscription cancellation
+            subscription = event['data']['object']
+            subscription_id = subscription['id']
+            await db.ai_richard_subscriptions.update_one(
+                {"stripe_subscription_id": subscription_id},
+                {"$set": {
+                    "status": "canceled",
+                    "canceled_at": datetime.now(timezone.utc).isoformat()
+                }}
+            )
+            print(f"✅ Subscription canceled: {subscription_id}")
         
         return {"received": True}
         
