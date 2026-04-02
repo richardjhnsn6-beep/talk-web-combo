@@ -37,10 +37,15 @@ const Books = () => {
                     className="w-full rounded-lg shadow-2xl hover:shadow-3xl transition-shadow"
                   />
                 </div>
-                <div className="text-center bg-teal-50 p-3 rounded-lg">
-                  <p className="text-base text-teal-800 font-bold">📖 538 Pages</p>
-                  <p className="text-sm text-gray-600">6 x 1.09 x 9 inches</p>
-                  <p className="text-xs text-gray-500 italic mt-1">Substantial Hebrew scholarship!</p>
+                {/* THICKNESS EMPHASIS */}
+                <div className="bg-gradient-to-r from-orange-500 to-red-600 text-white p-4 rounded-lg shadow-xl">
+                  <p className="text-2xl font-black text-center mb-2">📏 1.09" THICK</p>
+                  <p className="text-lg font-bold text-center">538 PAGES</p>
+                  <p className="text-sm text-center mt-2 italic">Not a thin booklet - SUBSTANTIAL Hebrew scholarship!</p>
+                </div>
+                <div className="text-center bg-teal-50 p-3 rounded-lg border-2 border-teal-300">
+                  <p className="text-sm text-gray-700 font-semibold">6 x 1.09 x 9 inches</p>
+                  <p className="text-xs text-gray-600 mt-1">Over 1 inch of deep biblical research!</p>
                 </div>
               </div>
             </div>
