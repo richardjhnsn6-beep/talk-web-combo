@@ -288,6 +288,33 @@ const PersistentRadioPlayer = () => {
                   </svg>
                 </button>
 
+
+                {/* 🎤 VOICE TEST BUTTON */}
+                <button
+                  onClick={async (e) => {
+                    e.stopPropagation();
+                    const orig = e.target.textContent;
+                    try {
+                      e.target.textContent = '⏳';
+                      const r = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tts/tts`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ text: "Hello, I'm AI Richard", voice: 'nova' })
+                      });
+                      const b = await r.blob();
+                      const u = URL.createObjectURL(b);
+                      const a = new Audio(u);
+                      e.target.textContent = '🔊';
+                      await a.play();
+                      a.onended = () => { URL.revokeObjectURL(u); e.target.textContent = orig; };
+                    } catch { e.target.textContent = '❌'; setTimeout(() => e.target.textContent = orig, 1500); }
+                  }}
+                  className="p-2 bg-pink-600 hover:bg-pink-700 rounded-full transition-all mr-2"
+                  title="Hear AI Richard Voice"
+                >
+                  🎤
+                </button>
+
                 <button
                   onClick={isPlaying ? handlePause : handlePlay}
                   className="bg-gradient-to-r from-purple-500 to-pink-500 p-2.5 sm:p-3 rounded-full hover:scale-110 transition-all flex-shrink-0"
