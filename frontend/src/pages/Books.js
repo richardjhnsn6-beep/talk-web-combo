@@ -28,15 +28,21 @@ const Books = () => {
           <div className="flex flex-col md:flex-row gap-8 items-start mb-8">
             {/* Real Book Cover Images */}
             <div className="flex-shrink-0">
-              <div className="space-y-4">
-                {/* Main Cover Image */}
-                <img 
-                  src="https://m.media-amazon.com/images/I/71n9YqVQIlL._SY466_.jpg"
-                  alt="Barashath in the Beginning by Richard Johnson - Book Cover"
-                  className="w-64 rounded-lg shadow-xl hover:shadow-2xl transition-shadow"
-                />
-                <p className="text-sm text-gray-600 text-center font-semibold">538 Pages | 6 x 1.09 x 9 inches</p>
-                <p className="text-xs text-gray-500 text-center italic">Substantial Hebrew scholarship in print!</p>
+              <div className="space-y-4 w-80">
+                {/* Main Cover Image - Larger and more prominent */}
+                <div className="bg-gradient-to-br from-amber-50 to-amber-100 p-4 rounded-xl">
+                  <img 
+                    src="https://m.media-amazon.com/images/I/71n9YqVQIlL._SL1500_.jpg"
+                    alt="Barashath in the Beginning by Richard Johnson"
+                    className="w-full rounded-lg shadow-2xl hover:shadow-3xl transition-shadow"
+                    onError="this.onerror=null; this.src='https://via.placeholder.com/400x600/8B4513/FFFFFF?text=Barashath+in+the+Beginning'"
+                  />
+                </div>
+                <div className="text-center bg-teal-50 p-3 rounded-lg">
+                  <p className="text-base text-teal-800 font-bold">📖 538 Pages</p>
+                  <p className="text-sm text-gray-600">6 x 1.09 x 9 inches</p>
+                  <p className="text-xs text-gray-500 italic mt-1">Substantial Hebrew scholarship!</p>
+                </div>
               </div>
             </div>
 
