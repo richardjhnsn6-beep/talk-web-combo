@@ -93,19 +93,19 @@ const Navigation = ({ isOpen, setIsOpen }) => {
         ))}
       </ul>
 
-      {/* Admin Quick Access */}
-      <div className="border-t-2 border-orange-400 pt-4 mb-4 mt-6">
-        <h3 className="text-base font-bold mb-3 text-orange-300">🔐 Admin Access</h3>
+      {/* Admin Quick Access - MOVED UP BEFORE "Bearing of Truth" */}
+      <div className="border-2 border-orange-400 rounded-lg p-3 mb-6 bg-orange-900/30">
+        <h3 className="text-lg font-bold mb-3 text-orange-300">🔐 ADMIN</h3>
         <ul className="space-y-2">
           {adminItems.map((item) => (
             <li key={item.path}>
               <Link
                 to={item.path}
                 onClick={handleLinkClick}
-                className={`block px-4 py-2 rounded transition-colors text-sm ${
+                className={`block px-4 py-3 rounded transition-colors text-sm font-semibold ${
                   location.pathname === item.path
-                    ? 'bg-orange-600 font-semibold'
-                    : 'bg-orange-700 hover:bg-orange-600'
+                    ? 'bg-orange-600 text-white'
+                    : 'bg-orange-700 hover:bg-orange-600 text-white'
                 }`}
               >
                 {item.label}
