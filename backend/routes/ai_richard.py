@@ -1909,12 +1909,12 @@ What questions do you have about this history?"""
             # Check for book interest
             elif any(keyword in user_msg_lower for keyword in sales_keywords["book"]):
                 # Generate Stripe checkout link for Book of Amos (Chapters 1-4)
-                book_pitch = f"\n\n📖 **Book of Amos (Chapters 1-4) - Interlinear Translation**\n\n✅ **Word-by-word Hebrew-English alignment**\n✅ **4 complete chapters (49 verses)**\n✅ **Original 20-letter Hebrew alphabet**\n✅ **35+ years of research**\n✅ **3 viewing formats** (Interlinear, Pure Hebrew, Bilingual)\n✅ **Notarized & copyrighted (2003)**\n\n**Only $20** (one-time purchase - Chapters 1-4)\n\n*Note: Full 9-chapter book coming soon! This gives you immediate access to Chapters 1-4.*\n\n[CHECKOUT_BUTTON|Buy Chapters 1-4 - $20|book_of_amos|{frontend_url}]"
+                book_pitch = f"\n\n📖 **Book of Amos (Chapters 1-4) - Interlinear Translation**\n\n✅ **Word-by-word Hebrew-English alignment**\n✅ **4 complete chapters (49 verses)**\n✅ **Original 20-letter Hebrew alphabet**\n✅ **35+ years of research**\n✅ **3 viewing formats** (Interlinear, Pure Hebrew, Bilingual)\n✅ **Notarized & copyrighted (2003)**\n\n**Only $7** (one-time purchase - Chapters 1-4)\n\n*Note: Full 9-chapter book coming soon for $14! This gives you immediate access to Chapters 1-4 for half the price.*\n\n[CHECKOUT_BUTTON|Buy Chapters 1-4 - $7|book_of_amos_sample|{frontend_url}]"
                 ai_response += book_pitch
             
             # Check for general "help" or "what can you do" - offer both
             elif any(word in user_msg_lower for word in ["help", "what can you", "what do you", "services", "offer"]):
-                both_pitch = f"\n\n💰 **How I Can Serve You:**\n\n📻 **Free Membership ($5/mo)** - The Quiet Storm radio + book discounts\n[CHECKOUT_BUTTON|Join Membership - $5/mo|membership_monthly|{frontend_url}]\n\n📖 **Book of Amos Chapters 1-4 ($20)** - Interlinear Hebrew translation (49 verses)\n[CHECKOUT_BUTTON|Buy Chapters 1-4 - $20|book_of_amos|{frontend_url}]\n\n*Full 9-chapter book coming soon!*"
+                both_pitch = f"\n\n💰 **How I Can Serve You:**\n\n📻 **Free Membership ($5/mo)** - The Quiet Storm radio + book discounts\n[CHECKOUT_BUTTON|Join Membership - $5/mo|membership_monthly|{frontend_url}]\n\n📖 **Book of Amos Chapters 1-4 ($7)** - Interlinear Hebrew translation (49 verses)\n[CHECKOUT_BUTTON|Buy Chapters 1-4 - $7|book_of_amos_sample|{frontend_url}]\n\n*Full 9-chapter book coming soon for $14!*"
                 ai_response += both_pitch
         
         else:
