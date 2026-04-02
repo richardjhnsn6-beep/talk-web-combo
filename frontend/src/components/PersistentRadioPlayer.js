@@ -239,8 +239,8 @@ const PersistentRadioPlayer = () => {
     <>
       <audio ref={audioRef} onEnded={handleTrackEnd} />
       
-      {/* Floating Mini Player */}
-      <div className={`fixed bottom-0 left-0 right-0 bg-gradient-to-r from-purple-900 to-blue-900 text-white shadow-2xl z-50 transition-all duration-300 ${isMinimized ? 'h-20' : 'h-64'}`}>
+      {/* Floating Mini Player - z-40 to stay below chat widgets */}
+      <div className={`fixed bottom-0 left-0 right-0 bg-gradient-to-r from-purple-900 to-blue-900 text-white shadow-2xl z-40 transition-all duration-300 ${isMinimized ? 'h-16 sm:h-20' : 'h-56 sm:h-64'}`}>
         <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
           
           {isMinimized ? (

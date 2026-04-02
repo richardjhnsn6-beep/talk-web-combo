@@ -773,8 +773,9 @@ const AIRichard = () => {
       {!isOpen && (
         <div 
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 z-50 cursor-pointer group transition-all duration-200 ease-linear"
+          className="fixed z-50 cursor-pointer group transition-all duration-200 ease-linear"
           style={{ 
+            bottom: window.innerWidth < 640 ? '5rem' : '1.5rem', // 20 on mobile (5rem), 6 on desktop (1.5rem)
             left: `${walkPosition}rem`,
             transform: walkDirection === -1 ? 'scaleX(-1)' : 'scaleX(1)',
             isolation: 'isolate' // Prevent background bleed
@@ -859,9 +860,9 @@ const AIRichard = () => {
         </div>
       )}
 
-      {/* Chat window - MOVED TO BOTTOM-LEFT, mobile-responsive with bottom padding */}
+      {/* Chat window - positioned above music player on mobile */}
       {isOpen && (
-        <div className="chat-widget-container fixed bottom-6 left-6 w-96 h-[600px] bg-white rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden border border-gray-200 landscape:h-[85vh] landscape:bottom-2 landscape:left-2 landscape:w-[28rem] max-sm:w-[calc(100vw-3rem)] max-sm:h-[calc(100vh-8rem)] max-sm:bottom-16 max-sm:left-4 max-sm:right-4">
+        <div className="chat-widget-container fixed bottom-20 sm:bottom-6 left-4 sm:left-6 w-[calc(100vw-2rem)] sm:w-96 h-[calc(100vh-10rem)] sm:h-[600px] bg-white rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden border border-gray-200 landscape:h-[85vh] landscape:bottom-2 landscape:left-2 landscape:w-[28rem]">
           {/* Header */}
           <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
