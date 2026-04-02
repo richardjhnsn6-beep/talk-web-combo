@@ -487,14 +487,20 @@ const AIRichard = () => {
   };
 
   const toggleVoice = () => {
+    const newVoiceState = !voiceEnabled;
+    console.log(`🔊 Voice toggle: ${voiceEnabled} → ${newVoiceState}`);
+    
     if (voiceEnabled) {
       // Turning off - stop any current speech
       if (voiceQuality === 'free') {
         window.speechSynthesis.cancel();
       }
       setIsSpeaking(false);
+    } else {
+      // Turning on - show confirmation
+      console.log('✅ Voice enabled! AI Richard will now speak responses.');
     }
-    setVoiceEnabled(!voiceEnabled);
+    setVoiceEnabled(newVoiceState);
   };
 
   const stopSpeaking = () => {
@@ -853,60 +859,62 @@ const AIRichard = () => {
         </div>
       )}
 
-      {/* Chat window - MOVED TO BOTTOM-LEFT */}
+      {/* Chat window - MOVED TO BOTTOM-LEFT, mobile-responsive with bottom padding */}
       {isOpen && (
-        <div className="chat-widget-container fixed bottom-6 left-6 w-96 h-[600px] bg-white rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden border border-gray-200 landscape:h-[85vh] landscape:bottom-2 landscape:left-2 landscape:w-[28rem]">
+        <div className="chat-widget-container fixed bottom-6 left-6 w-96 h-[600px] bg-white rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden border border-gray-200 landscape:h-[85vh] landscape:bottom-2 landscape:left-2 landscape:w-[28rem] max-sm:w-[calc(100vw-3rem)] max-sm:h-[calc(100vh-8rem)] max-sm:bottom-16 max-sm:left-4 max-sm:right-4">
           {/* Header */}
           <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white bg-white">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-white bg-white flex-shrink-0">
                 <img 
                   src="/richard-avatar.jpg"
                   alt="Richard Johnson"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="text-white">
-                <div className="font-bold">Richard Johnson</div>
-                <div className="text-xs opacity-90">Biblical Researcher & Web Developer</div>
+              <div className="text-white flex-1 min-w-0">
+                <div className="font-bold text-sm sm:text-base truncate">Richard Johnson</div>
+                <div className="text-xs opacity-90 truncate hidden sm:block">Biblical Researcher & Web Developer</div>
               </div>
             </div>
-            <button 
-              onClick={() => setIsOpen(false)}
-              className="text-white hover:bg-white/20 rounded-full p-2 transition-colors"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            {/* Voice toggle button */}
-            <button 
-              onClick={toggleVoice}
-              className={`text-white rounded-full p-2 transition-colors ${voiceEnabled ? 'bg-green-500' : 'hover:bg-white/20'}`}
-              title={voiceEnabled ? "Voice ON - AI will speak" : "Voice OFF - Click to enable"}
-            >
-              {voiceEnabled ? (
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clipRule="evenodd" />
-                </svg>
-              ) : (
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM12.293 7.293a1 1 0 011.414 0L15 8.586l1.293-1.293a1 1 0 111.414 1.414L16.414 10l1.293 1.293a1 1 0 01-1.414 1.414L15 11.414l-1.293 1.293a1 1 0 01-1.414-1.414L13.586 10l-1.293-1.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              )}
-            </button>
-            {/* Stop speaking button (only show when speaking) */}
-            {isSpeaking && (
+            <div className="flex items-center gap-2 flex-shrink-0">
+              {/* Voice toggle button */}
               <button 
-                onClick={stopSpeaking}
-                className="text-white bg-red-500 rounded-full p-2 transition-colors animate-pulse"
-                title="Stop speaking"
+                onClick={toggleVoice}
+                className={`text-white rounded-full p-2 sm:p-2.5 transition-all ${voiceEnabled ? 'bg-green-500 shadow-lg' : 'hover:bg-white/20'}`}
+                title={voiceEnabled ? "Voice ON - AI will speak" : "Voice OFF - Click to enable"}
               >
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clipRule="evenodd" />
+                {voiceEnabled ? (
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clipRule="evenodd" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM12.293 7.293a1 1 0 011.414 0L15 8.586l1.293-1.293a1 1 0 111.414 1.414L16.414 10l1.293 1.293a1 1 0 01-1.414 1.414L15 11.414l-1.293 1.293a1 1 0 01-1.414-1.414L13.586 10l-1.293-1.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                )}
+              </button>
+              {/* Stop speaking button (only show when speaking) */}
+              {isSpeaking && (
+                <button 
+                  onClick={stopSpeaking}
+                  className="text-white bg-red-500 rounded-full p-2 transition-colors animate-pulse"
+                  title="Stop speaking"
+                >
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              )}
+              <button 
+                onClick={() => setIsOpen(false)}
+                className="text-white hover:bg-white/20 rounded-full p-2 transition-colors"
+              >
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
-            )}
+            </div>
           </div>
 
           {/* Messages area */}
@@ -1042,14 +1050,14 @@ const AIRichard = () => {
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder={continuousMode ? "Listening..." : (isListening ? "Listening..." : "Type or speak your message...")}
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-base"
                 disabled={isTyping || isListening || continuousMode}
               />
               {!continuousMode && (
                 <button
                   onClick={toggleVoiceInput}
                   disabled={isTyping}
-                  className={`p-3 rounded-xl transition-all font-medium ${
+                  className={`p-3 rounded-xl transition-all font-medium min-w-[48px] flex items-center justify-center ${
                     isListening 
                       ? 'bg-red-500 text-white animate-pulse' 
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -1071,7 +1079,7 @@ const AIRichard = () => {
                 <button
                   onClick={handleSendMessage}
                   disabled={!inputValue.trim() || isTyping}
-                  className="bg-purple-600 text-white px-6 py-3 rounded-xl hover:bg-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors font-medium"
+                  className="bg-purple-600 text-white px-4 sm:px-6 py-3 rounded-xl hover:bg-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors font-medium min-w-[60px]"
                 >
                   Send
                 </button>
