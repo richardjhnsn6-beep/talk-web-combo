@@ -35,7 +35,6 @@ const Books = () => {
                     src="https://m.media-amazon.com/images/I/71n9YqVQIlL._SL1500_.jpg"
                     alt="Barashath in the Beginning by Richard Johnson"
                     className="w-full rounded-lg shadow-2xl hover:shadow-3xl transition-shadow"
-                    onError="this.onerror=null; this.src='https://via.placeholder.com/400x600/8B4513/FFFFFF?text=Barashath+in+the+Beginning'"
                   />
                 </div>
                 <div className="text-center bg-teal-50 p-3 rounded-lg">
