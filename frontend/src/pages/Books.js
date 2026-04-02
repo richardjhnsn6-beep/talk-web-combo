@@ -29,13 +29,17 @@ const Books = () => {
             {/* Book Cover - Simple and Mobile-Friendly */}
             <div className="flex-shrink-0 w-full md:w-80">
               <div className="space-y-4">
-                {/* Main Cover Image */}
-                <div className="bg-amber-50 p-4 rounded-xl">
-                  <img 
-                    src="https://m.media-amazon.com/images/I/71n9YqVQIlL.jpg"
-                    alt="Barashath in the Beginning"
-                    className="w-full rounded-lg shadow-2xl"
-                  />
+                {/* Book Cover Placeholder */}
+                <div className="bg-gradient-to-br from-amber-900 to-amber-700 p-8 rounded-xl shadow-2xl">
+                  <div className="text-center text-yellow-200">
+                    <h3 className="text-3xl font-bold mb-4">BARASHATH</h3>
+                    <p className="text-xl mb-6">in the</p>
+                    <p className="text-3xl font-bold mb-8">BEGINNING</p>
+                    <div className="border-t border-yellow-200 pt-4">
+                      <p className="text-lg">Hebrew Edition</p>
+                      <p className="text-base mt-2">Richard Johnson</p>
+                    </div>
+                  </div>
                 </div>
                 {/* Thickness Info */}
                 <div className="bg-orange-500 text-white p-4 rounded-lg text-center">
