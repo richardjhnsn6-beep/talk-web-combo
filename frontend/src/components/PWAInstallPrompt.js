@@ -71,7 +71,7 @@ export default function PWAInstallPrompt() {
     <>
       {/* Android/Chrome Install Prompt */}
       {deferredPrompt && !isIOS && (
-        <div className="fixed bottom-24 sm:bottom-20 right-4 sm:right-6 w-80 max-w-[calc(100vw-2rem)] bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl shadow-2xl p-3 z-45 animate-slide-up">
+        <div className="fixed top-20 sm:bottom-24 sm:top-auto right-4 sm:right-6 w-80 max-w-[calc(100vw-2rem)] bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl shadow-2xl p-3 z-45 animate-slide-up">
           <button
             onClick={handleDismiss}
             className="absolute top-1 right-1 text-white/80 hover:text-white p-1"
@@ -102,7 +102,7 @@ export default function PWAInstallPrompt() {
 
       {/* iOS Install Instructions */}
       {isIOS && (
-        <div className="fixed bottom-24 sm:bottom-20 right-4 sm:right-6 w-80 max-w-[calc(100vw-2rem)] bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl shadow-2xl p-3 z-45 animate-slide-up">
+        <div className="fixed top-20 sm:bottom-24 sm:top-auto right-4 sm:right-6 w-80 max-w-[calc(100vw-2rem)] bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl shadow-2xl p-3 z-45 animate-slide-up">
           <button
             onClick={handleDismiss}
             className="absolute top-1 right-1 text-white/80 hover:text-white p-1"
