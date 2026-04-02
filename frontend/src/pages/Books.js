@@ -150,19 +150,107 @@ const Books = () => {
           </div>
         </div>
 
+        {/* More Books by Richard Johnson */}
+        <div className="mt-12 mb-8">
+          <h2 className="text-3xl font-bold text-teal-800 mb-6 text-center">More Books by Richard Johnson</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            {/* Know Thyself - English */}
+            <div className="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/bpdwmvzv_IMG_2028.png"
+                alt="Know Thyself, the Knowledge within You"
+                className="w-full h-64 object-contain rounded mb-4"
+              />
+              <h3 className="text-lg font-bold text-teal-800 mb-2">Know Thyself, the Knowledge within You</h3>
+              <p className="text-sm text-gray-600 mb-2">by Richard Johnson</p>
+              <p className="text-xs text-gray-500 mb-4">MainSpring Books</p>
+              <div className="flex gap-2">
+                <a href="https://www.amazon.com/s?k=Know+Thyself+Knowledge+Within+Richard+Johnson" target="_blank" rel="noopener noreferrer" className="flex-1 bg-teal-600 text-white text-sm px-3 py-2 rounded text-center hover:bg-teal-700">Amazon</a>
+                <a href="https://www.barnesandnoble.com/s/Richard+Johnson" target="_blank" rel="noopener noreferrer" className="flex-1 bg-teal-600 text-white text-sm px-3 py-2 rounded text-center hover:bg-teal-700">B&N</a>
+              </div>
+            </div>
+
+            {/* Know Thyself - Spanish */}
+            <div className="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/bpdwmvzv_IMG_2028.png"
+                alt="Conócete a ti mismo (Spanish Edition)"
+                className="w-full h-64 object-contain rounded mb-4"
+              />
+              <h3 className="text-lg font-bold text-teal-800 mb-2">Know Thyself <span className="text-sm">(Spanish Edition)</span></h3>
+              <p className="text-sm text-gray-600 mb-2">by Richard Johnson</p>
+              <p className="text-xs text-gray-500 mb-4">MainSpring Books | 🇪🇸 Español</p>
+              <div className="flex gap-2">
+                <a href="https://www.amazon.com/s?k=Know+Thyself+Spanish+Richard+Johnson" target="_blank" rel="noopener noreferrer" className="flex-1 bg-teal-600 text-white text-sm px-3 py-2 rounded text-center hover:bg-teal-700">Amazon</a>
+                <a href="https://www.barnesandnoble.com/s/Richard+Johnson" target="_blank" rel="noopener noreferrer" className="flex-1 bg-teal-600 text-white text-sm px-3 py-2 rounded text-center hover:bg-teal-700">B&N</a>
+              </div>
+            </div>
+
+            {/* Yachuwshauhal */}
+            <div className="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/c7d16spm_IMG_2029.png"
+                alt="Yachuwshauhal"
+                className="w-full h-64 object-contain rounded mb-4"
+              />
+              <h3 className="text-lg font-bold text-teal-800 mb-2">Yachuwshauhal</h3>
+              <p className="text-sm text-gray-600 mb-2">by Richard Johnson</p>
+              <p className="text-xs text-gray-500 mb-4">MainSpring Books | ISBN: 9781958434642</p>
+              <div className="flex gap-2">
+                <a href="https://www.amazon.com/s?k=Yachuwshauhal+Richard+Johnson" target="_blank" rel="noopener noreferrer" className="flex-1 bg-teal-600 text-white text-sm px-3 py-2 rounded text-center hover:bg-teal-700">Amazon</a>
+                <a href="https://www.barnesandnoble.com/s/Richard+Johnson" target="_blank" rel="noopener noreferrer" className="flex-1 bg-teal-600 text-white text-sm px-3 py-2 rounded text-center hover:bg-teal-700">B&N</a>
+              </div>
+            </div>
+
+            {/* Malachy */}
+            <div className="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/jspkmzir_IMG_2030.png"
+                alt="Malachy"
+                className="w-full h-64 object-contain rounded mb-4"
+              />
+              <h3 className="text-lg font-bold text-teal-800 mb-2">Malachy</h3>
+              <p className="text-sm text-gray-600 mb-2">by Richard Johnson</p>
+              <p className="text-xs text-gray-500 mb-4">MainSpring Books</p>
+              <div className="flex gap-2">
+                <a href="https://www.amazon.com/s?k=Malachy+Richard+Johnson" target="_blank" rel="noopener noreferrer" className="flex-1 bg-teal-600 text-white text-sm px-3 py-2 rounded text-center hover:bg-teal-700">Amazon</a>
+                <a href="https://www.barnesandnoble.com/s/Richard+Johnson" target="_blank" rel="noopener noreferrer" className="flex-1 bg-teal-600 text-white text-sm px-3 py-2 rounded text-center hover:bg-teal-700">B&N</a>
+              </div>
+            </div>
+
+            {/* Yachuwshauhmayka */}
+            <div className="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/0fsrmz7h_IMG_2031.png"
+                alt="Yachuwshauhmayka"
+                className="w-full h-64 object-contain rounded mb-4"
+              />
+              <h3 className="text-lg font-bold text-teal-800 mb-2">Yachuwshauhmayka</h3>
+              <p className="text-sm text-gray-600 mb-2">by Richard Johnson</p>
+              <p className="text-xs text-gray-500 mb-4">MainSpring Books</p>
+              <div className="flex gap-2">
+                <a href="https://www.amazon.com/s?k=Yachuwshauhmayka+Richard+Johnson" target="_blank" rel="noopener noreferrer" className="flex-1 bg-teal-600 text-white text-sm px-3 py-2 rounded text-center hover:bg-teal-700">Amazon</a>
+                <a href="https://www.barnesandnoble.com/s/Richard+Johnson" target="_blank" rel="noopener noreferrer" className="flex-1 bg-teal-600 text-white text-sm px-3 py-2 rounded text-center hover:bg-teal-700">B&N</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
         {/* Call to Action */}
-        <div className="bg-gradient-to-r from-teal-700 to-teal-600 rounded-lg p-8 text-white text-center shadow-xl">
-          <h3 className="text-2xl font-bold mb-4">Available Now</h3>
+        <div className="bg-gradient-to-r from-teal-700 to-teal-600 rounded-lg p-8 text-white text-center shadow-xl mt-8">
+          <h3 className="text-2xl font-bold mb-4">Explore Ancient Truth</h3>
           <p className="text-lg mb-6">
-            Discover the deeper meaning of creation through meticulous Hebrew translation
+            Discover Richard Johnson's complete collection of Hebrew translations and biblical research
           </p>
           <a 
-            href="https://www.amazon.com/a/c/r/tyelOqLX6JjGvzl0LHdjCyI3i" 
+            href="https://www.amazon.com/s?k=Richard+Johnson+Hebrew" 
             target="_blank" 
             rel="noopener noreferrer"
             className="inline-block bg-white text-teal-700 px-8 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors"
           >
-            Order on Amazon
+            View All Books on Amazon
           </a>
         </div>
       </div>
