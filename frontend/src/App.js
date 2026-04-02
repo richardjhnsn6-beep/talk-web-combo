@@ -94,8 +94,8 @@ const Navigation = ({ isOpen, setIsOpen }) => {
       </ul>
 
       {/* Admin Quick Access */}
-      <div className="border-t border-teal-600 pt-4 mb-4">
-        <h3 className="text-sm font-bold mb-2 opacity-75">Admin Access</h3>
+      <div className="border-t-2 border-orange-400 pt-4 mb-4 mt-6">
+        <h3 className="text-base font-bold mb-3 text-orange-300">🔐 Admin Access</h3>
         <ul className="space-y-2">
           {adminItems.map((item) => (
             <li key={item.path}>
@@ -116,7 +116,7 @@ const Navigation = ({ isOpen, setIsOpen }) => {
       </div>
 
       {/* Bearing of the Truth Section */}
-      <div className="border-t border-teal-600 pt-6 mt-6 pb-8">
+      <div className="border-t border-teal-600 pt-6 mt-6 pb-20">
         <h3 className="text-lg font-bold mb-4" data-testid="bearing-truth-title">Bearing of the Truth</h3>
         <div className="text-xs leading-relaxed mb-4 opacity-90">
           <p className="mb-2">Meaning; most of all, it's up to you, to look carefully and read with the spirit of wisdom.</p>
