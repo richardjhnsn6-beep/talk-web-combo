@@ -33,6 +33,38 @@ const HomePage = () => {
 
         {/* Main Content */}
         <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
+          
+          {/* 🔊 TEST AI RICHARD VOICE - Big Visible Button */}
+          <div className="bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl p-6 mb-8 text-center shadow-lg">
+            <h3 className="text-2xl font-bold text-white mb-2">🎤 Hear AI Richard's Voice</h3>
+            <p className="text-white/90 mb-4">Preview the female AI voice before subscribing</p>
+            <button
+              onClick={async () => {
+                try {
+                  const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tts/tts`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      text: "Hello, I'm AI Richard. Welcome to RJHNSN12 Radio, where we reveal the original Hebrew truth that's been hidden for centuries. Ask me anything about the Bible, Hebrew language, or ancient scripture.",
+                      voice: 'nova'
+                    })
+                  });
+                  const audioBlob = await response.blob();
+                  const audioUrl = URL.createObjectURL(audioBlob);
+                  const audio = new Audio(audioUrl);
+                  audio.play();
+                  audio.onended = () => URL.revokeObjectURL(audioUrl);
+                } catch (error) {
+                  console.error('Voice test failed:', error);
+                  alert('Voice test failed. Check your internet connection.');
+                }
+              }}
+              className="bg-white text-purple-700 px-8 py-4 rounded-lg font-bold text-lg hover:bg-purple-50 transition-all shadow-lg hover:scale-105"
+            >
+              ▶️ Play Sample Voice
+            </button>
+          </div>
+
           <div className="mb-8">
             <a href="/book-of-amos" className="block">
               <img 
