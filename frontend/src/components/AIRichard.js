@@ -8,7 +8,6 @@ const AIRichard = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [voiceEnabled, setVoiceEnabled] = useState(false);
-  const [voiceQuality, setVoiceQuality] = useState('free'); // 'free' or 'premium'
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [continuousMode, setContinuousMode] = useState(false); // NEW: Always-on listening
   const [isRecognitionActive, setIsRecognitionActive] = useState(false); // Track if recognition is running
@@ -284,10 +283,9 @@ const AIRichard = () => {
     }
   };
 
-  // Text-to-Speech function (FREE or PREMIUM)
+  // Text-to-Speech function (FREE browser voice only)
   const speakText = async (text) => {
     console.log('🔊 speakText called');
-    console.log('   Voice:', voiceQuality);
     console.log('   Lock:', audioLockedRef.current);
     console.log('   isSpeaking:', isSpeaking);
     
@@ -330,143 +328,72 @@ const AIRichard = () => {
     }
     
     try {
-      if (voiceQuality === 'premium') {
-        // PREMIUM: OpenAI TTS
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tts/tts`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            text: text,
-            voice: 'onyx' // Deep, authoritative male voice - best fit for Richard Johnson
-          })
-        });
+      // FREE: Browser TTS only (fast and instant)
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
         
-        if (!response.ok) {
-          throw new Error('TTS API failed');
-        }
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.9;
+        utterance.pitch = 1.0;
+        utterance.volume = 1.0;
         
-        const audioBlob = await response.blob();
-        const audioUrl = URL.createObjectURL(audioBlob);
-        const audio = new Audio(audioUrl);
-        
-        // Store reference to prevent duplicates
-        currentAudioRef.current = audio;
-        console.log('📢 Premium audio created and stored');
-        
-        audio.onended = () => {
-          console.log('✅ Audio ended - releasing lock');
+        utterance.onend = () => {
+          console.log('✅ Voice ended - releasing lock');
           setIsSpeaking(false);
-          audioLockedRef.current = false; // Release lock (instant)
-          URL.revokeObjectURL(audioUrl);
-          currentAudioRef.current = null;
+          audioLockedRef.current = false;
           // Resume radio if it was playing and not in continuous mode
           if (wasPlaying && !continuousMode && radioPlayer) {
             radioPlayer.play();
           }
           // Restart listening if continuous mode is on
           if (continuousMode && recognitionRef.current && !isRecognitionActive) {
-            console.log('⏰ Waiting 3 seconds before restarting mic...');
             setTimeout(() => {
               try {
-                console.log('🎤 Mic restarting - YOU CAN SPEAK NOW!');
                 recognitionRef.current.start();
                 setIsListening(true);
                 setIsRecognitionActive(true);
               } catch (err) {
                 console.error('Restart failed:', err);
               }
-            }, 3000); // 3 seconds delay - gives you time to think!
+            }, 500);
           }
         };
-        audio.onerror = () => {
-          console.log('❌ Audio error - releasing lock');
+        utterance.onerror = () => {
+          console.log('❌ Voice error - releasing lock');
           setIsSpeaking(false);
-          audioLockedRef.current = false; // Release lock (instant)
-          URL.revokeObjectURL(audioUrl);
-          currentAudioRef.current = null;
+          audioLockedRef.current = false;
           // Resume radio on error
           if (wasPlaying && !continuousMode && radioPlayer) {
             radioPlayer.play();
           }
           // Restart listening even on error
-          if (continuousMode && recognitionRef.current) {
+          if (continuousMode && recognitionRef.current && !isRecognitionActive) {
             setTimeout(() => {
-              recognitionRef.current.start();
-              setIsListening(true);
+              try {
+                recognitionRef.current.start();
+                setIsListening(true);
+                setIsRecognitionActive(true);
+              } catch (err) {
+                console.error('Restart failed:', err);
+              }
             }, 500);
           }
         };
         
-        await audio.play();
-        
+        window.speechSynthesis.speak(utterance);
       } else {
-        // FREE: Browser TTS
-        if ('speechSynthesis' in window) {
-          window.speechSynthesis.cancel();
-          
-          const utterance = new SpeechSynthesisUtterance(text);
-          utterance.rate = 0.9;
-          utterance.pitch = 1.0;
-          utterance.volume = 1.0;
-          
-          utterance.onend = () => {
-            console.log('✅ Free voice ended - releasing lock');
-            setIsSpeaking(false);
-            audioLockedRef.current = false; // Release lock for free voice
-            // Resume radio if it was playing and not in continuous mode
-            if (wasPlaying && !continuousMode && radioPlayer) {
-              radioPlayer.play();
-            }
-            // Restart listening if continuous mode is on
-            if (continuousMode && recognitionRef.current && !isRecognitionActive) {
-              setTimeout(() => {
-                try {
-                  recognitionRef.current.start();
-                  setIsListening(true);
-                  setIsRecognitionActive(true);
-                } catch (err) {
-                  console.error('Restart failed:', err);
-                }
-              }, 500);
-            }
-          };
-          utterance.onerror = () => {
-            console.log('❌ Free voice error - releasing lock');
-            setIsSpeaking(false);
-            audioLockedRef.current = false; // Release lock on error
-            // Resume radio on error
-            if (wasPlaying && !continuousMode && radioPlayer) {
-              radioPlayer.play();
-            }
-            // Restart listening even on error
-            if (continuousMode && recognitionRef.current && !isRecognitionActive) {
-              setTimeout(() => {
-                try {
-                  recognitionRef.current.start();
-                  setIsListening(true);
-                  setIsRecognitionActive(true);
-                } catch (err) {
-                  console.error('Restart failed:', err);
-                }
-              }, 500);
-            }
-          };
-          
-          window.speechSynthesis.speak(utterance);
-        } else {
-          console.log('❌ No speech synthesis - releasing lock');
-          setIsSpeaking(false);
-          audioLockedRef.current = false; // Release lock if no speech synthesis
-          // Resume radio if speech synthesis not available
-          if (wasPlaying && radioPlayer) {
-            radioPlayer.play();
-          }
+        console.log('❌ No speech synthesis - releasing lock');
+        setIsSpeaking(false);
+        audioLockedRef.current = false;
+        // Resume radio if speech synthesis not available
+        if (wasPlaying && radioPlayer) {
+          radioPlayer.play();
         }
       }
     } catch (error) {
       console.error('Speech error:', error, '- releasing lock');
       setIsSpeaking(false);
-      audioLockedRef.current = false; // CRITICAL: Release lock on error
+      audioLockedRef.current = false;
       // Resume radio on error
       if (wasPlaying && !continuousMode && radioPlayer) {
         radioPlayer.play();
@@ -492,9 +419,7 @@ const AIRichard = () => {
     
     if (voiceEnabled) {
       // Turning off - stop any current speech
-      if (voiceQuality === 'free') {
-        window.speechSynthesis.cancel();
-      }
+      window.speechSynthesis.cancel();
       setIsSpeaking(false);
     } else {
       // Turning on - show confirmation
@@ -504,15 +429,13 @@ const AIRichard = () => {
   };
 
   const stopSpeaking = () => {
-    // Stop premium audio
+    // Stop audio
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current = null;
     }
-    // Stop free voice
-    if (voiceQuality === 'free') {
-      window.speechSynthesis.cancel();
-    }
+    // Stop browser voice
+    window.speechSynthesis.cancel();
     setIsSpeaking(false);
   };
 
@@ -696,7 +619,7 @@ const AIRichard = () => {
         recognitionRef.current.stop();
       }
     };
-  }, [conversationId, voiceEnabled, voiceQuality]);
+  }, [conversationId, voiceEnabled]);
 
   const toggleVoiceInput = () => {
     if (!recognitionRef.current) {
@@ -991,7 +914,7 @@ const AIRichard = () => {
                   <div className="w-1 h-6 bg-blue-600 rounded animate-pulse" style={{ animationDelay: '0.3s' }}></div>
                   <div className="w-1 h-4 bg-blue-600 rounded animate-pulse" style={{ animationDelay: '0.4s' }}></div>
                 </div>
-                <span>Richard is speaking... ({voiceQuality === 'premium' ? 'Premium' : 'Free'} voice)</span>
+                <span>Richard is speaking...</span>
               </div>
             )}
             {isListening && !isSpeaking && (

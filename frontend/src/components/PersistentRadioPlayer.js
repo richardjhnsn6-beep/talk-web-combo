@@ -107,6 +107,18 @@ const PersistentRadioPlayer = () => {
         audioContextRef.current = new AudioContext();
         gainNodeRef.current = audioContextRef.current.createGain();
         gainNodeRef.current.connect(audioContextRef.current.destination);
+        
+        // Ensure audio context stays active during page navigation
+        const resumeAudioContext = () => {
+          if (audioContextRef.current && audioContextRef.current.state === 'suspended') {
+            audioContextRef.current.resume();
+          }
+        };
+        
+        // Resume on any user interaction
+        document.addEventListener('click', resumeAudioContext);
+        document.addEventListener('touchstart', resumeAudioContext);
+        
       } catch (error) {
         console.error('Web Audio API not supported:', error);
       }
@@ -224,8 +236,8 @@ const PersistentRadioPlayer = () => {
 
   // Auto-load next track when index changes
   useEffect(() => {
-    if (currentTrack && isPlaying && audioRef.current && audioRef.current.src) {
-      // Only if already playing and has source
+    if (currentTrack && isPlaying) {
+      // Only if already playing
       handlePlay();
     }
   }, [currentTrackIndex]);
