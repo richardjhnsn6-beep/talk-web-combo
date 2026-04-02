@@ -26,16 +26,22 @@ const Books = () => {
         {/* Book Feature */}
         <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
           <div className="flex flex-col md:flex-row gap-8 items-start mb-8">
-            {/* Book Cover Placeholder */}
+            {/* Real Book Cover Images */}
             <div className="flex-shrink-0">
-              <div className="w-48 h-64 bg-gradient-to-br from-teal-800 to-teal-600 rounded-lg shadow-lg flex items-center justify-center">
-                <div className="text-center p-4">
-                  <h3 className="text-yellow-300 font-bold text-xl mb-2">BARASHATH</h3>
-                  <p className="text-white text-sm">In the BEGINNING</p>
-                  <div className="mt-4 text-yellow-200 text-xs">
-                    <p>Richard Johnson</p>
-                  </div>
-                </div>
+              <div className="space-y-4">
+                {/* Main Cover Image */}
+                <img 
+                  src="https://m.media-amazon.com/images/I/71n9YqVQIlL._SY466_.jpg"
+                  alt="Barashath in the Beginning by Richard Johnson - Book Cover"
+                  className="w-64 rounded-lg shadow-xl hover:shadow-2xl transition-shadow"
+                />
+                {/* Side View - Thickness Photo */}
+                <img 
+                  src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/ju3vy9pn_IMG_2023.heic"
+                  alt="Book thickness and side view"
+                  className="w-64 rounded-lg shadow-lg"
+                />
+                <p className="text-xs text-gray-500 text-center italic">See the quality and substance - 538 pages!</p>
               </div>
             </div>
 
