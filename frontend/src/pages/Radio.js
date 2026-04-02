@@ -348,6 +348,34 @@ const Radio = () => {
         <div className="text-center mb-8">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-3 animate-pulse">
             🎙️ RJHNSN12 Radio
+
+        {/* 🔊 TEST AI RICHARD VOICE - BIG BUTTON */}
+        <div className="bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl p-8 mb-8 text-center shadow-2xl">
+          <h2 className="text-4xl font-bold text-white mb-3">🎤 Hear AI Richard's Voice</h2>
+          <button
+            onClick={async (e) => {
+              try {
+                e.target.disabled = true;
+                e.target.textContent = '⏳ Loading...';
+                const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tts/tts`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ text: "Hello, I'm AI Richard. Ask me about the Bible.", voice: 'nova' })
+                });
+                const blob = await res.blob();
+                const url = URL.createObjectURL(blob);
+                const audio = new Audio(url);
+                e.target.textContent = '🔊 Playing...';
+                await audio.play();
+                audio.onended = () => { URL.revokeObjectURL(url); e.target.disabled = false; e.target.textContent = '▶️ PLAY AGAIN'; };
+              } catch (err) { alert('Failed'); e.target.disabled = false; e.target.textContent = '▶️ CLICK HERE'; }
+            }}
+            className="bg-white text-purple-700 px-16 py-6 rounded-xl font-bold text-2xl hover:scale-110 transition shadow-2xl"
+          >
+            ▶️ CLICK TO HEAR VOICE
+          </button>
+        </div>
+
           </h1>
           <p className="text-xl text-purple-200">
             24/7 Music & Biblical Wisdom
