@@ -63,16 +63,17 @@ const Navigation = ({ isOpen, setIsOpen }) => {
 
   return (
     <nav 
-      className={`bg-teal-700 text-white w-64 h-screen fixed left-0 top-0 p-6 overflow-y-auto z-50 transition-transform duration-300 ease-in-out ${
+      className={`bg-teal-700 text-white w-64 fixed left-0 top-0 bottom-0 p-6 flex flex-col z-50 transition-transform duration-300 ease-in-out ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       } md:translate-x-0`}
       data-testid="main-navigation"
-      style={{ maxHeight: '100vh', overflowY: 'auto' }}
     >
-      <div className="mb-8">
-        <h2 className="text-xl font-bold mb-2">rjhnsn12</h2>
-        <p className="text-sm opacity-90">Biblical Truth & History</p>
-      </div>
+      {/* Scrollable content wrapper */}
+      <div className="flex-1 overflow-y-auto overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
+        <div className="mb-8">
+          <h2 className="text-xl font-bold mb-2">rjhnsn12</h2>
+          <p className="text-sm opacity-90">Biblical Truth & History</p>
+        </div>
       <ul className="space-y-2 mb-8">
         {navItems.map((item) => (
           <li key={item.path}>
@@ -133,7 +134,9 @@ const Navigation = ({ isOpen, setIsOpen }) => {
             HAM, SHEM, AND JAPHETH
           </p>
         </div>
+        </div>
       </div>
+      {/* End scrollable wrapper */}
     </nav>
   );
 };

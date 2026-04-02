@@ -241,7 +241,7 @@ const PersistentRadioPlayer = () => {
       
       {/* Floating Mini Player - z-40 to stay below chat widgets */}
       <div className={`fixed bottom-0 left-0 right-0 bg-gradient-to-r from-purple-900 to-blue-900 text-white shadow-2xl z-40 transition-all duration-300 ${isMinimized ? 'h-16 sm:h-20' : 'h-56 sm:h-64'}`}>
-        <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 h-full flex items-center justify-between gap-2">
           
           {isMinimized ? (
             // Minimized View
@@ -266,10 +266,10 @@ const PersistentRadioPlayer = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <button
                   onClick={handlePrevious}
-                  className="p-2 hover:bg-white/10 rounded-full transition-all"
+                  className="p-1.5 sm:p-2 hover:bg-white/10 rounded-full transition-all flex-shrink-0"
                 >
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
@@ -278,14 +278,15 @@ const PersistentRadioPlayer = () => {
 
                 <button
                   onClick={isPlaying ? handlePause : handlePlay}
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 p-3 rounded-full hover:scale-110 transition-all"
+                  className="bg-gradient-to-r from-purple-500 to-pink-500 p-2.5 sm:p-3 rounded-full hover:scale-110 transition-all flex-shrink-0"
+                  style={{ zIndex: 100 }}
                 >
                   {isPlaying ? (
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
                     </svg>
                   ) : (
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z"/>
                     </svg>
                   )}
@@ -293,7 +294,7 @@ const PersistentRadioPlayer = () => {
 
                 <button
                   onClick={handleNext}
-                  className="p-2 hover:bg-white/10 rounded-full transition-all"
+                  className="p-1.5 sm:p-2 hover:bg-white/10 rounded-full transition-all flex-shrink-0"
                 >
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M16 18h2V6h-2zm-4-12v12l-8.5-6z"/>
