@@ -974,41 +974,11 @@ const AIRichard = () => {
 
           {/* Input area */}
           <div className="p-4 bg-white border-t border-gray-200">
-            {/* Voice status indicator with quality selector */}
+            {/* Voice status - SIMPLIFIED: Only Free Voice */}
             {voiceEnabled && (
-              <div className="mb-3 p-3 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg border border-purple-200">
-                <div className="flex items-center gap-2 text-sm text-green-600 font-medium mb-2">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  Voice enabled - Choose your preference:
-                </div>
-                {/* Voice quality buttons */}
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setVoiceQuality('free')}
-                    className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                      voiceQuality === 'free'
-                        ? 'bg-gray-700 text-white shadow-md'
-                        : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-300'
-                    }`}
-                  >
-                    🤖 Free Voice
-                    <div className="text-xs opacity-75 mt-0.5">Robotic (No cost)</div>
-                  </button>
-                  <button
-                    onClick={() => setVoiceQuality('premium')}
-                    className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                      voiceQuality === 'premium'
-                        ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-md'
-                        : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-300'
-                    }`}
-                  >
-                    🎙️ Premium Voice
-                    <div className="text-xs opacity-75 mt-0.5">Natural (Tiny cost)</div>
-                  </button>
-                </div>
-                {/* Always-On mode removed - use manual mic button instead */}
+              <div className="mb-2 p-2 bg-blue-50 rounded-lg text-center border border-blue-200">
+                <p className="text-sm text-blue-700 font-medium">🔊 Voice ON</p>
+                <p className="text-xs text-gray-600 mt-1">Fast robotic voice enabled</p>
               </div>
             )}
             {isSpeaking && (
