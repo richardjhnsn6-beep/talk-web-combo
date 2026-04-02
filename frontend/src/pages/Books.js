@@ -35,13 +35,8 @@ const Books = () => {
                   alt="Barashath in the Beginning by Richard Johnson - Book Cover"
                   className="w-64 rounded-lg shadow-xl hover:shadow-2xl transition-shadow"
                 />
-                {/* Side View - Thickness Photo */}
-                <img 
-                  src="https://customer-assets.emergentagent.com/job_talk-web-combo/artifacts/ju3vy9pn_IMG_2023.heic"
-                  alt="Book thickness and side view"
-                  className="w-64 rounded-lg shadow-lg"
-                />
-                <p className="text-xs text-gray-500 text-center italic">See the quality and substance - 538 pages!</p>
+                <p className="text-sm text-gray-600 text-center font-semibold">538 Pages | 6 x 1.09 x 9 inches</p>
+                <p className="text-xs text-gray-500 text-center italic">Substantial Hebrew scholarship in print!</p>
               </div>
             </div>
 
