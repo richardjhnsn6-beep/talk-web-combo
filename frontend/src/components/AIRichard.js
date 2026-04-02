@@ -19,6 +19,11 @@ const AIRichard = () => {
   const [danceFrame, setDanceFrame] = useState(1); // Current dance animation frame (1-4)
   const [isDancing, setIsDancing] = useState(false); // Is music playing?
   
+  // 💰 SUBSCRIPTION: AI Richard Chat Access ($2/month)
+  const [hasSubscription, setHasSubscription] = useState(null); // null = checking, true/false = known
+  const [showPaywall, setShowPaywall] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
+  
   // CHOOSE YOUR WALKING STYLE: 'silhouette' or 'purple' or 'photo' or 'animated'
   const walkingStyle = 'animated'; // Animated = real leg movement!
   const messagesEndRef = useRef(null);

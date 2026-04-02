@@ -26,7 +26,8 @@ stripe.api_key = os.environ.get('STRIPE_API_KEY')
 PACKAGES = {
     "chapter1_unlock": 4.99,
     "book_of_amos": 20.00,
-    "membership_monthly": 5.00
+    "membership_monthly": 5.00,
+    "ai_richard_chat_monthly": 2.00
 }
 
 class DonationRequest(BaseModel):
@@ -339,3 +340,61 @@ async def stripe_webhook(request: Request):
         # Invalid signature
         print(f"❌ Webhook signature error: {str(e)}")
         raise HTTPException(status_code=400, detail="Invalid signature")
+
+
+
+# AI Richard Chat Subscription
+@router.post("/ai-richard/subscribe")
+async def create_ai_richard_subscription(request: Request):
+    """Create monthly subscription for AI Richard chat access"""
+    try:
+        data = await request.json()
+        origin_url = data.get('origin_url', 'https://talk-web-combo.preview.emergentagent.com')
+        customer_email = data.get('email')
+        
+        # Create checkout session for SUBSCRIPTION (not one-time payment)
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price_data': {
+                    'currency': 'usd',
+                    'product_data': {
+                        'name': 'AI Richard Chat Access',
+                        'description': 'Unlimited monthly access to AI Richard conversations'
+                    },
+                    'unit_amount': 200,  # $2.00
+                    'recurring': {
+                        'interval': 'month'
+                    }
+                },
+                'quantity': 1,
+            }],
+            mode='subscription',
+            success_url=f"{origin_url}?ai_richard_subscribed=true",
+            cancel_url=f"{origin_url}?ai_richard_canceled=true",
+            customer_email=customer_email,
+            metadata={'product': 'ai_richard_chat'}
+        )
+        
+        return {"url": session.url, "session_id": session.id}
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Subscription error: {str(e)}")
+
+@router.get("/ai-richard/check-subscription")
+async def check_ai_richard_subscription(email: str):
+    """Check if user has active AI Richard subscription"""
+    try:
+        # Check database for active subscription
+        subscription = await db.ai_richard_subscriptions.find_one(
+            {"email": email, "status": "active"},
+            {"_id": 0}
+        )
+        
+        return {
+            "has_subscription": subscription is not None,
+            "subscription": subscription
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
