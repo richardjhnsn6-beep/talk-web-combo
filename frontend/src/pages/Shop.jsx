@@ -16,7 +16,7 @@ const Shop = () => {
         'Scripture analysis',
         'Hebrew translation help'
       ],
-      link: 'https://richardson0164.gumroad.com/l/xvpyw',
+      link: 'https://richardson0164.gumroad.com/l/xvpyprw',
       badge: 'Subscription',
       gradient: 'from-purple-600 to-blue-600'
     },
@@ -33,7 +33,7 @@ const Shop = () => {
         'Chapters 1-9 included',
         'Digital format (PDF)'
       ],
-      link: '#', // User to add actual link
+      link: 'https://richardson0164.gumroad.com/l/uilyf',
       badge: 'Digital Book',
       gradient: 'from-orange-600 to-red-600'
     },
@@ -51,7 +51,7 @@ const Shop = () => {
         'Digital format (PDF)',
         '30% member discount'
       ],
-      link: '#', // User to add actual link
+      link: 'https://richardson0164.gumroad.com/l/osofkm',
       badge: 'Member Discount',
       gradient: 'from-green-600 to-teal-600'
     },
@@ -68,7 +68,7 @@ const Shop = () => {
         'Digital format',
         'Perfect for students'
       ],
-      link: '#', // User to add actual link
+      link: 'https://richardson0164.gumroad.com/l/samfke',
       badge: 'Manuscript',
       gradient: 'from-indigo-600 to-purple-600'
     }
@@ -140,12 +140,6 @@ const Shop = () => {
                 Buy Now
                 <ExternalLink className="w-5 h-5" />
               </a>
-
-              {product.link === '#' && (
-                <p className="text-xs text-yellow-400 mt-2 text-center">
-                  Link to be added
-                </p>
-              )}
             </div>
           ))}
         </div>
