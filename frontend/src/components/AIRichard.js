@@ -170,12 +170,17 @@ const AIRichard = () => {
     }
   };
 
-  // Open chat (with subscription check)
+  // Open chat (with subscription check - ADMIN BYPASS)
   const openChat = () => {
-    if (hasSubscription === false) {
+    // Admin bypass: Check for admin password
+    const adminPass = localStorage.getItem('admin_ai_access');
+    
+    if (adminPass === 'RJHNSN12admin2026' || hasSubscription === true) {
+      setIsOpen(true);
+    } else if (hasSubscription === false) {
       setShowPaywall(true);
     } else {
-      setIsOpen(true);
+      setIsOpen(true); // If unknown, allow access
     }
   };
 
@@ -1143,6 +1148,27 @@ const AIRichard = () => {
       {showPaywall && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8">
+            
+            {/* Admin Access Option */}
+            <div className="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <p className="text-xs text-gray-600 mb-2">🔐 Site Owner? Enter Admin Password:</p>
+              <input
+                type="password"
+                placeholder="Admin password"
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' && e.target.value === 'RJHNSN12admin2026') {
+                    localStorage.setItem('admin_ai_access', 'RJHNSN12admin2026');
+                    setShowPaywall(false);
+                    setIsOpen(true);
+                  } else if (e.key === 'Enter') {
+                    alert('Incorrect admin password');
+                  }
+                }}
+                className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+              />
+              <p className="text-xs text-gray-500 mt-1">Press Enter after typing password</p>
+            </div>
+
             <div className="text-center mb-6">
               <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-4 border-purple-600">
                 <img 
