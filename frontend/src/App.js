@@ -30,12 +30,14 @@ import OrderSuccess from './pages/OrderSuccess';
 import OrderCancelled from './pages/OrderCancelled';
 import WakeServer from './pages/WakeServer';
 import TestVoice from './pages/TestVoice';
+import Shop from './pages/Shop';
 
 const Navigation = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
   
   const navItems = [
     { path: '/', label: 'Home' },
+    { path: '/shop', label: '🛒 Shop' },
     { path: '/page-two', label: 'Page Two' },
     { path: '/page-three', label: 'Page Three' },
     { path: '/page-four', label: 'Page Four' },
@@ -184,6 +186,7 @@ function App() {
         <div className="md:ml-64">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/shop" element={<Shop />} />
             <Route path="/page-two" element={<PageTwo />} />
             <Route path="/page-three" element={<PageThree />} />
             <Route path="/page-four" element={<PageFour />} />
