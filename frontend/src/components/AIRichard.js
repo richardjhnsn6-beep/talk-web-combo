@@ -7,7 +7,7 @@ const AIRichard = () => {
   const [conversationId, setConversationId] = useState(null);
   const [isTyping, setIsTyping] = useState(false);
   const [isListening, setIsListening] = useState(false);
-  const [voiceEnabled, setVoiceEnabled] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(true); // VOICE ON BY DEFAULT
   const [voiceQuality, setVoiceQuality] = useState('premium'); // 'free' or 'premium' - DEFAULT TO PREMIUM
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [continuousMode, setContinuousMode] = useState(false); // NEW: Always-on listening
