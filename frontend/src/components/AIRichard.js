@@ -61,6 +61,68 @@ const AIRichard = () => {
     checkSubscription();
   }, []);
 
+  // 💰 Load PayPal SDK when paywall is shown
+  useEffect(() => {
+    if (showPaywall && !document.getElementById('paypal-sdk-script')) {
+      const script = document.createElement('script');
+      script.id = 'paypal-sdk-script';
+      script.src = 'https://www.paypal.com/sdk/js?client-id=AS1vL7RrLWD1DrX-Y13o_R2APwMzDqb4rE1TmHwBroE&vault=true&intent=subscription';
+      script.async = true;
+      
+      script.onload = () => {
+        // Render Basic Plan Button ($2/month)
+        if (window.paypal && document.getElementById('paypal-button-container-basic')) {
+          window.paypal.Buttons({
+            style: {
+              shape: 'rect',
+              color: 'gold',
+              layout: 'vertical',
+              label: 'subscribe'
+            },
+            createSubscription: function(data, actions) {
+              return actions.subscription.create({
+                plan_id: 'P-0SD94356S2107193PNHH2AHI'
+              });
+            },
+            onApprove: function(data, actions) {
+              alert('Thank you for subscribing to Basic Membership!');
+              setHasSubscription(true);
+              setSubscriptionTier('basic');
+              setShowPaywall(false);
+              setIsOpen(true);
+            }
+          }).render('#paypal-button-container-basic');
+        }
+
+        // Render Premium Plan Button ($5/month)
+        if (window.paypal && document.getElementById('paypal-button-container-premium')) {
+          window.paypal.Buttons({
+            style: {
+              shape: 'rect',
+              color: 'gold',
+              layout: 'vertical',
+              label: 'subscribe'
+            },
+            createSubscription: function(data, actions) {
+              return actions.subscription.create({
+                plan_id: 'P-39S03317TS707131YNHH2M6A'
+              });
+            },
+            onApprove: function(data, actions) {
+              alert('Thank you for subscribing to Premium Membership!');
+              setHasSubscription(true);
+              setSubscriptionTier('premium');
+              setShowPaywall(false);
+              setIsOpen(true);
+            }
+          }).render('#paypal-button-container-premium');
+        }
+      };
+      
+      document.body.appendChild(script);
+    }
+  }, [showPaywall]);
+
   // Check if user just subscribed (success redirect)
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -1205,12 +1267,8 @@ const AIRichard = () => {
                   </div>
                 </div>
 
-                <button
-                  onClick={handleSubscribe}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-bold hover:from-purple-700 hover:to-blue-700 transition-all shadow-md"
-                >
-                  Start Basic - $2/mo
-                </button>
+                {/* PayPal Basic Subscription Button */}
+                <div id="paypal-button-container-basic"></div>
               </div>
 
               {/* PREMIUM TIER - $5/month - FEATURED */}
@@ -1257,12 +1315,8 @@ const AIRichard = () => {
                   </div>
                 </div>
 
-                <button
-                  onClick={handleSubscribePremium}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-600 text-white rounded-lg font-bold hover:from-yellow-600 hover:to-orange-700 transition-all shadow-lg transform hover:scale-105"
-                >
-                  Start Premium - $5/mo
-                </button>
+                {/* PayPal Premium Subscription Button */}
+                <div id="paypal-button-container-premium"></div>
               </div>
             </div>
 
@@ -1277,7 +1331,7 @@ const AIRichard = () => {
             </div>
 
             <p className="text-xs text-gray-500 text-center mt-4">
-              🔒 Secure payment powered by Stripe. Cancel anytime, no questions asked.
+              🔒 Secure payment powered by PayPal. Cancel anytime, no questions asked.
             </p>
           </div>
         </div>
