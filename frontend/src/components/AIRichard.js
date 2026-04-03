@@ -61,67 +61,89 @@ const AIRichard = () => {
     checkSubscription();
   }, []);
 
-  // 💰 Load PayPal SDK when paywall is shown
+  // 💰 Render PayPal buttons when paywall is shown
   useEffect(() => {
-    if (showPaywall && !document.getElementById('paypal-sdk-script')) {
-      const script = document.createElement('script');
-      script.id = 'paypal-sdk-script';
-      script.src = 'https://www.paypal.com/sdk/js?client-id=AS1vL7RrLWD1DrX-Y13o_R2APwMzDqb4rE1TmHwBroE&vault=true&intent=subscription';
-      script.async = true;
-      
-      script.onload = () => {
-        // Render Basic Plan Button ($2/month)
-        if (window.paypal && document.getElementById('paypal-button-container-basic')) {
-          window.paypal.Buttons({
-            style: {
-              shape: 'rect',
-              color: 'gold',
-              layout: 'vertical',
-              label: 'subscribe'
-            },
-            createSubscription: function(data, actions) {
-              return actions.subscription.create({
-                plan_id: 'P-0SD94356S2107193PNHH2AHI'
-              });
-            },
-            onApprove: function(data, actions) {
-              alert('Thank you for subscribing to Basic Membership!');
-              setHasSubscription(true);
-              setSubscriptionTier('basic');
-              setShowPaywall(false);
-              setIsOpen(true);
-            }
-          }).render('#paypal-button-container-basic');
-        }
+    if (!showPaywall) return;
 
-        // Render Premium Plan Button ($5/month)
-        if (window.paypal && document.getElementById('paypal-button-container-premium')) {
-          window.paypal.Buttons({
-            style: {
-              shape: 'rect',
-              color: 'gold',
-              layout: 'vertical',
-              label: 'subscribe'
-            },
-            createSubscription: function(data, actions) {
-              return actions.subscription.create({
-                plan_id: 'P-39S03317TS707131YNHH2M6A'
-              });
-            },
-            onApprove: function(data, actions) {
-              alert('Thank you for subscribing to Premium Membership!');
-              setHasSubscription(true);
-              setSubscriptionTier('premium');
-              setShowPaywall(false);
-              setIsOpen(true);
-            }
-          }).render('#paypal-button-container-premium');
-        }
-      };
-      
-      document.body.appendChild(script);
-    }
-  }, [showPaywall]);
+    // Wait for PayPal SDK to be available
+    const renderButtons = () => {
+      if (!window.paypal) {
+        // Wait a bit longer for SDK to load
+        setTimeout(renderButtons, 500);
+        return;
+      }
+
+      // Render Basic Plan Button ($2/month)
+      const basicContainer = document.getElementById('paypal-button-container-basic');
+      if (basicContainer) {
+        basicContainer.innerHTML = ''; // Clear first
+        
+        window.paypal.Buttons({
+          style: {
+            shape: 'rect',
+            color: 'gold',
+            layout: 'vertical',
+            label: 'subscribe',
+            height: 45
+          },
+          createSubscription: function(data, actions) {
+            return actions.subscription.create({
+              plan_id: 'P-0SD94356S2107193PNHH2AHI'
+            });
+          },
+          onApprove: function(data, actions) {
+            alert('✅ Welcome to Basic Membership!\n\nYou now have access to AI Richard, Amos 1-4, and Radio!');
+            localStorage.setItem('user_email', userEmail || 'subscriber');
+            localStorage.setItem('subscription_tier', 'basic');
+            setHasSubscription(true);
+            setSubscriptionTier('basic');
+            setShowPaywall(false);
+            setIsOpen(true);
+          },
+          onError: function(err) {
+            console.error('PayPal error:', err);
+            alert('Payment error. Please try again.');
+          }
+        }).render('#paypal-button-container-basic').catch(err => console.error('Render error:', err));
+      }
+
+      // Render Premium Plan Button ($5/month)
+      const premiumContainer = document.getElementById('paypal-button-container-premium');
+      if (premiumContainer) {
+        premiumContainer.innerHTML = ''; // Clear first
+        
+        window.paypal.Buttons({
+          style: {
+            shape: 'rect',
+            color: 'gold',
+            layout: 'vertical',
+            label: 'subscribe',
+            height: 45
+          },
+          createSubscription: function(data, actions) {
+            return actions.subscription.create({
+              plan_id: 'P-39S03317TS707131YNHH2M6A'
+            });
+          },
+          onApprove: function(data, actions) {
+            alert('⭐ Welcome to Premium Membership!\n\nYou now have FULL ACCESS to all features!');
+            localStorage.setItem('user_email', userEmail || 'subscriber');
+            localStorage.setItem('subscription_tier', 'premium');
+            setHasSubscription(true);
+            setSubscriptionTier('premium');
+            setShowPaywall(false);
+            setIsOpen(true);
+          },
+          onError: function(err) {
+            console.error('PayPal error:', err);
+            alert('Payment error. Please try again.');
+          }
+        }).render('#paypal-button-container-premium').catch(err => console.error('Render error:', err));
+      }
+    };
+
+    renderButtons();
+  }, [showPaywall, userEmail]);
 
   // Check if user just subscribed (success redirect)
   useEffect(() => {
