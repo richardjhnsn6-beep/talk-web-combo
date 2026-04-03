@@ -19,8 +19,9 @@ const AIRichard = () => {
   const [danceFrame, setDanceFrame] = useState(1); // Current dance animation frame (1-4)
   const [isDancing, setIsDancing] = useState(false); // Is music playing?
   
-  // 💰 SUBSCRIPTION: AI Richard Chat Access ($2/month)
+  // 💰 SUBSCRIPTION: AI Richard Chat Access (Two-tier: Basic $2 or Premium $5)
   const [hasSubscription, setHasSubscription] = useState(null); // null = checking, true/false = known
+  const [subscriptionTier, setSubscriptionTier] = useState(null); // 'basic' or 'premium'
   const [showPaywall, setShowPaywall] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   
@@ -50,6 +51,7 @@ const AIRichard = () => {
         );
         const data = await response.json();
         setHasSubscription(data.has_subscription);
+        setSubscriptionTier(data.tier); // Store tier information
       } catch (error) {
         console.error('Subscription check failed:', error);
         setHasSubscription(false);
@@ -63,7 +65,9 @@ const AIRichard = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('ai_richard_subscribed') === 'true') {
+      const tier = urlParams.get('tier') || 'basic';
       setHasSubscription(true);
+      setSubscriptionTier(tier);
       setShowPaywall(false);
       setIsOpen(true);
       // Clean up URL
@@ -139,7 +143,7 @@ const AIRichard = () => {
   };
 
 
-  // 💰 Handle AI Richard subscription purchase
+  // 💰 Handle AI Richard BASIC subscription purchase ($2/month)
   const handleSubscribe = async () => {
     if (!userEmail || !userEmail.includes('@')) {
       alert('Please enter a valid email address');
@@ -170,12 +174,47 @@ const AIRichard = () => {
     }
   };
 
-  // Open chat (with subscription check - ADMIN BYPASS)
+  // 💰 Handle AI Richard PREMIUM subscription purchase ($5/month)
+  const handleSubscribePremium = async () => {
+    if (!userEmail || !userEmail.includes('@')) {
+      alert('Please enter a valid email address');
+      return;
+    }
+    
+    // Save email to localStorage
+    localStorage.setItem('user_email', userEmail);
+    
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/payments/ai-richard/subscribe-premium`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: userEmail,
+          origin_url: window.location.origin
+        })
+      });
+      
+      const data = await response.json();
+      
+      // Redirect to Stripe checkout
+      window.location.href = data.url;
+      
+    } catch (error) {
+      console.error('Premium subscription error:', error);
+      alert('Error creating premium subscription. Please try again.');
+    }
+  };
+
+  // Open chat (with subscription check - ADMIN BYPASS grants PREMIUM access)
   const openChat = () => {
-    // Admin bypass: Check for admin password
+    // Admin bypass: Check for admin password (GRANTS PREMIUM ACCESS)
     const adminPass = localStorage.getItem('admin_ai_access');
     
-    if (adminPass === 'RJHNSN12admin2026' || hasSubscription === true) {
+    if (adminPass === 'RJHNSN12admin2026') {
+      setHasSubscription(true);
+      setSubscriptionTier('premium'); // Admin gets PREMIUM access for testing
+      setIsOpen(true);
+    } else if (hasSubscription === true) {
       setIsOpen(true);
     } else if (hasSubscription === false) {
       setShowPaywall(true);
@@ -864,7 +903,18 @@ const AIRichard = () => {
               </div>
               <div className="text-white flex-1 min-w-0">
                 <div className="font-bold text-sm sm:text-base truncate">Richard Johnson</div>
-                <div className="text-xs opacity-90 truncate hidden sm:block">Biblical Researcher & Web Developer</div>
+                <div className="text-xs opacity-90 truncate hidden sm:block">
+                  Biblical Researcher & Web Developer
+                  {subscriptionTier && (
+                    <span className={`ml-2 px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                      subscriptionTier === 'premium' 
+                        ? 'bg-yellow-400 text-yellow-900' 
+                        : 'bg-purple-200 text-purple-900'
+                    }`}>
+                      {subscriptionTier === 'premium' ? '⭐ PREMIUM' : 'BASIC'}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
             <div className="flex items-center gap-2 flex-shrink-0">
@@ -1054,20 +1104,22 @@ const AIRichard = () => {
         </div>
       )}
 
-      {/* 💰 PAYWALL MODAL - AI Richard Chat Subscription */}
+      {/* 💰 PAYWALL MODAL - Two-Tier Membership System */}
       {showPaywall && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full p-6 sm:p-8 my-8">
             
             {/* Admin Access Option */}
             <div className="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-              <p className="text-xs text-gray-600 mb-2">🔐 Site Owner? Enter Admin Password:</p>
+              <p className="text-xs text-gray-600 mb-2">🔐 Site Owner? Enter Admin Password (Grants Premium Access):</p>
               <input
                 type="password"
                 placeholder="Admin password"
                 onKeyPress={(e) => {
                   if (e.key === 'Enter' && e.target.value === 'RJHNSN12admin2026') {
                     localStorage.setItem('admin_ai_access', 'RJHNSN12admin2026');
+                    setHasSubscription(true);
+                    setSubscriptionTier('premium');
                     setShowPaywall(false);
                     setIsOpen(true);
                   } else if (e.key === 'Enter') {
@@ -1079,7 +1131,7 @@ const AIRichard = () => {
               <p className="text-xs text-gray-500 mt-1">Press Enter after typing password</p>
             </div>
 
-            <div className="text-center mb-6">
+            <div className="text-center mb-8">
               <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-4 border-purple-600">
                 <img 
                   src="/richard-avatar.jpg"
@@ -1087,27 +1139,14 @@ const AIRichard = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">AI Richard Chat Access</h2>
-              <p className="text-gray-600 text-sm">
-                The first two weeks of AI Richard conversations were free as a gift to help you learn. 
-                To continue chatting and support this Hebrew truth ministry, there's now a small monthly fee.
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Choose Your Membership</h2>
+              <p className="text-gray-600 text-sm max-w-2xl mx-auto">
+                Support this Hebrew truth ministry while gaining access to exclusive biblical research and AI assistance.
               </p>
             </div>
 
-            <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-6 mb-6 border-2 border-purple-200">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-purple-600 mb-1">$2<span className="text-lg">/month</span></div>
-                <div className="text-sm text-gray-600">Unlimited AI Richard conversations</div>
-                <div className="mt-4 text-xs text-gray-500 space-y-1">
-                  <div>✅ Unlimited chat messages</div>
-                  <div>✅ Voice responses included</div>
-                  <div>✅ Biblical Hebrew research</div>
-                  <div>✅ Cancel anytime</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mb-4">
+            {/* Email Input - Above pricing cards */}
+            <div className="mb-6 max-w-md mx-auto">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Email Address
               </label>
@@ -1120,23 +1159,125 @@ const AIRichard = () => {
               />
             </div>
 
-            <div className="flex gap-3">
+            {/* Two-Tier Pricing Cards */}
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              
+              {/* BASIC TIER - $2/month */}
+              <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-6 border-2 border-purple-200 hover:border-purple-400 transition-all hover:shadow-lg">
+                <div className="text-center mb-4">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Basic Membership</h3>
+                  <div className="text-4xl font-bold text-purple-600 mb-1">
+                    $2<span className="text-lg">/month</span>
+                  </div>
+                  <p className="text-sm text-gray-600">Perfect for getting started</p>
+                </div>
+
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-start gap-2">
+                    <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm text-gray-700">✨ Unlimited AI Richard conversations</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm text-gray-700">📖 Book of Amos Chapters 1-4</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm text-gray-700">🎵 24/7 Radio access</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm text-gray-700">🎤 Premium voice responses (Nova)</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm text-gray-700">🔄 Cancel anytime</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleSubscribe}
+                  className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-bold hover:from-purple-700 hover:to-blue-700 transition-all shadow-md"
+                >
+                  Start Basic - $2/mo
+                </button>
+              </div>
+
+              {/* PREMIUM TIER - $5/month - FEATURED */}
+              <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-6 border-4 border-yellow-400 relative hover:border-yellow-500 transition-all hover:shadow-2xl">
+                {/* "BEST VALUE" Badge */}
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg">
+                    ⭐ BEST VALUE
+                  </div>
+                </div>
+
+                <div className="text-center mb-4 mt-2">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Premium Membership</h3>
+                  <div className="text-4xl font-bold text-orange-600 mb-1">
+                    $5<span className="text-lg">/month</span>
+                  </div>
+                  <p className="text-sm text-gray-600">Full access to everything</p>
+                </div>
+
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-start gap-2">
+                    <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm text-gray-700 font-medium">✅ Everything in Basic, PLUS:</span>
+                  </div>
+                  <div className="flex items-start gap-2 pl-7">
+                    <span className="text-sm text-gray-700">📚 Book of Amos Chapters 5-9 (early access)</span>
+                  </div>
+                  <div className="flex items-start gap-2 pl-7">
+                    <span className="text-sm text-gray-700">📖 Complete Book of Daniel (12 chapters)</span>
+                  </div>
+                  <div className="flex items-start gap-2 pl-7">
+                    <span className="text-sm text-gray-700">🎓 Advanced Hebrew alphabet lessons</span>
+                  </div>
+                  <div className="flex items-start gap-2 pl-7">
+                    <span className="text-sm text-gray-700">🔍 Deep dives into mistranslations</span>
+                  </div>
+                  <div className="flex items-start gap-2 pl-7">
+                    <span className="text-sm text-gray-700">💰 20% discount on all book purchases</span>
+                  </div>
+                  <div className="flex items-start gap-2 pl-7">
+                    <span className="text-sm text-gray-700">⚡ Priority AI support</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleSubscribePremium}
+                  className="w-full px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-600 text-white rounded-lg font-bold hover:from-yellow-600 hover:to-orange-700 transition-all shadow-lg transform hover:scale-105"
+                >
+                  Start Premium - $5/mo
+                </button>
+              </div>
+            </div>
+
+            {/* Cancel Button */}
+            <div className="text-center">
               <button
                 onClick={() => setShowPaywall(false)}
-                className="flex-1 px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
               >
-                Cancel
-              </button>
-              <button
-                onClick={handleSubscribe}
-                className="flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-bold hover:from-purple-700 hover:to-blue-700 transition-all shadow-lg"
-              >
-                Subscribe Now
+                Maybe Later
               </button>
             </div>
 
             <p className="text-xs text-gray-500 text-center mt-4">
-              Secure payment powered by Stripe. Cancel anytime.
+              🔒 Secure payment powered by Stripe. Cancel anytime, no questions asked.
             </p>
           </div>
         </div>

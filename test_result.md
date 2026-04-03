@@ -276,3 +276,103 @@ agent_communication:
     message: "MORNING STRETCH BROADCAST ADDED - BLOCKER RESOLVED: Successfully generated and added 'Morning Stretch with Richard Johnson' fitness broadcast to RJHNSN12 Radio. Used the existing /api/radio/dj/announcement endpoint which properly handles audio generation (OpenAI TTS), processing (normalize + compression + 6dB boost), and database insertion. Database now has 14 total announcements (13 original + 1 new). Playlist endpoint verified: Returns 61 items (47 tracks + 14 announcements). Morning Stretch broadcast positioned at slot 56 with 'onyx' voice, ~2-3 minute duration, includes complete stretching routine from AI Richard's fitness knowledge. Radio page tested and loads correctly. Issue: Previous agent attempted to add this but failed to persist properly - now resolved."
   - agent: "main_e1_fork3"
     message: "P0 RADIO DJ DOUBLE ECHO BUG FIXED: User reported hearing double echoes like 'This is Richard Johnson. This is Richard Johnson' and 'RJHNSN 12 RJHNSN 1212' while driving. Root cause investigation revealed: (1) Audio data in MongoDB is clean - no duplicates found. (2) FOUND THE BUG: Radio.js had TWO useEffect hooks both triggering on currentTrackIndex change - lines 124-129 called handlePlay() AND lines 190-194 called audioRef.current.play() again, causing DOUBLE PLAYBACK. FIXED by removing the redundant second useEffect. This was causing announcements to play twice simultaneously, creating the echo effect. Also confirmed: Python requirements.txt already contains APScheduler==3.11.2 and tzlocal==5.3.1 - no need to freeze. PERSISTENT MEMORY: Reviewed ai_richard.py - conversation persistence is ALREADY IMPLEMENTED (lines 1161-1231) via MongoDB ai_richard_conversations collection. Previous agent's 'credit checking' promise was impossible - Emergent doesn't expose billing APIs to deployed apps. Current implementation successfully stores and retrieves conversation history. NEEDS TESTING: Radio double-play fix, conversation memory retention."
+# NEW IMPLEMENTATION - Two-Tier Membership System
+backend:
+  - task: "Two-tier subscription system (Basic $2/mo + Premium $5/mo)"
+    implemented: true
+    working: "needs_testing"
+    files:
+      - "/app/backend/routes/payments.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: true
+    details: |
+      Created dual subscription tiers:
+      - Basic ($2/mo): AI Richard + Amos 1-4 + Radio
+      - Premium ($5/mo): All Basic + Amos 5-9 + Daniel + Hebrew Lessons + 20% off
+      
+      Endpoints created:
+      - POST /api/payments/ai-richard/subscribe (Basic tier)
+      - POST /api/payments/ai-richard/subscribe-premium (Premium tier)
+      - GET /api/payments/ai-richard/check-subscription (returns tier info)
+      - GET /api/payments/ai-richard/check-tier (detailed tier check)
+      
+      Webhook updated to store 'tier' field in MongoDB subscriptions.
+    status_history:
+      - working: "needs_testing"
+        agent: "main_e1_fork4"
+        comment: "Implemented complete two-tier backend logic. Stripe metadata includes tier. Webhook stores tier in MongoDB. API endpoints tested manually - returning correct structure."
+
+frontend:
+  - task: "Two-tier paywall UI with pricing cards"
+    implemented: true
+    working: "needs_testing"
+    files:
+      - "/app/frontend/src/components/AIRichard.js"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: true
+    details: |
+      Redesigned paywall modal to show two pricing tiers side-by-side:
+      - Basic card: Purple gradient, $2/mo, lists basic features
+      - Premium card: Orange gradient with "BEST VALUE" badge, $5/mo, shows premium features
+      
+      Features added:
+      - subscriptionTier state variable
+      - handleSubscribePremium() function for $5 tier
+      - Admin bypass now grants PREMIUM access for testing
+      - Tier badge shown in chat header (⭐ PREMIUM or BASIC)
+      - Success redirect includes tier parameter
+    status_history:
+      - working: "needs_testing"
+        agent: "main_e1_fork4"
+        comment: "Complete paywall redesign. Screenshot verified: Both pricing cards visible, email input, admin password field, 'Maybe Later' button. UI looks professional. Needs end-to-end Stripe testing."
+
+test_plan:
+  current_focus:
+    - "Two-tier membership system ($2 Basic vs $5 Premium)"
+  test_priority: "critical_new_feature"
+  test_type: "both"
+  required_tests:
+    backend:
+      - "POST /api/payments/ai-richard/subscribe creates $2 Basic checkout session"
+      - "POST /api/payments/ai-richard/subscribe-premium creates $5 Premium checkout session"
+      - "Webhook correctly stores 'tier' field in MongoDB"
+      - "GET /api/payments/ai-richard/check-tier returns correct tier for active subscriptions"
+    frontend:
+      - "Paywall modal displays two pricing cards"
+      - "Basic tier button redirects to Stripe checkout ($2)"
+      - "Premium tier button redirects to Stripe checkout ($5)"
+      - "Admin password bypass grants Premium tier access"
+      - "Chat header shows tier badge after subscription"
+      - "Success redirect populates subscriptionTier state correctly"
+
+agent_communication:
+  - agent: "main_e1_fork4"
+    message: |
+      TWO-TIER MEMBERSHIP SYSTEM IMPLEMENTED. User approved this feature in last session with "Yes, do it now".
+      
+      Backend changes:
+      - Created /subscribe-premium endpoint for $5 tier
+      - Updated webhook to store tier in MongoDB ai_richard_subscriptions collection
+      - Added check-tier endpoint for tier verification
+      - Both endpoints tested manually - working
+      
+      Frontend changes:
+      - Completely redesigned paywall modal with two pricing cards
+      - Admin bypass now grants PREMIUM access
+      - Tier badge shows in chat header
+      - Screenshot shows professional UI
+      
+      CRITICAL TESTING NEEDED:
+      1. Stripe checkout flow for BOTH tiers (use test card 4242 4242 4242 4242)
+      2. Webhook tier storage verification
+      3. Admin bypass grants Premium tier
+      4. Tier badge displays correctly in chat header
+      5. Content gating logic (future: Block Amos 5-9 for Basic users)
+      
+      Test credentials:
+      - Admin password: RJHNSN12admin2026 (should grant PREMIUM access)
+      - Stripe test card: 4242 4242 4242 4242
+      - Test email: test@example.com
+

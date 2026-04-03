@@ -318,18 +318,22 @@ async def stripe_webhook(request: Request):
             
             # Check if this is an AI Richard subscription
             if metadata.get('product') == 'ai_richard_chat':
-                # Save subscription to database
+                # Get tier from metadata (default to 'basic' for backwards compatibility)
+                tier = metadata.get('tier', 'basic')
+                
+                # Save subscription to database WITH TIER
                 subscription_doc = {
                     "email": customer_email,
                     "stripe_session_id": session_id,
                     "stripe_customer_id": session.get('customer'),
                     "stripe_subscription_id": session.get('subscription'),
+                    "tier": tier,  # NEW: Store subscription tier
                     "status": "active",
                     "created_at": datetime.now(timezone.utc).isoformat()
                 }
                 
                 await db.ai_richard_subscriptions.insert_one(subscription_doc)
-                print(f"✅ AI Richard subscription activated for {customer_email}")
+                print(f"✅ AI Richard {tier.upper()} subscription activated for {customer_email}")
             
             # Update general payment transaction
             await db.payment_transactions.update_one(
@@ -373,24 +377,24 @@ async def stripe_webhook(request: Request):
 
 
 
-# AI Richard Chat Subscription
+# AI Richard Chat Subscription - BASIC TIER ($2/month)
 @router.post("/ai-richard/subscribe")
 async def create_ai_richard_subscription(request: Request):
-    """Create monthly subscription for AI Richard chat access"""
+    """Create monthly BASIC subscription for AI Richard chat access"""
     try:
         data = await request.json()
         origin_url = data.get('origin_url', 'https://talk-web-combo.preview.emergentagent.com')
         customer_email = data.get('email')
         
-        # Create checkout session for SUBSCRIPTION (not one-time payment)
+        # Create checkout session for BASIC SUBSCRIPTION
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=[{
                 'price_data': {
                     'currency': 'usd',
                     'product_data': {
-                        'name': 'AI Richard Chat Access',
-                        'description': 'Unlimited monthly access to AI Richard conversations'
+                        'name': 'RJHNSN12 Basic Membership',
+                        'description': 'AI Richard + Amos 1-4 + Radio Access'
                     },
                     'unit_amount': 200,  # $2.00
                     'recurring': {
@@ -400,10 +404,48 @@ async def create_ai_richard_subscription(request: Request):
                 'quantity': 1,
             }],
             mode='subscription',
-            success_url=f"{origin_url}?ai_richard_subscribed=true",
+            success_url=f"{origin_url}?ai_richard_subscribed=true&tier=basic",
             cancel_url=f"{origin_url}?ai_richard_canceled=true",
             customer_email=customer_email,
-            metadata={'product': 'ai_richard_chat'}
+            metadata={'product': 'ai_richard_chat', 'tier': 'basic'}
+        )
+        
+        return {"url": session.url, "session_id": session.id}
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Subscription error: {str(e)}")
+
+# AI Richard Chat Subscription - PREMIUM TIER ($5/month)
+@router.post("/ai-richard/subscribe-premium")
+async def create_ai_richard_premium_subscription(request: Request):
+    """Create monthly PREMIUM subscription for full access"""
+    try:
+        data = await request.json()
+        origin_url = data.get('origin_url', 'https://talk-web-combo.preview.emergentagent.com')
+        customer_email = data.get('email')
+        
+        # Create checkout session for PREMIUM SUBSCRIPTION
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price_data': {
+                    'currency': 'usd',
+                    'product_data': {
+                        'name': 'RJHNSN12 Premium Membership',
+                        'description': 'AI Richard + Full Amos + Daniel + Hebrew Lessons + 20% Off'
+                    },
+                    'unit_amount': 500,  # $5.00
+                    'recurring': {
+                        'interval': 'month'
+                    }
+                },
+                'quantity': 1,
+            }],
+            mode='subscription',
+            success_url=f"{origin_url}?ai_richard_subscribed=true&tier=premium",
+            cancel_url=f"{origin_url}?ai_richard_canceled=true",
+            customer_email=customer_email,
+            metadata={'product': 'ai_richard_chat', 'tier': 'premium'}
         )
         
         return {"url": session.url, "session_id": session.id}
@@ -413,7 +455,7 @@ async def create_ai_richard_subscription(request: Request):
 
 @router.get("/ai-richard/check-subscription")
 async def check_ai_richard_subscription(email: str):
-    """Check if user has active AI Richard subscription"""
+    """Check if user has active AI Richard subscription (Basic or Premium)"""
     try:
         # Check database for active subscription
         subscription = await db.ai_richard_subscriptions.find_one(
@@ -423,6 +465,36 @@ async def check_ai_richard_subscription(email: str):
         
         return {
             "has_subscription": subscription is not None,
+            "subscription": subscription,
+            "tier": subscription.get("tier", "basic") if subscription else None
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/ai-richard/check-tier")
+async def check_subscription_tier(email: str):
+    """Check user's subscription tier level"""
+    try:
+        # Check database for active subscription
+        subscription = await db.ai_richard_subscriptions.find_one(
+            {"email": email, "status": "active"},
+            {"_id": 0}
+        )
+        
+        if not subscription:
+            return {
+                "has_subscription": False,
+                "tier": None,
+                "is_premium": False
+            }
+        
+        tier = subscription.get("tier", "basic")
+        
+        return {
+            "has_subscription": True,
+            "tier": tier,
+            "is_premium": tier == "premium",
             "subscription": subscription
         }
         
