@@ -11,8 +11,9 @@ User successfully created PayPal Business account with two-tier subscription sys
 ### PayPal Business Account
 - **Status**: Fully activated and verified (activated March 22, 2026)
 - **Bank Account**: Linked and ready for payouts
-- **Business Name**: RJHNSN12
+- **Business Name**: RJHNSN (official name for all subscription plans)
 - **Account Type**: Business - Sole Proprietor/Individual
+- **IMPORTANT**: Use "RJHNSN" (not "RJHNSN12") in all future subscription plan names per PayPal instructions
 
 ### Subscription Plans Created
 
@@ -65,6 +66,7 @@ User successfully created PayPal Business account with two-tier subscription sys
 - **For**: `/ai-chat` page (RJHSN12 AI Assistant)
 - **Currently**: Old page has broken Stripe $9.99 subscription
 - **Need**: Create PayPal subscription plan and integrate
+- **Product Name to Use**: "RJHNSN AI Assistant Unlimited" (use RJHNSN, not RJHNSN12)
 
 #### 4. Book Payment Buttons (One-time payments)
 - **Book of Amos**: $20 (regular) / $14 (member discount)
@@ -148,7 +150,7 @@ User successfully created PayPal Business account with two-tier subscription sys
 1. **Create $9.99 AI Chat Subscription Plan**
    - User will navigate to: Business Tools → Recurring payments → Create Subscription button
    - Fill in:
-     - Product name: "RJHNSN12 AI Assistant Unlimited"
+     - Product name: "RJHNSN AI Assistant Unlimited" (**USE "RJHNSN" NOT "RJHNSN12"** per PayPal instructions)
      - Plan name: "Unlimited AI Chat"
      - Price: **9.99** (NO dollar sign!)
      - Frequency: monthly
