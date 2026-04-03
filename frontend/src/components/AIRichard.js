@@ -415,7 +415,11 @@ const AIRichard = () => {
     }
     
     try {
+      console.log('🎤 Voice Quality:', voiceQuality); // DEBUG
+      console.log('🔊 Voice Enabled:', voiceEnabled); // DEBUG
+      
       if (voiceQuality === 'premium') {
+        console.log('✨ USING PREMIUM VOICE (NOVA)'); // DEBUG
         // PREMIUM: OpenAI TTS
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tts/tts`, {
           method: 'POST',
@@ -479,6 +483,7 @@ const AIRichard = () => {
         await audio.play();
         
       } else {
+        console.log('🤖 USING FREE ROBOTIC VOICE'); // DEBUG
         // FREE: Browser TTS
         if ('speechSynthesis' in window) {
           window.speechSynthesis.cancel();
@@ -539,6 +544,7 @@ const AIRichard = () => {
         }
       }
     } catch (error) {
+      console.error('❌ VOICE ERROR:', error); // DEBUG
       console.error('Speech error:', error, '- releasing lock');
       setIsSpeaking(false);
       audioLockedRef.current = false;
