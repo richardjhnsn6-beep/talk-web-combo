@@ -61,89 +61,7 @@ const AIRichard = () => {
     checkSubscription();
   }, []);
 
-  // 💰 Render PayPal buttons when paywall is shown
-  useEffect(() => {
-    if (!showPaywall) return;
-
-    // Wait for PayPal SDK to be available
-    const renderButtons = () => {
-      if (!window.paypal) {
-        // Wait a bit longer for SDK to load
-        setTimeout(renderButtons, 500);
-        return;
-      }
-
-      // Render Basic Plan Button ($2/month)
-      const basicContainer = document.getElementById('paypal-button-container-basic');
-      if (basicContainer) {
-        basicContainer.innerHTML = ''; // Clear first
-        
-        window.paypal.Buttons({
-          style: {
-            shape: 'rect',
-            color: 'gold',
-            layout: 'vertical',
-            label: 'subscribe',
-            height: 45
-          },
-          createSubscription: function(data, actions) {
-            return actions.subscription.create({
-              plan_id: 'P-0SD94356S2107193PNHH2AHI'
-            });
-          },
-          onApprove: function(data, actions) {
-            alert('✅ Welcome to Basic Membership!\n\nYou now have access to AI Richard, Amos 1-4, and Radio!');
-            localStorage.setItem('user_email', userEmail || 'subscriber');
-            localStorage.setItem('subscription_tier', 'basic');
-            setHasSubscription(true);
-            setSubscriptionTier('basic');
-            setShowPaywall(false);
-            setIsOpen(true);
-          },
-          onError: function(err) {
-            console.error('PayPal error:', err);
-            alert('Payment error. Please try again.');
-          }
-        }).render('#paypal-button-container-basic').catch(err => console.error('Render error:', err));
-      }
-
-      // Render Premium Plan Button ($5/month)
-      const premiumContainer = document.getElementById('paypal-button-container-premium');
-      if (premiumContainer) {
-        premiumContainer.innerHTML = ''; // Clear first
-        
-        window.paypal.Buttons({
-          style: {
-            shape: 'rect',
-            color: 'gold',
-            layout: 'vertical',
-            label: 'subscribe',
-            height: 45
-          },
-          createSubscription: function(data, actions) {
-            return actions.subscription.create({
-              plan_id: 'P-39S03317TS707131YNHH2M6A'
-            });
-          },
-          onApprove: function(data, actions) {
-            alert('⭐ Welcome to Premium Membership!\n\nYou now have FULL ACCESS to all features!');
-            localStorage.setItem('user_email', userEmail || 'subscriber');
-            localStorage.setItem('subscription_tier', 'premium');
-            setHasSubscription(true);
-            setSubscriptionTier('premium');
-            setShowPaywall(false);
-            setIsOpen(true);
-          },
-          onError: function(err) {
-            console.error('PayPal error:', err);
-            alert('Payment error. Please try again.');
-          }
-        }).render('#paypal-button-container-premium').catch(err => console.error('Render error:', err));
-      }
-    };
-
-    renderButtons();
-  }, [showPaywall, userEmail]);
+  // 💰 REMOVED BROKEN PAYPAL SDK - Using direct links instead (Working solution)
 
   // Check if user just subscribed (success redirect)
   useEffect(() => {
@@ -1289,8 +1207,15 @@ const AIRichard = () => {
                   </div>
                 </div>
 
-                {/* PayPal Basic Subscription Button */}
-                <div id="paypal-button-container-basic"></div>
+                {/* PayPal Basic Subscription Button - Direct Link */}
+                <a
+                  href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-0SD94356S2107193PNHH2AHI"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all transform hover:scale-105 text-center"
+                >
+                  Subscribe to Basic - $2/month
+                </a>
               </div>
 
               {/* PREMIUM TIER - $5/month - FEATURED */}
@@ -1337,8 +1262,15 @@ const AIRichard = () => {
                   </div>
                 </div>
 
-                {/* PayPal Premium Subscription Button */}
-                <div id="paypal-button-container-premium"></div>
+                {/* PayPal Premium Subscription Button - Direct Link */}
+                <a
+                  href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-39S03317TS707131YNHH2M6A"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all transform hover:scale-105 text-center"
+                >
+                  Subscribe to Premium - $5/month
+                </a>
               </div>
             </div>
 
