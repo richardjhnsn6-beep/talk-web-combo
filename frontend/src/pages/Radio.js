@@ -546,24 +546,85 @@ const Radio = () => {
             Love the music and biblical content? Support this ministry!
           </p>
           
-          <div className="flex flex-wrap justify-center gap-4 mb-6">
+          {/* Donation Options - Using Real Products */}
+          <div className="mb-6">
+            <p className="text-white font-semibold mb-4">Choose Your Support Level:</p>
+            <div className="flex flex-wrap justify-center gap-3 mb-4">
+              {/* $2/month PayPal */}
+              <a 
+                href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-0SD94356S2107193PNHH2AHI"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white text-blue-600 px-6 py-3 rounded-lg font-bold text-lg hover:bg-blue-50 transition-all shadow-lg"
+              >
+                $2/month
+              </a>
+              
+              {/* $5/month PayPal */}
+              <a 
+                href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-39S03317TS707131YNHH2M6A"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white text-purple-600 px-6 py-3 rounded-lg font-bold text-lg hover:bg-purple-50 transition-all shadow-lg"
+              >
+                $5/month
+              </a>
+              
+              {/* $7 One-time */}
+              <a 
+                href="https://richardson0164.gumroad.com/l/samfke"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white text-green-600 px-6 py-3 rounded-lg font-bold text-lg hover:bg-green-50 transition-all shadow-lg"
+              >
+                $7
+              </a>
+              
+              {/* $9.99/month */}
+              <a 
+                href="https://richardson0164.gumroad.com/l/xvpyprw"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white text-indigo-600 px-6 py-3 rounded-lg font-bold text-lg hover:bg-indigo-50 transition-all shadow-lg"
+              >
+                $9.99/month
+              </a>
+              
+              {/* $14 One-time */}
+              <a 
+                href="https://richardson0164.gumroad.com/l/osofkm"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white text-orange-600 px-6 py-3 rounded-lg font-bold text-lg hover:bg-orange-50 transition-all shadow-lg"
+              >
+                $14
+              </a>
+              
+              {/* $20 One-time */}
+              <a 
+                href="https://richardson0164.gumroad.com/l/uilyf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white text-red-600 px-6 py-3 rounded-lg font-bold text-lg hover:bg-red-50 transition-all shadow-lg"
+              >
+                $20
+              </a>
+            </div>
+            
+            <p className="text-white/70 text-sm mb-4">
+              💳 Monthly subscriptions • 📚 One-time book purchases
+            </p>
+            
             <a 
               href="/shop"
-              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:opacity-90 transition-all shadow-lg"
+              className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition-all shadow-lg"
             >
-              🛒 Visit Our Shop
-            </a>
-            <a 
-              href="/#ai-richard"
-              onClick={() => window.location.hash = 'ai-richard'}
-              className="bg-gradient-to-r from-orange-600 to-red-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:opacity-90 transition-all shadow-lg"
-            >
-              💳 Subscribe ($2 or $5/mo)
+              🛒 View All Products in Shop
             </a>
           </div>
           
           <p className="text-white/80 text-sm">
-            💝 Support through our <a href="/shop" className="text-purple-300 hover:text-purple-200 underline">Shop Page</a> or PayPal memberships
+            🔒 Secure payment via PayPal & Gumroad
           </p>
         </div>
 
