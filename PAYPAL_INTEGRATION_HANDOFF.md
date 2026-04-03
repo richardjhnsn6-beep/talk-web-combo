@@ -46,6 +46,46 @@ User successfully created PayPal Business account with two-tier subscription sys
 - **Workaround**: Direct subscription links work perfectly (share with customers)
 
 ### Admin Access
+
+
+## 🚨 CRITICAL DISCOVERY - PayPal New Account Restriction
+
+**User called PayPal Account Management on April 3, 2026 and discovered:**
+
+### The 10-Day Limit
+- **Policy**: New PayPal Business accounts can only create **2 payment plans** in the first **10 days**
+- **User's Status**: Already created 2 plans (used both slots)
+  1. ✅ Basic Membership - $2/month (WORKING)
+  2. ✅ Premium Membership - $5/month (WORKING)
+- **Account Created**: March 22, 2026
+- **Full Access Unlocked**: ~April 1-2, 2026 (after 10-day waiting period)
+
+### Why This Matters
+This explains ALL the issues encountered during the session:
+- User couldn't create additional payment plans
+- PayPal interface was "pushing them out" without explanation
+- Attempts to create $9.99 plan and book buttons were silently blocked
+- System gave no error messages - just made it impossible to proceed
+
+### Current Status
+- ✅ **CAN collect money NOW** with the 2 existing subscription plans
+- ❌ **CANNOT create** $9.99 AI Chat plan yet
+- ❌ **CANNOT create** book payment buttons yet  
+- ⏰ **WAIT ~7 more days** then create unlimited plans
+
+### Action Items
+**For User (NOW):**
+- Share $2 and $5 subscription links with customers
+- Start collecting payments immediately
+- Mark calendar for ~April 1-2 to come back
+
+**For Next Agent (~April 1-2):**
+- User will return after 10-day period
+- Create $9.99 AI Chat subscription
+- Create book payment buttons ($14, $20)
+- Complete payment system setup
+
+
 - **Admin Password**: `RJHNSN12admin2026`
 - **Grants**: Premium tier access (for testing without paying)
 - **How to use**: Enter password in email field on paywall
@@ -55,10 +95,13 @@ User successfully created PayPal Business account with two-tier subscription sys
 ## ⚠️ PENDING / BLOCKED ITEMS
 
 ### PayPal Account Lockout
-- **Issue**: User got locked out after multiple login attempts during session
-- **Plan**: User will call PayPal Business Support at 8 AM to unlock account
-- **Phone**: 1-888-221-1161
-- **What to say**: "I'm locked out of my account and need password reset. Email: [user's email], Business: RJHNSN12"
+- **RESOLVED**: Not a lockout - it's a NEW ACCOUNT RESTRICTION
+- **PayPal Policy**: New Business accounts LIMITED to 2 payment plans in first 10 days
+- **Current Status**: User created 2 plans (Basic $2, Premium $5) - LIMIT REACHED
+- **Timeline**: After 10 days from account creation (March 22), full access unlocked
+- **Can Create More Plans**: Approximately April 1-2, 2026 (10 days after March 22)
+- **What Works NOW**: The 2 existing plans are fully functional and collecting payments
+- **What's Blocked**: Creating additional plans until 10-day period ends
 
 ### Additional Subscription Plans to Create (When Account Unlocked)
 
