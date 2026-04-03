@@ -546,69 +546,24 @@ const Radio = () => {
             Love the music and biblical content? Support this ministry!
           </p>
           
-          {!showCustomDonation ? (
-            <>
-              <div className="flex flex-wrap justify-center gap-4 mb-6">
-                <button 
-                  onClick={() => handleDonation(5)}
-                  className="bg-white text-orange-600 px-6 py-3 rounded-lg font-bold text-lg hover:bg-orange-50 transition-all shadow-lg"
-                >
-                  $5
-                </button>
-                <button 
-                  onClick={() => handleDonation(10)}
-                  className="bg-white text-orange-600 px-6 py-3 rounded-lg font-bold text-lg hover:bg-orange-50 transition-all shadow-lg"
-                >
-                  $10
-                </button>
-                <button 
-                  onClick={() => handleDonation(25)}
-                  className="bg-white text-orange-600 px-6 py-3 rounded-lg font-bold text-lg hover:bg-orange-50 transition-all shadow-lg"
-                >
-                  $25
-                </button>
-                <button 
-                  onClick={() => setShowCustomDonation(true)}
-                  className="bg-white text-orange-600 px-6 py-3 rounded-lg font-bold text-lg hover:bg-orange-50 transition-all shadow-lg"
-                >
-                  Custom Amount
-                </button>
-              </div>
-            </>
-          ) : (
-            <div className="max-w-md mx-auto mb-6">
-              <div className="flex gap-3">
-                <div className="flex-1">
-                  <input
-                    type="number"
-                    value={customAmount}
-                    onChange={(e) => setCustomAmount(e.target.value)}
-                    placeholder="Enter amount"
-                    min="1"
-                    className="w-full px-4 py-3 rounded-lg text-gray-800 font-semibold text-lg"
-                  />
-                </div>
-                <button
-                  onClick={handleCustomDonation}
-                  className="bg-green-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-700 transition-all shadow-lg"
-                >
-                  Donate
-                </button>
-                <button
-                  onClick={() => {
-                    setShowCustomDonation(false);
-                    setCustomAmount('');
-                  }}
-                  className="bg-gray-600 text-white px-4 py-3 rounded-lg font-bold hover:bg-gray-700 transition-all"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          )}
+          <div className="flex flex-wrap justify-center gap-4 mb-6">
+            <a 
+              href="/shop"
+              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:opacity-90 transition-all shadow-lg"
+            >
+              🛒 Visit Our Shop
+            </a>
+            <a 
+              href="/#ai-richard"
+              onClick={() => window.location.hash = 'ai-richard'}
+              className="bg-gradient-to-r from-orange-600 to-red-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:opacity-90 transition-all shadow-lg"
+            >
+              💳 Subscribe ($2 or $5/mo)
+            </a>
+          </div>
           
           <p className="text-white/80 text-sm">
-            🔒 Secure payment via Stripe • All major cards accepted
+            💝 Support through our <a href="/shop" className="text-purple-300 hover:text-purple-200 underline">Shop Page</a> or PayPal memberships
           </p>
         </div>
 
