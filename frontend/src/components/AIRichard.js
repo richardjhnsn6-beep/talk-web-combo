@@ -420,153 +420,63 @@ const AIRichard = () => {
     }
     
     try {
-      console.log('🎤 Voice Quality:', voiceQuality); // DEBUG
-      console.log('🔊 Voice Enabled:', voiceEnabled); // DEBUG
+      console.log('🎤 FORCING PREMIUM VOICE (NOVA)'); // DEBUG
       
-      if (voiceQuality === 'premium') {
-        console.log('✨ USING PREMIUM VOICE (NOVA)'); // DEBUG
-        // PREMIUM: OpenAI TTS
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tts/tts`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            text: text,
-            voice: 'nova' // Female, energetic voice
-          })
-        });
-        
-        if (!response.ok) {
-          throw new Error('TTS API failed');
-        }
-        
-        const audioBlob = await response.blob();
-        const audioUrl = URL.createObjectURL(audioBlob);
-        const audio = new Audio(audioUrl);
-        
-        currentAudioRef.current = audio;
-        console.log('📢 Premium audio created');
-        
-        audio.onended = () => {
-          console.log('✅ Audio ended - releasing lock');
-          setIsSpeaking(false);
-          audioLockedRef.current = false;
-          URL.revokeObjectURL(audioUrl);
-          currentAudioRef.current = null;
-          if (wasPlaying && !continuousMode && radioPlayer) {
-            radioPlayer.play();
-          }
-          if (continuousMode && recognitionRef.current && !isRecognitionActive) {
-            setTimeout(() => {
-              try {
-                recognitionRef.current.start();
-                setIsListening(true);
-                setIsRecognitionActive(true);
-              } catch (err) {
-                console.error('Restart failed:', err);
-              }
-            }, 3000);
-          }
-        };
-        
-        audio.onerror = () => {
-          console.log('❌ Audio error - releasing lock');
-          setIsSpeaking(false);
-          audioLockedRef.current = false;
-          URL.revokeObjectURL(audioUrl);
-          currentAudioRef.current = null;
-          if (wasPlaying && !continuousMode && radioPlayer) {
-            radioPlayer.play();
-          }
-          if (continuousMode && recognitionRef.current) {
-            setTimeout(() => {
-              recognitionRef.current.start();
-              setIsListening(true);
-            }, 500);
-          }
-        };
-        
-        await audio.play();
-        
-      } else {
-        console.log('🤖 USING FREE ROBOTIC VOICE'); // DEBUG
-        // FREE: Browser TTS
-        if ('speechSynthesis' in window) {
-          window.speechSynthesis.cancel();
-          
-          const utterance = new SpeechSynthesisUtterance(text);
-          utterance.rate = 0.9;
-          utterance.pitch = 1.0;
-          utterance.volume = 1.0;
-          
-          utterance.onend = () => {
-            console.log('✅ Free voice ended - releasing lock');
-            setIsSpeaking(false);
-            audioLockedRef.current = false;
-            if (wasPlaying && !continuousMode && radioPlayer) {
-              radioPlayer.play();
-            }
-            if (continuousMode && recognitionRef.current && !isRecognitionActive) {
-              setTimeout(() => {
-                try {
-                  recognitionRef.current.start();
-                  setIsListening(true);
-                  setIsRecognitionActive(true);
-                } catch (err) {
-                  console.error('Restart failed:', err);
-                }
-              }, 500);
-            }
-          };
-          
-          utterance.onerror = () => {
-            console.log('❌ Free voice error - releasing lock');
-            setIsSpeaking(false);
-            audioLockedRef.current = false;
-            if (wasPlaying && !continuousMode && radioPlayer) {
-              radioPlayer.play();
-            }
-            if (continuousMode && recognitionRef.current && !isRecognitionActive) {
-              setTimeout(() => {
-                try {
-                  recognitionRef.current.start();
-                  setIsListening(true);
-                  setIsRecognitionActive(true);
-                } catch (err) {
-                  console.error('Restart failed:', err);
-                }
-              }, 500);
-            }
-          };
-          
-          window.speechSynthesis.speak(utterance);
-        } else {
-          console.log('❌ No speech synthesis - releasing lock');
-          setIsSpeaking(false);
-          audioLockedRef.current = false;
-          if (wasPlaying && radioPlayer) {
-            radioPlayer.play();
-          }
-        }
+      // ALWAYS USE PREMIUM - NO IF STATEMENT
+      console.log('✨ Calling OpenAI TTS with Nova voice');
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tts/tts`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          text: text,
+          voice: 'nova' // Female voice - FORCED
+        })
+      });
+      
+      console.log('TTS Response status:', response.status);
+      
+      if (!response.ok) {
+        console.error('TTS API failed with status:', response.status);
+        throw new Error('TTS API failed');
       }
+      
+      const audioBlob = await response.blob();
+      console.log('Audio blob received, size:', audioBlob.size);
+      
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      
+      currentAudioRef.current = audio;
+      console.log('📢 Premium audio created and ready to play');
+      
+      audio.onended = () => {
+        console.log('✅ Audio ended');
+        setIsSpeaking(false);
+        audioLockedRef.current = false;
+        URL.revokeObjectURL(audioUrl);
+        currentAudioRef.current = null;
+        if (wasPlaying && !continuousMode && radioPlayer) {
+          radioPlayer.play();
+        }
+      };
+      
+      audio.onerror = (err) => {
+        console.error('❌ Audio playback error:', err);
+        setIsSpeaking(false);
+        audioLockedRef.current = false;
+        URL.revokeObjectURL(audioUrl);
+        currentAudioRef.current = null;
+      };
+      
+      console.log('▶️ Starting audio playback...');
+      await audio.play();
+      console.log('🔊 Audio playing!');
+      
     } catch (error) {
-      console.error('❌ VOICE ERROR:', error); // DEBUG
-      console.error('Speech error:', error, '- releasing lock');
+      console.error('❌ VOICE ERROR:', error);
       setIsSpeaking(false);
       audioLockedRef.current = false;
-      if (wasPlaying && !continuousMode && radioPlayer) {
-        radioPlayer.play();
-      }
-      if (continuousMode && recognitionRef.current && !isRecognitionActive) {
-        setTimeout(() => {
-          try {
-            recognitionRef.current.start();
-            setIsListening(true);
-            setIsRecognitionActive(true);
-          } catch (err) {
-            console.error('Restart failed:', err);
-          }
-        }, 500);
-      }
+      alert('Voice failed: ' + error.message);
     }
   };
 
