@@ -1048,37 +1048,11 @@ const AIRichard = () => {
 
           {/* Input area */}
           <div className="p-4 bg-white border-t border-gray-200">
-            {/* Voice Quality Selector - FREE or PREMIUM */}
+            {/* Voice is ALWAYS ON with Premium Female Voice */}
             {voiceEnabled && (
-              <div className="mb-3 p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
-                <p className="text-sm font-semibold text-gray-700 mb-2">🔊 Voice Quality:</p>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setVoiceQuality('free')}
-                    className={`flex-1 px-4 py-2 rounded-lg font-medium transition-all ${
-                      voiceQuality === 'free'
-                        ? 'bg-blue-600 text-white shadow-lg'
-                        : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
-                    }`}
-                  >
-                    ⚡ Free (Instant)
-                  </button>
-                  <button
-                    onClick={() => setVoiceQuality('premium')}
-                    className={`flex-1 px-4 py-2 rounded-lg font-medium transition-all ${
-                      voiceQuality === 'premium'
-                        ? 'bg-purple-600 text-white shadow-lg'
-                        : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
-                    }`}
-                  >
-                    ✨ Premium (OpenAI)
-                  </button>
-                </div>
-                <p className="text-xs text-gray-600 mt-2 text-center">
-                  {voiceQuality === 'free' 
-                    ? '⚡ Fast robotic voice - instant responses' 
-                    : '✨ High-quality AI voice - takes ~10 seconds'}
-                </p>
+              <div className="mb-2 p-2 bg-purple-50 rounded-lg text-center border border-purple-200">
+                <p className="text-sm text-purple-700 font-medium">🔊 Voice ON (Premium Female)</p>
+                <p className="text-xs text-gray-600 mt-1">AI Richard speaks with Nova's voice</p>
               </div>
             )}
             {isSpeaking && (
