@@ -862,6 +862,42 @@ const BookOfAmos = () => {
     }
   };
 
+  // Concordance Data
+  const concordanceData = [
+    { hebrew: "dabar", english: "the words", strongs: "1697" },
+    { hebrew: "al", english: "of", strongs: "413" },
+    { hebrew: "Amats (Amos)", english: "burden bearer", strongs: "" },
+    { hebrew: "Asar", english: "who, Also fire of light", strongs: "" },
+    { hebrew: "hayach", english: "was", strongs: "1961" },
+    { hebrew: "bayn", english: "among", strongs: "996" },
+    { hebrew: "Nagad", english: "the herdmen", strongs: "5349" },
+    { hebrew: "al", english: "of", strongs: "413" },
+    { hebrew: "Taqowa", english: "Tekoa", strongs: "8620" },
+    { hebrew: "Asar", english: "which", strongs: "834" },
+    { hebrew: "Chazah", english: "he saw", strongs: "2372" },
+    { hebrew: "al", english: "concerning", strongs: "5921" },
+    { hebrew: "yasharaAl", english: "Israel", strongs: "3478" },
+    { hebrew: "yowm", english: "in the days", strongs: "3117" },
+    { hebrew: "al", english: "of", strongs: "5921" },
+    { hebrew: "yachashahAzz", english: "Uzziah", strongs: "5818" },
+    { hebrew: "Malak", english: "king", strongs: "4428" },
+    { hebrew: "al", english: "of", strongs: "5921" },
+    { hebrew: "yachadah", english: "Judah", strongs: "3062" },
+    { hebrew: "aw", english: "and", strongs: "176" },
+    { hebrew: "yowm al", english: "in the days, of", strongs: "413-3117" },
+    { hebrew: "yarabaam", english: "Jeroboam", strongs: "3379" },
+    { hebrew: "ban", english: "the son", strongs: "1121" },
+    { hebrew: "al", english: "of", strongs: "5921" },
+    { hebrew: "yowash", english: "Joash", strongs: "3101" },
+    { hebrew: "YaChuwshuah", english: "Lord", strongs: "3068" },
+    { hebrew: "Shaag", english: "roars", strongs: "7580" },
+    { hebrew: "Tsaywn", english: "Zion", strongs: "6726" },
+    { hebrew: "aw", english: "and", strongs: "176" },
+    { hebrew: "Nathan", english: "utters", strongs: "5414" },
+    { hebrew: "Naphash", english: "his", strongs: "5314" },
+    { hebrew: "qowl", english: "voice", strongs: "6963" }
+  ];
+
   // Chapter 4 - Pure Hebrew (continuous text)
   const chapter4PureHebrew = [
     {
@@ -1473,6 +1509,66 @@ const BookOfAmos = () => {
     );
   };
 
+  const renderConcordance = () => {
+    return (
+      <div className="max-w-6xl mx-auto space-y-8">
+        {/* Concordance Header */}
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-teal-800 mb-4">Concordance</h2>
+          <p className="text-gray-600 text-lg">Complete Word Index & Study Guide</p>
+        </div>
+
+        {/* Table of Contents */}
+        <div className="bg-teal-50 rounded-lg p-6 mb-8">
+          <h3 className="text-2xl font-bold text-teal-800 mb-4">Important Note</h3>
+          <p className="text-gray-700 leading-relaxed">
+            Keep in remembrance, all the letters and words have many more, and plenty meanings than what you see. 
+            One example: <span className="font-semibold text-teal-700">"Asar"</span> - Sun of God, 'The fire, of light' and 'The king of Eden, witness of the fountain.'
+          </p>
+        </div>
+
+        {/* Word Breakdown Section */}
+        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+          <h3 className="text-2xl font-bold text-teal-800 mb-4">Word Breakdown</h3>
+          <div className="space-y-4">
+            <div className="border-l-4 border-teal-600 pl-4">
+              <p className="text-gray-800 leading-relaxed">
+                <span className="font-semibold text-teal-700">Shabar dabar</span> - 
+                <span className="text-gray-600"> sh ab ar, d ab ar</span> - 
+                meaning "the fire, of the gate, of light" and "dabar" meaning "witness d, the gate ab of light ar" which is called "The word"
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Concordance Entries */}
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h3 className="text-2xl font-bold text-teal-800 mb-6">Word Index - Chapter 1</h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {concordanceData.map((entry, index) => (
+              <div key={index} className="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow">
+                <div className="flex justify-between items-start mb-2">
+                  <span className="font-semibold text-teal-700 text-lg">{entry.hebrew}</span>
+                  <span className="text-sm text-gray-500">#{entry.strongs}</span>
+                </div>
+                <p className="text-gray-800">{entry.english}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Note about full concordance */}
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+          <p className="text-yellow-800">
+            <span className="font-semibold">Sample:</span> This is a partial concordance for Chapter 1. 
+            The complete concordance with all chapters and full word studies is available in the full book.
+          </p>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-teal-50 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
@@ -1559,6 +1655,16 @@ const BookOfAmos = () => {
             >
               🔄 Bilingual
             </button>
+            <button
+              onClick={() => setActiveSection('concordance')}
+              className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all ${
+                activeSection === 'concordance'
+                  ? 'bg-teal-700 text-white shadow-lg'
+                  : 'bg-gray-200 text-gray-700 hover:bg-teal-100'
+              }`}
+            >
+              📚 Concordance
+            </button>
           </div>
 
           {/* Section Description */}
@@ -1571,6 +1677,10 @@ const BookOfAmos = () => {
               <p className="text-gray-600">
                 <span className="font-semibold text-teal-700">Pure Hebrew Section:</span> Original 20-letter ancient Hebrew transliteration - preserving the authentic language.
               </p>
+            ) : activeSection === 'concordance' ? (
+              <p className="text-gray-600">
+                <span className="font-semibold text-teal-700">Concordance:</span> Complete word index with Hebrew roots, meanings, and references - your comprehensive study tool.
+              </p>
             ) : (
               <p className="text-gray-600">
                 <span className="font-semibold text-teal-700">Bilingual Study:</span> Side-by-side comparison with Hebrew on the left and English on the right.
@@ -1581,7 +1691,10 @@ const BookOfAmos = () => {
 
         {/* Content Section */}
         <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
-          {activeSection === 'interlinear' ? renderInterlinear() : activeSection === 'pure-hebrew' ? renderPureHebrew() : renderBilingual()}
+          {activeSection === 'interlinear' ? renderInterlinear() : 
+           activeSection === 'pure-hebrew' ? renderPureHebrew() : 
+           activeSection === 'concordance' ? renderConcordance() : 
+           renderBilingual()}
         </div>
 
         {/* Call to Action */}
