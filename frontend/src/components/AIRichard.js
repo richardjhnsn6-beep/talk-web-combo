@@ -475,10 +475,13 @@ const AIRichard = () => {
       });
       
       console.log('TTS Response status:', response.status);
+      console.log('TTS Response headers:', response.headers);
       
       if (!response.ok) {
+        const errorText = await response.text();
         console.error('TTS API failed with status:', response.status);
-        throw new Error('TTS API failed');
+        console.error('Error response:', errorText);
+        throw new Error(`TTS API failed: ${response.status} - ${errorText}`);
       }
       
       const audioBlob = await response.blob();
