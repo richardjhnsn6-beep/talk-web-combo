@@ -555,6 +555,54 @@ const BookOfAmos = () => {
     verse15: {
       hebrew: ["Sana", "Ra", "aw", "ahab", "Tab", "aw", "yatsag", "aMashaphaTh", "al", "Shaar", "yash", "yaka", "l", "ky", "Yachuwshuah", "aLaSham", "al", "aTsabaah", "Chanan", "al", "Shaarayth", "al", "yawcaph"],
       english: ["Hate", "the evil", "and", "love", "the good", "and", "establish", "judgment", "in the", "gate", "it may be", "that", "the", "LORD", "God", "of", "hosts", "will be", "gracious", "unto the", "remnant", "of", "Joseph"]
+    },
+    verse16: {
+      hebrew: ["kan", "amar", "Yachuwshuah", "aLaSham", "al", "aTsabaah", "adanay", "al", "kol", "rachab", "aMacpad", "aw", "al", "kol", "chuwts", "amar", "hah", "hah", "aw", "qara", "aiykar", "al", "abal", "aw", "al", "aMacpad", "yada", "Naphash", "qaynah"],
+      english: ["Therefore", "thus saith", "the", "LORD", "the God", "of", "hosts", "the Lord", "In all", "public squares", "there shall be", "wailing", "and in all", "the", "streets", "they shall", "cry", "Alas", "Alas", "and the", "husbandman", "shall be", "called to", "mourning", "and to", "wailing", "the skillful of", "lamentation"]
+    },
+    verse17: {
+      hebrew: ["aw", "al", "kol", "karam", "aMacpad", "ky", "Abar", "al", "qarab", "amar", "Yachuwshuah"],
+      english: ["And in all", "the", "vineyards", "there shall be", "wailing", "for", "I will", "pass", "through", "the midst", "of thee", "saith", "the", "LORD"]
+    },
+    verse18: {
+      hebrew: ["howy", "awah", "al", "yowm", "Yachuwshuah", "al", "zath", "yowm", "Yachuwshuah", "chashak", "huw", "aw", "lah", "owr"],
+      english: ["Woe", "unto you", "that", "desire", "the day", "of the", "LORD", "To what", "end", "is it", "for you", "The day", "of the", "LORD", "is", "darkness", "and not", "light"]
+    },
+    verse19: {
+      hebrew: ["Asar", "nuwc", "aysh", "al", "phanym", "aryah", "aw", "pachad", "al", "dab", "aw", "baw", "al", "bayth", "aw", "camak", "yad", "al", "qayar", "aw", "nachash", "nachash"],
+      english: ["As if", "a man", "did flee", "from", "a lion", "and a bear", "met", "him", "or went", "into the", "house", "and", "leaned", "his hand", "on the", "wall", "and a", "serpent", "bit", "him"]
+    },
+    verse20: {
+      hebrew: ["lah", "chashak", "yowm", "Yachuwshuah", "aw", "lah", "owr", "aw", "Apal", "aw", "lah", "Nagahh"],
+      english: ["Shall not", "the day", "of the", "LORD", "be", "darkness", "and not", "light", "Even very", "dark", "and no", "brightness", "in it"]
+    },
+    verse21: {
+      hebrew: ["Cana", "maac", "Naphash", "chag", "aw", "lah", "reyach", "al", "Naphash", "Atsarah"],
+      english: ["I", "hate", "I despise", "your", "feast days", "and I will", "not", "smell", "in your", "solemn", "assemblies"]
+    },
+    verse22: {
+      hebrew: ["ky", "Alah", "alah", "olah", "aw", "Minchah", "lah", "ratsah", "aw", "Shalam", "Naphash", "mariy", "lah", "nabat"],
+      english: ["Though", "ye offer", "me", "burnt offerings", "and your", "meat offerings", "I will", "not", "accept them", "neither", "will I", "regard", "the peace", "offerings", "of your", "fat", "beasts"]
+    },
+    verse23: {
+      hebrew: ["cuwr", "al", "Any", "hamown", "Naphash", "shiyr", "aw", "zimrah", "Naphash", "nabal", "lah", "shama"],
+      english: ["Take thou", "away", "from me", "the noise", "of thy", "songs", "for I will", "not", "hear", "the melody", "of thy", "viols"]
+    },
+    verse24: {
+      hebrew: ["aw", "galal", "kamaw", "Maym", "aMashaphaTh", "aw", "Tsadagaq", "kamaw", "nachal", "aythan"],
+      english: ["But let", "judgment", "run down", "as", "waters", "and", "righteousness", "as a", "mighty", "stream"]
+    },
+    verse25: {
+      hebrew: ["zabach", "aw", "Minchah", "Nagash", "al", "Any", "al", "Midbar", "arbaim", "shanah", "Bayth", "yasharaAl"],
+      english: ["Have ye", "offered", "unto me", "sacrifices", "and", "offerings", "in the", "wilderness", "forty", "years", "O house", "of", "Israel"]
+    },
+    verse26: {
+      hebrew: ["aw", "Nasa", "Cakuwth", "Malak", "aw", "Kaywan", "Tsalam", "kokab", "aLaSham", "Asar", "Ashah"],
+      english: ["Yea", "ye have", "borne", "the tabernacle", "of your", "Moloch", "and", "Chiun", "your", "images", "the star", "of your", "god", "which ye", "made to", "yourselves"]
+    },
+    verse27: {
+      hebrew: ["aw", "galah", "al", "halah", "Dammashaq", "amar", "Yachuwshuah", "aLaSham", "aTsabaah", "Sham"],
+      english: ["Therefore", "will I", "cause you", "to go", "into", "captivity", "beyond", "Damascus", "saith", "the", "LORD", "whose name", "is The God", "of", "hosts"]
     }
   };
 
