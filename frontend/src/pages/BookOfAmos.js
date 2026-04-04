@@ -1024,7 +1024,21 @@ const BookOfAmos = () => {
     { hebrew: "baythal", english: "Beth-el", strongs: "1008" },
     { hebrew: "qaran", english: "the horns", strongs: "7161" },
     { hebrew: "cuwph", english: "have an end", strongs: "5486" },
-    { hebrew: "Naam", english: "saith", strongs: "5001" }
+    { hebrew: "Naam", english: "saith", strongs: "5001" },
+    { hebrew: "Zaboththi", english: "Zaboththi", strongs: "" },
+    { hebrew: "pharech", english: "kine", strongs: "6510" },
+    { hebrew: "Bashan", english: "Bashan", strongs: "1316" },
+    { hebrew: "Ashaq", english: "oppress", strongs: "6231" },
+    { hebrew: "dal", english: "the poor", strongs: "1800" },
+    { hebrew: "ratsats", english: "Crush", strongs: "7533" },
+    { hebrew: "adown", english: "masters", strongs: "113" },
+    { hebrew: "yanach", english: "Let", strongs: "5117" },
+    { hebrew: "Shaba", english: "sworn", strongs: "7650" },
+    { hebrew: "Nasa", english: "take", strongs: "5375" },
+    { hebrew: "Tsannah", english: "hooks", strongs: "6793" },
+    { hebrew: "pharats", english: "breaches", strongs: "6556" },
+    { hebrew: "Shalak", english: "cast", strongs: "7993" },
+    { hebrew: "haramo", english: "the palace", strongs: "2038" }
   ];
 
   // Chapter 4 - Pure Hebrew (continuous text)
