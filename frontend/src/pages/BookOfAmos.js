@@ -775,6 +775,22 @@ const BookOfAmos = () => {
     verse10: {
       hebrew: ["aw", "ahy", "hapłak", "Naphash", "chag", "abal", "aw", "Naphash", "shayr", "al", "qaynah", "aw", "ahy", "Alah", "Saq", "al", "kal", "Mathan", "aw", "qarachah", "al", "kal", "Ru", "aw", "ahy", "Shuwym", "hy", "abal", "al", "yachavd"],
       english: ["And I will", "turn", "your", "feasts", "into", "mourning", "and all", "your", "songs", "into", "lamentation", "and I will", "bring up", "sackcloth", "upon all", "loins", "and", "baldness", "upon every", "head", "and I will", "make it", "as the", "mourning", "of an", "only son"]
+    },
+    verse11: {
+      hebrew: ["hannah", "yown", "bow", "amar", "Adanay", "YaChuwshuah", "ky", "ahy", "shalach", "raab", "arats", "lah", "raab", "laCham", "aw", "Tsama", "kal", "Mayim", "han", "al", "Shama"],
+      english: ["Behold", "the days", "come", "saith", "the Lord", "GOD", "that I will", "send", "a famine", "in the", "land", "not", "a famine", "of", "bread", "nor a", "thirst", "for", "water", "but of", "hearing", "the words", "of the", "LORD"]
+    },
+    verse12: {
+      hebrew: ["Chaw", "ky", "shashu", "Nuw", "yom", "al", "yam", "aw", "al", "Tsaphan", "aph", "Mazarach", "Cham", "yash", "shuwit", "baqash", "dabar", "al", "YaChuwshuah", "han", "yash", "lah", "Matsa"],
+      english: ["And they", "shall", "wander", "from", "sea", "to", "sea", "and from", "the", "north", "even to", "the", "east", "they shall", "run to", "and fro", "to seek", "the word", "of the", "LORD", "and shall", "not", "find it"]
+    },
+    verse13: {
+      hebrew: ["al", "ky", "yowm", "yash", "yapha", "bathuwlah", "aw", "bachuwrr", "anash", "alaph", "kal", "Tsama"],
+      english: ["In that", "day", "shall the", "fair", "virgins", "and", "young", "men", "faint", "for", "thirst"]
+    },
+    verse14: {
+      hebrew: ["Cham", "ky", "shaba", "aShmah", "Shamarown", "aw", "amar", "Naphash", "AlaSham", "howy", "dan", "Chay", "aw", "darak", "al", "Baar", "Shaba", "Chay", "aph", "Cham", "yash", "Naphal", "aw", "lah", "quwm", "owd"],
+      english: ["They that", "swear", "by the", "sin", "of", "Samaria", "and say", "Thy god", "O", "Dan", "liveth", "and", "The manner", "of", "Beersheba", "liveth", "even they", "shall", "fall", "and", "never", "rise up", "again"]
     }
   };
 
