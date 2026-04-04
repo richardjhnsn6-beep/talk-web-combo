@@ -241,6 +241,11 @@ const BookOfAmos = () => {
       num: 7, 
       title: "Visions of Judgment",
       hebrewTitle: "chazown Mashaphat"
+    },
+    { 
+      num: 8, 
+      title: "The Basket of Summer Fruit",
+      hebrewTitle: "kaluwb qayts"
     }
   ];
 
@@ -730,6 +735,49 @@ const BookOfAmos = () => {
     }
   };
 
+  const chapter8Interlinear = {
+    verse1: {
+      hebrew: ["koh", "hayach", "Adanay", "YaChuwshuah", "ray", "hannah", "kalab", "qayts"],
+      english: ["Thus", "hath", "the LORD", "GOD", "shewed", "unto me", "and behold", "a basket", "of", "summer", "fruit"]
+    },
+    verse2: {
+      hebrew: ["aw", "hy", "amar", "Amac", "Mah", "raah", "aw", "any", "kalaq", "qayts", "az", "amar", "YaChuwshuah", "al", "any", "qats", "bow", "al", "amy", "am", "al", "yasharaAl", "al", "lah", "yaceaph", "abar", "Cham", "kal", "owd"],
+      english: ["And", "he", "said", "Amos", "what", "seest", "thou", "And I", "said", "A basket", "of", "summer", "fruit", "Then", "said", "the LORD", "unto me", "The end", "is come", "upon", "my people", "of", "Israel", "I will", "not", "again", "pass by", "them", "any more"]
+    },
+    verse3: {
+      hebrew: ["aw", "shayr", "al", "haykal", "yash", "yalal", "ky", "yowm", "amar", "Adanay", "YaChuwshuah", "Shah", "Rab", "pagar", "kal", "Maqowm", "Cham", "yash", "shah", "Cham", "yatsa", "hacah"],
+      english: ["And the", "songs", "of the", "temple", "shall be", "howlings", "in that", "day", "saith", "the LORD", "GOD", "there shall be", "many", "dead bodies", "in every", "place", "they shall", "cast them", "forth", "with", "silence"]
+    },
+    verse4: {
+      hebrew: ["Shama", "zath", "howy", "yash", "ky", "shaaph", "aby", "Nathan", "anav", "any", "al", "arats", "shabath"],
+      english: ["Hear", "this", "O ye", "that", "swallow up", "the", "needy", "even to", "make", "the poor", "of the", "land", "to fail"]
+    },
+    verse5: {
+      hebrew: ["amar", "Mathay", "Chadash", "abar", "ky", "yakał", "shabar", "aw", "shabbath", "ky", "yakal", "pathach", "bar", "karath", "ayphah", "tsuwq", "aw", "al", "al", "gadal", "aw", "avath", "Mazan", "Maramah"],
+      english: ["Saying", "When will", "the new", "moon", "be gone", "that we", "may sell", "corn", "And the", "sabbath", "that we", "may", "set forth", "wheat", "making", "the ephah", "small", "and the", "shekel", "great", "and", "falsifying", "the balances", "by", "deceit"]
+    },
+    verse6: {
+      hebrew: ["ky", "yakal", "qanah", "dal", "kacaph", "aw", "abyown", "puwk", "Naał", "gam", "aw", "shabar", "Mappal", "bar"],
+      english: ["That we", "may buy", "the poor", "for", "silver", "and the", "needy", "for a", "pair of", "shoes", "yea and", "sell", "the refuse", "of the", "wheat"]
+    },
+    verse7: {
+      hebrew: ["al", "YaChuwshuah", "hayach", "Shaba", "qaown", "yaaqab", "ky", "ahy", "Natsach", "am", "Shakach", "kal", "Maasah"],
+      english: ["The LORD", "hath", "sworn", "by the", "excellency", "of", "Jacob", "Surely", "I will", "never", "forget", "any of", "their", "works"]
+    },
+    verse8: {
+      hebrew: ["yash", "lah", "arats", "ragaz", "zath", "aw", "kal", "achach", "ky", "yashab", "Mala", "aw", "yash", "Alah", "kal", "hy", "owr", "aw", "yash", "garash", "aw", "shaqah", "hy", "darak", "yaor", "al", "Matsaraym"],
+      english: ["Shall not", "the land", "tremble", "for this", "and every one", "mourn", "that", "dwelleth", "therein", "And it shall", "rise up", "wholly", "as a", "flood", "and it shall be", "cast out", "and", "drowned", "as by the", "flood", "of", "Egypt"]
+    },
+    verse9: {
+      hebrew: ["aw", "yash", "hayach", "abar", "ky", "yowm", "amar", "Adanay", "YaChuwshuah", "ky", "ahy", "dan", "Shamash", "bow", "baad", "tsahar", "aw", "ahy", "Chashak", "arats", "owr"],
+      english: ["And it shall", "come to", "pass", "in that", "day", "saith", "the Lord", "GOD", "that I will", "cause", "the sun", "to go", "down", "at", "noon", "and I will", "darken", "the", "earth", "in the", "clear", "day"]
+    },
+    verse10: {
+      hebrew: ["aw", "ahy", "hapłak", "Naphash", "chag", "abal", "aw", "Naphash", "shayr", "al", "qaynah", "aw", "ahy", "Alah", "Saq", "al", "kal", "Mathan", "aw", "qarachah", "al", "kal", "Ru", "aw", "ahy", "Shuwym", "hy", "abal", "al", "yachavd"],
+      english: ["And I will", "turn", "your", "feasts", "into", "mourning", "and all", "your", "songs", "into", "lamentation", "and I will", "bring up", "sackcloth", "upon all", "loins", "and", "baldness", "upon every", "head", "and I will", "make it", "as the", "mourning", "of an", "only son"]
+    }
+  };
+
   // Chapter 4 - Pure Hebrew (continuous text)
   const chapter4PureHebrew = [
     {
@@ -1041,7 +1089,7 @@ const BookOfAmos = () => {
   ];
 
   const renderInterlinear = () => {
-    if (activeChapter !== 1 && activeChapter !== 2 && activeChapter !== 3 && activeChapter !== 4 && activeChapter !== 5 && activeChapter !== 6 && activeChapter !== 7) {
+    if (activeChapter !== 1 && activeChapter !== 2 && activeChapter !== 3 && activeChapter !== 4 && activeChapter !== 5 && activeChapter !== 6 && activeChapter !== 7 && activeChapter !== 8) {
       return (
         <div className="text-center py-12">
           <p className="text-gray-600 text-lg">
@@ -1058,7 +1106,8 @@ const BookOfAmos = () => {
                         activeChapter === 4 ? chapter4Interlinear :
                         activeChapter === 5 ? chapter5Interlinear :
                         activeChapter === 6 ? chapter6Interlinear :
-                        chapter7Interlinear;
+                        activeChapter === 7 ? chapter7Interlinear :
+                        chapter8Interlinear;
 
     return (
       <div className="max-w-5xl mx-auto">
