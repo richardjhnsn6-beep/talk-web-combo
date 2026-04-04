@@ -926,7 +926,23 @@ const BookOfAmos = () => {
     { hebrew: "qarub", english: "Midst", strongs: "7130" },
     { hebrew: "harag", english: "slay", strongs: "2026" },
     { hebrew: "kol", english: "all the", strongs: "3605" },
-    { hebrew: "sham", english: "thereof", strongs: "8033" }
+    { hebrew: "sham", english: "thereof", strongs: "8033" },
+    { hebrew: "akal", english: "devour", strongs: "398" },
+    { hebrew: "Aramown", english: "the palaces", strongs: "7599" },
+    { hebrew: "qaryowTh", english: "Kirioth", strongs: "7152" },
+    { hebrew: "Maac", english: "despised", strongs: "7879" },
+    { hebrew: "aTharach", english: "the Law", strongs: "8430" },
+    { hebrew: "Tarach", english: "Tarach", strongs: "7511" },
+    { hebrew: "Shamar", english: "kept", strongs: "8104" },
+    { hebrew: "abwown", english: "the poor", strongs: "7911" },
+    { hebrew: "puwk", english: "a pair", strongs: "6320" },
+    { hebrew: "Naal", english: "Shoes", strongs: "5275" },
+    { hebrew: "shaaph", english: "pant", strongs: "7602" },
+    { hebrew: "achar", english: "after", strongs: "310" },
+    { hebrew: "aphar", english: "the dust", strongs: "6083" },
+    { hebrew: "chaq", english: "commandments", strongs: "2706" },
+    { hebrew: "kazab", english: "lies", strongs: "3564" },
+    { hebrew: "Taah", english: "to err", strongs: "8414" }
   ];
 
   // Chapter 4 - Pure Hebrew (continuous text)
