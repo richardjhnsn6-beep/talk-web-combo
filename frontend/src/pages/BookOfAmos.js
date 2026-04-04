@@ -1078,7 +1078,24 @@ const BookOfAmos = () => {
     { hebrew: "yaragown", english: "mildew", strongs: "3420" },
     { hebrew: "gannah", english: "gardens", strongs: "1593" },
     { hebrew: "cuwc", english: "horses", strongs: "5483" },
-    { hebrew: "ashah", english: "made", strongs: "6213" }
+    { hebrew: "ashah", english: "made", strongs: "6213" },
+    { hebrew: "Karam", english: "vineyards", strongs: "3754" },
+    { hebrew: "baash", english: "the stink", strongs: "887" },
+    { hebrew: "Makanah", english: "camps", strongs: "4264" },
+    { hebrew: "alah", english: "to come up", strongs: "5927" },
+    { hebrew: "aph", english: "Nostrils", strongs: "639" },
+    { hebrew: "haphak", english: "have", strongs: "2015" },
+    { hebrew: "Mahapakah", english: "overthrew", strongs: "4114" },
+    { hebrew: "cadam", english: "Sodom", strongs: "5467" },
+    { hebrew: "Amarah", english: "Gomorrah", strongs: "6017" },
+    { hebrew: "hovnah", english: "were", strongs: "1961" },
+    { hebrew: "aqab", english: "because", strongs: "6118" },
+    { hebrew: "kuwn", english: "prepare", strongs: "3559" },
+    { hebrew: "qarah", english: "to meet", strongs: "7125" },
+    { hebrew: "yatsar", english: "formeth", strongs: "3335" },
+    { hebrew: "bara", english: "createth", strongs: "1254" },
+    { hebrew: "ruwach", english: "the wind", strongs: "7307" },
+    { hebrew: "Nagad", english: "declareth", strongs: "5046" }
   ];
 
   // Chapter 4 - Pure Hebrew (continuous text)
