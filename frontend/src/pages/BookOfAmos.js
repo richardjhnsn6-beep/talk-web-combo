@@ -1597,6 +1597,49 @@ const BookOfAmos = () => {
             </div>
           </div>
 
+          {/* What Makes This Special */}
+          <div className="mt-6 bg-gradient-to-r from-teal-50 to-blue-50 rounded-lg p-6 border-l-4 border-teal-600">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">📚 What Makes This Book Different?</h3>
+            <p className="text-gray-800 leading-relaxed mb-4">
+              This is NOT your average Book of Amos. This is a <span className="font-semibold text-teal-700">comprehensive biblical research tool</span> designed for serious students who want to master the scriptures.
+            </p>
+            
+            <div className="grid md:grid-cols-2 gap-4 mt-4">
+              <div className="bg-white rounded p-4 border border-teal-200">
+                <h4 className="font-bold text-teal-800 mb-2">🔍 Original Hebrew Access</h4>
+                <p className="text-gray-700 text-sm">
+                  Find ANY word in the original Hebrew from the very first chapter. See the authentic 20-letter ancient Hebrew system.
+                </p>
+              </div>
+              
+              <div className="bg-white rounded p-4 border border-teal-200">
+                <h4 className="font-bold text-teal-800 mb-2">↔️ Word Flow Analysis</h4>
+                <p className="text-gray-700 text-sm">
+                  Compare how Hebrew words flow into English. Understand the REAL meaning behind every translation.
+                </p>
+              </div>
+              
+              <div className="bg-white rounded p-4 border border-teal-200">
+                <h4 className="font-bold text-teal-800 mb-2">📖 Built-in Concordance</h4>
+                <p className="text-gray-700 text-sm">
+                  Cross-reference every word instantly. Master patterns and shortcuts designed by decades of biblical scholarship.
+                </p>
+              </div>
+              
+              <div className="bg-white rounded p-4 border border-teal-200">
+                <h4 className="font-bold text-teal-800 mb-2">✅ Verify Every Word</h4>
+                <p className="text-gray-700 text-sm">
+                  Don't just read - VERIFY. Check every word against the original Hebrew. Truth seekers deserve accuracy.
+                </p>
+              </div>
+            </div>
+
+            <p className="text-gray-800 mt-4 text-center font-semibold">
+              💡 This book gives you <span className="text-teal-700">FAR MORE knowledge</span> than any standard translation. 
+              It's a research library in your hands.
+            </p>
+          </div>
+
           {/* Chapter Navigation */}
           <div className="flex flex-wrap justify-center gap-3 mb-6">
             {chapters.map((chapter) => (
@@ -1705,11 +1748,22 @@ const BookOfAmos = () => {
         {/* Call to Action */}
         <div className="bg-gradient-to-r from-teal-700 to-teal-900 rounded-lg shadow-xl p-8 text-white text-center">
           <h3 className="text-3xl font-bold mb-4">
-            Love What You See?
+            Ready to Master the Scriptures?
           </h3>
-          <p className="text-xl mb-6">
-            This is just a sample! Get the complete books with full concordance and word studies.
+          <p className="text-xl mb-3">
+            This sample shows you the power of word-by-word Hebrew analysis.
           </p>
+          <p className="text-lg mb-6 text-teal-100">
+            The complete books include <span className="font-bold">full concordances</span>, <span className="font-bold">cross-references</span>, 
+            <span className="font-bold"> shortcut patterns</span>, and tools that give you knowledge far beyond any standard translation.
+          </p>
+          <div className="bg-teal-800 bg-opacity-50 rounded-lg p-4 mb-6 max-w-2xl mx-auto">
+            <p className="text-sm italic">
+              "These are cross-reference words for people who want to master the scriptures. Designed with shortcut patterns 
+              and built-in concordance to give you far more knowledge than your average book."
+            </p>
+            <p className="text-xs mt-2 text-teal-200">— Richard Johnson, Biblical Scholar</p>
+          </div>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a
               href="https://www.amazon.com/s?k=richard+johnson+barashath"
