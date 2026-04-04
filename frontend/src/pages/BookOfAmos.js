@@ -699,6 +699,34 @@ const BookOfAmos = () => {
     verse10: {
       hebrew: ["aw", "shalach", "amatzyah", "kohan", "al", "Baythal", "al", "yarabaam", "malak", "al", "yasharaAl", "amar", "amac", "qashar", "al", "attah", "al", "qarab", "al", "bayth", "al", "yasharaAl", "lah", "yakal", "al", "Arats", "kuwl", "al", "dabar"],
       english: ["Then", "Amaziah", "the priest", "of", "Bethel", "sent", "to", "Jeroboam", "king", "of", "Israel", "saying", "Amos", "hath", "conspired", "against", "thee", "in the", "midst", "of the", "house", "of", "Israel", "the land", "is not", "able", "to bear", "all his", "words"]
+    },
+    verse11: {
+      hebrew: ["kah", "Amac", "amar", "yarabaam", "yash", "Muwth", "charab", "aw", "yasharaAl", "yash", "kay", "yalalc", "Nadah", "galah", "al", "ban", "yash", "al", "Tama", "adamah", "aw", "yasharaAl", "yash", "kay", "yalalc", "galah", "yatsa", "al", "Naphash", "adamah"],
+      english: ["For", "thus", "Amos", "saith", "Jeroboam", "shall", "die", "by the", "sword", "and", "Israel", "shall", "surely", "be led", "away", "captive", "out of", "their own", "land"]
+    },
+    verse12: {
+      hebrew: ["gam", "yachashahAmats", "amar", "al", "Amac", "howy", "charah", "yalak", "barach", "attanah", "yalak", "al", "arats", "al", "yachadah", "aw", "Sham", "schal", "lacham", "aw", "Naba", "Sham"],
+      english: ["Also", "Amaziah", "said", "unto", "Amos", "O thou", "seer", "go", "flee thee", "away", "into the", "land", "of", "Judah", "and there", "eat", "bread", "and", "prophesy", "there"]
+    },
+    verse13: {
+      hebrew: ["han", "Naba", "lah", "yacaph", "kal", "owd", "baad", "baythal", "kah", "yash", "Malach", "Maqadash", "aw", "yash", "al", "Mamalakah", "bayth"],
+      english: ["But", "prophesy", "not", "again", "any more", "at", "Bethel", "for it", "is the", "king's", "chapel", "and it", "is the", "king's", "court"]
+    },
+    verse14: {
+      hebrew: ["az", "anah", "Amac", "aw", "amar", "yachashahAmats", "yash", "lah", "Nabay", "lah", "yash", "Nabay", "ban", "han", "yash", "baqar", "aw", "balac", "al", "Shagam", "paray"],
+      english: ["Then", "answered", "Amos", "and", "said", "to", "Amaziah", "I was", "no", "prophet", "neither", "was I", "a prophet's", "son", "but I", "was an", "herdman", "and a", "gatherer", "of", "sycamore", "fruit"]
+    },
+    verse15: {
+      hebrew: ["aw", "al", "YaChuWshuah", "laqach", "yash", "yalak", "achar", "Tsan", "aw", "YaChuWshuah", "amar", "al", "any", "yalak", "Naba", "al", "any", "yasharaAl"],
+      english: ["And the", "LORD", "took me", "as I", "followed", "the", "flock", "and the", "LORD", "said", "unto me", "Go", "prophesy", "unto my", "people", "Israel"]
+    },
+    verse16: {
+      hebrew: ["attah", "kan", "Shama", "dabar", "al", "YaChuWshuah", "amar", "Naba", "lah", "al", "yashara", "Al", "aw", "Nataph", "lah", "dabar", "al", "bayth", "la", "yashachag"],
+      english: ["Now", "therefore", "hear", "thou the", "word", "of the", "LORD", "Thou", "sayest", "Prophesy", "not", "against", "Israel", "and", "drop", "not", "thy word", "against", "the house", "of", "Isaac"]
+    },
+    verse17: {
+      hebrew: ["kan", "kah", "amar", "YaChuWshuah", "attah", "Kashashah", "yash", "zanah", "al", "ayar", "aw", "yash", "ban", "aw", "yash", "ban", "yash", "Naphal", "daralc", "charab", "aw", "yash", "adamah", "yash", "chalaq", "chabal", "aw", "yash", "Muwth", "al", "Tama", "adamah", "aw", "yasharaAl", "yash", "kay", "yalak", "galah", "yatsa", "al", "Naphash", "adamah"],
+      english: ["Therefore", "thus", "saith", "the", "LORD", "Thy", "wife", "shall be", "an harlot", "in the", "city", "and thy", "sons", "and thy", "daughters", "shall", "fall", "by the", "sword", "and thy", "land", "shall be", "divided", "by", "line", "and thou", "shalt", "die", "in a", "polluted", "land", "and", "Israel", "shall", "surely", "go into", "captivity", "out of", "his own", "land"]
     }
   };
 
