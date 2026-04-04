@@ -465,7 +465,7 @@ const AIRichard = () => {
       
       // ALWAYS USE PREMIUM - NO IF STATEMENT
       console.log('✨ Calling OpenAI TTS with Nova voice');
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tts`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tts/tts`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
