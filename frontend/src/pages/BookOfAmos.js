@@ -991,7 +991,21 @@ const BookOfAmos = () => {
     { hebrew: "YaChuwshual", english: "LORD", strongs: "3068" },
     { hebrew: "attanah", english: "you", strongs: "859" },
     { hebrew: "howy", english: "O", strongs: "1945" },
-    { hebrew: "Mashapachah", english: "family", strongs: "4940" }
+    { hebrew: "Mashapachah", english: "family", strongs: "4940" },
+    { hebrew: "mishpat", english: "judgment", strongs: "4941" },
+    { hebrew: "yada", english: "know", strongs: "3045" },
+    { hebrew: "ruach", english: "spirit", strongs: "7307" },
+    { hebrew: "qol", english: "voice", strongs: "6963" },
+    { hebrew: "adam", english: "man", strongs: "120" },
+    { hebrew: "el", english: "to", strongs: "413" },
+    { hebrew: "liphne", english: "before", strongs: "6440" },
+    { hebrew: "et", english: "time", strongs: "6256" },
+    { hebrew: "yom", english: "day", strongs: "3117" },
+    { hebrew: "elohim", english: "God", strongs: "430" },
+    { hebrew: "shem", english: "name", strongs: "8034" },
+    { hebrew: "lev", english: "heart", strongs: "3820" },
+    { hebrew: "yam", english: "sea", strongs: "3220" },
+    { hebrew: "yad", english: "hand", strongs: "3027" }
   ];
 
   // Chapter 4 - Pure Hebrew (continuous text)
