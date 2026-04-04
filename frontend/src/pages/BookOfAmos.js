@@ -497,7 +497,7 @@ const BookOfAmos = () => {
   // Chapter 5 - Interlinear (verses 1-15, partial chapter - more to be added)
   const chapter5Interlinear = {
     verse1: {
-      hebrew: ["Shama", "attanah", "kah", "adabar", "Asar", "Any", "Nasa", "al", "attah", "attanah", "aph", "qaynah", "hawy", "Bayth", "al", "yasharaAl"],
+      hebrew: ["Shama", "attanah", "kah", "adabar", "Asar", "Any", "Nasa", "al", "attah", "aph", "qaynah", "hawy", "Bayth", "al", "yasharaAl"],
       english: ["Hear", "ye", "this", "word", "which", "I", "take up", "against", "you", "even", "a", "lamentation", "O", "house", "of", "Israel"]
     },
     verse2: {
