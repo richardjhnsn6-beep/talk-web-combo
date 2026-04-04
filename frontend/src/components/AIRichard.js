@@ -894,7 +894,7 @@ const AIRichard = () => {
       {isOpen && hasSubscription === true && (
         <div className="chat-widget-container fixed bottom-20 sm:bottom-6 left-4 sm:left-6 w-[calc(100vw-2rem)] sm:w-96 h-[calc(100vh-10rem)] sm:h-[600px] bg-white rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden border border-gray-200 landscape:h-[85vh] landscape:bottom-2 landscape:left-2 landscape:w-[28rem]">
           {/* Header */}
-          <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-4 flex items-center justify-between">
+          <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-4 pr-3 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-white bg-white flex-shrink-0">
                 <img 
@@ -919,7 +919,7 @@ const AIRichard = () => {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 flex-shrink-0">
+            <div className="flex items-center gap-3 flex-shrink-0 pr-1">
               {/* Voice toggle button */}
               <button 
                 onClick={toggleVoice}
