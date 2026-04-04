@@ -1511,56 +1511,61 @@ const BookOfAmos = () => {
 
   const renderConcordance = () => {
     return (
-      <div className="max-w-6xl mx-auto space-y-8">
+      <div className="max-w-7xl mx-auto space-y-6">
         {/* Concordance Header */}
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-teal-800 mb-4">Concordance</h2>
-          <p className="text-gray-600 text-lg">Complete Word Index & Study Guide</p>
+        <div className="text-center mb-6">
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">Concordance</h2>
+          <p className="text-gray-600">Complete Word Index & Study Guide</p>
         </div>
 
         {/* Table of Contents */}
-        <div className="bg-teal-50 rounded-lg p-6 mb-8">
-          <h3 className="text-2xl font-bold text-teal-800 mb-4">Important Note</h3>
-          <p className="text-gray-700 leading-relaxed">
+        <div className="bg-white border border-gray-300 rounded p-4 mb-6">
+          <h3 className="text-xl font-bold text-gray-900 mb-3">Important Note</h3>
+          <p className="text-gray-800 leading-relaxed">
             Keep in remembrance, all the letters and words have many more, and plenty meanings than what you see. 
-            One example: <span className="font-semibold text-teal-700">"Asar"</span> - Sun of God, 'The fire, of light' and 'The king of Eden, witness of the fountain.'
+            One example: <span className="font-semibold">"Asar"</span> - Sun of God, 'The fire, of light' and 'The king of Eden, witness of the fountain.'
           </p>
         </div>
 
         {/* Word Breakdown Section */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h3 className="text-2xl font-bold text-teal-800 mb-4">Word Breakdown</h3>
-          <div className="space-y-4">
-            <div className="border-l-4 border-teal-600 pl-4">
-              <p className="text-gray-800 leading-relaxed">
-                <span className="font-semibold text-teal-700">Shabar dabar</span> - 
-                <span className="text-gray-600"> sh ab ar, d ab ar</span> - 
-                meaning "the fire, of the gate, of light" and "dabar" meaning "witness d, the gate ab of light ar" which is called "The word"
-              </p>
-            </div>
-          </div>
+        <div className="bg-white border border-gray-300 rounded p-4 mb-6">
+          <h3 className="text-xl font-bold text-gray-900 mb-3">Word Breakdown</h3>
+          <p className="text-gray-800 leading-relaxed">
+            <span className="font-semibold">Shabar dabar</span> - 
+            <span className="text-gray-700"> sh ab ar, d ab ar</span> - 
+            meaning "the fire, of the gate, of light" and "dabar" meaning "witness d, the gate ab of light ar" which is called "The word"
+          </p>
         </div>
 
-        {/* Concordance Entries */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-2xl font-bold text-teal-800 mb-6">Word Index - Chapter 1</h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {concordanceData.map((entry, index) => (
-              <div key={index} className="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow">
-                <div className="flex justify-between items-start mb-2">
-                  <span className="font-semibold text-teal-700 text-lg">{entry.hebrew}</span>
-                  <span className="text-sm text-gray-500">#{entry.strongs}</span>
-                </div>
-                <p className="text-gray-800">{entry.english}</p>
-              </div>
-            ))}
+        {/* Concordance Table */}
+        <div className="bg-white border border-gray-300 rounded overflow-hidden">
+          <div className="p-4 border-b border-gray-300">
+            <h3 className="text-xl font-bold text-gray-900">Word Index - Chapter 1</h3>
           </div>
+          
+          <table className="w-full">
+            <thead>
+              <tr className="bg-gray-50 border-b border-gray-300">
+                <th className="text-left p-3 font-semibold text-gray-900">Hebrew</th>
+                <th className="text-left p-3 font-semibold text-gray-900">English</th>
+                <th className="text-right p-3 font-semibold text-gray-900">Strong's #</th>
+              </tr>
+            </thead>
+            <tbody>
+              {concordanceData.map((entry, index) => (
+                <tr key={index} className="border-b border-gray-200 hover:bg-gray-50">
+                  <td className="p-3 font-semibold text-gray-900">{entry.hebrew}</td>
+                  <td className="p-3 text-gray-800">{entry.english}</td>
+                  <td className="p-3 text-right text-gray-600">{entry.strongs || '-'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
         {/* Note about full concordance */}
-        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
-          <p className="text-yellow-800">
+        <div className="bg-yellow-50 border border-yellow-200 p-4 rounded">
+          <p className="text-gray-800">
             <span className="font-semibold">Sample:</span> This is a partial concordance for Chapter 1. 
             The complete concordance with all chapters and full word studies is available in the full book.
           </p>
