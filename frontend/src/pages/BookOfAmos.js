@@ -1017,7 +1017,12 @@ const BookOfAmos = () => {
     { hebrew: "Natsal", english: "taketh out", strongs: "5337" },
     { hebrew: "badal", english: "a piece", strongs: "915" },
     { hebrew: "azan", english: "an ear", strongs: "241" },
-    { hebrew: "kan", english: "so", strongs: "3651" }
+    { hebrew: "kan", english: "so", strongs: "3651" },
+    { hebrew: "gam", english: "also", strongs: "1571" },
+    { hebrew: "paqad", english: "visit", strongs: "6485" },
+    { hebrew: "Mazabaach", english: "the Altars", strongs: "4196" },
+    { hebrew: "baythal", english: "Beth-el", strongs: "1008" },
+    { hebrew: "qaran", english: "the horns", strongs: "7161" }
   ];
 
   // Chapter 4 - Pure Hebrew (continuous text)
