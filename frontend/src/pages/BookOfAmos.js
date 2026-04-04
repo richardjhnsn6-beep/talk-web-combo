@@ -226,6 +226,11 @@ const BookOfAmos = () => {
       num: 4, 
       title: "Hear This Word of the Sun of Light",
       hebrewTitle: "Shama zath dabar al ash al owr"
+    },
+    { 
+      num: 5, 
+      title: "Israel Punished for Oppressing the Poor",
+      hebrewTitle: "yasharaAl anak al ashaq al dal"
     }
   ];
 
@@ -488,6 +493,71 @@ const BookOfAmos = () => {
       english: ["For", "Lo", "he", "that", "formeth", "the mountains", "and", "createth", "the wind", "and", "declareth", "unto", "man", "what", "is", "his", "thought", "that", "Maketh", "the morning", "darkness", "and", "treadeth", "upon the", "high", "places", "of", "the earth", "the", "LORD", "host", "is", "his", "name"]
     }
   };
+
+  // Chapter 5 - Interlinear (verses 1-15, partial chapter - more to be added)
+  const chapter5Interlinear = {
+    verse1: {
+      hebrew: ["Shama", "attanah", "kah", "adabar", "Asar", "Any", "Nasa", "al", "attah", "attanah", "aph", "qaynah", "hawy", "Bayth", "al", "yasharaAl"],
+      english: ["Hear", "ye", "this", "word", "which", "I", "take up", "against", "you", "even", "a", "lamentation", "O", "house", "of", "Israel"]
+    },
+    verse2: {
+      hebrew: ["Bathawlah", "yasharaAl", "hy", "Naphal", "Naphash", "lash", "lah", "awd", "qaym", "Naphash", "hy", "Natash", "al", "Naphash", "Adamah", "Sham", "hy", "Any", "qaym", "Naphash"],
+      english: ["The virgin", "of Israel", "is", "fallen", "she shall", "No", "more", "rise up", "she is", "forsaken", "upon", "her", "land", "there is", "none", "to", "rise", "her", "up"]
+    },
+    verse3: {
+      hebrew: ["kan", "Amar", "adanay", "Yachuwshuah", "al", "Ayar", "ky", "yatsa", "darak", "alaph", "yash", "Shaar", "Maah", "aw", "ky", "Asar", "yatsa", "adarak", "Maah", "yash", "Shaar", "Asar", "al", "Bayth", "al", "yasharaAl"],
+      english: ["For", "this", "saith", "the Lord", "God", "the City", "that", "went out", "by", "a thousand", "shall", "leave", "hundred", "and", "which", "went forth", "by", "a hundred", "shall", "leave", "ten", "to the", "house", "of", "Israel"]
+    },
+    verse4: {
+      hebrew: ["kan", "Amar", "al", "Yachuwshuah", "al", "Bayth", "al", "yasharaAl", "adarah", "attah", "Any", "aw", "attah", "yash", "Chayah"],
+      english: ["For", "this", "saith", "the", "LORD", "unto", "the house", "of", "Israel", "Seek", "ye", "me", "and", "ye", "shall", "Live"]
+    },
+    verse5: {
+      hebrew: ["han", "adarash", "aLah", "Baythal", "aLah", "baw", "al", "Galgal", "aw", "Abar", "aLah", "al", "Baar", "Shaba", "al", "Galgal", "yash", "ky", "yatsa", "al", "galah", "aw", "Baythal", "yash", "hayach", "Avan"],
+      english: ["But", "Seek", "not", "Beth-el", "nor", "enter", "into", "Gilgal", "and", "pass", "not", "to", "Beer-sheba", "for", "Gilgal", "shall", "Surely", "go", "into", "captivity", "and", "Beth-el", "shall", "come to", "naught"]
+    },
+    verse6: {
+      hebrew: ["adarash", "al", "Yachuwshuah", "aw", "yash", "Chayah", "pan", "huw", "Tsalaach", "kamaw", "Ash", "al", "Bayth", "al", "yawcaph", "aw", "akal", "aw", "Sham", "haya", "Ayn", "kabah", "yash", "al", "Baythal"],
+      english: ["Seek", "The", "LORD", "and", "ye", "shall", "live", "lest", "he", "break out", "like", "fire", "in the", "house", "of", "Joseph", "and", "devour", "it", "and", "there be", "none", "to quench", "it in", "Beth-el"]
+    },
+    verse7: {
+      hebrew: ["attah", "haphahk", "aMashaphaTh", "aLaanah", "aw", "yanach", "atSadagaq", "al", "Arats"],
+      english: ["ye", "who", "turn", "judgment", "to", "wormwood", "and", "leave off", "righteousness", "in the", "earth"]
+    },
+    verse8: {
+      hebrew: ["adarash", "Naphash", "ky", "Ashah", "kayamah", "aw", "Kashal", "aw", "haphak", "al", "Tsalmawath", "al", "Baqar", "aw", "yowm", "Chashak", "al", "Laylah", "aw", "qara", "al", "Maym", "al", "yam", "aw", "Shaphak", "al", "phanym", "al", "Arats", "Yachuwshuah", "Sham"],
+      english: ["Seek", "him", "that", "maketh", "the seven stars", "and", "Orion", "and", "turneth", "the", "shadow of death", "into the", "morning", "and", "maketh the", "day", "dark", "with", "night", "that", "calleth", "for the", "waters", "of the", "Sea", "and", "poureth", "them out", "upon the", "face", "of the", "earth", "The", "LORD", "is his", "name"]
+    },
+    verse9: {
+      hebrew: ["ky", "Balag", "Shad", "al", "Az", "kan", "Shad", "yash", "baw", "al", "aMabatsar"],
+      english: ["That", "strengtheneth", "the spoiled", "against", "the strong", "so that", "the spoiled", "shall", "come", "against", "the fortress"]
+    },
+    verse10: {
+      hebrew: ["Cham", "Sana", "Naphash", "ky", "yakach", "al", "Shaar", "aw", "Cham", "Taab", "Naphash", "ky", "adabar", "Tamaym"],
+      english: ["They", "hate", "him", "that", "rebuketh", "in the", "gate", "and", "they", "abhor", "him", "that", "speaketh", "uprightly"]
+    },
+    verse11: {
+      hebrew: ["yaan", "al", "kan", "Naphash", "Bashac", "hy", "al", "adal", "aw", "aw", "attah", "aLaqach", "al", "Naphash", "aMashah", "al", "Abar", "attah", "aBanah", "aBayth", "al", "gazayth", "han", "yash", "alLah", "yashab", "Cham", "attah", "havah", "nata", "Chamad", "karam", "han", "yash", "alAh", "Shathah", "yayn", "al", "Cham"],
+      english: ["Forasmuch", "therefore", "as", "your", "treading", "is", "upon the", "poor", "and", "ye", "take", "from", "him", "burdens", "of", "wheat", "ye", "have", "built", "houses", "of", "hewn stone", "but", "ye", "shall", "not", "dwell", "in them", "ye have", "planted", "pleasant", "vineyards", "but", "ye shall", "not", "drink", "wine", "of", "them"]
+    },
+    verse12: {
+      hebrew: ["al", "Any", "yada", "Naphash", "Rab", "pasha", "aw", "Naphash", "atSawm", "Chattaah", "Cham", "atSarar", "aTsaddayq", "Cham", "aLaqach", "Kaphar", "aw", "Cham", "Natah", "abyawn", "al", "Shaar", "al", "Cham", "Nakachach"],
+      english: ["For", "I", "know", "your", "manifold", "Transgressions", "and", "your", "mighty", "Sins", "they", "afflict", "the just", "they", "take", "a bribe", "and", "they", "turn aside", "the poor", "in the", "gate", "from", "their", "right"]
+    },
+    verse13: {
+      hebrew: ["kan", "al", "Sakal", "yash", "Shamar", "aDamam", "ky", "aTh", "al", "yash", "aw", "Ra", "aTh"],
+      english: ["therefore", "the", "prudent", "shall", "keep", "silence", "in that", "time", "for", "it is", "an", "evil", "time"]
+    },
+    verse14: {
+      hebrew: ["adarash", "Tab", "aw", "lah", "Ra", "ky", "attah", "yakal", "Chayah", "aw", "kan", "Yachuwshuah", "aLaSham", "al", "aTsabaah", "yash", "attah"],
+      english: ["Seek", "good", "and", "not", "evil", "that", "ye", "may", "Live", "and", "so", "the", "LORD", "God", "of", "hosts", "shall be", "with", "you", "as ye", "have", "spoken"]
+    },
+    verse15: {
+      hebrew: ["Sana", "Ra", "aw", "ahab", "Tab", "aw", "yatsag", "aMashaphaTh", "al", "Shaar", "yash", "yaka", "l", "ky", "Yachuwshuah", "aLaSham", "al", "aTsabaah", "Chanan", "al", "Shaarayth", "al", "yawcaph"],
+      english: ["Hate", "the evil", "and", "love", "the good", "and", "establish", "judgment", "in the", "gate", "it may be", "that", "the", "LORD", "God", "of", "hosts", "will be", "gracious", "unto the", "remnant", "of", "Joseph"]
+    }
+  };
+
 
   // Chapter 4 - Pure Hebrew (continuous text)
   const chapter4PureHebrew = [
@@ -800,7 +870,7 @@ const BookOfAmos = () => {
   ];
 
   const renderInterlinear = () => {
-    if (activeChapter !== 1 && activeChapter !== 2 && activeChapter !== 3 && activeChapter !== 4) {
+    if (activeChapter !== 1 && activeChapter !== 2 && activeChapter !== 3 && activeChapter !== 4 && activeChapter !== 5) {
       return (
         <div className="text-center py-12">
           <p className="text-gray-600 text-lg">
@@ -814,7 +884,8 @@ const BookOfAmos = () => {
     const chapterData = activeChapter === 1 ? chapter1Interlinear : 
                         activeChapter === 2 ? chapter2Interlinear :
                         activeChapter === 3 ? chapter3Interlinear :
-                        chapter4Interlinear;
+                        activeChapter === 4 ? chapter4Interlinear :
+                        chapter5Interlinear;
 
     return (
       <div className="max-w-5xl mx-auto">
@@ -1104,7 +1175,7 @@ const BookOfAmos = () => {
             <h1 className="text-4xl md:text-5xl font-bold text-teal-800 mb-3">
               Book of Amos
             </h1>
-            <p className="text-xl text-gray-600 mb-2">Free Sample - Chapters 1-4</p>
+            <p className="text-xl text-gray-600 mb-2">Free Sample - Chapters 1-5</p>
             <p className="text-lg text-teal-700 font-semibold">
               By Richard Johnson (RJHNSN12)
             </p>
