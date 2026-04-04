@@ -839,6 +839,26 @@ const BookOfAmos = () => {
     verse10: {
       hebrew: ["owd", "charab", "yash", "Muwth", "kal", "Chataah", "am", "Cham", "amar", "lah", "qadam", "aw", "dabad", "al", "cham", "Ra"],
       english: ["All the", "sinners", "of my", "people", "shall", "die", "by the", "sword", "which", "say", "The evil", "shall not", "overtake", "nor", "prevent", "us"]
+    },
+    verse11: {
+      hebrew: ["yowmy", "ky", "yowmw", "ahy", "qwmw", "cukkkh", "al", "Daviyd", "al", "Naphal", "aw", "gadar", "parats", "Cham", "aw", "harac", "quwm", "aw", "banah", "yamym", "al", "owlam"],
+      english: ["In that", "day", "will I", "raise up", "the tabernacle", "of", "David", "that is", "fallen", "and close", "up the", "breaches", "thereof", "and I will", "raise up", "his", "ruins", "and I will", "build it", "as in the", "days", "of old"]
+    },
+    verse12: {
+      hebrew: ["ky", "Cham", "yakal", "yarash", "Shaarayth", "al", "Cham", "aw", "kal", "gowy", "Cham", "asar", "hy", "qara", "any", "Sham", "amar", "YaChuwshuah", "ky", "asah", "zath"],
+      english: ["That they", "may", "possess", "the remnant", "of", "Edom", "and of", "all the", "heathen", "which are", "called", "by my", "name", "saith", "the", "LORD", "that", "doeth", "this"]
+    },
+    verse13: {
+      hebrew: ["hannah", "yowmw", "bow", "amar", "YaChuwshuah", "ky", "Cham", "arash", "yash", "Naqash", "qatsar", "aw", "darak", "al", "anab", "Naphlash", "ky", "Mashak", "zara", "aw", "har", "yash", "Nataph", "acayc", "aw", "kal", "gabah", "yash", "Mwyg"],
+      english: ["Behold", "the days", "come", "saith", "the", "LORD", "that the", "plowman", "shall", "overtake", "the reaper", "and the", "treader", "of", "grapes", "him that", "soweth", "seed", "and the", "mountains", "shall", "drop", "sweet wine", "and all the", "hills", "shall", "melt"]
+    },
+    verse14: {
+      hebrew: ["aw", "ahy", "Shuwb", "Shabwth", "al", "any", "am", "al", "yasharaAl", "al", "Cham", "Cham", "yash", "banah", "Shamam", "ayr", "aw", "yashab", "Cham", "aw", "Cham", "yash", "Nata", "karam", "aw", "Shathah", "yayn", "Sham", "al", "Cham", "yash", "gam", "asah", "gannah", "aw", "akal", "paray", "al", "Cham"],
+      english: ["And I will", "bring again", "the captivity", "of my", "people", "of", "Israel", "and they", "shall", "build", "the waste", "cities", "and", "inhabit", "them", "and they", "shall", "plant", "vineyards", "and", "drink", "the wine", "thereof", "they shall", "also", "make", "gardens", "and eat", "the fruit", "of them"]
+    },
+    verse15: {
+      hebrew: ["aw", "ahy", "Nata", "Cham", "al", "Cham", "Adamah", "aw", "Cham", "aw", "yash", "lah", "owd", "Nathash", "al", "Cham", "Adamah", "Cham", "asar", "any", "hava", "Nathan", "Cham", "amar", "al", "YaChuwshuah"],
+      english: ["And I will", "plant them", "upon", "their", "land", "and they", "shall", "no more", "be pulled", "up", "out of", "their", "land", "which", "I have", "given them", "saith", "the", "LORD", "thy", "God"]
     }
   };
 
