@@ -504,6 +504,24 @@ const Radio = () => {
                 </button>
               </div>
 
+              {/* Featured Partner Button - Woodforest Bank - MOVED UP FOR VISIBILITY */}
+              <div className="mb-6 text-center">
+                <button
+                  onClick={playWoodforestShoutout}
+                  disabled={playlist.length === 0}
+                  className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 py-5 rounded-2xl font-bold text-xl shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center gap-3 mx-auto w-full max-w-sm animate-pulse"
+                  style={{
+                    boxShadow: '0 10px 30px rgba(16, 185, 129, 0.7), 0 0 60px rgba(52, 211, 153, 0.5)'
+                  }}
+                >
+                  <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+                  </svg>
+                  🏦 Hear Our Partners
+                </button>
+                <p className="text-white font-semibold text-sm mt-3 animate-pulse">👆 TAP to hear Woodforest Bank shoutout!</p>
+              </div>
+
               {/* Volume Control */}
               <div className="flex items-center justify-center gap-4 mb-6">
                 <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -521,24 +539,6 @@ const Radio = () => {
                     background: `linear-gradient(to right, rgb(168, 85, 247) 0%, rgb(168, 85, 247) ${volume * 100}%, rgba(255,255,255,0.2) ${volume * 100}%, rgba(255,255,255,0.2) 100%)`
                   }}
                 />
-              </div>
-
-              {/* Featured Partner Button - Woodforest Bank */}
-              <div className="mt-6 text-center">
-                <button
-                  onClick={playWoodforestShoutout}
-                  disabled={playlist.length === 0}
-                  className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-8 py-4 rounded-full font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center gap-3 mx-auto"
-                  style={{
-                    boxShadow: '0 10px 30px rgba(16, 185, 129, 0.5), 0 0 40px rgba(52, 211, 153, 0.3)'
-                  }}
-                >
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
-                  </svg>
-                  🏦 Hear Our Partners
-                </button>
-                <p className="text-purple-200 text-xs mt-2">Click to hear about Woodforest Bank & RJHNSN 12</p>
               </div>
 
               {/* Track Info */}
