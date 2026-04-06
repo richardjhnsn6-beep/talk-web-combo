@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isReady, setIsReady] = useState(false); // Add ready state
+  const [isReady, setIsReady] = useState(false);
+  const [mountKey, setMountKey] = useState(0); // Force remount key
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -17,8 +18,9 @@ const AdminLogin = ({ children }) => {
     const auth = sessionStorage.getItem('admin_authenticated');
     if (auth === 'true') {
       setIsAuthenticated(true);
+      setMountKey(prev => prev + 1); // Increment to force remount
       // Add small delay to ensure proper mounting
-      setTimeout(() => setIsReady(true), 100);
+      setTimeout(() => setIsReady(true), 150);
     }
   }, []);
 
@@ -29,8 +31,9 @@ const AdminLogin = ({ children }) => {
       sessionStorage.setItem('admin_authenticated', 'true');
       setError('');
       setIsAuthenticated(true);
+      setMountKey(prev => prev + 1); // Increment to force remount
       // Add small delay to ensure proper mounting
-      setTimeout(() => setIsReady(true), 100);
+      setTimeout(() => setIsReady(true), 150);
     } else {
       setError('Incorrect password. Access denied.');
       setPassword('');
@@ -129,7 +132,7 @@ const AdminLogin = ({ children }) => {
   }
 
   return (
-    <div>
+    <div key={mountKey}>
       <div className="fixed top-4 right-4 z-50">
         <button
           onClick={handleLogout}
