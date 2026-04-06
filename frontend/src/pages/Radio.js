@@ -212,26 +212,29 @@ const Radio = () => {
         return;
       }
       
-      // Pause current track
-      if (audioRef.current) {
-        audioRef.current.pause();
+      // Duck the background music (lower its volume) - don't stop it!
+      const originalVolume = audioRef.current?.volume || volume;
+      if (audioRef.current && isPlaying) {
+        audioRef.current.volume = 0.15; // Lower music to 15% (background)
+        console.log('🎵 Music ducked to background (15%)');
       }
       
-      // Play the shoutout
+      // Create separate audio element for the shoutout to play OVER the music
+      const shoutoutAudio = new Audio();
       const audioData = `data:audio/mp3;base64,${shoutout.audio_data}`;
-      audioRef.current.src = audioData;
-      audioRef.current.volume = volume; // Use current volume setting
-      await audioRef.current.play();
-      setIsPlaying(true);
+      shoutoutAudio.src = audioData;
+      shoutoutAudio.volume = 0.85; // Shoutout at 85% - loud and clear over the music
       
-      console.log('🎙️ Playing Woodforest Bank shoutout');
+      await shoutoutAudio.play();
+      console.log('🎙️ Playing Woodforest Bank shoutout OVER the music');
       
-      // When shoutout ends, resume normal playlist
-      const resumePlaylist = () => {
-        audioRef.current.removeEventListener('ended', resumePlaylist);
-        handlePlay();
-      };
-      audioRef.current.addEventListener('ended', resumePlaylist);
+      // When shoutout ends, restore music volume
+      shoutoutAudio.addEventListener('ended', () => {
+        if (audioRef.current) {
+          audioRef.current.volume = originalVolume; // Restore original volume
+          console.log(`🎵 Music volume restored to ${Math.round(originalVolume * 100)}%`);
+        }
+      });
       
     } catch (error) {
       console.error('Error playing Woodforest shoutout:', error);
