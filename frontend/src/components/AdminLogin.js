@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isReady, setIsReady] = useState(false); // Add ready state
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -16,6 +17,8 @@ const AdminLogin = ({ children }) => {
     const auth = sessionStorage.getItem('admin_authenticated');
     if (auth === 'true') {
       setIsAuthenticated(true);
+      // Add small delay to ensure proper mounting
+      setTimeout(() => setIsReady(true), 100);
     }
   }, []);
 
@@ -23,9 +26,11 @@ const AdminLogin = ({ children }) => {
     e.preventDefault();
     
     if (password === ADMIN_PASSWORD) {
-      setIsAuthenticated(true);
       sessionStorage.setItem('admin_authenticated', 'true');
       setError('');
+      setIsAuthenticated(true);
+      // Add small delay to ensure proper mounting
+      setTimeout(() => setIsReady(true), 100);
     } else {
       setError('Incorrect password. Access denied.');
       setPassword('');
@@ -110,6 +115,15 @@ const AdminLogin = ({ children }) => {
             </div>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  // Show loading briefly after authentication to ensure proper mount
+  if (!isReady) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <div className="text-white text-xl">Loading admin panel...</div>
       </div>
     );
   }
