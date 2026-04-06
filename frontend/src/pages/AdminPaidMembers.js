@@ -9,13 +9,14 @@ const AdminPaidMembers = () => {
   const [formData, setFormData] = useState({
     email: '',
     name: '',
-    tier: '$2 Basic',
-    payment_amount: 2.00,
-    payment_method: 'PayPal',
+    tier: 'Grandfathered - Lifetime Access',
+    payment_amount: 0.00,
+    payment_method: 'Grandfathered',
     payment_date: new Date().toISOString().split('T')[0]
   });
 
   const TIERS = [
+    { name: 'Grandfathered - Lifetime Access', amount: 0.00 },
     { name: '$2 Basic', amount: 2.00 },
     { name: '$5 Premium', amount: 5.00 },
     { name: '$9.99 AI Chat', amount: 9.99 },
@@ -79,9 +80,9 @@ const AdminPaidMembers = () => {
       setFormData({
         email: '',
         name: '',
-        tier: '$2 Basic',
-        payment_amount: 2.00,
-        payment_method: 'PayPal',
+        tier: 'Grandfathered - Lifetime Access',
+        payment_amount: 0.00,
+        payment_method: 'Grandfathered',
         payment_date: new Date().toISOString().split('T')[0]
       });
       setShowAddForm(false);
@@ -190,6 +191,12 @@ const AdminPaidMembers = () => {
         {showAddForm && (
           <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
             <h2 className="text-2xl font-bold mb-4">➕ Add New Paid Member</h2>
+            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+              <p className="text-sm text-yellow-800">
+                <span className="font-semibold">👑 Grandfathered Members:</span> Select "Grandfathered - Lifetime Access" for members who 
+                joined before the paid system. They get lifetime access with special status at $0.
+              </p>
+            </div>
             <form onSubmit={handleAddMember} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -257,6 +264,7 @@ const AdminPaidMembers = () => {
                     onChange={(e) => setFormData({ ...formData, payment_method: e.target.value })}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   >
+                    <option value="Grandfathered">Grandfathered (Lifetime)</option>
                     <option value="PayPal">PayPal</option>
                     <option value="Gumroad">Gumroad</option>
                   </select>
@@ -319,7 +327,12 @@ const AdminPaidMembers = () => {
                       <td className="px-6 py-4 text-sm text-gray-900">{member.email}</td>
                       <td className="px-6 py-4 text-sm text-gray-700">{member.name || '-'}</td>
                       <td className="px-6 py-4">
-                        <span className="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                        <span className={`px-3 py-1 text-xs font-semibold rounded-full ${
+                          member.tier === 'Grandfathered - Lifetime Access'
+                            ? 'bg-gradient-to-r from-yellow-400 to-orange-500 text-white'
+                            : 'bg-blue-100 text-blue-800'
+                        }`}>
+                          {member.tier === 'Grandfathered - Lifetime Access' ? '👑 ' : ''}
                           {member.tier}
                         </span>
                       </td>
