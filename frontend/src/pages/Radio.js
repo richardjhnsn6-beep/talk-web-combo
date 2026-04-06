@@ -198,6 +198,8 @@ const Radio = () => {
 
   const playWoodforestShoutout = async () => {
     try {
+      console.log('🏦 Woodforest button clicked');
+      
       // Fetch the Woodforest shoutout broadcast
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/radio/dj/announcements`);
       const announcements = await response.json();
@@ -212,6 +214,8 @@ const Radio = () => {
         return;
       }
       
+      console.log('✅ Woodforest shoutout found');
+      
       // Duck the background music (lower its volume) - don't stop it!
       const originalVolume = audioRef.current?.volume || volume;
       if (audioRef.current && isPlaying) {
@@ -219,26 +223,61 @@ const Radio = () => {
         console.log('🎵 Music ducked to background (10%)');
       }
       
-      // Create separate audio element for the shoutout to play OVER the music
-      const shoutoutAudio = new Audio();
+      // MOBILE FIX: Use existing audioRef for better mobile compatibility
+      // Save current track info
+      const currentSrc = audioRef.current?.src;
+      const currentTime = audioRef.current?.currentTime || 0;
+      const wasPlaying = isPlaying;
+      
+      // Load shoutout into main audio element
       const audioData = `data:audio/mp3;base64,${shoutout.audio_data}`;
-      shoutoutAudio.src = audioData;
-      shoutoutAudio.volume = 0.95; // Shoutout at 95% - loud and clear over the music
+      audioRef.current.src = audioData;
+      audioRef.current.volume = 0.95; // Shoutout at 95%
       
-      await shoutoutAudio.play();
-      console.log('🎙️ Playing Woodforest Bank shoutout OVER the music (95% volume)');
-      
-      // When shoutout ends, restore music volume
-      shoutoutAudio.addEventListener('ended', () => {
-        if (audioRef.current) {
-          audioRef.current.volume = originalVolume; // Restore original volume
-          console.log(`🎵 Music volume restored to ${Math.round(originalVolume * 100)}%`);
+      // Play the shoutout
+      try {
+        await audioRef.current.play();
+        setIsPlaying(true);
+        console.log('🎙️ Playing Woodforest Bank shoutout (95% volume)');
+        
+        // When shoutout ends, resume the original track
+        const handleShoutoutEnd = () => {
+          audioRef.current.removeEventListener('ended', handleShoutoutEnd);
+          
+          // Resume original track if it was playing
+          if (wasPlaying && currentSrc) {
+            audioRef.current.src = currentSrc;
+            audioRef.current.currentTime = currentTime;
+            audioRef.current.volume = originalVolume;
+            audioRef.current.play().catch(err => {
+              console.error('Error resuming track:', err);
+              // If resume fails, just continue with next track
+              handleNext();
+            });
+            console.log(`🎵 Music resumed at ${Math.round(originalVolume * 100)}%`);
+          } else {
+            audioRef.current.volume = originalVolume;
+            setIsPlaying(false);
+          }
+        };
+        
+        audioRef.current.addEventListener('ended', handleShoutoutEnd);
+        
+      } catch (playError) {
+        console.error('Mobile playback error:', playError);
+        alert('📱 Tap the PLAY button first, then try the Woodforest button again!');
+        
+        // Restore original state
+        if (currentSrc) {
+          audioRef.current.src = currentSrc;
+          audioRef.current.currentTime = currentTime;
+          audioRef.current.volume = originalVolume;
         }
-      });
+      }
       
     } catch (error) {
       console.error('Error playing Woodforest shoutout:', error);
-      alert('Could not play promotion. Please try again.');
+      alert('❌ Could not load promotion. Check your connection.');
     }
   };
 
@@ -519,7 +558,8 @@ const Radio = () => {
                   </svg>
                   🏦 Hear Our Partners
                 </button>
-                <p className="text-white font-semibold text-sm mt-3 animate-pulse">👆 TAP to hear Woodforest Bank shoutout!</p>
+                <p className="text-white font-semibold text-sm mt-3">👆 TAP to hear Woodforest Bank shoutout!</p>
+                <p className="text-purple-200 text-xs mt-1">📱 Mobile tip: Press PLAY first, then tap this button</p>
               </div>
 
               {/* Volume Control */}
