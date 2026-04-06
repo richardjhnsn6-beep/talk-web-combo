@@ -18,6 +18,7 @@ from routes.website_orders import router as website_orders_router
 from routes.tts import router as tts_router
 from routes.live_visitors import router as live_visitors_router
 from routes.membership import router as membership_router
+from routes.paid_members import router as paid_members_router
 from services.keep_alive import keep_alive_service
 
 
@@ -53,6 +54,8 @@ api_router.include_router(tts_router, prefix="/tts", tags=["tts"])
 api_router.include_router(live_visitors_router, prefix="/visitors", tags=["live-visitors"])
 # Include Membership routes with /membership prefix
 api_router.include_router(membership_router, prefix="/membership", tags=["membership"])
+# Include Paid Members routes with /paid-members prefix
+api_router.include_router(paid_members_router, prefix="/paid-members", tags=["paid-members"])
 
 
 # Define Models

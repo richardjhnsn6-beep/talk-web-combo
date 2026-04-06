@@ -419,6 +419,12 @@ const AdminDashboard = () => {
           <h2 className="text-xl font-bold text-white mb-4">⚡ Quick Admin Links</h2>
           <div className="flex flex-wrap gap-3">
             <a
+              href="/admin/paid-members"
+              className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-lg font-bold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg inline-flex items-center gap-2"
+            >
+              💰 Manage Paid Members
+            </a>
+            <a
               href="/admin/orders"
               className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:from-purple-700 hover:to-blue-700 transition-all shadow-lg inline-flex items-center gap-2"
             >
