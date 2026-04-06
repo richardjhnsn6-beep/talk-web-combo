@@ -199,11 +199,11 @@ const Radio = () => {
   const playWoodforestShoutout = async () => {
     try {
       // Fetch the Woodforest shoutout broadcast
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/radio/dj-announcements`);
-      const data = await response.json();
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/radio/dj/announcements`);
+      const announcements = await response.json();
       
-      // Find the shoutout
-      const shoutout = data.announcements.find(ann => 
+      // Find the shoutout (backend returns array directly)
+      const shoutout = announcements.find(ann => 
         ann.script && ann.script.toLowerCase().includes('woodforest')
       );
       
@@ -220,10 +220,11 @@ const Radio = () => {
       // Play the shoutout
       const audioData = `data:audio/mp3;base64,${shoutout.audio_data}`;
       audioRef.current.src = audioData;
+      audioRef.current.volume = volume; // Use current volume setting
       await audioRef.current.play();
       setIsPlaying(true);
       
-      alert('🎙️ Playing Woodforest Bank promotion!');
+      console.log('🎙️ Playing Woodforest Bank shoutout');
       
       // When shoutout ends, resume normal playlist
       const resumePlaylist = () => {
@@ -234,7 +235,7 @@ const Radio = () => {
       
     } catch (error) {
       console.error('Error playing Woodforest shoutout:', error);
-      alert('Could not play promotion');
+      alert('Could not play promotion. Please try again.');
     }
   };
 
