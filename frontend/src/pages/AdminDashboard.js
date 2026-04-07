@@ -425,6 +425,12 @@ const AdminDashboard = () => {
               💰 Manage Paid Members
             </a>
             <a
+              href="/admin/marketing-tracker"
+              className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-3 rounded-lg font-bold hover:from-pink-700 hover:to-purple-700 transition-all shadow-lg inline-flex items-center gap-2"
+            >
+              📡 Marketing Tracker
+            </a>
+            <a
               href="/admin/orders"
               className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:from-purple-700 hover:to-blue-700 transition-all shadow-lg inline-flex items-center gap-2"
             >

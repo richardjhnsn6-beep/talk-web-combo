@@ -13,6 +13,7 @@ import HebrewAlphabet from './pages/HebrewAlphabet';
 import BookOfAmos from './pages/BookOfAmos';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminPaidMembers from './pages/AdminPaidMembers';
+import AdminMarketingTracker from './pages/AdminMarketingTracker';
 import Radio from './pages/Radio';
 import AdminRadio from './pages/AdminRadio';
 import AIChat from './pages/AIChat';
@@ -204,6 +205,7 @@ function App() {
             {/* Protected Admin Routes - Password Required */}
             <Route path="/admin" element={<AdminLogin><AdminDashboard /></AdminLogin>} />
             <Route path="/admin/paid-members" element={<AdminLogin><AdminPaidMembers /></AdminLogin>} />
+            <Route path="/admin/marketing-tracker" element={<AdminLogin><AdminMarketingTracker /></AdminLogin>} />
             <Route path="/admin/radio" element={<AdminLogin><AdminRadio /></AdminLogin>} />
             <Route path="/admin/ai-chat" element={<AdminLogin><AdminAIChat /></AdminLogin>} />
             <Route path="/admin/pricing" element={<AdminLogin><AdminPricingConfig /></AdminLogin>} />
