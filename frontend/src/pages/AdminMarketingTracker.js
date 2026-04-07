@@ -201,6 +201,19 @@ const AdminMarketingTracker = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-12 px-4">
       <div className="max-w-7xl mx-auto">
+        {/* Back Button */}
+        <div className="mb-6">
+          <a
+            href="/admin"
+            className="inline-flex items-center gap-2 bg-slate-800/50 backdrop-blur-lg text-white px-6 py-3 rounded-lg border border-purple-700/30 hover:bg-slate-700/50 transition-all"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Admin Dashboard
+          </a>
+        </div>
+
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-white mb-4">📡 Marketing Deployment Radar</h1>
