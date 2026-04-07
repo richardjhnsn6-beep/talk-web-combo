@@ -56,6 +56,7 @@ const Navigation = ({ isOpen, setIsOpen }) => {
 
   const adminItems = [
     { path: '/admin', label: '🔐 Admin Dashboard' },
+    { path: '/admin/marketing-tracker', label: '📡 Marketing Tracker' },
     { path: '/admin/radio', label: '📻 Manage Radio' },
     { path: '/admin/orders', label: '💼 Orders' }
   ];
