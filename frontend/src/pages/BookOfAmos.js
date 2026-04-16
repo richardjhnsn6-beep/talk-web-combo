@@ -1784,7 +1784,7 @@ const BookOfAmos = () => {
         {/* Back to Main Site Button */}
         <div className="mb-6">
           <a
-            href="/"
+            href="https://talk-web-combo.preview.emergentagent.com"
             className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:from-purple-700 hover:to-indigo-700 transition-all transform hover:scale-105"
           >
             <span className="text-xl">←</span>
