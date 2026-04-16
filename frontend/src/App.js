@@ -14,6 +14,7 @@ import BookOfAmos from './pages/BookOfAmos';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminPaidMembers from './pages/AdminPaidMembers';
 import AdminMarketingTracker from './pages/AdminMarketingTracker';
+import AdminSettings from './pages/AdminSettings';
 import Radio from './pages/Radio';
 import AdminRadio from './pages/AdminRadio';
 import AIChat from './pages/AIChat';
@@ -57,6 +58,7 @@ const Navigation = ({ isOpen, setIsOpen }) => {
   const adminItems = [
     { path: '/admin', label: '🔐 Admin Dashboard' },
     { path: '/admin/marketing-tracker', label: '📡 Marketing Tracker' },
+    { path: '/admin/settings', label: '⚙️ Site Settings' },
     { path: '/admin/radio', label: '📻 Manage Radio' },
     { path: '/admin/orders', label: '💼 Orders' }
   ];
@@ -207,6 +209,7 @@ function App() {
             <Route path="/admin" element={<AdminLogin><AdminDashboard /></AdminLogin>} />
             <Route path="/admin/paid-members" element={<AdminLogin><AdminPaidMembers /></AdminLogin>} />
             <Route path="/admin/marketing-tracker" element={<AdminLogin><AdminMarketingTracker /></AdminLogin>} />
+            <Route path="/admin/settings" element={<AdminLogin><AdminSettings /></AdminLogin>} />
             <Route path="/admin/radio" element={<AdminLogin><AdminRadio /></AdminLogin>} />
             <Route path="/admin/ai-chat" element={<AdminLogin><AdminAIChat /></AdminLogin>} />
             <Route path="/admin/pricing" element={<AdminLogin><AdminPricingConfig /></AdminLogin>} />

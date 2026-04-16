@@ -1,4 +1,17 @@
+import { useState, useEffect } from 'react';
+
 const Contact = () => {
+  const [otherWebsiteUrl, setOtherWebsiteUrl] = useState('');
+  const [otherWebsiteName, setOtherWebsiteName] = useState('Other Website');
+
+  useEffect(() => {
+    // Load settings from localStorage
+    const savedUrl = localStorage.getItem('other_website_url') || '';
+    const savedName = localStorage.getItem('other_website_name') || 'Other Website';
+    setOtherWebsiteUrl(savedUrl);
+    setOtherWebsiteName(savedName);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white" data-testid="contact-page">
       {/* Header Banner */}
@@ -76,14 +89,17 @@ const Contact = () => {
                   >
                     🐦 Twitter
                   </a>
-                  <a 
-                    href="https://your-other-website.com" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
-                  >
-                    🌐 Other Website
-                  </a>
+                  {/* Other Website - Only show if URL is set */}
+                  {otherWebsiteUrl && (
+                    <a 
+                      href={otherWebsiteUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+                    >
+                      🌐 {otherWebsiteName}
+                    </a>
+                  )}
                 </div>
               </div>
 
