@@ -1781,6 +1781,17 @@ const BookOfAmos = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-teal-50 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
+        {/* Back to Main Site Button */}
+        <div className="mb-6">
+          <a
+            href="/"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:from-purple-700 hover:to-indigo-700 transition-all transform hover:scale-105"
+          >
+            <span className="text-xl">←</span>
+            <span>Back to Main Website</span>
+          </a>
+        </div>
+
         {/* Header */}
         <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
           <div className="text-center mb-6">
