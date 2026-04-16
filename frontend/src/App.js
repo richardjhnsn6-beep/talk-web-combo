@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '@/App.css';
 import HomePage from './pages/HomePage';
 import PageTwo from './pages/PageTwo';
@@ -37,6 +37,23 @@ import Shop from './pages/Shop';
 
 const Navigation = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
+  const [otherWebsiteUrl, setOtherWebsiteUrl] = useState('');
+  const [otherWebsiteName, setOtherWebsiteName] = useState('');
+
+  // Load other website link from localStorage
+  useEffect(() => {
+    const loadLink = () => {
+      const savedUrl = localStorage.getItem('other_website_url') || '';
+      const savedName = localStorage.getItem('other_website_name') || '';
+      setOtherWebsiteUrl(savedUrl);
+      setOtherWebsiteName(savedName);
+    };
+    
+    loadLink();
+    // Re-check every 2 seconds in case admin updates it
+    const interval = setInterval(loadLink, 2000);
+    return () => clearInterval(interval);
+  }, []);
   
   const navItems = [
     { path: '/', label: 'Home' },
@@ -100,6 +117,20 @@ const Navigation = ({ isOpen, setIsOpen }) => {
           </li>
         ))}
       </ul>
+
+      {/* Other Website Link - If Set by Admin */}
+      {otherWebsiteUrl && (
+        <div className="mb-6">
+          <a
+            href={otherWebsiteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 py-4 rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg text-center font-bold"
+          >
+            🌐 {otherWebsiteName}
+          </a>
+        </div>
+      )}
 
       {/* Admin Quick Access - MOVED UP BEFORE "Bearing of Truth" */}
       <div className="border-2 border-orange-400 rounded-lg p-3 mb-6 bg-orange-900/30">

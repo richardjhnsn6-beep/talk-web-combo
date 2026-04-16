@@ -1,7 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Download, Smartphone } from 'lucide-react';
 
 const HomePage = () => {
+  const [otherWebsiteUrl, setOtherWebsiteUrl] = useState('');
+  const [otherWebsiteName, setOtherWebsiteName] = useState('');
+
+  useEffect(() => {
+    // Load other website settings
+    const savedUrl = localStorage.getItem('other_website_url') || '';
+    const savedName = localStorage.getItem('other_website_name') || '';
+    setOtherWebsiteUrl(savedUrl);
+    setOtherWebsiteName(savedName);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white" data-testid="homepage">
       {/* Header Banner */}
@@ -30,6 +41,27 @@ const HomePage = () => {
             </div>
           </a>
         </div>
+
+        {/* Other Website Link - If Set by Admin */}
+        {otherWebsiteUrl && (
+          <div className="mb-6">
+            <a 
+              href={otherWebsiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl shadow-2xl p-6 hover:from-green-700 hover:to-emerald-700 transition-all transform hover:scale-105"
+            >
+              <div className="flex items-center gap-4 justify-center">
+                <span className="text-4xl">🌐</span>
+                <div className="text-center">
+                  <p className="font-bold text-2xl">{otherWebsiteName}</p>
+                  <p className="text-sm text-green-100">Click here to visit →</p>
+                </div>
+                <span className="text-2xl">→</span>
+              </div>
+            </a>
+          </div>
+        )}
 
         {/* Main Content */}
         <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
