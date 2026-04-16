@@ -60,6 +60,30 @@ const Contact = () => {
                   >
                     📷 Instagram
                   </a>
+                  <a 
+                    href="https://www.tiktok.com/@rjhnsn12" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
+                  >
+                    📱 TikTok
+                  </a>
+                  <a 
+                    href="https://twitter.com/rjhnsn12" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
+                  >
+                    🐦 Twitter
+                  </a>
+                  <a 
+                    href="https://your-other-website.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+                  >
+                    🌐 Other Website
+                  </a>
                 </div>
               </div>
 
