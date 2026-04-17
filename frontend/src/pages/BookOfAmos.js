@@ -1801,6 +1801,36 @@ const BookOfAmos = () => {
             </div>
           </div>
 
+          {/* NEW: Learn From Richard Johnson Section */}
+          <div className="mt-8 bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-6 border-2 border-purple-200">
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              {/* Richard's Photo */}
+              <div className="flex-shrink-0">
+                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-xl">
+                  <img 
+                    src="/richard-avatar.jpg"
+                    alt="Richard Johnson - Biblical Hebrew Scholar"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Introduction Text */}
+              <div className="flex-1 text-center md:text-left">
+                <h2 className="text-2xl md:text-3xl font-bold text-purple-900 mb-3">
+                  🎓 Learn Hebrew From Richard Johnson
+                </h2>
+                <p className="text-gray-800 text-lg leading-relaxed mb-4">
+                  "Welcome! I'm Richard Johnson, and I've spent decades researching the <span className="font-semibold text-purple-700">original 20-letter ancient Hebrew system</span>. 
+                  What you're about to discover will change how you read the Bible forever."
+                </p>
+                <p className="text-gray-700 text-base">
+                  👇 <span className="font-semibold">Scroll down to see side-by-side comparisons</span> showing what traditional translations miss!
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* What Makes This Special */}
           <div className="mt-6 bg-gradient-to-r from-teal-50 to-blue-50 rounded-lg p-6 border-l-4 border-teal-600">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">📚 What Makes This Book Different?</h3>
@@ -1842,6 +1872,117 @@ const BookOfAmos = () => {
               💡 This book gives you <span className="text-teal-700">FAR MORE knowledge</span> than any standard translation. 
               It's a research library in your hands.
             </p>
+          </div>
+
+          {/* NEW: Side-by-Side Comparison Section */}
+          <div className="mt-8 bg-white rounded-xl shadow-lg p-6 border-2 border-yellow-300">
+            <div className="text-center mb-6">
+              <h3 className="text-3xl font-bold text-gray-900 mb-2">
+                ⚡ See The Difference: Traditional vs Original Hebrew
+              </h3>
+              <p className="text-gray-700 text-lg">
+                Watch how meaning gets <span className="font-bold text-red-600">lost in translation</span>. Here are 5 verses from Amos Chapter 1:
+              </p>
+            </div>
+
+            {/* Verse 1 Comparison */}
+            <div className="mb-8 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-5 border-l-4 border-blue-600">
+              <h4 className="text-xl font-bold text-blue-900 mb-4">📖 Amos 1:1</h4>
+              
+              <div className="space-y-4">
+                {/* English Translation */}
+                <div className="bg-white rounded-lg p-4 shadow-sm">
+                  <div className="text-sm font-bold text-gray-500 mb-2">🇬🇧 ENGLISH (KJV)</div>
+                  <p className="text-gray-800">"The words of Amos, who was among the herdmen of Tekoa..."</p>
+                </div>
+
+                {/* Traditional Hebrew */}
+                <div className="bg-white rounded-lg p-4 shadow-sm">
+                  <div className="text-sm font-bold text-gray-500 mb-2">🔤 TRADITIONAL HEBREW</div>
+                  <p className="text-gray-800 font-hebrew text-lg">דִּבְרֵי עָמוֹס אֲשֶׁר־הָיָה בַנֹּקְדִים מִתְּקוֹעַ</p>
+                </div>
+
+                {/* RJHNSN12 20-Letter Hebrew */}
+                <div className="bg-yellow-50 rounded-lg p-4 border-2 border-yellow-400">
+                  <div className="text-sm font-bold text-yellow-900 mb-2">✨ RJHNSN12 20-LETTER ORIGINAL HEBREW</div>
+                  <p className="text-purple-900 font-semibold text-lg mb-2">adAbar Amawc Asar yash ky al Naqad al Taqua</p>
+                  <p className="text-sm text-gray-700 italic">
+                    💡 <strong>What's Different?</strong> The original shows "adAbar" (the witness) instead of just "words" - revealing deeper theological meaning!
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Verse 3 Comparison */}
+            <div className="mb-8 bg-gradient-to-r from-green-50 to-teal-50 rounded-lg p-5 border-l-4 border-green-600">
+              <h4 className="text-xl font-bold text-green-900 mb-4">📖 Amos 1:3</h4>
+              
+              <div className="space-y-4">
+                <div className="bg-white rounded-lg p-4 shadow-sm">
+                  <div className="text-sm font-bold text-gray-500 mb-2">🇬🇧 ENGLISH (KJV)</div>
+                  <p className="text-gray-800">"Thus saith the LORD; For three transgressions of Damascus..."</p>
+                </div>
+
+                <div className="bg-white rounded-lg p-4 shadow-sm">
+                  <div className="text-sm font-bold text-gray-500 mb-2">🔤 TRADITIONAL HEBREW</div>
+                  <p className="text-gray-800 font-hebrew text-lg">כֹּה אָמַר יְהוָה עַל־שְׁלֹשָׁה פִּשְׁעֵי דַמֶּשֶׂק</p>
+                </div>
+
+                <div className="bg-yellow-50 rounded-lg p-4 border-2 border-yellow-400">
+                  <div className="text-sm font-bold text-yellow-900 mb-2">✨ RJHNSN12 20-LETTER ORIGINAL HEBREW</div>
+                  <p className="text-purple-900 font-semibold text-lg mb-2">Raah Amar Yachuwshuah al shalawsh pasha Damashaq</p>
+                  <p className="text-sm text-gray-700 italic">
+                    💡 <strong>HUGE Discovery!</strong> "Yachuwshuah" is God's ACTUAL name - not "LORD"! Traditional translations hide this!
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Verse 6 Comparison */}
+            <div className="mb-8 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg p-5 border-l-4 border-red-600">
+              <h4 className="text-xl font-bold text-red-900 mb-4">📖 Amos 1:6</h4>
+              
+              <div className="space-y-4">
+                <div className="bg-white rounded-lg p-4 shadow-sm">
+                  <div className="text-sm font-bold text-gray-500 mb-2">🇬🇧 ENGLISH (KJV)</div>
+                  <p className="text-gray-800">"...because they sold the righteous for silver, and the poor for a pair of shoes"</p>
+                </div>
+
+                <div className="bg-white rounded-lg p-4 shadow-sm">
+                  <div className="text-sm font-bold text-gray-500 mb-2">🔤 TRADITIONAL HEBREW</div>
+                  <p className="text-gray-800 font-hebrew text-lg">עַל־מִכְרָם בַּכֶּסֶף צַדִּיק וְאֶבְיוֹן בַּעֲבוּר נַעֲלָיִם</p>
+                </div>
+
+                <div className="bg-yellow-50 rounded-lg p-4 border-2 border-yellow-400">
+                  <div className="text-sm font-bold text-yellow-900 mb-2">✨ RJHNSN12 20-LETTER ORIGINAL HEBREW</div>
+                  <p className="text-purple-900 font-semibold text-lg mb-2">Cham aMakar Tsaddayq ka caph Abyawn yth cawl al Naalaal</p>
+                  <p className="text-sm text-gray-700 italic">
+                    💡 <strong>Context Revealed:</strong> "Tsaddayq" and "Abyawn" show the social justice theme more powerfully in original Hebrew!
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Call to Action */}
+            <div className="mt-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg p-6 text-white text-center">
+              <h4 className="text-2xl font-bold mb-3">🔥 This is Just 3 Verses!</h4>
+              <p className="text-lg mb-4">
+                Imagine discovering these hidden meanings in <span className="font-bold">ALL 9 CHAPTERS</span> of the Book of Amos!
+              </p>
+              <p className="text-base mb-4">
+                Every verse. Every word. Full concordance. Complete cross-references.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="https://www.amazon.com/s?k=richard+johnson+book+of+amos"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white text-purple-700 px-8 py-3 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all shadow-lg"
+                >
+                  📚 Get Full Book on Amazon
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* Chapter Navigation */}
