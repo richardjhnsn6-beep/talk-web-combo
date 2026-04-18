@@ -2104,3 +2104,21 @@ async def get_ai_richard_stats():
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+
+@router.get("/admin/conversations")
+async def get_all_conversations():
+    """Get all AI Richard conversations for admin review"""
+    try:
+        conversations = await db.ai_richard_conversations.find(
+            {},
+            {"_id": 0}
+        ).sort("updated_at", -1).limit(100).to_list(100)
+        
+        return {
+            "conversations": conversations,
+            "total": len(conversations)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

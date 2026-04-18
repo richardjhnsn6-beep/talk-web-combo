@@ -15,6 +15,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminPaidMembers from './pages/AdminPaidMembers';
 import AdminMarketingTracker from './pages/AdminMarketingTracker';
 import AdminSettings from './pages/AdminSettings';
+import AdminConversations from './pages/AdminConversations';
 import Radio from './pages/Radio';
 import AdminRadio from './pages/AdminRadio';
 import AIChat from './pages/AIChat';
@@ -74,6 +75,7 @@ const Navigation = ({ isOpen, setIsOpen }) => {
 
   const adminItems = [
     { path: '/admin', label: '🔐 Admin Dashboard' },
+    { path: '/admin/conversations', label: '💬 AI Conversations' },
     { path: '/admin/marketing-tracker', label: '📡 Marketing Tracker' },
     { path: '/admin/settings', label: '⚙️ Site Settings' },
     { path: '/admin/radio', label: '📻 Manage Radio' },
@@ -238,6 +240,7 @@ function App() {
             
             {/* Protected Admin Routes - Password Required */}
             <Route path="/admin" element={<AdminLogin><AdminDashboard /></AdminLogin>} />
+            <Route path="/admin/conversations" element={<AdminLogin><AdminConversations /></AdminLogin>} />
             <Route path="/admin/paid-members" element={<AdminLogin><AdminPaidMembers /></AdminLogin>} />
             <Route path="/admin/marketing-tracker" element={<AdminLogin><AdminMarketingTracker /></AdminLogin>} />
             <Route path="/admin/settings" element={<AdminLogin><AdminSettings /></AdminLogin>} />
