@@ -25,6 +25,12 @@ const AIRichard = () => {
   const [showPaywall, setShowPaywall] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   
+  // ⏰ FREE TRIAL TIMER: 15 minutes of free chat
+  const [freeTrialStartTime, setFreeTrialStartTime] = useState(null);
+  const [remainingTime, setRemainingTime] = useState(15 * 60); // 15 minutes in seconds
+  const [trialExpired, setTrialExpired] = useState(false);
+  const FREE_TRIAL_DURATION = 15 * 60; // 15 minutes in seconds
+  
   // CHOOSE YOUR WALKING STYLE: 'silhouette' or 'purple' or 'photo' or 'animated'
   const walkingStyle = 'animated'; // Animated = real leg movement!
   const messagesEndRef = useRef(null);
@@ -207,23 +213,74 @@ const AIRichard = () => {
     }
   };
 
-  // Open chat (with subscription check - ADMIN BYPASS grants PREMIUM access)
+  // Open chat (with free trial OR subscription check)
   const openChat = () => {
     // Admin bypass: Check for admin password (GRANTS PREMIUM ACCESS)
     const adminPass = localStorage.getItem('admin_ai_access');
     
     if (adminPass === 'RJHNSN12admin2026') {
       setHasSubscription(true);
-      setSubscriptionTier('premium'); // Admin gets PREMIUM access for testing
+      setSubscriptionTier('premium');
       setIsOpen(true);
-    } else if (hasSubscription === true) {
+      return;
+    }
+    
+    // If user has subscription, let them in
+    if (hasSubscription === true) {
       setIsOpen(true);
-    } else if (hasSubscription === false) {
-      setShowPaywall(true);
+      return;
+    }
+    
+    // If no subscription, start FREE TRIAL (15 minutes)
+    const storedStartTime = localStorage.getItem('free_trial_start');
+    const now = Date.now();
+    
+    if (!storedStartTime) {
+      // First time - start new trial
+      localStorage.setItem('free_trial_start', now.toString());
+      setFreeTrialStartTime(now);
+      setIsOpen(true);
     } else {
-      setIsOpen(true); // If unknown, allow access
+      // Check if trial expired
+      const elapsed = (now - parseInt(storedStartTime)) / 1000; // seconds
+      
+      if (elapsed >= FREE_TRIAL_DURATION) {
+        // Trial expired - show paywall
+        setTrialExpired(true);
+        setShowPaywall(true);
+      } else {
+        // Trial still active
+        setFreeTrialStartTime(parseInt(storedStartTime));
+        setRemainingTime(FREE_TRIAL_DURATION - elapsed);
+        setIsOpen(true);
+      }
     }
   };
+
+
+  // ⏰ Timer countdown - update every second
+  useEffect(() => {
+    if (!isOpen || hasSubscription || !freeTrialStartTime) return;
+    
+    const timer = setInterval(() => {
+      const now = Date.now();
+      const elapsed = (now - freeTrialStartTime) / 1000;
+      const remaining = FREE_TRIAL_DURATION - elapsed;
+      
+      if (remaining <= 0) {
+        // Trial expired!
+        clearInterval(timer);
+        setTrialExpired(true);
+        setShowPaywall(true);
+        setIsOpen(false);
+      } else {
+        setRemainingTime(remaining);
+      }
+    }, 1000);
+    
+    return () => clearInterval(timer);
+  }, [isOpen, freeTrialStartTime, hasSubscription]);
+
 
   // iOS Audio Fix: Initialize speech synthesis on first user interaction
   useEffect(() => {
@@ -894,7 +951,7 @@ const AIRichard = () => {
       )}
 
       {/* Chat window - positioned above music player on mobile */}
-      {isOpen && hasSubscription === true && (
+      {isOpen && (hasSubscription === true || (freeTrialStartTime && !trialExpired)) && (
         <div className="chat-widget-container fixed bottom-20 sm:bottom-6 left-4 sm:left-6 w-[calc(100vw-2rem)] sm:w-96 h-[calc(100vh-10rem)] sm:h-[600px] bg-white rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden border border-gray-200 landscape:h-[85vh] landscape:bottom-2 landscape:left-2 landscape:w-[28rem]">
           {/* Header */}
           <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-4 flex items-center justify-between">
@@ -908,7 +965,7 @@ const AIRichard = () => {
               </div>
               <div className="text-white flex-1 min-w-0">
                 <div className="font-bold text-sm sm:text-base truncate">Richard Johnson</div>
-                <div className="text-xs opacity-90 truncate hidden sm:block">
+                <div className="text-xs opacity-90 truncate">
                   Biblical Researcher & Web Developer
                   {subscriptionTier && (
                     <span className={`ml-2 px-2 py-0.5 rounded-full text-[10px] font-bold ${
@@ -917,6 +974,12 @@ const AIRichard = () => {
                         : 'bg-purple-200 text-purple-900'
                     }`}>
                       {subscriptionTier === 'premium' ? '⭐ PREMIUM' : 'BASIC'}
+                    </span>
+                  )}
+                  {/* FREE TRIAL TIMER */}
+                  {!hasSubscription && freeTrialStartTime && (
+                    <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-400 text-green-900 animate-pulse">
+                      ⏰ FREE: {Math.floor(remainingTime / 60)}:{String(Math.floor(remainingTime % 60)).padStart(2, '0')}
                     </span>
                   )}
                 </div>
