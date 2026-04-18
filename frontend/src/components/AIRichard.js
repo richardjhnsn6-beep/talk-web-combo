@@ -261,11 +261,11 @@ const AIRichard = () => {
     // Save email to localStorage
     localStorage.setItem('user_email', userEmail);
     
-    // PayPal direct links for credit purchases (replace with your actual PayPal links)
+    // PayPal direct links for credit purchases
     const paypalLinks = {
-      'credits_10': 'https://www.paypal.com/ncp/payment/YOUR_10_CREDIT_LINK',  // $3 for 10 credits
-      'credits_40': 'https://www.paypal.com/ncp/payment/YOUR_40_CREDIT_LINK',  // $10 for 40 credits
-      'credits_100': 'https://www.paypal.com/ncp/payment/YOUR_100_CREDIT_LINK'  // $20 for 100 credits
+      'credits_10': 'https://www.paypal.com/ncp/payment/2UW9XZA7NS462',  // $3 for 10 credits
+      'credits_40': 'https://www.paypal.com/ncp/payment/KYUJ4QCQ5YHAL',  // $10 for 40 credits
+      'credits_100': 'https://www.paypal.com/ncp/payment/5HCZGDFV77DQA'  // $20 for 100 credits
     };
     
     // Open PayPal checkout in new tab
