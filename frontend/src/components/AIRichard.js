@@ -251,35 +251,30 @@ const AIRichard = () => {
     }
   };
 
-  // 💳 Handle credit purchase (pay-as-you-go)
-  const handleBuyCredits = async (packageId) => {
+  // 💳 Handle credit purchase (pay-as-you-go) - PayPal Direct Links
+  const handleBuyCredits = (packageId) => {
     if (!userEmail || !userEmail.includes('@')) {
-      alert('Please enter a valid email address');
+      alert('Please enter a valid email address to track your credits');
       return;
     }
     
     // Save email to localStorage
     localStorage.setItem('user_email', userEmail);
     
-    try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/payments/ai-richard/buy-credits`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          package_id: packageId,
-          email: userEmail,
-          origin_url: window.location.origin
-        })
-      });
-      
-      const data = await response.json();
-      
-      // Redirect to Stripe checkout
-      window.location.href = data.url;
-      
-    } catch (error) {
-      console.error('Credit purchase error:', error);
-      alert('Error purchasing credits. Please try again.');
+    // PayPal direct links for credit purchases (replace with your actual PayPal links)
+    const paypalLinks = {
+      'credits_10': 'https://www.paypal.com/ncp/payment/YOUR_10_CREDIT_LINK',  // $3 for 10 credits
+      'credits_40': 'https://www.paypal.com/ncp/payment/YOUR_40_CREDIT_LINK',  // $10 for 40 credits
+      'credits_100': 'https://www.paypal.com/ncp/payment/YOUR_100_CREDIT_LINK'  // $20 for 100 credits
+    };
+    
+    // Open PayPal checkout in new tab
+    const paypalUrl = paypalLinks[packageId];
+    if (paypalUrl) {
+      window.open(paypalUrl, '_blank');
+      alert(`✅ PayPal checkout opened! After payment, email ${userEmail} will receive credits. Return here to chat!`);
+    } else {
+      alert('Credit package coming soon! Please subscribe for unlimited access.');
     }
   };
 
@@ -1475,7 +1470,10 @@ const AIRichard = () => {
             </div>
 
             <p className="text-xs text-gray-500 text-center mt-4">
-              🔒 Secure payment powered by Stripe. Credits never expire. Cancel subscriptions anytime.
+              🔒 Secure payment powered by PayPal. Credits never expire. Cancel subscriptions anytime.
+            </p>
+            <p className="text-xs text-gray-600 text-center mt-2">
+              💡 <strong>Note:</strong> Credit purchases open PayPal in new tab. Credits added manually within 24hrs.
             </p>
           </div>
         </div>
