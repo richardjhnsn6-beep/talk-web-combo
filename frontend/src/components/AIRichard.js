@@ -8,7 +8,7 @@ const AIRichard = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [voiceEnabled, setVoiceEnabled] = useState(true); // VOICE ON BY DEFAULT
-  const [voiceQuality, setVoiceQuality] = useState('premium'); // 'free' or 'premium' - DEFAULT TO PREMIUM
+  const [voiceQuality, setVoiceQuality] = useState('free'); // 'free' or 'premium' - DEFAULT TO FREE (ROBOTIC VOICE)
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [continuousMode, setContinuousMode] = useState(false); // NEW: Always-on listening
   const [isRecognitionActive, setIsRecognitionActive] = useState(false); // Track if recognition is running
@@ -608,60 +608,87 @@ const AIRichard = () => {
     }
     
     try {
-      console.log('🎤 FORCING PREMIUM VOICE (NOVA)'); // DEBUG
-      
-      // ALWAYS USE PREMIUM - NO IF STATEMENT
-      console.log('✨ Calling OpenAI TTS with Nova voice');
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tts/tts`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          text: text,
-          voice: 'nova' // Female voice - FORCED
-        })
-      });
-      
-      console.log('TTS Response status:', response.status);
-      console.log('TTS Response headers:', response.headers);
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('TTS API failed with status:', response.status);
-        console.error('Error response:', errorText);
-        throw new Error(`TTS API failed: ${response.status} - ${errorText}`);
-      }
-      
-      const audioBlob = await response.blob();
-      console.log('Audio blob received, size:', audioBlob.size);
-      
-      const audioUrl = URL.createObjectURL(audioBlob);
-      const audio = new Audio(audioUrl);
-      
-      currentAudioRef.current = audio;
-      console.log('📢 Premium audio created and ready to play');
-      
-      audio.onended = () => {
-        console.log('✅ Audio ended');
-        setIsSpeaking(false);
-        audioLockedRef.current = false;
-        URL.revokeObjectURL(audioUrl);
-        currentAudioRef.current = null;
-        if (wasPlaying && !continuousMode && radioPlayer) {
-          radioPlayer.play();
+      if (voiceQuality === 'free') {
+        // Use browser's built-in robotic voice (RELIABLE, ALWAYS WORKS)
+        console.log('🤖 Using FREE robotic voice (browser SpeechSynthesis)');
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 1.2; // Slightly faster
+        utterance.pitch = 1.0;
+        utterance.volume = 1.0;
+        
+        utterance.onend = () => {
+          console.log('✅ Robotic voice finished');
+          setIsSpeaking(false);
+          audioLockedRef.current = false;
+          if (wasPlaying && !continuousMode && radioPlayer) {
+            radioPlayer.play();
+          }
+        };
+        
+        utterance.onerror = (err) => {
+          console.error('❌ Robotic voice error:', err);
+          setIsSpeaking(false);
+          audioLockedRef.current = false;
+        };
+        
+        window.speechSynthesis.speak(utterance);
+        console.log('🔊 Robotic voice speaking!');
+        
+      } else {
+        // Use premium OpenAI TTS (Nova - woman's voice)
+        console.log('✨ Calling OpenAI TTS with Nova voice');
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tts/tts`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            text: text,
+            voice: 'nova' // Female voice
+          })
+        });
+        
+        console.log('TTS Response status:', response.status);
+        console.log('TTS Response headers:', response.headers);
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('TTS API failed with status:', response.status);
+          console.error('Error response:', errorText);
+          throw new Error(`TTS API failed: ${response.status} - ${errorText}`);
         }
-      };
-      
-      audio.onerror = (err) => {
-        console.error('❌ Audio playback error:', err);
-        setIsSpeaking(false);
-        audioLockedRef.current = false;
-        URL.revokeObjectURL(audioUrl);
-        currentAudioRef.current = null;
-      };
-      
-      console.log('▶️ Starting audio playback...');
-      await audio.play();
-      console.log('🔊 Audio playing!');
+        
+        const audioBlob = await response.blob();
+        console.log('Audio blob received, size:', audioBlob.size);
+        
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
+        
+        currentAudioRef.current = audio;
+        console.log('📢 Premium audio created and ready to play');
+        
+        audio.onended = () => {
+          console.log('✅ Audio ended');
+          setIsSpeaking(false);
+          audioLockedRef.current = false;
+          URL.revokeObjectURL(audioUrl);
+          currentAudioRef.current = null;
+          if (wasPlaying && !continuousMode && radioPlayer) {
+            radioPlayer.play();
+          }
+        };
+        
+        audio.onerror = (err) => {
+          console.error('❌ Audio playback error:', err);
+          setIsSpeaking(false);
+          audioLockedRef.current = false;
+          URL.revokeObjectURL(audioUrl);
+          currentAudioRef.current = null;
+        };
+        
+        console.log('▶️ Starting audio playback...');
+        await audio.play();
+        console.log('🔊 Audio playing!');
+      }
       
     } catch (error) {
       console.error('❌ VOICE ERROR:', error);
