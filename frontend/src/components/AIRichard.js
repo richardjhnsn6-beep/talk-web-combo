@@ -1277,16 +1277,6 @@ const AIRichard = () => {
               </div>
             </div>
 
-            {/* Cancel Button */}
-            <div className="text-center">
-              <button
-                onClick={() => setShowPaywall(false)}
-                className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
-              >
-                Maybe Later
-              </button>
-            </div>
-
             <p className="text-xs text-gray-500 text-center mt-4">
               🔒 Secure payment powered by PayPal. Cancel anytime, no questions asked.
             </p>
