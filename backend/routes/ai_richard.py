@@ -1519,10 +1519,12 @@ class ChatRequest(BaseModel):
     message: str
     conversation_id: Optional[str] = None
     page_context: Optional[str] = None
+    user_email: Optional[str] = None  # NEW: For credit tracking
 
 class ChatResponse(BaseModel):
     response: str
     conversation_id: str
+    credits_remaining: Optional[int] = None  # NEW: Return remaining credits
 
 @router.post("/chat", response_model=ChatResponse)
 async def ai_richard_chat(chat_req: ChatRequest, request: Request):
@@ -1533,6 +1535,47 @@ async def ai_richard_chat(chat_req: ChatRequest, request: Request):
     try:
         # Get or create conversation ID
         conversation_id = chat_req.conversation_id or str(uuid.uuid4())
+        
+        # 💳 CREDIT SYSTEM CHECK
+        # Check if user has subscription OR credits
+        has_access = False
+        credits_remaining = None
+        access_type = None  # 'subscription', 'credits', or 'free_trial'
+        
+        if chat_req.user_email:
+            # Check for active subscription (Basic or Premium)
+            subscription = await db.ai_richard_subscriptions.find_one(
+                {"email": chat_req.user_email, "status": "active"},
+                {"_id": 0}
+            )
+            
+            if subscription:
+                # User has subscription - unlimited access
+                has_access = True
+                access_type = 'subscription'
+            else:
+                # No subscription - check for credits
+                user_credits = await db.user_credits.find_one(
+                    {"email": chat_req.user_email},
+                    {"_id": 0}
+                )
+                
+                if user_credits and user_credits.get("credits_remaining", 0) > 0:
+                    # User has credits - allow access and deduct 1 credit
+                    has_access = True
+                    access_type = 'credits'
+                    credits_remaining = user_credits.get("credits_remaining", 0)
+                    
+                    # Deduct 1 credit AFTER successful response
+                    # (we'll deduct at the end of this function)
+        
+        # If no access (no subscription, no credits), return error
+        # Note: Free trial is handled on frontend - backend assumes frontend allows access during trial
+        if chat_req.user_email and not has_access and access_type != 'free_trial':
+            raise HTTPException(
+                status_code=402,  # Payment Required
+                detail="No credits or subscription. Please purchase credits or subscribe."
+            )
         
         # Check for KEYWORD SHORTCUTS first (instant response, no OpenAI call needed)
         user_message_lower = chat_req.message.lower().strip()
@@ -2150,9 +2193,22 @@ What questions do you have about this history?"""
                 "lead_type": "web_development_inquiry"
             })
         
+        # 💳 DEDUCT CREDIT if user is using pay-as-you-go credits
+        if access_type == 'credits' and chat_req.user_email:
+            await db.user_credits.update_one(
+                {"email": chat_req.user_email},
+                {
+                    "$inc": {"credits_remaining": -1},
+                    "$set": {"last_updated": datetime.now(timezone.utc).isoformat()}
+                }
+            )
+            # Update credits_remaining to reflect deduction
+            credits_remaining = credits_remaining - 1 if credits_remaining else 0
+        
         return ChatResponse(
             response=ai_response,
             conversation_id=conversation_id,
+            credits_remaining=credits_remaining,  # Return updated balance
             headers={
                 "Cache-Control": "no-cache, no-store, must-revalidate",
                 "Pragma": "no-cache",

@@ -25,6 +25,11 @@ const AIRichard = () => {
   const [showPaywall, setShowPaywall] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   
+  // 💳 CREDIT SYSTEM: Pay-as-you-go alternative to subscriptions
+  const [creditsRemaining, setCreditsRemaining] = useState(0);
+  const [hasCredits, setHasCredits] = useState(false);
+  const [showCreditOptions, setShowCreditOptions] = useState(false); // Toggle credit purchase view
+  
   // ⏰ FREE TRIAL TIMER: 15 minutes of free chat
   const [freeTrialStartTime, setFreeTrialStartTime] = useState(null);
   const [remainingTime, setRemainingTime] = useState(15 * 60); // 15 minutes in seconds
@@ -46,21 +51,33 @@ const AIRichard = () => {
       const storedEmail = localStorage.getItem('user_email');
       if (!storedEmail) {
         setHasSubscription(false);
+        setHasCredits(false);
         return;
       }
       
       setUserEmail(storedEmail);
       
       try {
+        // Check for subscription
         const response = await fetch(
           `${process.env.REACT_APP_BACKEND_URL}/api/payments/ai-richard/check-subscription?email=${encodeURIComponent(storedEmail)}`
         );
         const data = await response.json();
         setHasSubscription(data.has_subscription);
         setSubscriptionTier(data.tier); // Store tier information
+        
+        // Also check for credits
+        const creditsResponse = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/api/payments/ai-richard/check-credits?email=${encodeURIComponent(storedEmail)}`
+        );
+        const creditsData = await creditsResponse.json();
+        setHasCredits(creditsData.has_credits);
+        setCreditsRemaining(creditsData.credits_remaining);
+        
       } catch (error) {
-        console.error('Subscription check failed:', error);
+        console.error('Subscription/Credits check failed:', error);
         setHasSubscription(false);
+        setHasCredits(false);
       }
     };
     
@@ -72,12 +89,33 @@ const AIRichard = () => {
   // Check if user just subscribed (success redirect)
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
+    
+    // Check for subscription success
     if (urlParams.get('ai_richard_subscribed') === 'true') {
       const tier = urlParams.get('tier') || 'basic';
       setHasSubscription(true);
       setSubscriptionTier(tier);
       setShowPaywall(false);
       setIsOpen(true);
+      // Clean up URL
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+    
+    // Check for credit purchase success
+    if (urlParams.get('credits_purchased') === 'true') {
+      const packageId = urlParams.get('package');
+      setHasCredits(true);
+      setShowPaywall(false);
+      setIsOpen(true);
+      // Refresh credit balance
+      const storedEmail = localStorage.getItem('user_email');
+      if (storedEmail) {
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/api/payments/ai-richard/check-credits?email=${encodeURIComponent(storedEmail)}`)
+          .then(res => res.json())
+          .then(data => {
+            setCreditsRemaining(data.credits_remaining);
+          });
+      }
       // Clean up URL
       window.history.replaceState({}, '', window.location.pathname);
     }
@@ -213,7 +251,39 @@ const AIRichard = () => {
     }
   };
 
-  // Open chat (with free trial OR subscription check)
+  // 💳 Handle credit purchase (pay-as-you-go)
+  const handleBuyCredits = async (packageId) => {
+    if (!userEmail || !userEmail.includes('@')) {
+      alert('Please enter a valid email address');
+      return;
+    }
+    
+    // Save email to localStorage
+    localStorage.setItem('user_email', userEmail);
+    
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/payments/ai-richard/buy-credits`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          package_id: packageId,
+          email: userEmail,
+          origin_url: window.location.origin
+        })
+      });
+      
+      const data = await response.json();
+      
+      // Redirect to Stripe checkout
+      window.location.href = data.url;
+      
+    } catch (error) {
+      console.error('Credit purchase error:', error);
+      alert('Error purchasing credits. Please try again.');
+    }
+  };
+
+  // Open chat (with free trial OR subscription OR credits check)
   const openChat = () => {
     // Admin bypass: Check for admin password (GRANTS PREMIUM ACCESS)
     const adminPass = localStorage.getItem('admin_ai_access');
@@ -225,13 +295,13 @@ const AIRichard = () => {
       return;
     }
     
-    // If user has subscription, let them in
-    if (hasSubscription === true) {
+    // If user has subscription OR credits, let them in
+    if (hasSubscription === true || hasCredits === true) {
       setIsOpen(true);
       return;
     }
     
-    // If no subscription, start FREE TRIAL (15 minutes)
+    // If no subscription or credits, start FREE TRIAL (15 minutes)
     const storedStartTime = localStorage.getItem('free_trial_start');
     const now = Date.now();
     
@@ -431,7 +501,8 @@ const AIRichard = () => {
         body: JSON.stringify({
           message: userMessage,
           conversation_id: conversationId,
-          page_context: window.location.pathname
+          page_context: window.location.pathname,
+          user_email: userEmail || null  // Include email for credit tracking
         })
       });
 
@@ -440,10 +511,34 @@ const AIRichard = () => {
       setConversationId(data.conversation_id);
       const aiResponse = data.response;
       
-      setMessages(prev => [...prev, { 
-        role: 'assistant', 
-        content: aiResponse 
-      }]);
+      // Update credit balance if returned
+      if (data.credits_remaining !== undefined && data.credits_remaining !== null) {
+        setCreditsRemaining(data.credits_remaining);
+        
+        // Show low balance warning
+        if (data.credits_remaining <= 3 && data.credits_remaining > 0) {
+          const warningMsg = `\n\n⚠️ **Low balance!** You have ${data.credits_remaining} credit${data.credits_remaining === 1 ? '' : 's'} remaining. Buy more credits or upgrade to unlimited subscription!`;
+          setMessages(prev => [...prev, { 
+            role: 'assistant', 
+            content: aiResponse + warningMsg
+          }]);
+        } else if (data.credits_remaining === 0) {
+          setHasCredits(false);
+          setShowPaywall(true);
+          setIsOpen(false);
+          return;
+        } else {
+          setMessages(prev => [...prev, { 
+            role: 'assistant', 
+            content: aiResponse 
+          }]);
+        }
+      } else {
+        setMessages(prev => [...prev, { 
+          role: 'assistant', 
+          content: aiResponse 
+        }]);
+      }
       
       // Speak the response if voice is enabled (but skip if response is too long)
       if (voiceEnabled) {
@@ -951,7 +1046,7 @@ const AIRichard = () => {
       )}
 
       {/* Chat window - positioned above music player on mobile */}
-      {isOpen && (hasSubscription === true || (freeTrialStartTime && !trialExpired)) && (
+      {isOpen && (hasSubscription === true || hasCredits === true || (freeTrialStartTime && !trialExpired)) && (
         <div className="chat-widget-container fixed bottom-20 sm:bottom-6 left-4 sm:left-6 w-[calc(100vw-2rem)] sm:w-96 h-[calc(100vh-10rem)] sm:h-[600px] bg-white rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden border border-gray-200 landscape:h-[85vh] landscape:bottom-2 landscape:left-2 landscape:w-[28rem]">
           {/* Header */}
           <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-4 flex items-center justify-between">
@@ -976,8 +1071,16 @@ const AIRichard = () => {
                       {subscriptionTier === 'premium' ? '⭐ PREMIUM' : 'BASIC'}
                     </span>
                   )}
+                  {/* CREDIT BALANCE DISPLAY */}
+                  {!hasSubscription && hasCredits && (
+                    <span className={`ml-2 px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                      creditsRemaining <= 3 ? 'bg-red-400 text-red-900 animate-pulse' : 'bg-blue-400 text-blue-900'
+                    }`}>
+                      💳 {creditsRemaining} credit{creditsRemaining === 1 ? '' : 's'}
+                    </span>
+                  )}
                   {/* FREE TRIAL TIMER */}
-                  {!hasSubscription && freeTrialStartTime && (
+                  {!hasSubscription && !hasCredits && freeTrialStartTime && (
                     <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-400 text-green-900 animate-pulse">
                       ⏰ FREE: {Math.floor(remainingTime / 60)}:{String(Math.floor(remainingTime % 60)).padStart(2, '0')}
                     </span>
@@ -1207,9 +1310,9 @@ const AIRichard = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Choose Your Membership</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Choose Your Plan</h2>
               <p className="text-gray-600 text-sm max-w-2xl mx-auto">
-                Support this Hebrew truth ministry while gaining access to exclusive biblical research and AI assistance.
+                Subscribe for unlimited access or buy credits for pay-as-you-go flexibility.
               </p>
             </div>
 
@@ -1227,121 +1330,152 @@ const AIRichard = () => {
               />
             </div>
 
-            {/* Two-Tier Pricing Cards */}
-            <div className="grid md:grid-cols-2 gap-6 mb-6">
+            {/* THREE OPTIONS: Basic Sub, Premium Sub, Buy Credits */}
+            <div className="grid md:grid-cols-3 gap-4 mb-6">
               
               {/* BASIC TIER - $2/month */}
-              <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-6 border-2 border-purple-200 hover:border-purple-400 transition-all hover:shadow-lg">
-                <div className="text-center mb-4">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Basic Membership</h3>
-                  <div className="text-4xl font-bold text-purple-600 mb-1">
-                    $2<span className="text-lg">/month</span>
+              <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-5 border-2 border-purple-200 hover:border-purple-400 transition-all hover:shadow-lg">
+                <div className="text-center mb-3">
+                  <h3 className="text-lg font-bold text-gray-900 mb-1">Basic</h3>
+                  <div className="text-3xl font-bold text-purple-600 mb-1">
+                    $2<span className="text-base">/mo</span>
                   </div>
-                  <p className="text-sm text-gray-600">Perfect for getting started</p>
+                  <p className="text-xs text-gray-600">Unlimited chat</p>
                 </div>
 
-                <div className="space-y-3 mb-6">
-                  <div className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <span className="text-sm text-gray-700">✨ Unlimited AI Richard conversations</span>
+                <div className="space-y-2 mb-4 text-xs">
+                  <div className="flex items-start gap-1">
+                    <span className="text-green-500">✓</span>
+                    <span className="text-gray-700">Unlimited AI chat</span>
                   </div>
-                  <div className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <span className="text-sm text-gray-700">📖 Book of Amos Chapters 1-4</span>
+                  <div className="flex items-start gap-1">
+                    <span className="text-green-500">✓</span>
+                    <span className="text-gray-700">Amos 1-4</span>
                   </div>
-                  <div className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <span className="text-sm text-gray-700">🎵 24/7 Radio access</span>
+                  <div className="flex items-start gap-1">
+                    <span className="text-green-500">✓</span>
+                    <span className="text-gray-700">Radio access</span>
                   </div>
-                  <div className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <span className="text-sm text-gray-700">🎤 Premium voice responses (Nova)</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <span className="text-sm text-gray-700">🔄 Cancel anytime</span>
+                  <div className="flex items-start gap-1">
+                    <span className="text-green-500">✓</span>
+                    <span className="text-gray-700">Voice responses</span>
                   </div>
                 </div>
 
-                {/* PayPal Basic Subscription Button - Direct Link */}
-                <a
-                  href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-0SD94356S2107193PNHH2AHI"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all transform hover:scale-105 text-center"
+                <button
+                  onClick={handleSubscribe}
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow transition-all transform hover:scale-105 text-sm"
                 >
-                  Subscribe to Basic - $2/month
-                </a>
+                  Subscribe - $2/mo
+                </button>
               </div>
 
               {/* PREMIUM TIER - $5/month - FEATURED */}
-              <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-6 border-4 border-yellow-400 relative hover:border-yellow-500 transition-all hover:shadow-2xl">
-                {/* "BEST VALUE" Badge */}
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg">
+              <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-5 border-3 border-yellow-400 relative hover:border-yellow-500 transition-all hover:shadow-2xl">
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                  <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1 rounded-full text-[10px] font-bold shadow-lg">
                     ⭐ BEST VALUE
                   </div>
                 </div>
 
-                <div className="text-center mb-4 mt-2">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Premium Membership</h3>
-                  <div className="text-4xl font-bold text-orange-600 mb-1">
-                    $5<span className="text-lg">/month</span>
+                <div className="text-center mb-3 mt-2">
+                  <h3 className="text-lg font-bold text-gray-900 mb-1">Premium</h3>
+                  <div className="text-3xl font-bold text-orange-600 mb-1">
+                    $5<span className="text-base">/mo</span>
                   </div>
-                  <p className="text-sm text-gray-600">Full access to everything</p>
+                  <p className="text-xs text-gray-600">Full access</p>
                 </div>
 
-                <div className="space-y-3 mb-6">
-                  <div className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <span className="text-sm text-gray-700 font-medium">✅ Everything in Basic, PLUS:</span>
+                <div className="space-y-2 mb-4 text-xs">
+                  <div className="flex items-start gap-1">
+                    <span className="text-green-500 font-bold">✓</span>
+                    <span className="text-gray-700 font-medium">All Basic features +</span>
                   </div>
-                  <div className="flex items-start gap-2 pl-7">
-                    <span className="text-sm text-gray-700">📚 Book of Amos Chapters 5-9 (early access)</span>
+                  <div className="flex items-start gap-1 pl-3">
+                    <span className="text-gray-700">Amos 5-9</span>
                   </div>
-                  <div className="flex items-start gap-2 pl-7">
-                    <span className="text-sm text-gray-700">📖 Complete Book of Daniel (12 chapters)</span>
+                  <div className="flex items-start gap-1 pl-3">
+                    <span className="text-gray-700">Book of Daniel</span>
                   </div>
-                  <div className="flex items-start gap-2 pl-7">
-                    <span className="text-sm text-gray-700">🎓 Advanced Hebrew alphabet lessons</span>
+                  <div className="flex items-start gap-1 pl-3">
+                    <span className="text-gray-700">Hebrew lessons</span>
                   </div>
-                  <div className="flex items-start gap-2 pl-7">
-                    <span className="text-sm text-gray-700">🔍 Deep dives into mistranslations</span>
-                  </div>
-                  <div className="flex items-start gap-2 pl-7">
-                    <span className="text-sm text-gray-700">💰 20% discount on all book purchases</span>
-                  </div>
-                  <div className="flex items-start gap-2 pl-7">
-                    <span className="text-sm text-gray-700">⚡ Priority AI support</span>
+                  <div className="flex items-start gap-1 pl-3">
+                    <span className="text-gray-700">20% off books</span>
                   </div>
                 </div>
 
-                {/* PayPal Premium Subscription Button - Direct Link */}
-                <a
-                  href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-39S03317TS707131YNHH2M6A"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all transform hover:scale-105 text-center"
+                <button
+                  onClick={handleSubscribePremium}
+                  className="w-full bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white font-bold py-3 px-4 rounded-lg shadow transition-all transform hover:scale-105 text-sm"
                 >
-                  Subscribe to Premium - $5/month
-                </a>
+                  Subscribe - $5/mo
+                </button>
+              </div>
+
+              {/* CREDIT PACKAGES - Pay-as-you-go */}
+              <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-xl p-5 border-2 border-green-200 hover:border-green-400 transition-all hover:shadow-lg">
+                <div className="text-center mb-3">
+                  <h3 className="text-lg font-bold text-gray-900 mb-1">Pay As You Go</h3>
+                  <div className="text-2xl font-bold text-green-600 mb-1">
+                    Buy Credits
+                  </div>
+                  <p className="text-xs text-gray-600">No subscription</p>
+                </div>
+
+                <div className="space-y-2 mb-4">
+                  {/* Starter Pack */}
+                  <button
+                    onClick={() => handleBuyCredits('credits_10')}
+                    className="w-full bg-white hover:bg-green-50 border-2 border-green-200 hover:border-green-400 rounded-lg p-3 transition-all text-left"
+                  >
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <div className="text-sm font-bold text-gray-900">10 Credits</div>
+                        <div className="text-xs text-gray-600">$0.30/credit</div>
+                      </div>
+                      <div className="text-lg font-bold text-green-600">$3</div>
+                    </div>
+                  </button>
+
+                  {/* Popular Pack */}
+                  <button
+                    onClick={() => handleBuyCredits('credits_40')}
+                    className="w-full bg-white hover:bg-green-50 border-2 border-green-400 hover:border-green-500 rounded-lg p-3 transition-all text-left relative"
+                  >
+                    <div className="absolute -top-2 right-2 bg-green-500 text-white px-2 py-0.5 rounded-full text-[9px] font-bold">
+                      POPULAR
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <div className="text-sm font-bold text-gray-900">40 Credits</div>
+                        <div className="text-xs text-gray-600">$0.25/credit</div>
+                      </div>
+                      <div className="text-lg font-bold text-green-600">$10</div>
+                    </div>
+                  </button>
+
+                  {/* Power Pack */}
+                  <button
+                    onClick={() => handleBuyCredits('credits_100')}
+                    className="w-full bg-white hover:bg-green-50 border-2 border-green-200 hover:border-green-400 rounded-lg p-3 transition-all text-left"
+                  >
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <div className="text-sm font-bold text-gray-900">100 Credits</div>
+                        <div className="text-xs text-gray-600">$0.20/credit - Best deal!</div>
+                      </div>
+                      <div className="text-lg font-bold text-green-600">$20</div>
+                    </div>
+                  </button>
+                </div>
+
+                <p className="text-[10px] text-gray-500 text-center">1 credit = 1 AI message • Never expires</p>
               </div>
             </div>
 
             <p className="text-xs text-gray-500 text-center mt-4">
-              🔒 Secure payment powered by PayPal. Cancel anytime, no questions asked.
+              🔒 Secure payment powered by Stripe. Credits never expire. Cancel subscriptions anytime.
             </p>
           </div>
         </div>

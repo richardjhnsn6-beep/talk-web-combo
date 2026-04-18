@@ -30,6 +30,13 @@ PACKAGES = {
     "ai_richard_chat_monthly": 2.00
 }
 
+# Credit packages for AI Richard (pay-as-you-go)
+CREDIT_PACKAGES = {
+    "credits_10": {"price": 3.00, "credits": 10, "name": "Starter Pack"},
+    "credits_40": {"price": 10.00, "credits": 40, "name": "Popular Pack"},
+    "credits_100": {"price": 20.00, "credits": 100, "name": "Power Pack"}
+}
+
 class DonationRequest(BaseModel):
     amount: float
     origin_url: str
@@ -335,6 +342,53 @@ async def stripe_webhook(request: Request):
                 await db.ai_richard_subscriptions.insert_one(subscription_doc)
                 print(f"✅ AI Richard {tier.upper()} subscription activated for {customer_email}")
             
+            # Check if this is a CREDIT PURCHASE
+            elif metadata.get('product') == 'ai_richard_credits':
+                credits_to_add = int(metadata.get('credits', 0))
+                package_id = metadata.get('package_id')
+                
+                # Check if user already has credits
+                existing = await db.user_credits.find_one({"email": customer_email})
+                
+                if existing:
+                    # Add to existing balance
+                    await db.user_credits.update_one(
+                        {"email": customer_email},
+                        {
+                            "$inc": {
+                                "credits_remaining": credits_to_add,
+                                "total_purchased": credits_to_add
+                            },
+                            "$set": {"last_updated": datetime.now(timezone.utc).isoformat()},
+                            "$push": {
+                                "purchase_history": {
+                                    "package_id": package_id,
+                                    "credits": credits_to_add,
+                                    "session_id": session_id,
+                                    "date": datetime.now(timezone.utc).isoformat()
+                                }
+                            }
+                        }
+                    )
+                else:
+                    # Create new credit account
+                    credit_doc = {
+                        "email": customer_email,
+                        "credits_remaining": credits_to_add,
+                        "total_purchased": credits_to_add,
+                        "created_at": datetime.now(timezone.utc).isoformat(),
+                        "last_updated": datetime.now(timezone.utc).isoformat(),
+                        "purchase_history": [{
+                            "package_id": package_id,
+                            "credits": credits_to_add,
+                            "session_id": session_id,
+                            "date": datetime.now(timezone.utc).isoformat()
+                        }]
+                    }
+                    await db.user_credits.insert_one(credit_doc)
+                
+                print(f"✅ {credits_to_add} credits added for {customer_email} (Package: {package_id})")
+            
             # Update general payment transaction
             await db.payment_transactions.update_one(
                 {"session_id": session_id},
@@ -496,6 +550,125 @@ async def check_subscription_tier(email: str):
             "tier": tier,
             "is_premium": tier == "premium",
             "subscription": subscription
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============= CREDIT SYSTEM ENDPOINTS =============
+
+@router.post("/ai-richard/buy-credits")
+async def buy_credits(request: Request):
+    """Purchase AI Richard credits (pay-as-you-go)"""
+    try:
+        data = await request.json()
+        package_id = data.get('package_id')  # credits_10, credits_40, credits_100
+        customer_email = data.get('email')
+        origin_url = data.get('origin_url', 'https://talk-web-combo.preview.emergentagent.com')
+        
+        # Validate package
+        if package_id not in CREDIT_PACKAGES:
+            raise HTTPException(status_code=400, detail="Invalid credit package")
+        
+        package = CREDIT_PACKAGES[package_id]
+        
+        # Create ONE-TIME payment checkout session
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price_data': {
+                    'currency': 'usd',
+                    'product_data': {
+                        'name': f'AI Richard Credits - {package["name"]}',
+                        'description': f'{package["credits"]} credits for AI conversations'
+                    },
+                    'unit_amount': int(package["price"] * 100),  # Convert to cents
+                },
+                'quantity': 1,
+            }],
+            mode='payment',
+            success_url=f"{origin_url}?credits_purchased=true&package={package_id}",
+            cancel_url=f"{origin_url}?credits_canceled=true",
+            customer_email=customer_email,
+            metadata={
+                'product': 'ai_richard_credits',
+                'package_id': package_id,
+                'credits': package["credits"],
+                'email': customer_email
+            }
+        )
+        
+        return {"url": session.url, "session_id": session.id}
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Credit purchase error: {str(e)}")
+
+
+@router.get("/ai-richard/check-credits")
+async def check_credits(email: str):
+    """Check user's remaining credit balance"""
+    try:
+        # Check database for user credits
+        user_credits = await db.user_credits.find_one(
+            {"email": email},
+            {"_id": 0}
+        )
+        
+        if not user_credits:
+            return {
+                "has_credits": False,
+                "credits_remaining": 0,
+                "total_purchased": 0
+            }
+        
+        return {
+            "has_credits": user_credits.get("credits_remaining", 0) > 0,
+            "credits_remaining": user_credits.get("credits_remaining", 0),
+            "total_purchased": user_credits.get("total_purchased", 0),
+            "last_updated": user_credits.get("last_updated")
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/ai-richard/deduct-credit")
+async def deduct_credit(request: Request):
+    """Deduct 1 credit from user's balance (called after each AI message)"""
+    try:
+        data = await request.json()
+        email = data.get('email')
+        
+        if not email:
+            raise HTTPException(status_code=400, detail="Email required")
+        
+        # Check current balance
+        user_credits = await db.user_credits.find_one({"email": email})
+        
+        if not user_credits or user_credits.get("credits_remaining", 0) <= 0:
+            return {
+                "success": False,
+                "credits_remaining": 0,
+                "message": "Insufficient credits"
+            }
+        
+        # Deduct 1 credit
+        await db.user_credits.update_one(
+            {"email": email},
+            {
+                "$inc": {"credits_remaining": -1},
+                "$set": {"last_updated": datetime.now(timezone.utc).isoformat()}
+            }
+        )
+        
+        # Get new balance
+        updated_credits = await db.user_credits.find_one({"email": email}, {"_id": 0})
+        
+        return {
+            "success": True,
+            "credits_remaining": updated_credits.get("credits_remaining", 0),
+            "message": "Credit deducted successfully"
         }
         
     except Exception as e:
