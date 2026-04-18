@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import Optional
 from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime, timezone
-from emergentintegrations.llm.anthropic import LlmChat, UserMessage
+from emergentintegrations.llm.chat import LlmChat, UserMessage
 import os
 from dotenv import load_dotenv
 from pathlib import Path
