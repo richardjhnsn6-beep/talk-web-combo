@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import Optional
 from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime, timezone
-from emergentintegrations.llm.openai import LlmChat, UserMessage
+from emergentintegrations.llm.anthropic import LlmChat, UserMessage
 import os
 from dotenv import load_dotenv
 from pathlib import Path
@@ -1929,7 +1929,7 @@ What questions do you have about this history?"""
                 context_note = f"\n\n[User is currently on: {chat_req.page_context}]"
                 user_message += context_note
             
-            # Call OpenAI via Emergent LLM integration
+            # Call Claude (Anthropic) via Emergent LLM integration
             chat_client = (
                 LlmChat(
                     api_key=os.environ.get('EMERGENT_LLM_KEY'),
@@ -1937,8 +1937,8 @@ What questions do you have about this history?"""
                     system_message=AI_RICHARD_SYSTEM_PROMPT,
                     initial_messages=conversation_messages
                 )
-                .with_model("openai", "gpt-4o-mini")
-                .with_params(max_tokens=800, temperature=0.7)
+                .with_model("anthropic", "claude-sonnet-4-20250514")
+                .with_params(max_tokens=2000, temperature=0.7)
             )
             
             # Send message and get response
