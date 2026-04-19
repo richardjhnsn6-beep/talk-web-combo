@@ -1206,11 +1206,32 @@ const AIRichard = () => {
 
           {/* Input area */}
           <div className="p-4 bg-white border-t border-gray-200">
-            {/* Voice is ALWAYS ON with Premium Female Voice */}
+            {/* Voice Quality Toggle */}
             {voiceEnabled && (
-              <div className="mb-2 p-2 bg-purple-50 rounded-lg text-center border border-purple-200">
-                <p className="text-sm text-purple-700 font-medium">🔊 Voice ON (Premium Female)</p>
-                <p className="text-xs text-gray-600 mt-1">AI Richard speaks with Nova's voice</p>
+              <div className="mb-2 p-2 bg-purple-50 rounded-lg border border-purple-200">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm text-purple-700 font-medium">🔊 Voice ON</p>
+                    <span className="text-xs text-gray-600">
+                      ({voiceQuality === 'free' ? '🤖 Robotic (Reliable)' : '👩 Woman (Premium)'})
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const newQuality = voiceQuality === 'free' ? 'premium' : 'free';
+                      setVoiceQuality(newQuality);
+                      console.log(`🎙️ Voice quality changed to: ${newQuality}`);
+                    }}
+                    className="px-3 py-1 text-xs bg-white border border-purple-300 rounded hover:bg-purple-100 transition-colors"
+                  >
+                    Switch to {voiceQuality === 'free' ? '👩 Woman' : '🤖 Robotic'}
+                  </button>
+                </div>
+                <p className="text-[10px] text-gray-500 mt-1">
+                  {voiceQuality === 'free' 
+                    ? '🤖 Robotic voice - Always works, instant & reliable' 
+                    : '👩 Woman\'s voice (Nova) - Premium quality, may be slower'}
+                </p>
               </div>
             )}
             {isSpeaking && (
