@@ -1787,24 +1787,24 @@ const BookOfAmos = () => {
             📖 {allWords.length} words total (split into 2 columns) - Read LEFT column ↓ then RIGHT column ↓
           </p>
 
-          {/* 2-COLUMN SPLIT LAYOUT - DOUBLES CONTENT PER PAGE */}
+          {/* 2-COLUMN SPLIT LAYOUT - Hebrew and English VERY CLOSE */}
           <div className="grid grid-cols-2 gap-2">
             
             {/* LEFT COLUMN - First Half */}
             <div className="border border-gray-400">
               <div className="bg-gray-800 text-white p-0.5 text-[8px] font-bold">
-                <div className="grid grid-cols-[1fr_auto_1fr] gap-0.5">
-                  <span>HEBREW</span>
-                  <span className="text-center">NUM</span>
-                  <span>ENGLISH</span>
+                <div className="flex gap-0">
+                  <span className="w-[45px]">HEBREW</span>
+                  <span className="w-[45px]">ENGLISH</span>
+                  <span className="w-[30px] text-center">NUM</span>
                 </div>
               </div>
               <div className="max-h-[600px] overflow-y-auto">
                 {leftColumn.map((word, idx) => (
-                  <div key={idx} className={`grid grid-cols-[1fr_auto_1fr] gap-0.5 px-0.5 py-0 text-[8px] border-b border-gray-200 ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
-                    <span className="font-mono text-blue-900 truncate">{word.hebrew}</span>
-                    <span className="text-center text-red-700 font-semibold px-1">{word.strongNum}</span>
-                    <span className="text-gray-700 truncate">{word.english}</span>
+                  <div key={idx} className={`flex gap-0 px-0.5 py-0 text-[8px] border-b border-gray-200 ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
+                    <span className="font-mono text-blue-900 truncate w-[45px]">{word.hebrew}</span>
+                    <span className="text-gray-700 truncate w-[45px]">{word.english}</span>
+                    <span className="text-center text-red-700 font-semibold w-[30px]">{word.strongNum}</span>
                   </div>
                 ))}
               </div>
@@ -1816,18 +1816,18 @@ const BookOfAmos = () => {
             {/* RIGHT COLUMN - Second Half */}
             <div className="border border-gray-400">
               <div className="bg-gray-800 text-white p-0.5 text-[8px] font-bold">
-                <div className="grid grid-cols-[1fr_auto_1fr] gap-0.5">
-                  <span>HEBREW</span>
-                  <span className="text-center">NUM</span>
-                  <span>ENGLISH</span>
+                <div className="flex gap-0">
+                  <span className="w-[45px]">HEBREW</span>
+                  <span className="w-[45px]">ENGLISH</span>
+                  <span className="w-[30px] text-center">NUM</span>
                 </div>
               </div>
               <div className="max-h-[600px] overflow-y-auto">
                 {rightColumn.map((word, idx) => (
-                  <div key={idx} className={`grid grid-cols-[1fr_auto_1fr] gap-0.5 px-0.5 py-0 text-[8px] border-b border-gray-200 ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
-                    <span className="font-mono text-blue-900 truncate">{word.hebrew}</span>
-                    <span className="text-center text-red-700 font-semibold px-1">{word.strongNum}</span>
-                    <span className="text-gray-700 truncate">{word.english}</span>
+                  <div key={idx} className={`flex gap-0 px-0.5 py-0 text-[8px] border-b border-gray-200 ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
+                    <span className="font-mono text-blue-900 truncate w-[45px]">{word.hebrew}</span>
+                    <span className="text-gray-700 truncate w-[45px]">{word.english}</span>
+                    <span className="text-center text-red-700 font-semibold w-[30px]">{word.strongNum}</span>
                   </div>
                 ))}
               </div>
