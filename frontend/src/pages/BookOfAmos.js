@@ -1718,7 +1718,7 @@ const BookOfAmos = () => {
     );
   };
 
-  // Helper function to render all chapters for concordance view
+  // Helper function to render concordance table (word-by-word with Strong's numbers)
   const renderAllChaptersConcordance = () => {
     const chapterData = [
       { num: 1, data: chapter1Interlinear, title: "Israel's Kindmen Set for Judgment" },
@@ -1732,35 +1732,111 @@ const BookOfAmos = () => {
       { num: 9, data: chapter9Interlinear, title: "Israel's Restoration" }
     ];
 
-    return chapterData.map((chapter) => (
-      <div key={chapter.num} className={`bg-white border-2 rounded-lg p-6 ${chapter.num === 1 || chapter.num === 5 ? 'border-purple-300' : 'border-gray-300'}`}>
-        <h3 className={`text-2xl font-bold mb-4 border-b-2 pb-2 ${chapter.num === 1 || chapter.num === 5 ? 'text-purple-800 border-purple-300' : 'text-teal-800 border-teal-300'}`}>
-          Chapter {chapter.num} - {chapter.title} {(chapter.num === 1 || chapter.num === 5) && '⭐'}
-        </h3>
-        <div className="space-y-3">
-          {Object.keys(chapter.data).map((verseKey, index) => {
-            const verse = chapter.data[verseKey];
-            const hebrewText = verse.hebrew.join(' ');
-            const englishText = verse.english.join(' ');
-            
-            return (
-              <div key={verseKey} className={`p-4 rounded ${(chapter.num === 1 || chapter.num === 5) ? 'bg-purple-50 border border-purple-200' : 'bg-gray-50'}`}>
-                <p className={`text-xs font-bold mb-1 ${(chapter.num === 1 || chapter.num === 5) ? 'text-purple-700' : 'text-gray-600'}`}>
-                  VERSE {index + 1}
-                </p>
-                <p className="text-sm text-blue-900 font-mono mb-2">{hebrewText}</p>
-                <p className="text-sm text-gray-700">{englishText}</p>
+    return chapterData.map((chapter) => {
+      // Flatten all words from all verses into a single array
+      const allWords = [];
+      Object.keys(chapter.data).forEach((verseKey, verseIndex) => {
+        const verse = chapter.data[verseKey];
+        const verseNum = verseIndex + 1;
+        
+        // Combine Hebrew and English word-by-word
+        verse.hebrew.forEach((hebrewWord, wordIndex) => {
+          allWords.push({
+            hebrew: hebrewWord,
+            english: verse.english[wordIndex] || '',
+            verse: `${chapter.num}:${verseNum}`,
+            strongNum: '' // Placeholder - can be populated with actual Strong's numbers
+          });
+        });
+      });
+
+      // Split into 3 columns for newspaper-style reading
+      const wordsPerColumn = Math.ceil(allWords.length / 3);
+      const column1 = allWords.slice(0, wordsPerColumn);
+      const column2 = allWords.slice(wordsPerColumn, wordsPerColumn * 2);
+      const column3 = allWords.slice(wordsPerColumn * 2);
+
+      return (
+        <div key={chapter.num} className={`bg-white border-2 rounded-lg p-6 mb-6 ${chapter.num === 1 || chapter.num === 5 ? 'border-purple-300' : 'border-gray-300'}`}>
+          <h3 className={`text-xl font-bold mb-4 border-b-2 pb-2 ${chapter.num === 1 || chapter.num === 5 ? 'text-purple-800 border-purple-300' : 'text-teal-800 border-teal-300'}`}>
+            Chapter {chapter.num} - {chapter.title} {(chapter.num === 1 || chapter.num === 5) && '⭐'}
+          </h3>
+          
+          <p className="text-xs text-gray-600 mb-4 italic">
+            📖 Read down Column 1 → Jump to top of Column 2 → Read down → Jump to top of Column 3 → Read down (Story flows in reading order)
+          </p>
+
+          {/* 3-Column Concordance Table */}
+          <div className="grid grid-cols-3 gap-4">
+            {/* Column 1 */}
+            <div className="border border-gray-300 rounded overflow-hidden">
+              <div className="bg-teal-700 text-white p-2 text-xs font-bold">
+                <div className="grid grid-cols-3 gap-1">
+                  <span>HEBREW</span>
+                  <span>ENGLISH</span>
+                  <span className="text-right">REF</span>
+                </div>
               </div>
-            );
-          })}
+              <div className="max-h-96 overflow-y-auto">
+                {column1.map((word, idx) => (
+                  <div key={idx} className="grid grid-cols-3 gap-1 p-2 text-xs border-b border-gray-200 hover:bg-gray-50">
+                    <span className="font-mono text-blue-900">{word.hebrew}</span>
+                    <span className="text-gray-700">{word.english}</span>
+                    <span className="text-right text-gray-500 text-[10px]">{word.verse}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 2 */}
+            <div className="border border-gray-300 rounded overflow-hidden">
+              <div className="bg-teal-700 text-white p-2 text-xs font-bold">
+                <div className="grid grid-cols-3 gap-1">
+                  <span>HEBREW</span>
+                  <span>ENGLISH</span>
+                  <span className="text-right">REF</span>
+                </div>
+              </div>
+              <div className="max-h-96 overflow-y-auto">
+                {column2.map((word, idx) => (
+                  <div key={idx} className="grid grid-cols-3 gap-1 p-2 text-xs border-b border-gray-200 hover:bg-gray-50">
+                    <span className="font-mono text-blue-900">{word.hebrew}</span>
+                    <span className="text-gray-700">{word.english}</span>
+                    <span className="text-right text-gray-500 text-[10px]">{word.verse}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 3 */}
+            <div className="border border-gray-300 rounded overflow-hidden">
+              <div className="bg-teal-700 text-white p-2 text-xs font-bold">
+                <div className="grid grid-cols-3 gap-1">
+                  <span>HEBREW</span>
+                  <span>ENGLISH</span>
+                  <span className="text-right">REF</span>
+                </div>
+              </div>
+              <div className="max-h-96 overflow-y-auto">
+                {column3.map((word, idx) => (
+                  <div key={idx} className="grid grid-cols-3 gap-1 p-2 text-xs border-b border-gray-200 hover:bg-gray-50">
+                    <span className="font-mono text-blue-900">{word.hebrew}</span>
+                    <span className="text-gray-700">{word.english}</span>
+                    <span className="text-right text-gray-500 text-[10px]">{word.verse}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
           <div className={`border p-3 rounded mt-4 ${(chapter.num === 1 || chapter.num === 5) ? 'bg-purple-100 border-purple-300' : 'bg-blue-50 border-blue-200'}`}>
             <p className={`text-xs ${(chapter.num === 1 || chapter.num === 5) ? 'text-purple-900 font-semibold' : 'text-blue-800'}`}>
-              ✓ Chapter {chapter.num}: {Object.keys(chapter.data).length} verses total {(chapter.num === 1 || chapter.num === 5) && '- CHECK WORD ORDER CAREFULLY'}
+              ✓ Chapter {chapter.num}: {allWords.length} total words - Read columns in order to follow the story {(chapter.num === 1 || chapter.num === 5) && '⭐ CHECK CAREFULLY'}
             </p>
           </div>
         </div>
-      </div>
-    ));
+      );
+    });
   };
 
   const renderConcordance = () => {
