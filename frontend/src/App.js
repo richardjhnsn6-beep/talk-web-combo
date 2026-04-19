@@ -35,6 +35,7 @@ import OrderCancelled from './pages/OrderCancelled';
 import WakeServer from './pages/WakeServer';
 import TestVoice from './pages/TestVoice';
 import Shop from './pages/Shop';
+import AIImageShop from './pages/AIImageShop';
 
 const Navigation = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
@@ -65,6 +66,7 @@ const Navigation = ({ isOpen, setIsOpen }) => {
     { path: '/page-five', label: 'Page Five' },
     { path: '/podcast', label: 'Podcast' },
     { path: '/radio', label: '🎙️ Radio' },
+    { path: '/ai-art', label: '🎨 AI Art Gallery' },
     { path: '/ai-chat', label: '🤖 AI Chat' },
     { path: '/install', label: '📱 Install App' },
     { path: '/books', label: 'Books' },
@@ -231,6 +233,7 @@ function App() {
             <Route path="/page-five" element={<PageFive />} />
             <Route path="/podcast" element={<Podcast />} />
             <Route path="/radio" element={<Radio />} />
+            <Route path="/ai-art" element={<AIImageShop />} />
             <Route path="/ai-chat" element={<AIChat />} />
             <Route path="/ai-chat/pricing" element={<AIChatPricing />} />
             <Route path="/install" element={<InstallApp />} />
