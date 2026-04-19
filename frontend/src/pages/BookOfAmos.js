@@ -1762,30 +1762,30 @@ const BookOfAmos = () => {
             📖 Compressed format - {allWords.length} words total
           </p>
 
-          {/* COMPRESSED 7-COLUMN TABLE - Matching OpenOffice format */}
+          {/* COMPRESSED 7-COLUMN TABLE - Tight spacing to save paper */}
           <div className="overflow-x-auto">
-            <table className="w-full text-[10px] border-collapse">
+            <table className="text-[9px] border-collapse" style={{ width: 'auto' }}>
               <thead>
                 <tr className="bg-gray-800 text-white">
-                  <th className="border border-gray-600 px-1 py-1 text-left font-mono">HEBREW</th>
-                  <th className="border border-gray-600 px-1 py-1 text-center">V</th>
-                  <th className="border border-gray-600 px-1 py-1 text-center">NUM</th>
-                  <th className="border border-gray-600 px-1 py-1 text-center">REF</th>
-                  <th className="border border-gray-600 px-1 py-1 text-left">ENGLISH</th>
-                  <th className="border border-gray-600 px-1 py-1 text-center">NUM</th>
-                  <th className="border border-gray-600 px-1 py-1 text-center">REF</th>
+                  <th className="border border-gray-600 px-0.5 py-0.5 text-left font-mono" style={{ width: '80px' }}>HEBREW</th>
+                  <th className="border border-gray-600 px-0.5 py-0.5 text-left" style={{ width: '80px' }}>ENGLISH</th>
+                  <th className="border border-gray-600 px-0.5 py-0.5 text-center" style={{ width: '20px' }}>V</th>
+                  <th className="border border-gray-600 px-0.5 py-0.5 text-center" style={{ width: '35px' }}>NUM</th>
+                  <th className="border border-gray-600 px-0.5 py-0.5 text-center" style={{ width: '35px' }}>NUM</th>
+                  <th className="border border-gray-600 px-0.5 py-0.5 text-center" style={{ width: '35px' }}>NUM</th>
+                  <th className="border border-gray-600 px-0.5 py-0.5 text-center" style={{ width: '35px' }}>REF</th>
                 </tr>
               </thead>
               <tbody>
                 {allWords.map((word, idx) => (
                   <tr key={idx} className={`${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-yellow-50`}>
-                    <td className="border border-gray-300 px-1 py-0.5 font-mono text-blue-900">{word.hebrew}</td>
-                    <td className="border border-gray-300 px-1 py-0.5 text-center text-gray-600">{word.ref1}</td>
-                    <td className="border border-gray-300 px-1 py-0.5 text-center text-gray-500">{word.ref2}</td>
-                    <td className="border border-gray-300 px-1 py-0.5 text-center text-gray-500">{word.ref3}</td>
-                    <td className="border border-gray-300 px-1 py-0.5 text-gray-700">{word.english}</td>
-                    <td className="border border-gray-300 px-1 py-0.5 text-center text-gray-500"></td>
-                    <td className="border border-gray-300 px-1 py-0.5 text-center text-gray-500"></td>
+                    <td className="border border-gray-300 px-0.5 py-0 font-mono text-blue-900 whitespace-nowrap">{word.hebrew}</td>
+                    <td className="border border-gray-300 px-0.5 py-0 text-gray-700 whitespace-nowrap">{word.english}</td>
+                    <td className="border border-gray-300 px-0.5 py-0 text-center text-gray-600 text-[8px]">{word.ref1}</td>
+                    <td className="border border-gray-300 px-0.5 py-0 text-center text-gray-500 text-[8px]">{word.ref2}</td>
+                    <td className="border border-gray-300 px-0.5 py-0 text-center text-gray-500 text-[8px]">{word.ref3}</td>
+                    <td className="border border-gray-300 px-0.5 py-0 text-center text-gray-500 text-[8px]"></td>
+                    <td className="border border-gray-300 px-0.5 py-0 text-center text-gray-500 text-[8px]"></td>
                   </tr>
                 ))}
               </tbody>
