@@ -12,7 +12,7 @@ import uuid
 
 # Load environment variables
 ROOT_DIR = Path(__file__).parent.parent
-load_dotenv(ROOT_DIR / '.env', override=True)
+load_dotenv(ROOT_DIR / '.env', override=False)  # FIXED: Don't override K8s env vars
 
 router = APIRouter()
 

@@ -45,9 +45,16 @@ async def track_pageview(event: PageViewEvent):
 @router.get("/dashboard")
 async def get_dashboard_stats():
     """Get analytics dashboard data"""
+    from datetime import datetime, timedelta, timezone
     
-    # Payment stats
-    payment_transactions = await db.payment_transactions.find({}, {"_id": 0}).to_list(1000)
+    # Get data from last 30 days only (performance optimization)
+    thirty_days_ago = datetime.now(timezone.utc) - timedelta(days=30)
+    
+    # Payment stats - optimized with date filter and limit
+    payment_transactions = await db.payment_transactions.find(
+        {"created_at": {"$gte": thirty_days_ago}}, 
+        {"_id": 0}
+    ).limit(500).to_list(500)
     
     # Separate content unlocks from donations
     content_unlocks = [t for t in payment_transactions if t.get("package_id") == "chapter1_unlock" and t.get("payment_status") == "paid"]
@@ -60,8 +67,11 @@ async def get_dashboard_stats():
     successful_payments = len(content_unlocks)
     total_donations = len(donations)
     
-    # Page view stats
-    page_views = await db.page_views.find({}, {"_id": 0}).to_list(10000)
+    # Page view stats - optimized with date filter and limit
+    page_views = await db.page_views.find(
+        {"timestamp": {"$gte": thirty_days_ago}},
+        {"_id": 0}
+    ).limit(1000).to_list(1000)
     total_views = len(page_views)
     
     # Count views by page

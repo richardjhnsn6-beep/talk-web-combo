@@ -52,12 +52,12 @@ async def get_mixed_playlist():
     
     from datetime import datetime, timezone
     
-    # Get all tracks
-    tracks = await db.radio_tracks.find({}, {"_id": 0, "audio_data": 0}).to_list(1000)
+    # Get all tracks - limited to 100 (enough for radio playlist)
+    tracks = await db.radio_tracks.find({}, {"_id": 0, "audio_data": 0}).limit(100).to_list(100)
     tracks = sorted(tracks, key=lambda x: x.get("order", 0))
     
-    # Get all DJ announcements
-    all_announcements = await db.dj_announcements.find({}, {"_id": 0, "audio_data": 0}).to_list(1000)
+    # Get all DJ announcements - limited to 50
+    all_announcements = await db.dj_announcements.find({}, {"_id": 0, "audio_data": 0}).limit(50).to_list(50)
     
     # Separate Morning Stretch from regular announcements
     morning_stretch = None
