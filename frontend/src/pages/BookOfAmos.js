@@ -1718,6 +1718,51 @@ const BookOfAmos = () => {
     );
   };
 
+  // Helper function to render all chapters for concordance view
+  const renderAllChaptersConcordance = () => {
+    const chapterData = [
+      { num: 1, data: chapter1Interlinear, title: "Israel's Kindmen Set for Judgment" },
+      { num: 2, data: chapter2Interlinear, title: "Moab's Sin; Judah's Transgressions" },
+      { num: 3, data: chapter3Interlinear, title: "Divine Judgment Upon Israel" },
+      { num: 4, data: chapter4Interlinear, title: "Hear This Word of the Sun of Light" },
+      { num: 5, data: chapter5Interlinear, title: "Israel Punished for Oppressing the Poor" },
+      { num: 6, data: chapter6Interlinear, title: "Woe to the Complacent" },
+      { num: 7, data: chapter7Interlinear, title: "Visions of Judgment" },
+      { num: 8, data: chapter8Interlinear, title: "The Basket of Summer Fruit" },
+      { num: 9, data: chapter9Interlinear, title: "Israel's Restoration" }
+    ];
+
+    return chapterData.map((chapter) => (
+      <div key={chapter.num} className={`bg-white border-2 rounded-lg p-6 ${chapter.num === 1 || chapter.num === 5 ? 'border-purple-300' : 'border-gray-300'}`}>
+        <h3 className={`text-2xl font-bold mb-4 border-b-2 pb-2 ${chapter.num === 1 || chapter.num === 5 ? 'text-purple-800 border-purple-300' : 'text-teal-800 border-teal-300'}`}>
+          Chapter {chapter.num} - {chapter.title} {(chapter.num === 1 || chapter.num === 5) && '⭐'}
+        </h3>
+        <div className="space-y-3">
+          {Object.keys(chapter.data).map((verseKey, index) => {
+            const verse = chapter.data[verseKey];
+            const hebrewText = verse.hebrew.join(' ');
+            const englishText = verse.english.join(' ');
+            
+            return (
+              <div key={verseKey} className={`p-4 rounded ${(chapter.num === 1 || chapter.num === 5) ? 'bg-purple-50 border border-purple-200' : 'bg-gray-50'}`}>
+                <p className={`text-xs font-bold mb-1 ${(chapter.num === 1 || chapter.num === 5) ? 'text-purple-700' : 'text-gray-600'}`}>
+                  VERSE {index + 1}
+                </p>
+                <p className="text-sm text-blue-900 font-mono mb-2">{hebrewText}</p>
+                <p className="text-sm text-gray-700">{englishText}</p>
+              </div>
+            );
+          })}
+          <div className={`border p-3 rounded mt-4 ${(chapter.num === 1 || chapter.num === 5) ? 'bg-purple-100 border-purple-300' : 'bg-blue-50 border-blue-200'}`}>
+            <p className={`text-xs ${(chapter.num === 1 || chapter.num === 5) ? 'text-purple-900 font-semibold' : 'text-blue-800'}`}>
+              ✓ Chapter {chapter.num}: {Object.keys(chapter.data).length} verses total {(chapter.num === 1 || chapter.num === 5) && '- CHECK WORD ORDER CAREFULLY'}
+            </p>
+          </div>
+        </div>
+      </div>
+    ));
+  };
+
   const renderConcordance = () => {
     // Chapter 10: Master Hebrew Concordance for Print Reference
     if (activeChapter === 10) {
@@ -1736,68 +1781,13 @@ const BookOfAmos = () => {
             <ul className="text-gray-700 text-sm space-y-1 list-disc list-inside">
               <li>Verify all Hebrew words are intact and in correct order</li>
               <li>Reference source for printing the Book of Amos</li>
-              <li>Check word placement and accuracy (especially Chapters 1 & 5)</li>
+              <li>Check word placement and accuracy (especially Chapters 1 & 5 - marked with ⭐)</li>
               <li>Master data for future formatting (2-3 chapter editions, etc.)</li>
             </ul>
           </div>
 
-          {/* Chapter 1 */}
-          <div className="bg-white border-2 border-gray-300 rounded-lg p-6">
-            <h3 className="text-2xl font-bold text-teal-800 mb-4 border-b-2 border-teal-300 pb-2">
-              Chapter 1 - Israel's Kindmen Set for Judgment
-            </h3>
-            <div className="space-y-3">
-              <div className="bg-gray-50 p-4 rounded">
-                <p className="text-xs font-bold text-gray-600 mb-1">VERSE 1</p>
-                <p className="text-sm text-blue-900 font-mono mb-2">dabar al Amac Asar hayach bayn Naqad al Taqowa Asar Chazah al yasharAl yowm al Uzzayah Malak al yachadah aw yowm yarabaam ban al yowash Malak al yasharaAl Shanaym Shanah panym Raash</p>
-                <p className="text-sm text-gray-700">The words of Amos, who was among the herdmen of Tekoa, which he saw concerning Israel in the days of Uzziah king of Judah, and in the days of Jeroboam the son of Joash king of Israel, two years before the earthquake</p>
-              </div>
-              <div className="bg-gray-50 p-4 rounded">
-                <p className="text-xs font-bold text-gray-600 mb-1">VERSE 2</p>
-                <p className="text-sm text-blue-900 font-mono mb-2">aw huw amar al YaChuwshuah ahy shaaq al Tsaywn aw Nathan Naphash qowl al Shalam aw Naah al raah yash abal aw Rash al Karamal yash yabash</p>
-                <p className="text-sm text-gray-700">And he said, The LORD will roar from Zion, and utter his voice from Jerusalem; and the habitations of the shepherds shall mourn, and the top of Carmel shall wither</p>
-              </div>
-              <div className="bg-gray-50 p-4 rounded">
-                <p className="text-xs font-bold text-gray-600 mb-1">VERSE 3</p>
-                <p className="text-sm text-blue-900 font-mono mb-2">kah amar YaChuwshuah al shalowsh pasha al Dammashaq aw al arba ahy lah shuwb cuwr avan Sham al Cham hayach duwsh Galaad ad Charuts dachavah al barzal</p>
-                <p className="text-sm text-gray-700">Thus saith the LORD; For three transgressions of Damascus, and for four, I will not turn away the punishment thereof; because they have threshed Gilead with threshing instruments of iron</p>
-              </div>
-              {/* Continue for all verses in Chapter 1... This is a sample showing the format */}
-              <div className="bg-blue-50 border border-blue-200 p-3 rounded mt-4">
-                <p className="text-xs text-blue-800">✓ Chapter 1: 20 verses total (showing sample verses 1-3)</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Chapter 5 - User requested special attention to this chapter */}
-          <div className="bg-white border-2 border-purple-300 rounded-lg p-6">
-            <h3 className="text-2xl font-bold text-purple-800 mb-4 border-b-2 border-purple-300 pb-2">
-              Chapter 5 - Israel Punished for Oppressing the Poor ⭐
-            </h3>
-            <div className="space-y-3">
-              <div className="bg-purple-50 p-4 rounded border border-purple-200">
-                <p className="text-xs font-bold text-purple-700 mb-1">VERSE 1</p>
-                <p className="text-sm text-blue-900 font-mono mb-2">Shama attah zah dabar Asar any Nasa al attah aph qaynah howy bayth al yasharAl</p>
-                <p className="text-sm text-gray-700">Hear ye this word which I take up against you, even a lamentation, O house of Israel</p>
-              </div>
-              <div className="bg-purple-50 p-4 rounded border border-purple-200">
-                <p className="text-xs font-bold text-purple-700 mb-1">VERSE 2</p>
-                <p className="text-sm text-blue-900 font-mono mb-2">bathuwlah yasharaAl hy Naphal Naphash yash lah owd quwm Naphash hy Natash al Naphash Adamah Sham hy any quwm Naphash quwm</p>
-                <p className="text-sm text-gray-700">The virgin of Israel is fallen; she shall no more rise: she is forsaken upon her land; there is none to raise her up</p>
-              </div>
-              {/* More verses... */}
-              <div className="bg-purple-100 border border-purple-300 p-3 rounded mt-4">
-                <p className="text-xs text-purple-900 font-semibold">⭐ Chapter 5: 27 verses total - CHECK WORD ORDER CAREFULLY</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Placeholder for remaining chapters */}
-          <div className="bg-gray-100 border border-gray-300 rounded-lg p-6">
-            <p className="text-gray-700 mb-2"><strong>📖 Chapters 2, 3, 4, 6, 7, 8, 9:</strong></p>
-            <p className="text-sm text-gray-600">Full concordance data is stored in the codebase. This preview shows the format for Chapters 1 & 5.</p>
-            <p className="text-sm text-gray-600 mt-2">When printing or exporting, the AI will pull complete data for all 9 chapters from the master data structure.</p>
-          </div>
+          {/* ALL 9 CHAPTERS */}
+          {renderAllChaptersConcordance()}
 
           {/* Verification Checklist */}
           <div className="bg-green-50 border-2 border-green-400 rounded-lg p-6">
@@ -1809,7 +1799,7 @@ const BookOfAmos = () => {
               </label>
               <label className="flex items-center gap-2">
                 <input type="checkbox" className="w-4 h-4" />
-                <span>Words in correct order (especially Chapter 1 & 5)</span>
+                <span>Words in correct order (especially Chapters 1 & 5)</span>
               </label>
               <label className="flex items-center gap-2">
                 <input type="checkbox" className="w-4 h-4" />
