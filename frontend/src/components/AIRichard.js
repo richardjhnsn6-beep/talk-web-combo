@@ -1300,7 +1300,24 @@ const AIRichard = () => {
       {/* 💰 PAYWALL MODAL - Two-Tier Membership System */}
       {showPaywall && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full p-6 sm:p-8 my-8">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full p-6 sm:p-8 my-8 relative">
+            
+            {/* CLOSE BUTTON - "Maybe Later" */}
+            <button
+              onClick={() => setShowPaywall(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors text-2xl font-bold w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100"
+              aria-label="Close"
+            >
+              ×
+            </button>
+
+            {/* "Maybe Later" text button - more obvious for mobile */}
+            <button
+              onClick={() => setShowPaywall(false)}
+              className="absolute top-4 left-4 text-sm text-gray-500 hover:text-gray-700 underline"
+            >
+              Maybe Later
+            </button>
             
             {/* Admin Access Option */}
             <div className="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
