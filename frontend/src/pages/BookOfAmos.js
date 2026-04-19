@@ -1787,58 +1787,58 @@ const BookOfAmos = () => {
             📖 {allWords.length} words total (split into 2 columns) - Read LEFT column ↓ then RIGHT column ↓
           </p>
 
-          {/* 2-COLUMN SPLIT LAYOUT - WITH VERSE NUMBERS */}
+          {/* 2-COLUMN SPLIT LAYOUT - WITH VERSE NUMBERS - READABLE SIZE */}
           {/* Each ROW has 2 word sets: (V|HEBREW|ENG|NUM) (V|HEBREW|ENG|NUM) */}
           <div className="border-2 border-gray-400">
             {/* Header */}
-            <div className="bg-gray-800 text-white p-0.5 text-[7px] font-bold flex">
-              <span className="w-[12px] text-center">V</span>
-              <span className="w-[50px]">HEBREW</span>
-              <span className="w-[50px]">ENGLISH</span>
-              <span className="w-[30px] text-center">NUM</span>
-              <span className="w-[12px] border-l border-gray-600 text-center">V</span>
-              <span className="w-[50px]">HEBREW</span>
-              <span className="w-[50px]">ENGLISH</span>
-              <span className="w-[30px] text-center">NUM</span>
+            <div className="bg-gray-800 text-white p-1 text-xs font-bold flex">
+              <span className="w-[20px] text-center">V</span>
+              <span className="w-[90px]">HEBREW</span>
+              <span className="w-[90px]">ENGLISH</span>
+              <span className="w-[40px] text-center">NUM</span>
+              <span className="w-[20px] border-l-2 border-gray-600 text-center">V</span>
+              <span className="w-[90px]">HEBREW</span>
+              <span className="w-[90px]">ENGLISH</span>
+              <span className="w-[40px] text-center">NUM</span>
             </div>
             
-            {/* Content - 2 word pairs per row WITH VERSE NUMBERS */}
+            {/* Content - 2 word pairs per row WITH VERSE NUMBERS - BIGGER TEXT */}
             <div>
               {Array.from({ length: Math.ceil(allWords.length / 2) }).map((_, rowIndex) => {
                 const leftWord = allWords[rowIndex * 2];
                 const rightWord = allWords[rowIndex * 2 + 1];
                 
                 return (
-                  <div key={rowIndex} className={`flex text-[7px] border-b border-gray-200 ${rowIndex % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
+                  <div key={rowIndex} className={`flex text-xs py-0.5 border-b border-gray-200 ${rowIndex % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
                     {/* Left word set */}
                     {leftWord && (
                       <>
-                        <span className="text-center text-purple-700 font-bold w-[12px]">{leftWord.verse}</span>
-                        <span className="font-mono text-blue-900 truncate w-[50px] px-0.5">{leftWord.hebrew}</span>
-                        <span className="text-gray-700 truncate w-[50px] px-0.5">{leftWord.english}</span>
-                        <span className="text-center text-red-700 font-semibold w-[30px]">{leftWord.strongNum}</span>
+                        <span className="text-center text-purple-700 font-bold w-[20px]">{leftWord.verse}</span>
+                        <span className="font-mono text-blue-900 truncate w-[90px] px-1">{leftWord.hebrew}</span>
+                        <span className="text-gray-700 truncate w-[90px] px-1">{leftWord.english}</span>
+                        <span className="text-center text-red-700 font-semibold w-[40px]">{leftWord.strongNum}</span>
                       </>
                     )}
-                    {!leftWord && <span className="w-[142px]"></span>}
+                    {!leftWord && <span className="w-[240px]"></span>}
                     
                     {/* Right word set */}
                     {rightWord && (
                       <>
-                        <span className="text-center text-purple-700 font-bold w-[12px] border-l border-gray-300">{rightWord.verse}</span>
-                        <span className="font-mono text-blue-900 truncate w-[50px] px-0.5">{rightWord.hebrew}</span>
-                        <span className="text-gray-700 truncate w-[50px] px-0.5">{rightWord.english}</span>
-                        <span className="text-center text-red-700 font-semibold w-[30px]">{rightWord.strongNum}</span>
+                        <span className="text-center text-purple-700 font-bold w-[20px] border-l-2 border-gray-300">{rightWord.verse}</span>
+                        <span className="font-mono text-blue-900 truncate w-[90px] px-1">{rightWord.hebrew}</span>
+                        <span className="text-gray-700 truncate w-[90px] px-1">{rightWord.english}</span>
+                        <span className="text-center text-red-700 font-semibold w-[40px]">{rightWord.strongNum}</span>
                       </>
                     )}
-                    {!rightWord && <span className="w-[142px]"></span>}
+                    {!rightWord && <span className="w-[240px]"></span>}
                   </div>
                 );
               })}
             </div>
 
             {/* Footer */}
-            <div className="bg-gray-100 p-0.5 text-[7px] text-center text-gray-600 border-t border-gray-400">
-              {allWords.length} words - V=Verse Number (shows when verses change)
+            <div className="bg-gray-100 p-1 text-xs text-center text-gray-600 border-t border-gray-400">
+              {allWords.length} words - V=Verse Number | 2 word-pairs per row
             </div>
           </div>
 
