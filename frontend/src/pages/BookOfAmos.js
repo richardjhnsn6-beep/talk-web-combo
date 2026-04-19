@@ -1720,6 +1720,26 @@ const BookOfAmos = () => {
 
   // Helper function to render COMPRESSED concordance (7-column format like OpenOffice document)
   const renderAllChaptersConcordance = () => {
+    // Strong's Concordance number mapping for common Hebrew words
+    const strongsNumbers = {
+      'dabar': '1697', 'al': '413', 'Amac': '5986', 'Ashar': '834', 'hayach': '1961',
+      'bayn': '996', 'Naqad': '5349', 'Taqowa': '8620', 'chazeh': '2372', 'yasharaal': '3478',
+      'yowm': '3117', 'Ozayah': '5818', 'Malak': '4428', 'Yahadah': '3063', 'aw': '0',
+      'Yaraboam': '3379', 'ban': '1121', 'Yoash': '3101', 'shanaym': '8147', 'shana': '8141',
+      'raash': '7494', 'huw': '1931', 'amar': '559', 'Yachuwshuah': '3068', 'Tsayown': '6726',
+      'shaagh': '7580', 'Yaruwshalayim': '3389', 'Nathan': '5414', 'qowl': '6963', 'abal': '56',
+      'Nayah': '5116', 'Raah': '7462', 'yabash': '3001', 'rosh': '7218', 'Karmal': '3760',
+      'kah': '3541', 'shalowsh': '7969', 'pasha': '6588', 'Dammashaq': '1834', 'arba': '702',
+      'law': '3808', 'shuwb': '7725', 'cuwr': '5493', 'avan': '5771', 'Ky': '3588',
+      'Duwsh': '1758', 'Galaad': '1568', 'ad': '5704', 'charuts': '2742', 'dachavah': '1786',
+      'barzal': '1270', 'Han': '2005', 'ahy': '589', 'shalach': '7971', 'ash': '784',
+      'bayth': '1004', 'Chazaal': '2371', 'yash': '0', 'akal': '398', 'armown': '759',
+      'Hadad': '1908', 'shabar': '7665', 'gam': '1571', 'barayach': '1280', 'Karath': '3772',
+      'yashab': '3427', 'baqah': '1237', 'Avan': '206', 'Naphash': '5375', 'Tamak': '8551',
+      'shabat': '7626', 'Adan': '5731', 'Am': '5971', 'Aram': '758', 'yatsa': '3318',
+      'galah': '1540', 'qayr': '7024', 'Amar': '559'
+    };
+
     const chapterData = [
       { num: 1, data: chapter1Interlinear, title: "Israel's Kindmen Set for Judgment" },
       { num: 2, data: chapter2Interlinear, title: "Moab's Sin; Judah's Transgressions" },
@@ -1739,14 +1759,14 @@ const BookOfAmos = () => {
         const verse = chapter.data[verseKey];
         const verseNum = verseIndex + 1;
         
-        // Combine Hebrew and English word-by-word with verse reference
+        // Combine Hebrew and English word-by-word with Strong's numbers
         verse.hebrew.forEach((hebrewWord, wordIndex) => {
+          const strongNum = strongsNumbers[hebrewWord] || '';
           allWords.push({
             hebrew: hebrewWord,
+            strongNum: strongNum,
             english: verse.english[wordIndex] || '',
-            ref1: verseNum, // Verse number
-            ref2: '', // Placeholder for Strong's number
-            ref3: '', // Placeholder for additional reference
+            verse: verseNum,
             chapter: chapter.num
           });
         });
@@ -1762,17 +1782,15 @@ const BookOfAmos = () => {
             📖 Compressed format - {allWords.length} words total
           </p>
 
-          {/* COMPRESSED 7-COLUMN TABLE - Tight spacing to save paper */}
+          {/* COMPRESSED TABLE - HEBREW | NUM | ENGLISH (tight spacing) */}
           <div className="overflow-x-auto">
             <table className="text-[9px] border-collapse" style={{ width: 'auto' }}>
               <thead>
                 <tr className="bg-gray-800 text-white">
                   <th className="border border-gray-600 px-0.5 py-0.5 text-left font-mono" style={{ width: '80px' }}>HEBREW</th>
+                  <th className="border border-gray-600 px-0.5 py-0.5 text-center" style={{ width: '40px' }}>NUM</th>
                   <th className="border border-gray-600 px-0.5 py-0.5 text-left" style={{ width: '80px' }}>ENGLISH</th>
                   <th className="border border-gray-600 px-0.5 py-0.5 text-center" style={{ width: '20px' }}>V</th>
-                  <th className="border border-gray-600 px-0.5 py-0.5 text-center" style={{ width: '35px' }}>NUM</th>
-                  <th className="border border-gray-600 px-0.5 py-0.5 text-center" style={{ width: '35px' }}>NUM</th>
-                  <th className="border border-gray-600 px-0.5 py-0.5 text-center" style={{ width: '35px' }}>NUM</th>
                   <th className="border border-gray-600 px-0.5 py-0.5 text-center" style={{ width: '35px' }}>REF</th>
                 </tr>
               </thead>
@@ -1780,11 +1798,9 @@ const BookOfAmos = () => {
                 {allWords.map((word, idx) => (
                   <tr key={idx} className={`${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-yellow-50`}>
                     <td className="border border-gray-300 px-0.5 py-0 font-mono text-blue-900 whitespace-nowrap">{word.hebrew}</td>
+                    <td className="border border-gray-300 px-0.5 py-0 text-center text-red-700 font-semibold text-[8px]">{word.strongNum}</td>
                     <td className="border border-gray-300 px-0.5 py-0 text-gray-700 whitespace-nowrap">{word.english}</td>
-                    <td className="border border-gray-300 px-0.5 py-0 text-center text-gray-600 text-[8px]">{word.ref1}</td>
-                    <td className="border border-gray-300 px-0.5 py-0 text-center text-gray-500 text-[8px]">{word.ref2}</td>
-                    <td className="border border-gray-300 px-0.5 py-0 text-center text-gray-500 text-[8px]">{word.ref3}</td>
-                    <td className="border border-gray-300 px-0.5 py-0 text-center text-gray-500 text-[8px]"></td>
+                    <td className="border border-gray-300 px-0.5 py-0 text-center text-gray-600 text-[8px]">{word.verse}</td>
                     <td className="border border-gray-300 px-0.5 py-0 text-center text-gray-500 text-[8px]"></td>
                   </tr>
                 ))}
@@ -1794,7 +1810,7 @@ const BookOfAmos = () => {
 
           <div className={`border p-2 rounded mt-3 text-[10px] ${(chapter.num === 1 || chapter.num === 5) ? 'bg-purple-50 border-purple-300' : 'bg-blue-50 border-blue-200'}`}>
             <p className={`${(chapter.num === 1 || chapter.num === 5) ? 'text-purple-900 font-semibold' : 'text-blue-800'}`}>
-              ✓ Chapter {chapter.num}: {allWords.length} words compressed format {(chapter.num === 1 || chapter.num === 5) && '⭐ VERIFY CAREFULLY'}
+              ✓ Chapter {chapter.num}: {allWords.length} words with Strong's numbers {(chapter.num === 1 || chapter.num === 5) && '⭐ VERIFY CAREFULLY'}
             </p>
           </div>
         </div>
