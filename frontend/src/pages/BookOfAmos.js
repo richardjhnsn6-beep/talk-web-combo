@@ -1787,50 +1787,54 @@ const BookOfAmos = () => {
             📖 {allWords.length} words total (split into 2 columns) - Read LEFT column ↓ then RIGHT column ↓
           </p>
 
-          {/* 2-COLUMN SPLIT LAYOUT - BOTH COLUMNS ON ONE PAGE */}
+          {/* 2-COLUMN SPLIT LAYOUT - MATCHING OPENOFFICE FORMAT */}
+          {/* Each ROW has 2 word sets: (HEBREW|ENG|NUM) (HEBREW|ENG|NUM) */}
           <div className="border-2 border-gray-400">
             {/* Header */}
-            <div className="bg-gray-800 text-white p-0.5 text-[8px] font-bold grid grid-cols-2">
-              <div className="flex gap-0 border-r border-gray-600">
-                <span className="w-[45px]">HEBREW</span>
-                <span className="w-[45px]">ENGLISH</span>
-                <span className="w-[30px] text-center">NUM</span>
-              </div>
-              <div className="flex gap-0">
-                <span className="w-[45px]">HEBREW</span>
-                <span className="w-[45px]">ENGLISH</span>
-                <span className="w-[30px] text-center">NUM</span>
-              </div>
+            <div className="bg-gray-800 text-white p-0.5 text-[8px] font-bold flex">
+              <span className="w-[60px]">HEBREW</span>
+              <span className="w-[60px]">ENGLISH</span>
+              <span className="w-[35px] text-center">NUM</span>
+              <span className="w-[60px] border-l border-gray-600 pl-0.5">HEBREW</span>
+              <span className="w-[60px]">ENGLISH</span>
+              <span className="w-[35px] text-center">NUM</span>
             </div>
             
-            {/* Content - Both columns on same page */}
-            <div className="grid grid-cols-2">
-              {/* LEFT COLUMN */}
-              <div className="border-r border-gray-400">
-                {leftColumn.map((word, idx) => (
-                  <div key={idx} className={`flex gap-0 px-0.5 py-0 text-[8px] border-b border-gray-200 ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
-                    <span className="font-mono text-blue-900 truncate w-[45px]">{word.hebrew}</span>
-                    <span className="text-gray-700 truncate w-[45px]">{word.english}</span>
-                    <span className="text-center text-red-700 font-semibold w-[30px]">{word.strongNum}</span>
+            {/* Content - 2 word pairs per row */}
+            <div>
+              {Array.from({ length: Math.ceil(allWords.length / 2) }).map((_, rowIndex) => {
+                const leftWord = allWords[rowIndex * 2];
+                const rightWord = allWords[rowIndex * 2 + 1];
+                
+                return (
+                  <div key={rowIndex} className={`flex text-[8px] border-b border-gray-200 ${rowIndex % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
+                    {/* Left word set */}
+                    {leftWord && (
+                      <>
+                        <span className="font-mono text-blue-900 truncate w-[60px] px-0.5">{leftWord.hebrew}</span>
+                        <span className="text-gray-700 truncate w-[60px] px-0.5">{leftWord.english}</span>
+                        <span className="text-center text-red-700 font-semibold w-[35px]">{leftWord.strongNum}</span>
+                      </>
+                    )}
+                    {!leftWord && <span className="w-[155px]"></span>}
+                    
+                    {/* Right word set */}
+                    {rightWord && (
+                      <>
+                        <span className="font-mono text-blue-900 truncate w-[60px] px-0.5 border-l border-gray-300">{rightWord.hebrew}</span>
+                        <span className="text-gray-700 truncate w-[60px] px-0.5">{rightWord.english}</span>
+                        <span className="text-center text-red-700 font-semibold w-[35px]">{rightWord.strongNum}</span>
+                      </>
+                    )}
+                    {!rightWord && <span className="w-[155px]"></span>}
                   </div>
-                ))}
-              </div>
-
-              {/* RIGHT COLUMN */}
-              <div>
-                {rightColumn.map((word, idx) => (
-                  <div key={idx} className={`flex gap-0 px-0.5 py-0 text-[8px] border-b border-gray-200 ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
-                    <span className="font-mono text-blue-900 truncate w-[45px]">{word.hebrew}</span>
-                    <span className="text-gray-700 truncate w-[45px]">{word.english}</span>
-                    <span className="text-center text-red-700 font-semibold w-[30px]">{word.strongNum}</span>
-                  </div>
-                ))}
-              </div>
+                );
+              })}
             </div>
 
             {/* Footer */}
             <div className="bg-gray-100 p-0.5 text-[8px] text-center text-gray-600 border-t border-gray-400">
-              Read LEFT column ↓ then RIGHT column ↓ ({allWords.length} words total)
+              {allWords.length} words - 2 words per row (MAXIMUM compression!)
             </div>
           </div>
 
