@@ -1139,12 +1139,16 @@ const AIRichard = () => {
                   </svg>
                 </button>
               )}
+              
+              {/* CLOSE BUTTON - Made bigger and more visible for Android */}
               <button 
                 onClick={() => setIsOpen(false)}
-                className="text-white hover:bg-white/20 rounded-full p-2 transition-colors"
+                className="text-white hover:bg-white/20 rounded-full p-2 sm:p-3 transition-colors flex items-center gap-2 bg-red-500/80 hover:bg-red-600"
+                aria-label="Close AI Richard"
               >
-                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <span className="text-xs sm:text-sm font-bold hidden sm:inline">Close</span>
+                <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
