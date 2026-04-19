@@ -1718,7 +1718,7 @@ const BookOfAmos = () => {
     );
   };
 
-  // Helper function to render concordance table (word-by-word with Strong's numbers)
+  // Helper function to render COMPRESSED concordance (7-column format like OpenOffice document)
   const renderAllChaptersConcordance = () => {
     const chapterData = [
       { num: 1, data: chapter1Interlinear, title: "Israel's Kindmen Set for Judgment" },
@@ -1739,99 +1739,62 @@ const BookOfAmos = () => {
         const verse = chapter.data[verseKey];
         const verseNum = verseIndex + 1;
         
-        // Combine Hebrew and English word-by-word
+        // Combine Hebrew and English word-by-word with verse reference
         verse.hebrew.forEach((hebrewWord, wordIndex) => {
           allWords.push({
             hebrew: hebrewWord,
             english: verse.english[wordIndex] || '',
-            verse: `${chapter.num}:${verseNum}`,
-            strongNum: '' // Placeholder - can be populated with actual Strong's numbers
+            ref1: verseNum, // Verse number
+            ref2: '', // Placeholder for Strong's number
+            ref3: '', // Placeholder for additional reference
+            chapter: chapter.num
           });
         });
       });
 
-      // Split into 3 columns for newspaper-style reading
-      const wordsPerColumn = Math.ceil(allWords.length / 3);
-      const column1 = allWords.slice(0, wordsPerColumn);
-      const column2 = allWords.slice(wordsPerColumn, wordsPerColumn * 2);
-      const column3 = allWords.slice(wordsPerColumn * 2);
-
       return (
-        <div key={chapter.num} className={`bg-white border-2 rounded-lg p-6 mb-6 ${chapter.num === 1 || chapter.num === 5 ? 'border-purple-300' : 'border-gray-300'}`}>
-          <h3 className={`text-xl font-bold mb-4 border-b-2 pb-2 ${chapter.num === 1 || chapter.num === 5 ? 'text-purple-800 border-purple-300' : 'text-teal-800 border-teal-300'}`}>
-            Chapter {chapter.num} - {chapter.title} {(chapter.num === 1 || chapter.num === 5) && '⭐'}
+        <div key={chapter.num} className={`bg-white border-2 rounded-lg p-4 mb-6 ${chapter.num === 1 || chapter.num === 5 ? 'border-purple-300' : 'border-gray-300'}`}>
+          <h3 className={`text-lg font-bold mb-3 pb-2 border-b ${chapter.num === 1 || chapter.num === 5 ? 'text-purple-800 border-purple-300' : 'text-teal-800 border-teal-300'}`}>
+            Chapter {chapter.num} {(chapter.num === 1 || chapter.num === 5) && '⭐'}
           </h3>
           
-          <p className="text-xs text-gray-600 mb-4 italic">
-            📖 Read down Column 1 → Jump to top of Column 2 → Read down → Jump to top of Column 3 → Read down (Story flows in reading order)
+          <p className="text-[10px] text-gray-600 mb-2 italic">
+            📖 Compressed format - {allWords.length} words total
           </p>
 
-          {/* 3-Column Concordance Table */}
-          <div className="grid grid-cols-3 gap-4">
-            {/* Column 1 */}
-            <div className="border border-gray-300 rounded overflow-hidden">
-              <div className="bg-teal-700 text-white p-2 text-xs font-bold">
-                <div className="grid grid-cols-3 gap-1">
-                  <span>HEBREW</span>
-                  <span>ENGLISH</span>
-                  <span className="text-right">REF</span>
-                </div>
-              </div>
-              <div className="max-h-96 overflow-y-auto">
-                {column1.map((word, idx) => (
-                  <div key={idx} className="grid grid-cols-3 gap-1 p-2 text-xs border-b border-gray-200 hover:bg-gray-50">
-                    <span className="font-mono text-blue-900">{word.hebrew}</span>
-                    <span className="text-gray-700">{word.english}</span>
-                    <span className="text-right text-gray-500 text-[10px]">{word.verse}</span>
-                  </div>
+          {/* COMPRESSED 7-COLUMN TABLE - Matching OpenOffice format */}
+          <div className="overflow-x-auto">
+            <table className="w-full text-[10px] border-collapse">
+              <thead>
+                <tr className="bg-gray-800 text-white">
+                  <th className="border border-gray-600 px-1 py-1 text-left font-mono">HEBREW</th>
+                  <th className="border border-gray-600 px-1 py-1 text-center">V</th>
+                  <th className="border border-gray-600 px-1 py-1 text-center">NUM</th>
+                  <th className="border border-gray-600 px-1 py-1 text-center">REF</th>
+                  <th className="border border-gray-600 px-1 py-1 text-left">ENGLISH</th>
+                  <th className="border border-gray-600 px-1 py-1 text-center">NUM</th>
+                  <th className="border border-gray-600 px-1 py-1 text-center">REF</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allWords.map((word, idx) => (
+                  <tr key={idx} className={`${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-yellow-50`}>
+                    <td className="border border-gray-300 px-1 py-0.5 font-mono text-blue-900">{word.hebrew}</td>
+                    <td className="border border-gray-300 px-1 py-0.5 text-center text-gray-600">{word.ref1}</td>
+                    <td className="border border-gray-300 px-1 py-0.5 text-center text-gray-500">{word.ref2}</td>
+                    <td className="border border-gray-300 px-1 py-0.5 text-center text-gray-500">{word.ref3}</td>
+                    <td className="border border-gray-300 px-1 py-0.5 text-gray-700">{word.english}</td>
+                    <td className="border border-gray-300 px-1 py-0.5 text-center text-gray-500"></td>
+                    <td className="border border-gray-300 px-1 py-0.5 text-center text-gray-500"></td>
+                  </tr>
                 ))}
-              </div>
-            </div>
-
-            {/* Column 2 */}
-            <div className="border border-gray-300 rounded overflow-hidden">
-              <div className="bg-teal-700 text-white p-2 text-xs font-bold">
-                <div className="grid grid-cols-3 gap-1">
-                  <span>HEBREW</span>
-                  <span>ENGLISH</span>
-                  <span className="text-right">REF</span>
-                </div>
-              </div>
-              <div className="max-h-96 overflow-y-auto">
-                {column2.map((word, idx) => (
-                  <div key={idx} className="grid grid-cols-3 gap-1 p-2 text-xs border-b border-gray-200 hover:bg-gray-50">
-                    <span className="font-mono text-blue-900">{word.hebrew}</span>
-                    <span className="text-gray-700">{word.english}</span>
-                    <span className="text-right text-gray-500 text-[10px]">{word.verse}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Column 3 */}
-            <div className="border border-gray-300 rounded overflow-hidden">
-              <div className="bg-teal-700 text-white p-2 text-xs font-bold">
-                <div className="grid grid-cols-3 gap-1">
-                  <span>HEBREW</span>
-                  <span>ENGLISH</span>
-                  <span className="text-right">REF</span>
-                </div>
-              </div>
-              <div className="max-h-96 overflow-y-auto">
-                {column3.map((word, idx) => (
-                  <div key={idx} className="grid grid-cols-3 gap-1 p-2 text-xs border-b border-gray-200 hover:bg-gray-50">
-                    <span className="font-mono text-blue-900">{word.hebrew}</span>
-                    <span className="text-gray-700">{word.english}</span>
-                    <span className="text-right text-gray-500 text-[10px]">{word.verse}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+              </tbody>
+            </table>
           </div>
 
-          <div className={`border p-3 rounded mt-4 ${(chapter.num === 1 || chapter.num === 5) ? 'bg-purple-100 border-purple-300' : 'bg-blue-50 border-blue-200'}`}>
-            <p className={`text-xs ${(chapter.num === 1 || chapter.num === 5) ? 'text-purple-900 font-semibold' : 'text-blue-800'}`}>
-              ✓ Chapter {chapter.num}: {allWords.length} total words - Read columns in order to follow the story {(chapter.num === 1 || chapter.num === 5) && '⭐ CHECK CAREFULLY'}
+          <div className={`border p-2 rounded mt-3 text-[10px] ${(chapter.num === 1 || chapter.num === 5) ? 'bg-purple-50 border-purple-300' : 'bg-blue-50 border-blue-200'}`}>
+            <p className={`${(chapter.num === 1 || chapter.num === 5) ? 'text-purple-900 font-semibold' : 'text-blue-800'}`}>
+              ✓ Chapter {chapter.num}: {allWords.length} words compressed format {(chapter.num === 1 || chapter.num === 5) && '⭐ VERIFY CAREFULLY'}
             </p>
           </div>
         </div>
