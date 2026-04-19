@@ -1718,7 +1718,7 @@ const BookOfAmos = () => {
     );
   };
 
-  // Helper function to render COMPRESSED concordance (7-column format like OpenOffice document)
+  // Helper function to render COMPRESSED concordance (2-column split layout)
   const renderAllChaptersConcordance = () => {
     // Strong's Concordance number mapping for common Hebrew words
     const strongsNumbers = {
@@ -1737,7 +1737,8 @@ const BookOfAmos = () => {
       'Hadad': '1908', 'shabar': '7665', 'gam': '1571', 'barayach': '1280', 'Karath': '3772',
       'yashab': '3427', 'baqah': '1237', 'Avan': '206', 'Naphash': '5375', 'Tamak': '8551',
       'shabat': '7626', 'Adan': '5731', 'Am': '5971', 'Aram': '758', 'yatsa': '3318',
-      'galah': '1540', 'qayr': '7024', 'Amar': '559'
+      'galah': '1540', 'qayr': '7024', 'Amar': '559', 'yth': '854', 'Azzah': '5804',
+      'Shalawsh': '7969'
     };
 
     const chapterData = [
@@ -1766,51 +1767,79 @@ const BookOfAmos = () => {
             hebrew: hebrewWord,
             strongNum: strongNum,
             english: verse.english[wordIndex] || '',
-            verse: verseNum,
-            chapter: chapter.num
+            verse: verseNum
           });
         });
       });
 
+      // SPLIT CHAPTER IN HALF for 2-column layout
+      const midPoint = Math.ceil(allWords.length / 2);
+      const leftColumn = allWords.slice(0, midPoint);
+      const rightColumn = allWords.slice(midPoint);
+
       return (
-        <div key={chapter.num} className={`bg-white border-2 rounded-lg p-4 mb-6 ${chapter.num === 1 || chapter.num === 5 ? 'border-purple-300' : 'border-gray-300'}`}>
-          <h3 className={`text-lg font-bold mb-3 pb-2 border-b ${chapter.num === 1 || chapter.num === 5 ? 'text-purple-800 border-purple-300' : 'text-teal-800 border-teal-300'}`}>
+        <div key={chapter.num} className={`bg-white border-2 rounded-lg p-3 mb-4 ${chapter.num === 1 || chapter.num === 5 ? 'border-purple-300' : 'border-gray-300'}`}>
+          <h3 className={`text-base font-bold mb-2 pb-1 border-b ${chapter.num === 1 || chapter.num === 5 ? 'text-purple-800 border-purple-300' : 'text-teal-800 border-teal-300'}`}>
             Chapter {chapter.num} {(chapter.num === 1 || chapter.num === 5) && '⭐'}
           </h3>
           
-          <p className="text-[10px] text-gray-600 mb-2 italic">
-            📖 Compressed format - {allWords.length} words total
+          <p className="text-[9px] text-gray-600 mb-2 italic">
+            📖 {allWords.length} words total (split into 2 columns) - Read LEFT column ↓ then RIGHT column ↓
           </p>
 
-          {/* COMPRESSED TABLE - HEBREW | NUM | ENGLISH (tight spacing) */}
-          <div className="overflow-x-auto">
-            <table className="text-[9px] border-collapse" style={{ width: 'auto' }}>
-              <thead>
-                <tr className="bg-gray-800 text-white">
-                  <th className="border border-gray-600 px-0.5 py-0.5 text-left font-mono" style={{ width: '80px' }}>HEBREW</th>
-                  <th className="border border-gray-600 px-0.5 py-0.5 text-center" style={{ width: '40px' }}>NUM</th>
-                  <th className="border border-gray-600 px-0.5 py-0.5 text-left" style={{ width: '80px' }}>ENGLISH</th>
-                  <th className="border border-gray-600 px-0.5 py-0.5 text-center" style={{ width: '20px' }}>V</th>
-                  <th className="border border-gray-600 px-0.5 py-0.5 text-center" style={{ width: '35px' }}>REF</th>
-                </tr>
-              </thead>
-              <tbody>
-                {allWords.map((word, idx) => (
-                  <tr key={idx} className={`${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-yellow-50`}>
-                    <td className="border border-gray-300 px-0.5 py-0 font-mono text-blue-900 whitespace-nowrap">{word.hebrew}</td>
-                    <td className="border border-gray-300 px-0.5 py-0 text-center text-red-700 font-semibold text-[8px]">{word.strongNum}</td>
-                    <td className="border border-gray-300 px-0.5 py-0 text-gray-700 whitespace-nowrap">{word.english}</td>
-                    <td className="border border-gray-300 px-0.5 py-0 text-center text-gray-600 text-[8px]">{word.verse}</td>
-                    <td className="border border-gray-300 px-0.5 py-0 text-center text-gray-500 text-[8px]"></td>
-                  </tr>
+          {/* 2-COLUMN SPLIT LAYOUT - DOUBLES CONTENT PER PAGE */}
+          <div className="grid grid-cols-2 gap-2">
+            
+            {/* LEFT COLUMN - First Half */}
+            <div className="border border-gray-400">
+              <div className="bg-gray-800 text-white p-0.5 text-[8px] font-bold">
+                <div className="grid grid-cols-[1fr_auto_1fr] gap-0.5">
+                  <span>HEBREW</span>
+                  <span className="text-center">NUM</span>
+                  <span>ENGLISH</span>
+                </div>
+              </div>
+              <div className="max-h-[600px] overflow-y-auto">
+                {leftColumn.map((word, idx) => (
+                  <div key={idx} className={`grid grid-cols-[1fr_auto_1fr] gap-0.5 px-0.5 py-0 text-[8px] border-b border-gray-200 ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
+                    <span className="font-mono text-blue-900 truncate">{word.hebrew}</span>
+                    <span className="text-center text-red-700 font-semibold px-1">{word.strongNum}</span>
+                    <span className="text-gray-700 truncate">{word.english}</span>
+                  </div>
                 ))}
-              </tbody>
-            </table>
+              </div>
+              <div className="bg-gray-100 p-0.5 text-[8px] text-center text-gray-600">
+                ← First Half ({leftColumn.length} words)
+              </div>
+            </div>
+
+            {/* RIGHT COLUMN - Second Half */}
+            <div className="border border-gray-400">
+              <div className="bg-gray-800 text-white p-0.5 text-[8px] font-bold">
+                <div className="grid grid-cols-[1fr_auto_1fr] gap-0.5">
+                  <span>HEBREW</span>
+                  <span className="text-center">NUM</span>
+                  <span>ENGLISH</span>
+                </div>
+              </div>
+              <div className="max-h-[600px] overflow-y-auto">
+                {rightColumn.map((word, idx) => (
+                  <div key={idx} className={`grid grid-cols-[1fr_auto_1fr] gap-0.5 px-0.5 py-0 text-[8px] border-b border-gray-200 ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
+                    <span className="font-mono text-blue-900 truncate">{word.hebrew}</span>
+                    <span className="text-center text-red-700 font-semibold px-1">{word.strongNum}</span>
+                    <span className="text-gray-700 truncate">{word.english}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="bg-gray-100 p-0.5 text-[8px] text-center text-gray-600">
+                Second Half ({rightColumn.length} words) →
+              </div>
+            </div>
           </div>
 
-          <div className={`border p-2 rounded mt-3 text-[10px] ${(chapter.num === 1 || chapter.num === 5) ? 'bg-purple-50 border-purple-300' : 'bg-blue-50 border-blue-200'}`}>
+          <div className={`border p-1.5 rounded mt-2 text-[9px] ${(chapter.num === 1 || chapter.num === 5) ? 'bg-purple-50 border-purple-300' : 'bg-blue-50 border-blue-200'}`}>
             <p className={`${(chapter.num === 1 || chapter.num === 5) ? 'text-purple-900 font-semibold' : 'text-blue-800'}`}>
-              ✓ Chapter {chapter.num}: {allWords.length} words with Strong's numbers {(chapter.num === 1 || chapter.num === 5) && '⭐ VERIFY CAREFULLY'}
+              ✓ Chapter {chapter.num}: 2-column layout DOUBLES content per page! {(chapter.num === 1 || chapter.num === 5) && '⭐ VERIFY'}
             </p>
           </div>
         </div>
