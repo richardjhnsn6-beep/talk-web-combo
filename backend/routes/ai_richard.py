@@ -5,6 +5,8 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime, timezone
 from emergentintegrations.llm.chat import LlmChat, UserMessage
 import os
+import re
+import base64
 from dotenv import load_dotenv
 from pathlib import Path
 import uuid
@@ -19,6 +21,112 @@ router = APIRouter()
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
+
+# 🎨 BIBLICAL ART STYLE GUIDE - Richard Johnson's mandatory aesthetic
+# All biblical figures MUST be depicted as Black people with locks, dressed as Egyptians
+BIBLICAL_ART_STYLE_SUFFIX = (
+    " Depict the figure as a strong, dignified BLACK man with LOCKS (dreadlocks) in his hair, "
+    "wearing traditional ancient EGYPTIAN attire (Nemes striped headdress with golden Uraeus "
+    "serpent on forehead if royal, or priestly Egyptian robes with lapis lazuli and gold accents), "
+    "with a royal Egyptian broad collar necklace (Usekh) made of lapis lazuli, gold, and turquoise. "
+    "Dark skin tone, piercing eyes, strong dignified face. "
+    "Background: Egyptian temple hieroglyphics, golden-brown desert hues, torch-lit warm atmosphere. "
+    "Cinematic lighting, painterly oil-painting style with rich textures, museum-quality artwork. "
+    "NO Europeanized features. NO modern elements. Historically inspired per Richard Johnson's research."
+)
+
+# Keywords that signal the user wants an image generated
+IMAGE_REQUEST_KEYWORDS = [
+    "generate image", "generate a picture", "generate picture", "make me a picture",
+    "make me an image", "create an image", "create a picture", "draw me",
+    "paint me", "give me a picture of", "give me an image of", "show me a picture of",
+    "portrait of", "image of moses", "image of david", "image of solomon",
+    "image of abraham", "image of isaac", "image of jacob", "image of amos",
+    "picture of moses", "picture of david", "picture of solomon",
+    "for my gallery", "for the gallery", "add to gallery", "ai art",
+    "biblical art", "biblical portrait",
+]
+
+def detect_image_request(message: str):
+    """Detect if the user is asking AI Richard to generate an image.
+    Returns (is_image_request, subject_prompt) tuple."""
+    msg_lower = message.lower()
+    is_request = any(kw in msg_lower for kw in IMAGE_REQUEST_KEYWORDS)
+    if not is_request:
+        return (False, None)
+    # Extract the subject - everything after common prefixes
+    subject = message
+    for prefix in [
+        "generate an image of", "generate a picture of", "make me a picture of",
+        "make me an image of", "create an image of", "create a picture of",
+        "draw me", "paint me a picture of", "paint me", "give me a picture of",
+        "give me an image of", "show me a picture of", "portrait of",
+        "generate image", "generate picture", "a picture of", "an image of",
+        "picture of", "image of",
+    ]:
+        idx = msg_lower.find(prefix)
+        if idx >= 0:
+            subject = message[idx + len(prefix):].strip(" .,!?:")
+            break
+    return (True, subject or message)
+
+
+async def generate_biblical_image(subject: str) -> Optional[str]:
+    """Generate a biblical-art-style image using Gemini Nano Banana.
+    Returns the public URL of the generated image, or None on failure."""
+    try:
+        from emergentintegrations.llm.chat import LlmChat as _Chat, UserMessage as _Msg
+
+        # Build the prompt using Richard's mandatory style guide
+        full_prompt = f"A regal, majestic portrait of {subject}." + BIBLICAL_ART_STYLE_SUFFIX
+
+        chat = _Chat(
+            api_key=os.getenv("EMERGENT_LLM_KEY"),
+            session_id=str(uuid.uuid4()),
+            system_message="You are an expert AI image generator for biblical art.",
+        )
+        chat.with_model("gemini", "gemini-3.1-flash-image-preview").with_params(
+            modalities=["image", "text"]
+        )
+
+        msg = _Msg(text=full_prompt)
+        _text, images = await chat.send_message_multimodal_response(msg)
+
+        if not images:
+            return None
+
+        img = images[0]
+        image_bytes = base64.b64decode(img["data"])
+
+        # Save to disk
+        images_dir = ROOT_DIR / "generated_images"
+        images_dir.mkdir(exist_ok=True)
+        # Clean subject into safe filename
+        safe_subject = re.sub(r"[^a-zA-Z0-9]+", "_", subject.lower())[:40] or "biblical_art"
+        filename = f"{safe_subject}_{uuid.uuid4().hex[:8]}.png"
+        filepath = images_dir / filename
+        with open(filepath, "wb") as f:
+            f.write(image_bytes)
+
+        # Store in DB for AI Art Gallery
+        try:
+            await db.ai_art_gallery.insert_one({
+                "id": str(uuid.uuid4()),
+                "filename": filename,
+                "subject": subject,
+                "prompt": full_prompt,
+                "url": f"/api/images/{filename}",
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "source": "ai_richard_chat",
+            })
+        except Exception as db_err:
+            print(f"Gallery DB insert failed (non-fatal): {db_err}")
+
+        return f"/api/images/{filename}"
+    except Exception as e:
+        print(f"Image generation failed: {e}")
+        return None
+
 
 # AI Richard - Universal Servant for All Mankind
 AI_RICHARD_SYSTEM_PROMPT = """**YOUR DUAL ROLE & PERSONALITY:**
@@ -275,6 +383,16 @@ When customers ask where to buy or see all products, direct them to: **https://t
 - **When any visitor shows interest in Hebrew, scripture, translation, or asks what Richard is about — ACTIVELY GUIDE THEM TO BUY THE BOOK OF AMOS.** Don't just inform — CLOSE. Use phrases like "You can grab your copy right now for $14" and drop the Gumroad link: https://richardson0164.gumroad.com/l/osofkm
 - If someone is interested in books, mention the $14 **member discount** vs $20 regular price
 - If someone wants ongoing support, suggest the **$2 or $5/month** subscriptions
+
+**🎨 AI IMAGE GENERATION SUPERPOWER:**
+You have the ability to generate AI biblical art images on command. When Richard (the site owner) or any authenticated visitor asks you to generate, create, make, draw, or paint an image of a biblical figure (Moses, David, Solomon, Amos, Abraham, prophets, kings, etc.) — the system will automatically generate it and add it to the AI Art Gallery.
+
+**RULES for image generation:**
+- When someone asks for biblical art/portraits, simply acknowledge enthusiastically and confirm you'll generate it. The system will handle the actual generation behind the scenes.
+- ALL biblical figures are depicted as BLACK men with LOCKS (dreadlocks) in their hair, dressed in ancient EGYPTIAN attire — per Richard Johnson's theological and historical research. This is NON-NEGOTIABLE.
+- If someone asks for a non-biblical image, you can still help but politely mention your specialty is biblical/Hebrew art.
+- After generating, tell them the image has been added to the AI Art Gallery at /ai-art.
+- Examples of trigger phrases: "Generate me a picture of Moses", "Make me an image of David", "Give me a portrait of the Prophet Amos", "Create biblical art of Solomon", "Add Moses to my gallery".
 - If someone has lots of questions, mention **$9.99/month unlimited AI chat**
 - Always mention the **shop page** where they can see everything in one place
 - Guide people to the best option based on their needs, don't just list everything
@@ -1575,6 +1693,7 @@ class ChatResponse(BaseModel):
     response: str
     conversation_id: str
     credits_remaining: Optional[int] = None  # NEW: Return remaining credits
+    generated_image_url: Optional[str] = None  # NEW: URL of AI-generated image if any
 
 @router.post("/chat", response_model=ChatResponse)
 async def ai_richard_chat(chat_req: ChatRequest, request: Request):
@@ -1591,6 +1710,7 @@ async def ai_richard_chat(chat_req: ChatRequest, request: Request):
         has_access = False
         credits_remaining = None
         access_type = None  # 'subscription', 'credits', or 'free_trial'
+        generated_image_url = None  # Populated if user asks for an image
         
         if chat_req.user_email:
             # Check for active subscription (Basic or Premium)
@@ -2118,12 +2238,29 @@ What questions do you have about this history?"""
             # Send message and get response
             user_msg = UserMessage(text=user_message)
             ai_response = await chat_client.send_message(user_message=user_msg)
-            
+
+            # 🎨 IMAGE GENERATION: If user asked for an image, generate it now
+            generated_image_url = None
+            is_image_req, image_subject = detect_image_request(chat_req.message)
+            if is_image_req and image_subject:
+                generated_image_url = await generate_biblical_image(image_subject)
+                if generated_image_url:
+                    ai_response += (
+                        f"\n\n🎨 **Here's your AI-generated biblical portrait of {image_subject}!** "
+                        "I've added it to your AI Art Gallery automatically. "
+                        "It follows the established style — Black figure with locks, dressed as an Egyptian — "
+                        "per Richard's theological research. You can view it on the AI Art Gallery page."
+                    )
+                else:
+                    ai_response += (
+                        "\n\n⚠️ I tried to generate the image but the art service is temporarily "
+                        "unavailable. Please try again in a minute."
+                    )
+
             # Get lowercase version for keyword detection
             user_msg_lower = chat_req.message.lower()
             
             # 🎯 AUTO MEMBERSHIP SIGNUP: Detect email addresses and sign up automatically
-            import re
             email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
             emails_found = re.findall(email_pattern, chat_req.message)
             
@@ -2259,6 +2396,7 @@ What questions do you have about this history?"""
             response=ai_response,
             conversation_id=conversation_id,
             credits_remaining=credits_remaining,  # Return updated balance
+            generated_image_url=generated_image_url,
             headers={
                 "Cache-Control": "no-cache, no-store, must-revalidate",
                 "Pragma": "no-cache",
@@ -2269,6 +2407,34 @@ What questions do you have about this history?"""
     except Exception as e:
         print(f"AI Richard error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"AI Richard encountered an error: {str(e)}")
+
+
+@router.get("/gallery")
+async def list_gallery_images():
+    """Return all AI-generated biblical art images in the gallery (newest first)."""
+    try:
+        cursor = db.ai_art_gallery.find(
+            {},
+            {"_id": 0}
+        ).sort("created_at", -1).limit(100)
+        items = await cursor.to_list(length=100)
+        return {"images": items, "count": len(items)}
+    except Exception as e:
+        print(f"Gallery list error: {e}")
+        return {"images": [], "count": 0}
+
+
+@router.post("/generate-image")
+async def generate_image_endpoint(body: dict):
+    """Direct image generation endpoint. Body: {subject: str}."""
+    subject = (body or {}).get("subject", "").strip()
+    if not subject:
+        raise HTTPException(status_code=400, detail="subject required")
+    url = await generate_biblical_image(subject)
+    if not url:
+        raise HTTPException(status_code=500, detail="Image generation failed")
+    return {"url": url, "subject": subject}
+
 
 @router.get("/stats")
 async def get_ai_richard_stats():

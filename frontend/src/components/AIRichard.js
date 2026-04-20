@@ -505,6 +505,7 @@ const AIRichard = () => {
       
       setConversationId(data.conversation_id);
       const aiResponse = data.response;
+      const imageUrl = data.generated_image_url || null;
       
       // Update credit balance if returned
       if (data.credits_remaining !== undefined && data.credits_remaining !== null) {
@@ -515,7 +516,8 @@ const AIRichard = () => {
           const warningMsg = `\n\n⚠️ **Low balance!** You have ${data.credits_remaining} credit${data.credits_remaining === 1 ? '' : 's'} remaining. Buy more credits or upgrade to unlimited subscription!`;
           setMessages(prev => [...prev, { 
             role: 'assistant', 
-            content: aiResponse + warningMsg
+            content: aiResponse + warningMsg,
+            imageUrl: imageUrl,
           }]);
         } else if (data.credits_remaining === 0) {
           setHasCredits(false);
@@ -525,13 +527,15 @@ const AIRichard = () => {
         } else {
           setMessages(prev => [...prev, { 
             role: 'assistant', 
-            content: aiResponse 
+            content: aiResponse,
+            imageUrl: imageUrl,
           }]);
         }
       } else {
         setMessages(prev => [...prev, { 
           role: 'assistant', 
-          content: aiResponse 
+          content: aiResponse,
+          imageUrl: imageUrl,
         }]);
       }
       
@@ -1184,6 +1188,22 @@ const AIRichard = () => {
                           )}
                         </React.Fragment>
                       ))}
+                      {/* Render generated biblical art image if present */}
+                      {msg.imageUrl && (
+                        <div className="mt-3" data-testid="ai-richard-generated-image">
+                          <img
+                            src={`${process.env.REACT_APP_BACKEND_URL}${msg.imageUrl}`}
+                            alt="AI-generated biblical art"
+                            className="w-full rounded-lg shadow-md border border-amber-300"
+                          />
+                          <a
+                            href="/ai-art"
+                            className="block text-center mt-2 text-xs text-teal-700 hover:text-teal-900 underline font-semibold"
+                          >
+                            → View in AI Art Gallery
+                          </a>
+                        </div>
+                      )}
                     </div>
                   ) : (
                     // User messages - plain text

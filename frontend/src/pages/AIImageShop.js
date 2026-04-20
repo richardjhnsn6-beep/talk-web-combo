@@ -1,8 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const AIImageShop = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [aiGenerated, setAiGenerated] = useState([]);
+  const [loadingAi, setLoadingAi] = useState(true);
+
+  // Fetch AI-generated art from backend (images AI Richard creates on command)
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/ai-richard/gallery`);
+        const data = await res.json();
+        setAiGenerated(data.images || []);
+      } catch (e) {
+        console.error('Failed to load AI gallery', e);
+      } finally {
+        setLoadingAi(false);
+      }
+    };
+    fetchGallery();
+  }, []);
 
   // PLACEHOLDER PRODUCTS - You'll replace these with your actual AI-generated images
   const products = [
@@ -142,6 +160,43 @@ const AIImageShop = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* 🎨 AI RICHARD'S GENERATIONS (images created via AI Richard chat) */}
+      {!loadingAi && aiGenerated.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10" data-testid="ai-richard-gallery">
+          <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
+            <h2 className="text-2xl font-bold text-white">
+              ✨ AI Richard's Biblical Portraits
+            </h2>
+            <span className="text-sm text-purple-200">
+              {aiGenerated.length} image{aiGenerated.length === 1 ? '' : 's'} · Ask AI Richard to generate more
+            </span>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {aiGenerated.map((img, i) => (
+              <div
+                key={img.id || i}
+                className="bg-white/10 backdrop-blur-sm rounded-lg overflow-hidden border border-amber-300/30 hover:border-amber-300 transition-all group"
+                data-testid={`ai-richard-gallery-item-${i}`}
+              >
+                <img
+                  src={`${process.env.REACT_APP_BACKEND_URL}${img.url}`}
+                  alt={img.subject}
+                  className="w-full aspect-[3/4] object-cover group-hover:scale-105 transition-transform"
+                />
+                <div className="p-3">
+                  <p className="text-sm font-semibold text-white truncate capitalize">
+                    {img.subject}
+                  </p>
+                  <p className="text-xs text-purple-200 mt-1">
+                    {img.created_at ? new Date(img.created_at).toLocaleDateString() : ''}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Category Filter */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
