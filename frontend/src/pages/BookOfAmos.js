@@ -1736,22 +1736,13 @@ const BookOfAmos = () => {
       );
     }
 
-    // Use curated Pure Hebrew data if available (chapters 1, 2, 4), otherwise
-    // derive Pure Hebrew from the extracted PDF bilingual data (chapters 3, 5-9)
-    let pureHebrewData;
-    if (activeChapter === 1) {
-      pureHebrewData = chapter1PureHebrew;
-    } else if (activeChapter === 2) {
-      pureHebrewData = chapter2PureHebrew;
-    } else if (activeChapter === 4) {
-      pureHebrewData = chapter4PureHebrew;
-    } else {
-      const bilingual = getBilingualForChapter(activeChapter);
-      pureHebrewData = bilingual.map(v => ({
-        verse: v.verse,
-        hebrew: v.hebrew,
-      }));
-    }
+    // Pull Pure Hebrew for every chapter directly from the PDF-sourced bilingual data
+    // so all 9 chapters show the full verse count with identical formatting
+    const bilingual = getBilingualForChapter(activeChapter);
+    const pureHebrewData = (bilingual || []).map(v => ({
+      verse: v.verse,
+      hebrew: v.hebrew,
+    }));
 
     if (!pureHebrewData || pureHebrewData.length === 0) {
       return (
