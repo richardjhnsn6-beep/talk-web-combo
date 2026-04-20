@@ -11,6 +11,7 @@ import Books from './pages/Books';
 import Contact from './pages/Contact';
 import HebrewAlphabet from './pages/HebrewAlphabet';
 import BookOfAmos from './pages/BookOfAmos';
+import BookPreview from './pages/BookPreview';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminPaidMembers from './pages/AdminPaidMembers';
 import AdminMarketingTracker from './pages/AdminMarketingTracker';
@@ -240,6 +241,7 @@ function App() {
             <Route path="/books" element={<Books />} />
             <Route path="/hebrew-alphabet" element={<HebrewAlphabet />} />
             <Route path="/book-of-amos" element={<BookOfAmos />} />
+            <Route path="/book-preview" element={<AdminLogin><BookPreview /></AdminLogin>} />
             
             {/* Protected Admin Routes - Password Required */}
             <Route path="/admin" element={<AdminLogin><AdminDashboard /></AdminLogin>} />
