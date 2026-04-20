@@ -20,6 +20,7 @@ from routes.live_visitors import router as live_visitors_router
 from routes.membership import router as membership_router
 from routes.paid_members import router as paid_members_router
 from routes.ai_image_gen import router as ai_image_gen_router
+from routes.content_access import router as content_access_router
 from services.keep_alive import keep_alive_service
 
 
@@ -59,6 +60,8 @@ api_router.include_router(membership_router, prefix="/membership", tags=["member
 api_router.include_router(paid_members_router, prefix="/paid-members", tags=["paid-members"])
 # Include AI Image Generation routes with /ai-image prefix
 api_router.include_router(ai_image_gen_router, prefix="/ai-image", tags=["ai-image-generation"])
+# Include Content Access routes with /access prefix
+api_router.include_router(content_access_router, prefix="/access", tags=["content-access"])
 
 
 # Define Models
