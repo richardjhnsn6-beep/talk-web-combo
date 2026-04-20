@@ -73,47 +73,51 @@ const BookPreview = () => {
           style={{ aspectRatio: '6 / 9', minHeight: '780px' }}
           data-testid="book-preview-cover"
         >
+          {/* Background: King Tutmoses image */}
+          <img
+            src={`${process.env.REACT_APP_BACKEND_URL}/api/images/tutmoses_book_cover.png`}
+            alt="King Tutmoses"
+            className="absolute inset-0 w-full h-full object-cover opacity-90"
+            data-testid="book-preview-cover-image"
+          />
+          {/* Dark overlay gradients for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-transparent to-slate-900/80" />
+
           {/* Decorative ornamental frame */}
-          <div className="absolute inset-6 border-2 border-amber-300/40 rounded-sm" />
-          <div className="absolute inset-10 border border-amber-300/20 rounded-sm" />
+          <div className="absolute inset-6 border-2 border-amber-300/60 rounded-sm" />
+          <div className="absolute inset-10 border border-amber-300/30 rounded-sm" />
 
-          {/* Hebrew letter ornament - decorative */}
-          <div className="absolute top-16 left-1/2 -translate-x-1/2 text-amber-300/60 text-6xl font-serif select-none">
-            ✦ ✦ ✦
-          </div>
-
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-10">
-            <p className="uppercase tracking-[0.35em] text-amber-200 text-xs mb-8">
+          <div className="absolute top-0 left-0 right-0 flex flex-col items-center text-center px-10 pt-20">
+            <p className="uppercase tracking-[0.35em] text-amber-200 text-xs mb-6 drop-shadow-lg">
               Copyrighted &middot; Notarized
             </p>
             <h1
-              className="font-serif text-6xl md:text-7xl font-bold leading-tight mb-4"
-              style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+              className="font-serif text-5xl md:text-6xl font-bold leading-tight mb-4 drop-shadow-2xl"
+              style={{ fontFamily: 'Georgia, "Times New Roman", serif', textShadow: '2px 2px 8px rgba(0,0,0,0.9)' }}
               data-testid="book-preview-cover-title"
             >
               The Book of Amos
             </h1>
-            <div className="w-24 h-px bg-amber-300 mb-6" />
-            <p className="text-amber-100 text-lg italic mb-10 font-serif">
+            <div className="w-24 h-px bg-amber-300 mb-4" />
+            <p className="text-amber-100 text-base italic font-serif drop-shadow-lg" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.9)' }}>
               Translated from the Original
               <br />
               20-Letter Ancient Hebrew System
             </p>
-            <div className="w-24 h-px bg-amber-300 mb-8" />
+          </div>
+
+          <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center text-center px-10 pb-16">
+            <div className="w-24 h-px bg-amber-300 mb-6" />
             <p
-              className="text-white text-lg font-serif"
+              className="text-white text-lg font-serif drop-shadow-lg"
+              style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.9)' }}
               data-testid="book-preview-cover-author"
             >
               By Richard Johnson
             </p>
-            <p className="text-amber-200/80 text-sm mt-1 tracking-widest">
+            <p className="text-amber-200 text-sm mt-1 tracking-widest drop-shadow-lg" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.9)' }}>
               RJHNSN12
             </p>
-          </div>
-
-          {/* Bottom ornament */}
-          <div className="absolute bottom-16 left-1/2 -translate-x-1/2 text-amber-300/60 text-4xl font-serif select-none">
-            ✦
           </div>
         </section>
 

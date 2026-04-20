@@ -1,4 +1,5 @@
 from fastapi import FastAPI, APIRouter
+from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -115,6 +116,11 @@ async def get_status_checks():
 
 # Include the router in the main app
 app.include_router(api_router)
+
+# Serve generated AI images via /api/images/* so they route through the ingress correctly
+_images_dir = ROOT_DIR / 'generated_images'
+_images_dir.mkdir(exist_ok=True)
+app.mount("/api/images", StaticFiles(directory=str(_images_dir)), name="generated_images")
 
 app.add_middleware(
     CORSMiddleware,
