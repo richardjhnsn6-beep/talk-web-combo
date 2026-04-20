@@ -67,6 +67,39 @@ const BookPreview = () => {
 
       {/* Book pages container */}
       <div className="max-w-4xl mx-auto py-10 px-4 print:p-0 print:max-w-none">
+
+        {/* How to get a physical proof copy — hidden from print */}
+        <div className="mb-8 bg-amber-50 border-2 border-amber-300 rounded-lg p-5 print:hidden" data-testid="proof-copy-guide">
+          <h3 className="text-lg font-bold text-amber-900 mb-2">
+            📦 Get a Physical Proof Copy in Your Hands
+          </h3>
+          <p className="text-sm text-slate-700 mb-3">
+            Never publish blind. Order a single proof copy first to feel the book's thickness, check the print quality, and hold it before it goes public. Steps:
+          </p>
+          <ol className="text-sm text-slate-700 space-y-1 list-decimal list-inside mb-4">
+            <li>Click <strong>🖨 Print book</strong> above.</li>
+            <li>In the print dialog, change "Destination" to <strong>"Save as PDF"</strong>.</li>
+            <li>Upload the PDF to any of these Print-On-Demand services — they'll mail you ONE physical copy for $5–$15.</li>
+          </ol>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+            <a href="https://kdp.amazon.com/" target="_blank" rel="noopener noreferrer" className="bg-white border border-slate-300 rounded px-3 py-2 text-center hover:bg-amber-100 font-semibold text-slate-800">
+              📘 Amazon KDP
+            </a>
+            <a href="https://press.barnesandnoble.com/" target="_blank" rel="noopener noreferrer" className="bg-white border border-slate-300 rounded px-3 py-2 text-center hover:bg-amber-100 font-semibold text-slate-800">
+              🟢 B&N Press
+            </a>
+            <a href="https://www.ingramspark.com/" target="_blank" rel="noopener noreferrer" className="bg-white border border-slate-300 rounded px-3 py-2 text-center hover:bg-amber-100 font-semibold text-slate-800">
+              📕 IngramSpark
+            </a>
+            <a href="https://www.lulu.com/" target="_blank" rel="noopener noreferrer" className="bg-white border border-slate-300 rounded px-3 py-2 text-center hover:bg-amber-100 font-semibold text-slate-800">
+              📗 Lulu
+            </a>
+          </div>
+          <p className="text-xs text-slate-500 mt-3 italic">
+            Specs: 6"×9" trim size · approx 80–120 pages · ~0.3" thick · perfect-bound paperback.
+          </p>
+        </div>
+
         {/* ==================== COVER ==================== */}
         <section
           className="book-page relative bg-gradient-to-br from-teal-800 via-teal-900 to-slate-900 text-white shadow-2xl rounded-sm overflow-hidden mb-8 print:mb-0 print:rounded-none print:shadow-none"
