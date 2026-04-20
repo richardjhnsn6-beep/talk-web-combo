@@ -12,6 +12,13 @@ const BookOfAmos = () => {
     75: false,
     100: false
   });
+  
+  // Premium Upgrade Modal State
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [userTier, setUserTier] = useState('Free');
+  const [attemptedChapter, setAttemptedChapter] = useState(null);
+  
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
   // Check if content is unlocked (from localStorage or URL)
   useEffect(() => {
@@ -85,6 +92,76 @@ const BookOfAmos = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [maxScrollDepth, scrollMilestones]);
+
+  // Check if user has access to a specific chapter
+  const handleChapterClick = async (chapterNum) => {
+    // Chapters 1-5 are free for everyone
+    if (chapterNum <= 5) {
+      setActiveChapter(chapterNum);
+      if (chapterNum === 10) {
+        setActiveSection('concordance');
+      }
+      return;
+    }
+    
+    // Admin bypass — owner can review all chapters without paywall
+    const adminAccess = localStorage.getItem('admin_ai_access');
+    if (adminAccess === 'RJHNSN12admin2026') {
+      setActiveChapter(chapterNum);
+      if (chapterNum === 10) {
+        setActiveSection('concordance');
+      }
+      return;
+    }
+
+    // For chapters 6-10, check user's tier
+    // For now, we'll check localStorage for membership status
+    // In production, this would verify with backend
+    const memberEmail = localStorage.getItem('member_email');
+    const memberTier = localStorage.getItem('member_tier');
+    
+    // Check if user has premium access
+    const premiumTiers = ['$5 Premium', '$14 Amos Discount', '$20 Amos Complete'];
+    const hasPremium = premiumTiers.some(tier => memberTier && memberTier.includes(tier));
+    
+    if (hasPremium) {
+      // User has premium - allow access
+      setActiveChapter(chapterNum);
+      if (chapterNum === 10) {
+        setActiveSection('concordance');
+      }
+    } else {
+      // User doesn't have premium - show upgrade modal
+      setAttemptedChapter(chapterNum);
+      setUserTier(memberTier || 'Free');
+      setShowUpgradeModal(true);
+      
+      // Track the upgrade prompt
+      trackUpgradePrompt(chapterNum, memberTier || 'Free');
+    }
+  };
+  
+  // Track when upgrade modal is shown
+  const trackUpgradePrompt = async (chapter, tier) => {
+    try {
+      await fetch(`${BACKEND_URL}/api/analytics/page-view`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          page: `/book-of-amos/upgrade-prompt`,
+          referrer: window.location.href,
+          metadata: {
+            attempted_chapter: chapter,
+            user_tier: tier,
+            action: 'upgrade_modal_shown'
+          }
+        })
+      });
+    } catch (error) {
+      console.error('Tracking error:', error);
+    }
+  };
+
 
   const trackScrollDepth = async (scrollPercentage, maxDepth) => {
     try {
@@ -1671,8 +1748,51 @@ const BookOfAmos = () => {
     );
   };
 
+  // Convert interlinear word-array data into full bilingual verse sentences
+  const interlinearToBilingual = (interlinearData) => {
+    if (!interlinearData) return [];
+    return Object.keys(interlinearData).map((verseKey, idx) => {
+      const verse = interlinearData[verseKey];
+      return {
+        verse: idx + 1,
+        hebrew: Array.isArray(verse.hebrew) ? verse.hebrew.join(" ") : "",
+        english: Array.isArray(verse.english) ? verse.english.join(" ") : ""
+      };
+    });
+  };
+
   const renderBilingual = () => {
-    if (activeChapter !== 1 && activeChapter !== 4) {
+    if (activeChapter === 10) {
+      return (
+        <div className="text-center py-12">
+          <p className="text-gray-600 text-lg">
+            Chapter 10 is the Master Hebrew Concordance — view it in the Concordance tab.
+          </p>
+        </div>
+      );
+    }
+
+    // Curated bilingual data for chapters 1 and 4, auto-generated from interlinear for 2, 3, 5-9
+    let bilingualData;
+    if (activeChapter === 1) {
+      bilingualData = chapter1Bilingual;
+    } else if (activeChapter === 4) {
+      bilingualData = chapter4Bilingual;
+    } else if (activeChapter === 2) {
+      bilingualData = interlinearToBilingual(chapter2Interlinear);
+    } else if (activeChapter === 3) {
+      bilingualData = interlinearToBilingual(chapter3Interlinear);
+    } else if (activeChapter === 5) {
+      bilingualData = interlinearToBilingual(chapter5Interlinear);
+    } else if (activeChapter === 6) {
+      bilingualData = interlinearToBilingual(chapter6Interlinear);
+    } else if (activeChapter === 7) {
+      bilingualData = interlinearToBilingual(chapter7Interlinear);
+    } else if (activeChapter === 8) {
+      bilingualData = interlinearToBilingual(chapter8Interlinear);
+    } else if (activeChapter === 9) {
+      bilingualData = interlinearToBilingual(chapter9Interlinear);
+    } else {
       return (
         <div className="text-center py-12">
           <p className="text-gray-600 text-lg">
@@ -1682,16 +1802,15 @@ const BookOfAmos = () => {
       );
     }
 
-    const bilingualData = activeChapter === 1 ? chapter1Bilingual : chapter4Bilingual;
-
     return (
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto" data-testid={`bilingual-chapter-${activeChapter}`}>
         {bilingualData.map((item, index) => (
           <div 
             key={`${item.verse}-${index}`} 
             className={`grid md:grid-cols-2 gap-6 ${
               item.verse === "" ? "mb-0 pb-0" : "mb-6 pb-2 border-b border-gray-200"
             }`}
+            data-testid={`bilingual-verse-${activeChapter}-${item.verse}`}
           >
             {/* Hebrew Column - Left */}
             <div className="order-2 md:order-1">
@@ -1704,6 +1823,7 @@ const BookOfAmos = () => {
             {/* English Column - Right */}
             <div className="order-1 md:order-2">
               <p className="text-base leading-relaxed text-gray-800">
+                {item.verse && <span className="font-bold text-teal-700 mr-2">{item.verse}.</span>}
                 {item.english}
               </p>
             </div>
@@ -1711,7 +1831,7 @@ const BookOfAmos = () => {
         ))}
         <div className="mt-8 p-4 bg-teal-50 rounded-lg border border-teal-200">
           <p className="text-sm text-gray-600 italic text-center">
-            Sample verses shown. Full chapter contains 15 verses with parallel Hebrew and English text.
+            Hebrew (left) · English (right) — parallel text of Amos Chapter {activeChapter}.
           </p>
         </div>
       </div>
@@ -2181,13 +2301,7 @@ const BookOfAmos = () => {
             {chapters.map((chapter) => (
               <button
                 key={chapter.num}
-                onClick={() => {
-                  setActiveChapter(chapter.num);
-                  // Auto-switch to concordance view for Chapter 10
-                  if (chapter.num === 10) {
-                    setActiveSection('concordance');
-                  }
-                }}
+                onClick={() => handleChapterClick(chapter.num)}
                 className={`px-6 py-3 rounded-lg font-semibold transition-all ${
                   activeChapter === chapter.num
                     ? 'bg-teal-700 text-white shadow-lg scale-105'
@@ -2352,6 +2466,123 @@ const BookOfAmos = () => {
           </div>
         </div>
       </div>
+      
+      {/* Premium Upgrade Modal */}
+      {showUpgradeModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-2xl w-full p-8 relative animate-fadeIn shadow-2xl">
+            {/* Close Button */}
+            <button
+              onClick={() => setShowUpgradeModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-3xl font-bold"
+              aria-label="Close"
+            >
+              ×
+            </button>
+            
+            {/* Header */}
+            <div className="text-center mb-6">
+              <div className="text-6xl mb-4">🔓</div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                Unlock Complete Access!
+              </h2>
+              <p className="text-xl text-gray-600">
+                You're trying to access Chapter {attemptedChapter}
+              </p>
+            </div>
+            
+            {/* Current Status */}
+            <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <svg className="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm text-yellow-700 font-semibold">
+                    Your current tier: <span className="font-bold">{userTier || 'Free'}</span>
+                  </p>
+                  <p className="text-xs text-yellow-600 mt-1">
+                    Access: Chapters 1-5 only
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Upgrade Benefits */}
+            <div className="mb-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">✨ Upgrade to Premium and Get:</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="flex items-start">
+                  <svg className="h-6 w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700"><strong>ALL 10 Chapters</strong> (including 6-9)</span>
+                </div>
+                <div className="flex items-start">
+                  <svg className="h-6 w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700"><strong>Complete Concordance</strong></span>
+                </div>
+                <div className="flex items-start">
+                  <svg className="h-6 w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700"><strong>Pure Hebrew Text</strong></span>
+                </div>
+                <div className="flex items-start">
+                  <svg className="h-6 w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700"><strong>Bilingual Format</strong></span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Pricing */}
+            <div className="bg-gradient-to-r from-teal-600 to-teal-700 rounded-xl p-6 text-white text-center mb-6">
+              <p className="text-sm uppercase tracking-wide mb-2">Upgrade Now</p>
+              <div className="text-5xl font-bold mb-2">$5<span className="text-2xl">/month</span></div>
+              {userTier && userTier.includes('$2') && (
+                <p className="text-teal-100 text-sm">
+                  (Just $3 more than your current plan!)
+                </p>
+              )}
+              <p className="text-teal-100 mt-2">Full access to the complete Book of Amos</p>
+            </div>
+            
+            {/* CTA Buttons */}
+            <div className="space-y-3">
+              <a
+                href="https://www.paypal.com/ncp/payment/BQMB8LGVEXZCY"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-4 px-6 rounded-lg text-center text-lg transition-all transform hover:scale-105 shadow-lg"
+                onClick={() => {
+                  // Track conversion attempt
+                  trackUpgradePrompt(attemptedChapter, 'premium_click');
+                }}
+              >
+                🚀 Upgrade to Premium Now
+              </a>
+              
+              <button
+                onClick={() => setShowUpgradeModal(false)}
+                className="block w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-lg text-center transition-all"
+              >
+                Maybe Later
+              </button>
+            </div>
+            
+            {/* Trust Signals */}
+            <div className="mt-6 text-center text-sm text-gray-500">
+              <p>✓ Cancel anytime ✓ Instant access ✓ Secure payment</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
