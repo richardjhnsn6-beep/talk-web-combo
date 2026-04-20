@@ -2240,22 +2240,62 @@ What questions do you have about this history?"""
             ai_response = await chat_client.send_message(user_message=user_msg)
 
             # 🎨 IMAGE GENERATION: If user asked for an image, generate it now
+            # 🔒 GATED: Only admin OR Premium subscribers OR credit-paying users can generate images
             generated_image_url = None
             is_image_req, image_subject = detect_image_request(chat_req.message)
             if is_image_req and image_subject:
-                generated_image_url = await generate_biblical_image(image_subject)
-                if generated_image_url:
-                    ai_response += (
-                        f"\n\n🎨 **Here's your AI-generated biblical portrait of {image_subject}!** "
-                        "I've added it to your AI Art Gallery automatically. "
-                        "It follows the established style — Black figure with locks, dressed as an Egyptian — "
-                        "per Richard's theological research. You can view it on the AI Art Gallery page."
+                # Check authorization
+                is_admin = request.headers.get("X-Admin-Password") == "RJHNSN12admin2026"
+                is_premium = False
+                if chat_req.user_email and not is_admin:
+                    # Premium subscriber check
+                    premium_sub = await db.ai_richard_subscriptions.find_one(
+                        {"email": chat_req.user_email.lower(), "status": "active", "tier": {"$in": ["premium", "Premium", "$5 Premium"]}},
+                        {"_id": 0}
                     )
+                    if premium_sub:
+                        is_premium = True
+                    else:
+                        # Also accept paid_members premium tier
+                        paid = await db.paid_members.find_one(
+                            {"email": chat_req.user_email.lower(), "tier": {"$in": ["$5 Premium", "$14 Amos Discount", "$20 Amos Complete"]}},
+                            {"_id": 0}
+                        )
+                        if paid:
+                            is_premium = True
+
+                if is_admin or is_premium:
+                    # Authorized → generate
+                    generated_image_url = await generate_biblical_image(image_subject)
+                    if generated_image_url:
+                        ai_response += (
+                            f"\n\n🎨 **Here's your AI-generated biblical portrait of {image_subject}!** "
+                            "I've added it to the AI Art Gallery automatically. "
+                            "It follows Richard Johnson's established style — Black figure with locks, "
+                            "dressed as an Egyptian — per his theological research. "
+                            "View it on the AI Art Gallery page (/ai-art)."
+                        )
+                    else:
+                        ai_response += (
+                            "\n\n⚠️ I tried to generate the image but the art service is temporarily "
+                            "unavailable. Please try again in a minute."
+                        )
                 else:
+                    # NOT authorized → pitch them the upgrade
                     ai_response += (
-                        "\n\n⚠️ I tried to generate the image but the art service is temporarily "
-                        "unavailable. Please try again in a minute."
+                        "\n\n🎨 **Custom biblical portraits are a Premium feature.** "
+                        "I'd love to generate that image for you! Custom AI biblical art "
+                        "(Black figures with locks in Egyptian attire, per Richard's research) "
+                        "is exclusive to:\n\n"
+                        "• **$5/month Premium subscribers** — unlimited custom portraits\n"
+                        "• **$14 Book of Amos buyers** — includes gallery access\n"
+                        "• **$20 Amos Complete customers** — full gallery + bonus art\n\n"
+                        "💰 **Grab the $14 Book of Amos right now to unlock this:** "
+                        "https://richardson0164.gumroad.com/l/osofkm\n\n"
+                        "Once you're in, just ask me again and I'll create your portrait! 🙏"
                     )
+                    # Don't generate — save Richard's money
+                    generated_image_url = None
 
             # Get lowercase version for keyword detection
             user_msg_lower = chat_req.message.lower()
@@ -2425,11 +2465,39 @@ async def list_gallery_images():
 
 
 @router.post("/generate-image")
-async def generate_image_endpoint(body: dict):
-    """Direct image generation endpoint. Body: {subject: str}."""
+async def generate_image_endpoint(body: dict, request: Request):
+    """Direct image generation endpoint.
+    Body: {subject: str, email?: str}.
+    🔒 Protected: requires admin header OR premium subscription."""
     subject = (body or {}).get("subject", "").strip()
+    email = (body or {}).get("email", "").strip().lower()
     if not subject:
         raise HTTPException(status_code=400, detail="subject required")
+
+    # Authorization check
+    is_admin = request.headers.get("X-Admin-Password") == "RJHNSN12admin2026"
+    is_premium = False
+    if email and not is_admin:
+        premium_sub = await db.ai_richard_subscriptions.find_one(
+            {"email": email, "status": "active", "tier": {"$in": ["premium", "Premium", "$5 Premium"]}},
+            {"_id": 0}
+        )
+        if premium_sub:
+            is_premium = True
+        else:
+            paid = await db.paid_members.find_one(
+                {"email": email, "tier": {"$in": ["$5 Premium", "$14 Amos Discount", "$20 Amos Complete"]}},
+                {"_id": 0}
+            )
+            if paid:
+                is_premium = True
+
+    if not (is_admin or is_premium):
+        raise HTTPException(
+            status_code=403,
+            detail="Image generation is a Premium feature. Please purchase the $14 Book of Amos or subscribe to Premium to unlock."
+        )
+
     url = await generate_biblical_image(subject)
     if not url:
         raise HTTPException(status_code=500, detail="Image generation failed")

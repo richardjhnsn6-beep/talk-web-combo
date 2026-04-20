@@ -492,7 +492,11 @@ const AIRichard = () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/ai-richard/chat`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...(localStorage.getItem('admin_ai_access') === 'RJHNSN12admin2026' 
+              ? { 'X-Admin-Password': 'RJHNSN12admin2026' } : {})
+        },
         body: JSON.stringify({
           message: userMessage,
           conversation_id: conversationId,
