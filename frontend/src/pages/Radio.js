@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import SupportMinistryBanner from '../components/SupportMinistryBanner';
 
 const Radio = () => {
   const [playlist, setPlaylist] = useState([]);
@@ -926,6 +927,7 @@ const Radio = () => {
           animation: spin 8s linear infinite;
         }
       `}</style>
+      <SupportMinistryBanner />
     </div>
   );
 };
