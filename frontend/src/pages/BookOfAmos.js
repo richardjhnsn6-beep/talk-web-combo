@@ -106,8 +106,18 @@ const BookOfAmos = () => {
     }
     
     // Admin bypass — owner can review all chapters without paywall
+    // Checks multiple sources so any admin session unlocks the paywall
     const adminAccess = localStorage.getItem('admin_ai_access');
-    if (adminAccess === 'RJHNSN12admin2026') {
+    const adminAuthenticated = sessionStorage.getItem('admin_authenticated');
+    const urlHasAdmin = typeof window !== 'undefined' && window.location.search.includes('admin=RJHNSN12admin2026');
+    const isAdmin = adminAccess === 'RJHNSN12admin2026' || adminAuthenticated === 'true' || urlHasAdmin;
+
+    if (urlHasAdmin) {
+      // Persist admin access once they use the URL unlock
+      localStorage.setItem('admin_ai_access', 'RJHNSN12admin2026');
+    }
+
+    if (isAdmin) {
       setActiveChapter(chapterNum);
       if (chapterNum === 10) {
         setActiveSection('concordance');
@@ -2557,6 +2567,27 @@ const BookOfAmos = () => {
                 className="block w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-lg text-center transition-all"
               >
                 Maybe Later
+              </button>
+
+              {/* Admin quick-unlock — for author to review chapters without paying */}
+              <button
+                data-testid="admin-unlock-btn"
+                onClick={() => {
+                  const pw = window.prompt('Admin password?');
+                  if (pw === 'RJHNSN12admin2026') {
+                    localStorage.setItem('admin_ai_access', 'RJHNSN12admin2026');
+                    sessionStorage.setItem('admin_authenticated', 'true');
+                    setShowUpgradeModal(false);
+                    if (attemptedChapter) {
+                      setActiveChapter(attemptedChapter);
+                    }
+                  } else if (pw !== null) {
+                    alert('Incorrect password');
+                  }
+                }}
+                className="block w-full text-xs text-gray-400 hover:text-gray-600 mt-2 py-1 underline"
+              >
+                I'm the author — unlock
               </button>
             </div>
             
