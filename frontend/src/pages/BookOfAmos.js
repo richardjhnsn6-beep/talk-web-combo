@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getBilingualForChapter } from '../data/amosBilingualData';
 
 const BookOfAmos = () => {
   const [activeSection, setActiveSection] = useState('interlinear');
@@ -1772,27 +1773,10 @@ const BookOfAmos = () => {
       );
     }
 
-    // Curated bilingual data for chapters 1 and 4, auto-generated from interlinear for 2, 3, 5-9
-    let bilingualData;
-    if (activeChapter === 1) {
-      bilingualData = chapter1Bilingual;
-    } else if (activeChapter === 4) {
-      bilingualData = chapter4Bilingual;
-    } else if (activeChapter === 2) {
-      bilingualData = interlinearToBilingual(chapter2Interlinear);
-    } else if (activeChapter === 3) {
-      bilingualData = interlinearToBilingual(chapter3Interlinear);
-    } else if (activeChapter === 5) {
-      bilingualData = interlinearToBilingual(chapter5Interlinear);
-    } else if (activeChapter === 6) {
-      bilingualData = interlinearToBilingual(chapter6Interlinear);
-    } else if (activeChapter === 7) {
-      bilingualData = interlinearToBilingual(chapter7Interlinear);
-    } else if (activeChapter === 8) {
-      bilingualData = interlinearToBilingual(chapter8Interlinear);
-    } else if (activeChapter === 9) {
-      bilingualData = interlinearToBilingual(chapter9Interlinear);
-    } else {
+    // All bilingual data now comes from the author's original PDF manuscript
+    const bilingualData = getBilingualForChapter(activeChapter);
+
+    if (!bilingualData || bilingualData.length === 0) {
       return (
         <div className="text-center py-12">
           <p className="text-gray-600 text-lg">
@@ -1804,21 +1788,6 @@ const BookOfAmos = () => {
 
     return (
       <div className="max-w-6xl mx-auto" data-testid={`bilingual-chapter-${activeChapter}`}>
-        {[2, 3, 5, 6, 7, 8, 9].includes(activeChapter) && (
-          <div
-            className="mb-6 p-4 bg-amber-50 border-2 border-amber-400 rounded-lg print:hidden"
-            data-testid={`bilingual-draft-warning-${activeChapter}`}
-          >
-            <p className="text-sm font-bold text-amber-900 mb-1">
-              ⚠️ DRAFT — Under Review by Richard Johnson
-            </p>
-            <p className="text-xs text-amber-800">
-              Chapter {activeChapter} bilingual wording has not yet been
-              finalized. Hebrew (left) and English (right) paragraphs may not
-              line up perfectly per verse. Not for distribution or printing.
-            </p>
-          </div>
-        )}
         {bilingualData.map((item, index) => (
           <div 
             key={`${item.verse}-${index}`} 

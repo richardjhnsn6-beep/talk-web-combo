@@ -722,29 +722,37 @@ export const interlinearToBilingual = (interlinearData) => {
   });
 };
 
+// Bilingual text extracted directly from the author's PDF/ODT manuscript
+// (Amasyachashah.odt). Single source of truth for the properly aligned
+// Hebrew (left) / English (right) translations for all 9 chapters.
+import pdfBilingual from './amosBilingualFromPDF.json';
+
+const pdfToBilingualArray = (chapterNum) => {
+  const chData = pdfBilingual[String(chapterNum)];
+  if (!chData) return [];
+  return Object.keys(chData)
+    .sort((a, b) => Number(a) - Number(b))
+    .map((vnum) => ({
+      verse: Number(vnum),
+      hebrew: chData[vnum].hebrew || "",
+      english: chData[vnum].english || "",
+    }));
+};
+
 // Chapter metadata: title and whether bilingual is curated (finalized) or draft
 export const chapterMetadata = [
   { num: 1, title: "Israel's Kinsmen Set for Judgment", bilingualStatus: "finalized" },
-  { num: 2, title: "Moab's Sin; Judah's Transgressions", bilingualStatus: "draft" },
-  { num: 3, title: "Divine Judgment Upon Israel", bilingualStatus: "draft" },
+  { num: 2, title: "Moab's Sin; Judah's Transgressions", bilingualStatus: "finalized" },
+  { num: 3, title: "Divine Judgment Upon Israel", bilingualStatus: "finalized" },
   { num: 4, title: "Hear This Word of the Sun of Light", bilingualStatus: "finalized" },
-  { num: 5, title: "Israel Punished for Oppressing the Poor", bilingualStatus: "draft" },
-  { num: 6, title: "Woe to the Complacent", bilingualStatus: "draft" },
-  { num: 7, title: "Visions of Judgment", bilingualStatus: "draft" },
-  { num: 8, title: "The Basket of Summer Fruit", bilingualStatus: "draft" },
-  { num: 9, title: "Israel's Restoration", bilingualStatus: "draft" },
+  { num: 5, title: "Israel Punished for Oppressing the Poor", bilingualStatus: "finalized" },
+  { num: 6, title: "Woe to the Complacent", bilingualStatus: "finalized" },
+  { num: 7, title: "Visions of Judgment", bilingualStatus: "finalized" },
+  { num: 8, title: "The Basket of Summer Fruit", bilingualStatus: "finalized" },
+  { num: 9, title: "Israel's Restoration", bilingualStatus: "finalized" },
 ];
 
-// Get bilingual verses for any chapter (curated for 1 & 4, auto-generated from interlinear for others)
+// Get bilingual verses for any chapter - sourced from the author's original PDF manuscript
 export const getBilingualForChapter = (num) => {
-  if (num === 1) return chapter1Bilingual;
-  if (num === 4) return chapter4Bilingual;
-  if (num === 2) return interlinearToBilingual(chapter2Interlinear);
-  if (num === 3) return interlinearToBilingual(chapter3Interlinear);
-  if (num === 5) return interlinearToBilingual(chapter5Interlinear);
-  if (num === 6) return interlinearToBilingual(chapter6Interlinear);
-  if (num === 7) return interlinearToBilingual(chapter7Interlinear);
-  if (num === 8) return interlinearToBilingual(chapter8Interlinear);
-  if (num === 9) return interlinearToBilingual(chapter9Interlinear);
-  return [];
+  return pdfToBilingualArray(num);
 };
