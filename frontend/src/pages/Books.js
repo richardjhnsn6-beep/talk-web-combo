@@ -160,6 +160,27 @@ const Books = () => {
           <h2 className="text-3xl font-bold text-teal-800 mb-6 text-center">More Books by Richard Johnson</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             
+            {/* Book of Amos - Coming Soon (Tutmoses AI cover) */}
+            <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow border-2 border-amber-400" data-testid="book-of-amos-card">
+              <div className="relative">
+                <img 
+                  src={`${process.env.REACT_APP_BACKEND_URL}/api/images/tutmoses_book_cover.png`}
+                  alt="The Book of Amos - Original 20-Letter Ancient Hebrew"
+                  className="w-full h-96 object-cover rounded mb-4"
+                />
+                <span className="absolute top-3 right-3 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                  COMING SOON
+                </span>
+              </div>
+              <h3 className="text-xl font-bold text-teal-800 mb-2">The Book of Amos</h3>
+              <p className="text-base text-gray-600 mb-2">by Richard Johnson</p>
+              <p className="text-sm text-gray-500 mb-4">Original 20-Letter Ancient Hebrew System</p>
+              <div className="flex gap-3">
+                <a href="/book-of-amos" className="flex-1 bg-teal-600 text-white px-4 py-3 rounded text-center hover:bg-teal-700 font-semibold">Read Preview</a>
+                <span className="flex-1 bg-gray-300 text-gray-600 px-4 py-3 rounded text-center font-semibold cursor-not-allowed">Publishing Soon</span>
+              </div>
+            </div>
+
             {/* Know Thyself - English */}
             <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
               <img 
