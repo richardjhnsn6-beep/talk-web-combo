@@ -1726,7 +1726,35 @@ const BookOfAmos = () => {
   };
 
   const renderPureHebrew = () => {
-    if (activeChapter !== 1 && activeChapter !== 2 && activeChapter !== 4) {
+    if (activeChapter === 10) {
+      return (
+        <div className="text-center py-12">
+          <p className="text-gray-600 text-lg">
+            Chapter 10 is the Master Hebrew Concordance — view it in the Concordance tab.
+          </p>
+        </div>
+      );
+    }
+
+    // Use curated Pure Hebrew data if available (chapters 1, 2, 4), otherwise
+    // derive Pure Hebrew from the extracted PDF bilingual data (chapters 3, 5-9)
+    let pureHebrewData;
+    if (activeChapter === 1) {
+      pureHebrewData = chapter1PureHebrew;
+    } else if (activeChapter === 2) {
+      pureHebrewData = chapter2PureHebrew;
+    } else if (activeChapter === 4) {
+      pureHebrewData = chapter4PureHebrew;
+    } else {
+      const bilingual = getBilingualForChapter(activeChapter);
+      pureHebrewData = bilingual.map(v => ({
+        verse: v.verse,
+        hebrew: v.hebrew,
+        english: v.english,
+      }));
+    }
+
+    if (!pureHebrewData || pureHebrewData.length === 0) {
       return (
         <div className="text-center py-12">
           <p className="text-gray-600 text-lg">
@@ -1736,23 +1764,23 @@ const BookOfAmos = () => {
       );
     }
 
-    const pureHebrewData = activeChapter === 1 ? chapter1PureHebrew : activeChapter === 2 ? chapter2PureHebrew : chapter4PureHebrew;
-
     return (
-      <div className="max-w-3xl mx-auto space-y-6">
+      <div className="max-w-3xl mx-auto space-y-6" data-testid={`pure-hebrew-chapter-${activeChapter}`}>
         {pureHebrewData.map((item, idx) => (
-          <div key={idx} className="mb-6 p-6 bg-white rounded-lg border border-gray-200">
+          <div key={idx} className="mb-6 p-6 bg-white rounded-lg border border-gray-200" data-testid={`pure-hebrew-verse-${activeChapter}-${item.verse}`}>
             {item.verse && (
               <span className="inline-block bg-teal-600 text-white px-3 py-1 rounded-full text-sm font-bold mb-3">
                 Verse {item.verse}
               </span>
             )}
-            <p className="text-lg leading-relaxed text-gray-800 mb-4 font-semibold" dir="rtl">
+            <p className="text-lg leading-relaxed text-gray-800 mb-4 font-semibold">
               {item.hebrew}
             </p>
-            <p className="text-base leading-relaxed text-gray-600 italic border-t pt-3">
-              {item.english}
-            </p>
+            {item.english && (
+              <p className="text-base leading-relaxed text-gray-600 italic border-t pt-3">
+                {item.english}
+              </p>
+            )}
           </div>
         ))}
       </div>
