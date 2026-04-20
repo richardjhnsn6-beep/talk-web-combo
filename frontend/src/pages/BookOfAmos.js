@@ -1750,7 +1750,6 @@ const BookOfAmos = () => {
       pureHebrewData = bilingual.map(v => ({
         verse: v.verse,
         hebrew: v.hebrew,
-        english: v.english,
       }));
     }
 
@@ -1764,25 +1763,30 @@ const BookOfAmos = () => {
       );
     }
 
+    // Render as ONE continuous flowing paragraph - like a real book
     return (
-      <div className="max-w-3xl mx-auto space-y-6" data-testid={`pure-hebrew-chapter-${activeChapter}`}>
-        {pureHebrewData.map((item, idx) => (
-          <div key={idx} className="mb-6 p-6 bg-white rounded-lg border border-gray-200" data-testid={`pure-hebrew-verse-${activeChapter}-${item.verse}`}>
-            {item.verse && (
-              <span className="inline-block bg-teal-600 text-white px-3 py-1 rounded-full text-sm font-bold mb-3">
-                Verse {item.verse}
-              </span>
-            )}
-            <p className="text-lg leading-relaxed text-gray-800 mb-4 font-semibold">
+      <div
+        className="max-w-3xl mx-auto bg-white rounded-lg border border-gray-200 p-8 md:p-12"
+        data-testid={`pure-hebrew-chapter-${activeChapter}`}
+      >
+        <h3 className="text-center text-2xl font-bold text-teal-700 mb-6">
+          Chapter {activeChapter}
+        </h3>
+        <p
+          className="text-lg leading-loose text-gray-800 font-serif text-justify"
+          style={{ lineHeight: '2' }}
+          data-testid={`pure-hebrew-flow-${activeChapter}`}
+        >
+          {pureHebrewData.map((item, idx) => (
+            <span key={idx} data-testid={`pure-hebrew-verse-${activeChapter}-${item.verse}`}>
+              <sup className="text-xs text-teal-600 font-bold mr-1 select-none">
+                {item.verse}
+              </sup>
               {item.hebrew}
-            </p>
-            {item.english && (
-              <p className="text-base leading-relaxed text-gray-600 italic border-t pt-3">
-                {item.english}
-              </p>
-            )}
-          </div>
-        ))}
+              {idx < pureHebrewData.length - 1 ? ' ' : ''}
+            </span>
+          ))}
+        </p>
       </div>
     );
   };
