@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 import uuid
 import io
+import asyncio
 from pydub import AudioSegment
 from pydub.effects import normalize, compress_dynamic_range
 
@@ -224,25 +225,48 @@ async def create_dj_announcement(announcement: DJAnnouncement):
     """Generate AI DJ announcement using OpenAI TTS with audio normalization"""
     
     try:
-        # Generate speech using OpenAI TTS
-        audio_bytes = await tts.generate_speech(
-            text=announcement.script,
-            model="tts-1",  # Fast, good quality
-            voice=announcement.voice
-        )
+        # Generate speech using OpenAI TTS (with retry for OpenAI's known 500 issue)
+        # Ref: https://community.openai.com/t/http-500-errors-in-tts-api/883549
+        audio_bytes = None
+        last_error = None
+        for attempt in range(4):
+            try:
+                audio_bytes = await tts.generate_speech(
+                    text=announcement.script,
+                    model="tts-1",
+                    voice=announcement.voice
+                )
+                break
+            except Exception as err:
+                last_error = err
+                # Only retry on 500/Internal Server Error from OpenAI
+                if "Internal Server Error" not in str(err) and "500" not in str(err):
+                    raise
+                if attempt < 3:
+                    await asyncio.sleep(2 ** attempt)  # 1s, 2s, 4s backoff
+        if audio_bytes is None:
+            raise last_error or Exception("TTS failed after retries")
         
         # Load audio into pydub for processing
         audio = AudioSegment.from_file(io.BytesIO(audio_bytes), format="mp3")
         
         # Apply audio processing to boost soft voices
-        # 1. Normalize - brings audio to maximum level without clipping
+        # 1. Aggressive compression first — boosts quiet parts significantly
+        #    (threshold lower and ratio higher than before so every syllable is amplified)
+        audio = compress_dynamic_range(audio, threshold=-24.0, ratio=6.0, attack=3.0, release=50.0)
+
+        # 2. Normalize to peak (brings the loudest point to 0 dBFS)
         audio = normalize(audio)
-        
-        # 2. Apply compression to boost quieter parts
-        audio = compress_dynamic_range(audio, threshold=-20.0, ratio=4.0, attack=5.0)
-        
-        # 3. Additional gain boost for all announcements (+6 dB)
-        audio = audio + 6  # Increase volume by 6 decibels
+
+        # 3. Target a specific loudness level (broadcast-style loudness so it
+        #    cuts through over the music without user having to crank speakers)
+        target_dBFS = -8.0  # broadcast-loud target (most streaming music sits around -14 dBFS)
+        current_dBFS = audio.dBFS
+        if current_dBFS < target_dBFS:
+            audio = audio.apply_gain(target_dBFS - current_dBFS)
+
+        # 4. Final safety limiter — normalize again to prevent clipping after gain
+        audio = normalize(audio, headroom=0.3)
         
         # Export processed audio
         output_buffer = io.BytesIO()
