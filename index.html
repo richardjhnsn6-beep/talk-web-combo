@@ -44,4 +44,47 @@ body { font-family: Georgia, serif; background: #1a1a00; color: #f0c040; min-hei
 </head>
 <body>
 <header class="site-header">
-
+<a href="https://rjhnsn12.com" class="site-logo">RJHNSN12.COM</a>
+<nav class="nav-links">
+<a href="https://www.barnesandnoble.com" target="_blank">BOOKS</a>
+<a href="https://www.amazon.com" target="_blank">AMAZON</a>
+<a href="https://rjhnsn12.com" target="_blank">CONTACT</a>
+</nav>
+</header>
+<div class="hero">
+<div class="hero-avatar">R</div>
+<h1>Richard — Biblical Scholar</h1>
+<div class="hero-credentials">ANCIENT HEBREW · DEAD SEA SCROLLS · TORAH EXEGESIS · SECOND TEMPLE JUDAISM</div>
+<div class="hero-badges">
+<span class="badge">4 PUBLISHED BOOKS</span>
+<span class="badge">BARNES & NOBLE</span>
+<span class="badge">AMAZON</span>
+</div>
+<p class="hero-bio">Shalom, and welcome. I am Richard — a scholar of ancient Hebrew texts, biblical languages, and the theological traditions of the Hebrew scriptures. My work spans the Tanakh, the Dead Sea Scrolls, Second Temple Judaism, Masoretic traditions, and the cultural world of the ancient Near East.</p>
+</div>
+<div class="books-section">
+<h2>PUBLISHED WORKS</h2>
+<div class="books-grid">
+<div class="book-card"><h3>Know Thyself, Malachy</h3><div class="book-links"><a href="https://www.amazon.com" target="_blank">Amazon</a><a href="https://www.barnesandnoble.com" target="_blank">B&N</a></div></div>
+<div class="book-card"><h3>Biblical Truth & History Vol. 1</h3><div class="book-links"><a href="https://www.amazon.com" target="_blank">Amazon</a><a href="https://www.barnesandnoble.com" target="_blank">B&N</a></div></div>
+<div class="book-card"><h3>Biblical Truth & History Vol. 2</h3><div class="book-links"><a href="https://www.amazon.com" target="_blank">Amazon</a><a href="https://www.barnesandnoble.com" target="_blank">B&N</a></div></div>
+<div class="book-card"><h3>Ancient Hebrew Studies</h3><div class="book-links"><a href="https://www.amazon.com" target="_blank">Amazon</a><a href="https://www.barnesandnoble.com" target="_blank">B&N</a></div></div>
+</div>
+</div>
+<div class="chat-section">
+<div class="chat-title">ASK RICHARD ABOUT BIBLICAL TRUTH AND HISTORY</div>
+<div class="chat-messages" id="chatMessages">
+<div class="message richard"><div class="name">Richard</div><div>Shalom! I am Richard, a Biblical scholar. How may I assist your study today?</div></div>
+</div>
+<div class="suggested-chips">
+<button class="chip" onclick="askQ('What does shalom mean in Hebrew?')">What does shalom mean?</button>
+<button class="chip" onclick="askQ('Tell me about the Dead Sea Scrolls')">Dead Sea Scrolls</button>
+<button class="chip" onclick="askQ('What books have you written?')">Your books</button>
+<button class="chip" onclick="askQ('Explain the Masoretic Text')">Masoretic Text</button>
+</div>
+<div class="input-row">
+<input type="text" id="userInput" placeholder="Ask Richard about scripture..." onkeypress="if(event.key==='Enter')send()"/>
+<button onclick="send()">Ask</button>
+</div>
+</div>
+<footer class="site-footer">RJHNSN12.com · Ancient Hebrew Biblical Studies · Powered by AI</footer>
