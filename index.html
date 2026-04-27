@@ -6,11 +6,11 @@
 <title>Richard — Ancient Hebrew Biblical Scholar</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: Georgia, 'Times New Roman', serif; background: #1a1a00; color: #f0c040; min-height: 100vh; display: flex; flex-direction: column; }
-.site-header { background: #2a1a00; border-bottom: 2px solid #b86914; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 70px; flex-shrink: 0; }
-.site-logo { font-size: 14px; letter-spacing: 0.2em; color: #c9a84c; text-transform: uppercase; text-decoration: none; }
+body { font-family: Georgia, serif; background: #1a1a00; color: #f0c040; min-height: 100vh; display: flex; flex-direction: column; }
+.site-header { background: #2a1a00; border-bottom: 2px solid #b86914; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 70px; }
+.site-logo { font-size: 14px; color: #c9a84c; text-decoration: none; letter-spacing: 0.2em; }
 .nav-links { display: flex; gap: 20px; }
-.nav-links a { color: #c9a84c; text-decoration: none; font-size: 13px; letter-spacing: 0.1em; }
+.nav-links a { color: #c9a84c; text-decoration: none; font-size: 13px; }
 .hero { background: #2a1a00; border-bottom: 1px solid #b86914; padding: 40px 24px; text-align: center; }
 .hero-avatar { width: 80px; height: 80px; border-radius: 50%; background: #b86914; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; color: #1a1a00; margin: 0 auto 16px; }
 .hero h1 { font-size: 28px; color: #f0c040; margin-bottom: 8px; }
@@ -19,36 +19,29 @@ body { font-family: Georgia, 'Times New Roman', serif; background: #1a1a00; colo
 .badge { background: #b86914; color: #1a1a00; padding: 4px 12px; font-size: 11px; font-weight: bold; border-radius: 3px; }
 .hero-bio { max-width: 600px; margin: 0 auto; font-size: 15px; line-height: 1.7; color: #d4a843; }
 .books-section { padding: 30px 24px; background: #1a1a00; border-bottom: 1px solid #b86914; }
-.books-section h2 { text-align: center; font-size: 20px; color: #f0c040; margin-bottom: 20px; letter-spacing: 0.1em; }
-.books-grid { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; max-width: 800px; margin: 0 auto; }
+.books-section h2 { text-align: center; font-size: 20px; color: #f0c040; margin-bottom: 20px; }
+.books-grid { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
 .book-card { background: #2a1a00; border: 1px solid #b86914; padding: 15px; border-radius: 5px; width: 180px; text-align: center; }
 .book-card h3 { font-size: 13px; color: #f0c040; margin-bottom: 10px; line-height: 1.4; }
 .book-links { display: flex; gap: 5px; justify-content: center; }
 .book-links a { background: #b86914; color: #1a1a00; padding: 3px 8px; font-size: 10px; font-weight: bold; border-radius: 3px; text-decoration: none; }
-.chat-section { flex: 1; display: flex; flex-direction: column; padding: 20px 24px; max-width: 800px; width: 100%; margin: 0 auto; }
-.chat-title { text-align: center; font-size: 16px; color: #b86914; margin-bottom: 15px; letter-spacing: 0.1em; }
-.chat-messages { flex: 1; overflow-y: auto; min-height: 200px; max-height: 350px; margin-bottom: 15px; padding: 10px; background: #2a1a00; border: 1px solid #b86914; border-radius: 5px; }
+.chat-section { padding: 20px 24px; max-width: 800px; width: 100%; margin: 0 auto; }
+.chat-title { text-align: center; font-size: 16px; color: #b86914; margin-bottom: 15px; }
+.chat-messages { height: 300px; overflow-y: auto; margin-bottom: 15px; padding: 10px; background: #2a1a00; border: 1px solid #b86914; border-radius: 5px; }
 .message { margin-bottom: 15px; }
 .message.richard { color: #f0c040; }
 .message.richard .name { font-weight: bold; color: #b86914; margin-bottom: 4px; }
 .message.user { color: #c9a84c; text-align: right; }
-.message.user .name { font-weight: bold; color: #888; margin-bottom: 4px; }
 .suggested-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
 .chip { background: transparent; border: 1px solid #b86914; color: #c9a84c; padding: 6px 12px; font-size: 12px; border-radius: 20px; cursor: pointer; font-family: Georgia, serif; }
 .chip:hover { background: #b86914; color: #1a1a00; }
-.input-area { display: flex; gap: 10px; }
-.input-area input { flex: 1; background: #2a1a00; border: 1px solid #b86914; color: #f0c040; padding: 12px 16px; font-size: 14px; font-family: Georgia, serif; border-radius: 3px; outline: none; }
-.input-area input::placeholder { color: #666; }
-.input-area button { background: #b86914; color: #1a1a00; border: none; padding: 12px 24px; font-weight: bold; font-size: 14px; cursor: pointer; border-radius: 3px; font-family: Georgia, serif; }
-.input-area button:hover { background: #f0c040; }
-.typing { color: #666; font-style: italic; font-size: 13px; }
-.site-footer { background: #2a1a00; border-top: 1px solid #b86914; padding: 15px; text-align: center; font-size: 12px; color: #666; }
+.input-row { display: flex; gap: 10px; }
+.input-row input { flex: 1; background: #2a1a00; border: 1px solid #b86914; color: #f0c040; padding: 12px 16px; font-size: 14px; font-family: Georgia, serif; border-radius: 3px; outline: none; }
+.input-row input::placeholder { color: #666; }
+.input-row button { background: #b86914; color: #1a1a00; border: none; padding: 12px 24px; font-weight: bold; font-size: 14px; cursor: pointer; border-radius: 3px; }
+.site-footer { background: #2a1a00; border-top: 1px solid #b86914; padding: 15px; text-align: center; font-size: 12px; color: #666; margin-top: 20px; }
 </style>
 </head>
 <body>
 <header class="site-header">
-<a href="https://rjhnsn12.com" class="site-logo">RJHNSN12.COM</a>
-<nav class="nav-links">
-<a href="https://www.barnesandnoble.com" target="_blank">BOOKS</a>
-<a href="https://www.amazon.com"​​​​​​​​​​​​​​​​
 
