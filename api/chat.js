@@ -5,7 +5,7 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   const { messages } = req.body;
-  const GROQ_API_KEY = "gsk_B60GY9X8FqtrrnaukPIm6Kdyb3FYluQderuMqHS37s2e8qlzKbEnI";
+  const GROQ_API_KEY = "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";
  
   const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
