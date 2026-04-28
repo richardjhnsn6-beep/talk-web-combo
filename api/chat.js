@@ -14,7 +14,7 @@ module.exports = async function handler(req, res) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      model: "llama-3.3-70b-versatile",
+      model: "meta-llama/llama-4-scout-17b-1",
       messages: [
         {role: "system", content: "You are Richard, an ancient Hebrew Biblical scholar."},
         ...messages
