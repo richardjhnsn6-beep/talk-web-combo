@@ -6,7 +6,7 @@
 <title>Richard — Ancient Hebrew Biblical Scholar</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: Georgia, 'Times New Roman', serif; background: #1a1a00; color: #f0c040; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+body { font-family: Georgia, serif; background: #1a1a00; color: #f0c040; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 .site-header { background: #2a1a00; border-bottom: 1px solid #8b6914; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
 h2 { color: #f0c040; }
 .chat-container { flex: 1; overflow-y: auto; padding: 20px; }
@@ -30,43 +30,27 @@ button { padding: 10px 20px; background: #8b6914; color: #fff; border: none; bor
 <button onclick="send()">Ask</button>
 </div>
 <script>
-const GROQ_API_KEY = "gsk_B60GY9X8FqtrrnaukPIrm6Kdyb3FYluQderuMqHS37s2eBqlzKbEnI";
 const messages = [];
-
 async function send() {
 const input = document.getElementById('userInput');
 const chat = document.getElementById('chat');
 const text = input.value.trim();
 if (!text) return;
-
 const userDiv = document.createElement('div');
 userDiv.className = 'message user-message';
 userDiv.textContent = text;
 chat.appendChild(userDiv);
-
-messages.push({role: "user", content: text});
+messages.push({role: 'user', content: text});
 input.value = '';
-
 try {
-const response = await fetch('/api/chat'
+const response = await fetch('/api/chat', {
 method: 'POST',
-headers: {
-'Authorization': `Bearer ${GROQ_API_KEY}`,
-'Content-Type': 'application/json'
-},
-body: JSON.stringify({
-model: "llama3-8b-8192",
-messages: [
-{role: "system", content: "You are Richard, an ancient Hebrew Biblical scholar with deep knowledge of the Torah, Dead Sea Scrolls, Second Temple Judaism, and Masoretic traditions. Speak with wisdom and warmth."},
-...messages
-]
-})
+headers: {'Content-Type': 'application/json'},
+body: JSON.stringify({messages})
 });
-
 const data = await response.json();
 const reply = data.choices[0].message.content;
-messages.push({role: "assistant", content: reply});
-
+messages.push({role: 'assistant', content: reply});
 const richardDiv = document.createElement('div');
 richardDiv.className = 'message richard-message';
 richardDiv.innerHTML = '<strong>Richard</strong><br>' + reply;
