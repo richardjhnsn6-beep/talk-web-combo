@@ -30,7 +30,8 @@ button { padding: 10px 20px; background: #8b6914; color: #fff; border: none; bor
 <button onclick="send()">Ask</button>
 </div>
 <script>
-const messages = [];
+const GROQ_API_KEY = "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"
+  const messages = [];
 async function send() {
 const input = document.getElementById('userInput');
 const chat = document.getElementById('chat');
