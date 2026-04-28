@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -6,11 +6,11 @@ export default async function handler(req, res) {
 
   const { messages } = req.body;
   const GROQ_API_KEY = "gsk_B60GY9X8FqtrrnaukPIm6Kdyb3FYluQderuMqHS37s2e8qlzKbEnI";
-  
+ 
   const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
     headers: {
-      'Authorization':Bearer ${GROQ_API_KEY},
+      'Authorization': `Bearer ${GROQ_API_KEY}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
@@ -24,4 +24,4 @@ export default async function handler(req, res) {
 
   const data = await response.json();
   res.status(200).json(data);
-}
+} 
