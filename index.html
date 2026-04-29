@@ -1,1 +1,99 @@
-process.env.GROQ_API_KEY
+cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Richard — Biblical Scholar</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Georgia, serif; background: #1a1a00; color: #f0c040; height: 100vh; display: flex; flex-direction: column; }
+.header { background: #2a1a00; border-bottom: 2px solid #8b6914; padding: 16px 24px; text-align: center; }
+.header h1 { font-size: 24px; color: #f0c040; }
+.header p { font-size: 12px; color: #8b6914; letter-spacing: 2px; margin-top: 4px; }
+.chat { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.msg { padding: 12px 16px; border-radius: 8px; max-width: 80%; line-height: 1.6; }
+.msg.richard { background: #1a1200; border: 1px solid #6b4f10; align-self: flex-start; }
+.msg.richard .name { font-weight: bold; color: #f0c040; margin-bottom: 6px; }
+.msg.user { background: #2a1a00; border: 1px solid #8b6914; align-self: flex-end; }
+.input-area { padding: 16px; background: #2a1a00; border-top: 2px solid #8b6914; display: flex; gap: 10px; }
+input { flex: 1; padding: 12px; background: #1a1a00; color: #f0c040; border: 1px solid #8b6914; border-radius: 6px; font-family: Georgia, serif; font-size: 14px; }
+input::placeholder { color: #6b4f10; }
+button { padding: 12px 24px; background: #8b6914; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-family: Georgia, serif; font-weight: bold; }
+.typing { color: #8b6914; font-style: italic; padding: 8px 16px; }
+</style>
+</head>
+<body>
+<div class="header">
+<h1>Richard — Biblical Scholar</h1>
+<p>ANCIENT HEBREW · DEAD SEA SCROLLS · TORAH EXEGESIS · SECOND TEMPLE JUDAISM</p>
+</div>
+<div class="chat" id="chat">
+<div class="msg richard">
+<div class="name">Richard</div>
+Shalom, and welcome. I am Richard — a scholar of ancient Hebrew texts, biblical languages, and the theological traditions of the Hebrew scriptures. How may I assist your study today?
+</div>
+</div>
+<div class="input-area">
+<input type="text" id="userInput" placeholder="Ask Richard about Hebrew scriptures, history, or theology..." />
+<button onclick="send()">Ask</button>
+</div>
+<script>
+const messages = [];
+
+document.getElementById('userInput').addEventListener('keypress', function(e) {
+if (e.key === 'Enter') send();
+});
+
+async function send() {
+const input = document.getElementById('userInput');
+const chat = document.getElementById('chat');
+const text = input.value.trim();
+if (!text) return;
+
+const userMsg = document.createElement('div');
+userMsg.className = 'msg user';
+userMsg.textContent = text;
+chat.appendChild(userMsg);
+messages.push({role: 'user', content: text});
+input.value = '';
+
+const typing = document.createElement('div');
+typing.className = 'typing';
+typing.id = 'typing';
+typing.textContent = 'Richard is thinking...';
+chat.appendChild(typing);
+chat.scrollTop = chat.scrollHeight;
+
+try {
+const res = await fetch('/api/chat', {
+method: 'POST',
+headers: {'Content-Type': 'application/json'},
+body: JSON.stringify({messages: messages})
+});
+
+const data = await res.json();
+document.getElementById('typing').remove();
+
+const reply = data.choices[0].message.content;
+messages.push({role: 'assistant', content: reply});
+
+const richardMsg = document.createElement('div');
+richardMsg.className = 'msg richard';
+richardMsg.innerHTML = '<div class="name">Richard</div>' + reply;
+chat.appendChild(richardMsg);
+chat.scrollTop = chat.scrollHeight;
+} catch(err) {
+document.getElementById('typing').remove();
+const errMsg = document.createElement('div');
+errMsg.className = 'msg richard';
+errMsg.textContent = 'I apologize, I am having difficulty connecting. Please try again.';
+chat.appendChild(errMsg);
+chat.scrollTop = chat.scrollHeight;
+}
+}
+</script>
+</body>
+</html>
+HTMLEOF
+
