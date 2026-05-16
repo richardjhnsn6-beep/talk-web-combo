@@ -15,7 +15,7 @@ async function askRichard() {
   if (!message) return;
 
   // Check for key first
-  if (!GROQ_API_KEY || GROQ_API_KEY === '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') {
+  if (!GROQ_API_KEY || GROQ_API_KEY === '') {
     chatDiv.innerHTML += `<div style="color:#ff4444;"><b>ERROR:</b> Go to console.groq.com → API Keys → Create new key → Paste it on line 4</div>`;
     return;
   }
