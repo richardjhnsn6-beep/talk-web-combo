@@ -1,38 +1,35 @@
 <script>
-  // AI Richard — Biblical Scholar Chat Logic
+  // AI Richard — Biblical Scholar Chat Logic v2
   document.addEventListener('DOMContentLoaded', function() {
-    const askButton = document.querySelector('button'); // Finds the "Ask" button
-    const inputBox = document.querySelector('input');   // Finds the input box
-    const chatBox = document.createElement('div');      // Makes space for answers
+    const askButton = document.getElementById('askBtn'); 
+    const inputBox = document.getElementById('askInput');
+    const chatBox = document.createElement('div');  
     
-    // Style the answer area
-    chatBox.style.cssText = 'max-width:600px; margin:20px auto; padding:20px; background:#2a1810; border:1px solid #ffd700; border-radius:8px; color:#ffd700; text-align:left; display:none;';
+    if (!askButton || !inputBox) return; // Safety check
+    
+    chatBox.id = 'richardAnswer';
+    chatBox.style.cssText = 'max-width:600px; margin:20px auto; padding:20px; background:#2a1810; border:1px solid #ffd700; border-radius:8px; color:#ffd700; text-align:left; display:none; line-height:1.6;';
     askButton.parentNode.insertBefore(chatBox, askButton.nextSibling);
 
-    askButton.addEventListener('click', function() {
+    function askRichard() {
       const question = inputBox.value.trim();
       if (!question) return;
       
-      // Show the box and loading message
       chatBox.style.display = 'block';
       chatBox.innerHTML = '<p><strong>Richard:</strong> Consulting the scrolls...</p>';
       
-      // REPLACE THIS WITH YOUR REAL AI ENDPOINT LATER
-      // For now it gives a sample response so you can test
+      // DEMO RESPONSE — REPLACE WITH REAL API LATER
       setTimeout(() => {
         chatBox.innerHTML = `
           <p><strong>You asked:</strong> ${question}</p>
-          <p><strong>Richard:</strong> Shalom. Based on Second Temple texts and Torah exegesis, this question touches on ${question.length > 30 ? 'a deep tradition' : 'a key concept'}. 
-          The Hebrew root suggests careful study of context. For a full answer, I can connect you to my research archive.</p>
-          <p style="margin-top:15px; font-size:14px; opacity:0.8;">Note: Connect this to your AI API to get real answers.</p>
+          <p><strong>Richard:</strong> Shalom. In Second Temple Judaism, questions like this often point to the tension between Torah law and lived tradition. 
+          The Hebrew term at the root deserves careful parsing. Would you like me to examine the Dead Sea Scrolls fragments related to this?</p>
         `;
-        inputBox.value = ''; // Clear the box
-      }, 1500);
-    });
+        inputBox.value = '';
+      }, 1200);
+    }
 
-    // Let them hit Enter too
-    inputBox.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') askButton.click();
-    });
+    askButton.addEventListener('click', askRichard);
+    inputBox.addEventListener('keypress', e => { if (e.key === 'Enter') askRichard(); });
   });
 </script>
