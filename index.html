@@ -1,112 +1,111 @@
-<!-- ========== START SCHOLAR RADIO - FULL VERSION ========== -->
-<!-- THIS BLOCK GOES AFTER YOUR RICHARD SCRIPT CLOSES -->
-<div id="radio-container" style="margin-top:30px;padding-top:20px;border-top:2px solid #00ff00;">
-  <h3 style="color:#00ff00;margin:0 0 10px 0;">SCHOLAR RADIO 24/7</h3>
-  <audio id="scholarRadio" preload="none"></audio>
-  <button id="radioToggle" style="padding:12px 20px;background:#00ff00;color:#000;border:none;cursor:pointer;font-weight:bold;font-family:monospace;">▶ STREAM</button>
-  <span id="radioStatus" style="margin-left:15px;color:#666;font-family:monospace;">OFFLINE</span>
-  <input id="radioVolume" type="range" min="0" max="1" step="0.1" value="0.7" style="width:120px;vertical-align:middle;margin-left:15px;">
-</div>
+  </script>
+  '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';
+  <!-- ===================================================== -->
+  <!-- >>> THIS ENTIRE RADIO BLOCK GOES RIGHT HERE <<< -->
+  <!-- >>> PLACE IT AFTER THE </script> TAG ABOVE <<< -->
+  <!-- >>> AND BEFORE THE </body> TAG BELOW <<< -->
+  <!-- >>> DO NOT PUT GROQ KEY HERE - GROQ STAYS IN YOUR OTHER SCRIPT <<< -->
+  <!-- ===================================================== -->
+  
+  <!-- ========== START SCHOLAR RADIO - FULL VERSION ========== -->
+  <div id="radio-container" style="margin-top:30px;padding-top:20px;border-top:2px solid #00ff00;">
+    <h3 style="color:#00ff00;margin:0 0 10px 0;">SCHOLAR RADIO 24/7</h3>
+    <audio id="scholarRadio" preload="none"></audio>
+    <button id="radioToggle" style="padding:12px 20px;background:#00ff00;color:#000;border:none;cursor:pointer;font-weight:bold;font-family:monospace;">▶ STREAM</button>
+    <span id="radioStatus" style="margin-left:15px;color:#666;font-family:monospace;">OFFLINE</span>
+    <input id="radioVolume" type="range" min="0" max="1" step="0.1" value="0.7" style="width:120px;vertical-align:middle;margin-left:15px;">
+  </div>
 
-<script>
-/* =====================================================
-   >>> IDENTIFIER: EMERGENT STREAM URL GOES HERE <<<
+  <script>
+  /* =====================================================
+     >>> STREAM URL GOES HERE - DELETE THE PLACEHOLDER <<<
+     ===================================================== */
+  const STREAM_URL = '###_PUT_YOUR_EMERGENT_STREAM_URL_HERE_###';
 
-   DELETE THE TEXT BELOW AND PASTE YOUR URL BETWEEN THE QUOTES
-   KEEP THE SINGLE QUOTES ' ' AROUND YOUR URL
-*/
-const STREAM_URL = '###_PUT_YOUR_EMERGENT_STREAM_URL_HERE_###';
-/* =====================================================
-   >>> DO NOT PUT GROQ KEY HERE - GROQ STAYS IN YOUR OTHER SCRIPT <<<
-   ===================================================== */
+  const radio = document.getElementById('scholarRadio');
+  const radioToggle = document.getElementById('radioToggle');
+  const radioStatus = document.getElementById('radioStatus');
+  const radioVolume = document.getElementById('radioVolume');
+  let radioPlaying = false;
+  let reconnectAttempts = 0;
 
-const radio = document.getElementById('scholarRadio');
-const radioToggle = document.getElementById('radioToggle');
-const radioStatus = document.getElementById('radioStatus');
-const radioVolume = document.getElementById('radioVolume');
-let radioPlaying = false;
-let reconnectAttempts = 0;
+  radio.addEventListener('ended', ()=>{ if(radioPlaying) restartStream(); });
+  radio.addEventListener('error', ()=>{ if(radioPlaying) restartStream(); });
+  radio.addEventListener('stalled', ()=>{ if(radioPlaying) restartStream(); });
 
-// Auto-reconnect if stream dies
-radio.addEventListener('ended', ()=>{ if(radioPlaying) restartStream(); });
-radio.addEventListener('error', ()=>{ if(radioPlaying) restartStream(); });
-radio.addEventListener('stalled', ()=>{ if(radioPlaying) restartStream(); });
-
-// Mobile lock screen controls
-if('mediaSession' in navigator){
-  navigator.mediaSession.setActionHandler('play', ()=>toggleRadio());
-  navigator.mediaSession.setActionHandler('pause', ()=>toggleRadio());
-}
-
-function restartStream(){
-  reconnectAttempts++;
-  radioStatus.innerText = `RECONNECTING ${reconnectAttempts}...`;
-  radioStatus.style.color = '#ffd700';
-  setTimeout(()=>{
-    radio.src = STREAM_URL + '?t=' + Date.now();
-    radio.play().catch(()=>{});
-  }, 2000);
-}
-
-function toggleRadio(){
-  if(STREAM_URL.includes('###_PUT_YOUR_EMERGENT_STREAM_URL_HERE_###')){
-    alert('ERROR: You must replace ###_PUT_YOUR_EMERGENT_STREAM_URL_HERE_### with your real stream URL');
-    return;
+  if('mediaSession' in navigator){
+    navigator.mediaSession.setActionHandler('play', ()=>toggleRadio());
+    navigator.mediaSession.setActionHandler('pause', ()=>toggleRadio());
   }
-  if(!radioPlaying){
-    radio.src = STREAM_URL;
-    radio.play().then(()=>{
-      radioPlaying = true;
-      reconnectAttempts = 0;
-      radioToggle.innerText = '⏸ LIVE';
-      radioStatus.innerText = 'BROADCASTING';
-      radioStatus.style.color = '#00ff00';
-      localStorage.setItem('scholar_radio','on');
-      
-      // Update lock screen metadata
-      if('mediaSession' in navigator){
-        navigator.mediaSession.metadata = new MediaMetadata({
-          title: 'Scholar Radio',
-          artist: 'AI Richard Network',
-          album: 'Live 24/7'
-        });
-      }
-    }).catch(e=>{
-      radioStatus.innerText = 'STREAM BLOCKED';
-      radioStatus.style.color = '#ff0000';
-    });
-  } else {
-    radio.pause();
-    radio.src = '';
-    radioPlaying = false;
-    radioToggle.innerText = '▶ STREAM';
-    radioStatus.innerText = 'OFFLINE';
-    radioStatus.style.color = '#666';
-    localStorage.setItem('scholar_radio','off');
-  }
-}
 
-radioToggle.onclick = toggleRadio;
-radioVolume.oninput = (e)=>{
-  radio.volume = e.target.value;
-  localStorage.setItem('scholar_volume', e.target.value);
-};
-
-// Remember volume + auto-resume if user had it on
-window.addEventListener('load', ()=>{
-  const vol = localStorage.getItem('scholar_volume') || 0.7;
-  radio.volume = vol;
-  radioVolume.value = vol;
-  if(localStorage.getItem('scholar_radio') === 'on'){
-    setTimeout(()=>toggleRadio(), 1000);
+  function restartStream(){
+    reconnectAttempts++;
+    radioStatus.innerText = `RECONNECTING ${reconnectAttempts}...`;
+    radioStatus.style.color = '#ffd700';
+    setTimeout(()=>{
+      radio.src = STREAM_URL + '?t=' + Date.now();
+      radio.play().catch(()=>{});
+    }, 2000);
   }
-});
 
-// Keep-alive check every 5 seconds
-setInterval(()=>{
-  if(radioPlaying && radio.paused){
-    radio.play().catch(()=>{});
+  function toggleRadio(){
+    if(STREAM_URL.includes('###_PUT_YOUR_EMERGENT_STREAM_URL_HERE_###')){
+      alert('ERROR: Replace ###_PUT_YOUR_EMERGENT_STREAM_URL_HERE_### with your stream URL');
+      return;
+    }
+    if(!radioPlaying){
+      radio.src = STREAM_URL;
+      radio.play().then(()=>{
+        radioPlaying = true;
+        reconnectAttempts = 0;
+        radioToggle.innerText = '⏸ LIVE';
+        radioStatus.innerText = 'BROADCASTING';
+        radioStatus.style.color = '#00ff00';
+        localStorage.setItem('scholar_radio','on');
+        if('mediaSession' in navigator){
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title: 'Scholar Radio',
+            artist: 'AI Richard Network',
+            album: 'Live 24/7'
+          });
+        }
+      }).catch(e=>{
+        radioStatus.innerText = 'STREAM BLOCKED';
+        radioStatus.style.color = '#ff0000';
+      });
+    } else {
+      radio.pause();
+      radio.src = '';
+      radioPlaying = false;
+      radioToggle.innerText = '▶ STREAM';
+      radioStatus.innerText = 'OFFLINE';
+      radioStatus.style.color = '#666';
+      localStorage.setItem('scholar_radio','off');
+    }
   }
-}, 5000);
-</script>
-<!-- ========== END SCHOLAR RADIO - FULL VERSION ========== -->
+
+  radioToggle.onclick = toggleRadio;
+  radioVolume.oninput = (e)=>{
+    radio.volume = e.target.value;
+    localStorage.setItem('scholar_volume', e.target.value);
+  };
+
+  window.addEventListener('load', ()=>{
+    const vol = localStorage.getItem('scholar_volume') || 0.7;
+    radio.volume = vol;
+    radioVolume.value = vol;
+    if(localStorage.getItem('scholar_radio') === 'on'){
+      setTimeout(()=>toggleRadio(), 1000);
+    }
+  });
+
+  setInterval(()=>{
+    if(radioPlaying && radio.paused){
+      radio.play().catch(()=>{});
+    }
+  }, 5000);
+  </script>
+  <!-- ========== END SCHOLAR RADIO - FULL VERSION ========== -->
+  
+</body>
+</html>
