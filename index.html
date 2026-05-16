@@ -1,41 +1,38 @@
-<!-- Richard's Gallery Roast - Live Store -->
-<div style="text-align:center; padding:20px; background:#0d3d0d; color:#ffd700; font-family:Georgia,serif;">
+<script>
+  // AI Richard — Biblical Scholar Chat Logic
+  document.addEventListener('DOMContentLoaded', function() {
+    const askButton = document.querySelector('button'); // Finds the "Ask" button
+    const inputBox = document.querySelector('input');   // Finds the input box
+    const chatBox = document.createElement('div');      // Makes space for answers
+    
+    // Style the answer area
+    chatBox.style.cssText = 'max-width:600px; margin:20px auto; padding:20px; background:#2a1810; border:1px solid #ffd700; border-radius:8px; color:#ffd700; text-align:left; display:none;';
+    askButton.parentNode.insertBefore(chatBox, askButton.nextSibling);
 
-  <!-- NEW COFFEE IMAGE GOES HERE -->
-  <img src="coffee.jpg" alt="Fresh Pot Brewin' steaming coffee cup" 
-       style="width:100%; max-width:500px; border-radius:12px; margin-bottom:20px; box-shadow: 0 4px 15px rgba(0,0,0,0.4);">
+    askButton.addEventListener('click', function() {
+      const question = inputBox.value.trim();
+      if (!question) return;
+      
+      // Show the box and loading message
+      chatBox.style.display = 'block';
+      chatBox.innerHTML = '<p><strong>Richard:</strong> Consulting the scrolls...</p>';
+      
+      // REPLACE THIS WITH YOUR REAL AI ENDPOINT LATER
+      // For now it gives a sample response so you can test
+      setTimeout(() => {
+        chatBox.innerHTML = `
+          <p><strong>You asked:</strong> ${question}</p>
+          <p><strong>Richard:</strong> Shalom. Based on Second Temple texts and Torah exegesis, this question touches on ${question.length > 30 ? 'a deep tradition' : 'a key concept'}. 
+          The Hebrew root suggests careful study of context. For a full answer, I can connect you to my research archive.</p>
+          <p style="margin-top:15px; font-size:14px; opacity:0.8;">Note: Connect this to your AI API to get real answers.</p>
+        `;
+        inputBox.value = ''; // Clear the box
+      }, 1500);
+    });
 
-  <h2 style="margin-bottom:10px;">Fresh Pot Brewin'</h2>
-  <p style="margin-bottom:25px;">3-Pot Coffee Method • Small Batch • Roasted in Jersey Village, TX</p>
-
-  <!-- Small Bag -->
-  <div style="margin:20px 0;">
-    <h3>Small 4oz - $10</h3>
-    <p>6-8 cups. Try it once.</p>
-    <a href="https://buy.stripe.com/eVq9AVgIt4bA6BJ9JI73G00" 
-       style="display:inline-block; background:#ffd700; color:#0d3d0d; padding:12px 25px; text-decoration:none; font-weight:bold; border-radius:5px;">
-       Buy Small Bag
-    </a>
-  </div>
-
-  <!-- Medium Bag -->
-  <div style="margin:20px 0;">
-    <h3>Medium 8oz - $18</h3>
-    <p>12-16 cups. Your weekly brew.</p>
-    <a href="https://buy.stripe.com/dRm5kFeAl23s9NVcVU73G01" 
-       style="display:inline-block; background:#ffd700; color:#0d3d0d; padding:12px 25px; text-decoration:none; font-weight:bold; border-radius:5px;">
-       Buy Medium Bag
-    </a>
-  </div>
-
-  <!-- Large Bag -->
-  <div style="margin:20px 0;">
-    <h3>Large 12oz - $25</h3>
-    <p>20-24 cups. For the house.</p>
-    <a href="https://buy.stripe.com/aFa14p8bX37w6BJ09873G02" 
-       style="display:inline-block; background:#ffd700; color:#0d3d0d; padding:12px 25px; text-decoration:none; font-weight:bold; border-radius:5px;">
-       Buy Large Bag
-    </a>
-  </div>
-
-  
+    // Let them hit Enter too
+    inputBox.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') askButton.click();
+    });
+  });
+</script>
