@@ -1,35 +1,74 @@
-<script>
-  // AI Richard — Biblical Scholar Chat Logic v2
-  document.addEventListener('DOMContentLoaded', function() {
-    const askButton = document.getElementById('askBtn'); 
-    const inputBox = document.getElementById('askInput');
-    const chatBox = document.createElement('div');  
-    
-    if (!askButton || !inputBox) return; // Safety check
-    
-    chatBox.id = 'richardAnswer';
-    chatBox.style.cssText = 'max-width:600px; margin:20px auto; padding:20px; background:#2a1810; border:1px solid #ffd700; border-radius:8px; color:#ffd700; text-align:left; display:none; line-height:1.6;';
-    askButton.parentNode.insertBefore(chatBox, askButton.nextSibling);
-
-    function askRichard() {
-      const question = inputBox.value.trim();
-      if (!question) return;
-      
-      chatBox.style.display = 'block';
-      chatBox.innerHTML = '<p><strong>Richard:</strong> Consulting the scrolls...</p>';
-      
-      // DEMO RESPONSE — REPLACE WITH REAL API LATER
-      setTimeout(() => {
-        chatBox.innerHTML = `
-          <p><strong>You asked:</strong> ${question}</p>
-          <p><strong>Richard:</strong> Shalom. In Second Temple Judaism, questions like this often point to the tension between Torah law and lived tradition. 
-          The Hebrew term at the root deserves careful parsing. Would you like me to examine the Dead Sea Scrolls fragments related to this?</p>
-        `;
-        inputBox.value = '';
-      }, 1200);
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>AI Richard — Biblical Scholar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { 
+      background:#1a0f0a; 
+      color:#ffd700; 
+      font-family:Georgia, serif; 
+      text-align:center; 
+      padding:40px 20px; 
     }
+    h1 { font-size:2.5em; margin-bottom:10px; }
+    p { opacity:0.9; margin-bottom:30px; }
+    #askInput {
+      width:90%; max-width:500px; 
+      padding:12px; 
+      font-size:16px; 
+      border:2px solid #ffd700; 
+      background:#2a1810; 
+      color:#ffd700; 
+      border-radius:6px;
+    }
+    #askBtn {
+      margin-top:15px; 
+      padding:12px 30px; 
+      font-size:16px; 
+      background:#ffd700; 
+      color:#1a0f0a; 
+      border:none; 
+      border-radius:6px; 
+      cursor:pointer; 
+      font-weight:bold;
+    }
+    #askBtn:hover { background:#ffed4e; }
+  </style>
+</head>
+<body>
+  <h1>RJHNSN12</h1>
+  <p>Welcome to the movement. This is the official home of Richard Johnson. We own this. No more subscriptions.</p>
+  <p><strong>Talk to AI Richard</strong> | My Books | 24/7 Radio</p>
+  
+  <!-- THE ASK BOX -->
+  <input id="askInput" placeholder="Ask Richard about Hebrew scriptures, Second Temple history...">
+  <br>
+  <button id="askBtn">Ask</button>
 
-    askButton.addEventListener('click', askRichard);
-    inputBox.addEventListener('keypress', e => { if (e.key === 'Enter') askRichard(); });
-  });
-</script>
+  <!-- THE BRAIN -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const askButton = document.getElementById('askBtn'); 
+      const inputBox = document.getElementById('askInput');
+      const chatBox = document.createElement('div');  
+      
+      if (!askButton || !inputBox) return;
+      
+      chatBox.id = 'richardAnswer';
+      chatBox.style.cssText = 'max-width:600px; margin:20px auto; padding:20px; background:#2a1810; border:1px solid #ffd700; border-radius:8px; color:#ffd700; text-align:left; display:none; line-height:1.6;';
+      askButton.parentNode.insertBefore(chatBox, askButton.nextSibling);
+
+      function askRichard() {
+        const question = inputBox.value.trim();
+        if (!question) return;
+        
+        chatBox.style.display = 'block';
+        chatBox.innerHTML = '<p><strong>Richard:</strong> Consulting the scrolls...</p>';
+        
+        // DEMO RESPONSE — REPLACE WITH REAL API LATER
+        setTimeout(() => {
+          chatBox.innerHTML = `
+            <p><strong>You asked:</strong> ${question}</p>
+            <p><strong>Richard:</strong> Shalom
