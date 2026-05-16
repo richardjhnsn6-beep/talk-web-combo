@@ -1,49 +1,49 @@
-1  <!DOCTYPE html>
-2  <html>
-3  <head>
-4    <meta charset="UTF-8">
-5    <title>AI Richard — Biblical Scholar</title>
-6    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-7    <style>
-8      body { background:#1a0f0a; color:#ffd700; font-family:Georgia, serif; text-align:center; padding:40px 20px; }
-9      h1 { font-size:2.5em; margin-bottom:10px; }
-10     p { opacity:0.9; margin-bottom:30px; }
-11     #askInput { width:90%; max-width:500px; padding:12px; font-size:16px; border:2px solid #ffd700; background:#2a1810; color:#ffd700; border-radius:6px; }
-12     #askBtn { margin-top:15px; padding:12px 30px; font-size:16px; background:#ffd700; color:#1a0f0a; border:none; border-radius:6px; cursor:pointer; font-weight:bold; }
-13     #askBtn:hover { background:#ffed4e; }
-14   </style>
-15 </head>
-16 <body>
-17   <h1>RJHNSN12</h1>
-18   <p>Welcome to the movement. This is the official home of Richard Johnson. We own this. No more subscriptions.</p>
-19   <p><strong>Talk to AI Richard</strong> | My Books | 24/7 Radio</p>
-20   
-21   <input id="askInput" placeholder="Ask Richard about Hebrew scriptures, Second Temple history...">
-22   <br>
-23   <button id="askBtn">Ask</button>
-24 
-25   <script>
-26     document.addEventListener('DOMContentLoaded', function() {
-27       const askButton = document.getElementById('askBtn'); 
-28       const inputBox = document.getElementById('askInput');
-29       const chatBox = document.createElement('div');  
-30       if (!askButton || !inputBox) return;
-31       chatBox.id = 'richardAnswer';
-32       chatBox.style.cssText = 'max-width:600px; margin:20px auto; padding:20px; background:#2a1810; border:1px solid #ffd700; border-radius:8px; color:#ffd700; text-align:left; display:none; line-height:1.6;';
-33       askButton.parentNode.insertBefore(chatBox, askButton.nextSibling);
-34       function askRichard() {
-35         const question = inputBox.value.trim();
-36         if (!question) return;
-37         chatBox.style.display = 'block';
-38         chatBox.innerHTML = '<p><strong>Richard:</strong> Consulting the scrolls...</p>';
-39         setTimeout(() => {
-40           chatBox.innerHTML = `<p><strong>You asked:</strong> ${question}</p><p><strong>Richard:</strong> Shalom. In Second Temple Judaism, questions like this often point to the tension between Torah law and lived tradition. The Hebrew term at the root deserves careful parsing. Would you like me to examine the Dead Sea Scrolls fragments related to this?</p>`;
-41           inputBox.value = '';
-42         }, 1200);
-43       }
-44       askButton.addEventListener('click', askRichard);
-45       inputBox.addEventListener('keypress', e => { if (e.key === 'Enter') askRichard(); });
-46     });
-47   </script>
-48 </body>
-49 </html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>AI Richard — Biblical Scholar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { background:#1a0f0a; color:#ffd700; font-family:Georgia, serif; text-align:center; padding:40px 20px; }
+    h1 { font-size:2.5em; margin-bottom:10px; }
+    p { opacity:0.9; margin-bottom:30px; }
+    #askInput { width:90%; max-width:500px; padding:12px; font-size:16px; border:2px solid #ffd700; background:#2a1810; color:#ffd700; border-radius:6px; }
+    #askBtn { margin-top:15px; padding:12px 30px; font-size:16px; background:#ffd700; color:#1a0f0a; border:none; border-radius:6px; cursor:pointer; font-weight:bold; }
+    #askBtn:hover { background:#ffed4e; }
+  </style>
+</head>
+<body>
+  <h1>RJHNSN12</h1>
+  <p>Welcome to the movement. This is the official home of Richard Johnson. We own this. No more subscriptions.</p>
+  <p><strong>Talk to AI Richard</strong> | My Books | 24/7 Radio</p>
+  
+  <input id="askInput" placeholder="Ask Richard about Hebrew scriptures, Second Temple history...">
+  <br>
+  <button id="askBtn">Ask</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const askButton = document.getElementById('askBtn'); 
+      const inputBox = document.getElementById('askInput');
+      const chatBox = document.createElement('div');  
+      if (!askButton || !inputBox) return;
+      chatBox.id = 'richardAnswer';
+      chatBox.style.cssText = 'max-width:600px; margin:20px auto; padding:20px; background:#2a1810; border:1px solid #ffd700; border-radius:8px; color:#ffd700; text-align:left; display:none; line-height:1.6;';
+      askButton.parentNode.insertBefore(chatBox, askButton.nextSibling);
+      function askRichard() {
+        const question = inputBox.value.trim();
+        if (!question) return;
+        chatBox.style.display = 'block';
+        chatBox.innerHTML = '<p><strong>Richard:</strong> Consulting the scrolls...</p>';
+        setTimeout(() => {
+          chatBox.innerHTML = `<p><strong>You asked:</strong> ${question}</p><p><strong>Richard:</strong> Shalom. In Second Temple Judaism, questions like this often point to the tension between Torah law and lived tradition. The Hebrew term at the root deserves careful parsing. Would you like me to examine the Dead Sea Scrolls fragments related to this?</p>`;
+          inputBox.value = '';
+        }, 1200);
+      }
+      askButton.addEventListener('click', askRichard);
+      inputBox.addEventListener('keypress', e => { if (e.key === 'Enter') askRichard(); });
+    });
+  </script>
+</body>
+</html>
