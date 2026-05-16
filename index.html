@@ -1,182 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Richard</title>
-  <style>
-    body { 
-      font-family: system-ui; 
-      margin: 0; 
-      background: #0f172a; 
-      color: #e2e8f0; 
-    }
-    #chat { 
-      max-width: 900px; 
-      margin: 40px auto; 
-      padding: 20px; 
-    }
-    h1 { color: #60a5fa; margin-bottom: 16px; }
-    #richard-frame { 
-      width: 100%; 
-      height: 600px; 
-      border: 1px solid #334155; 
-      border-radius: 8px; 
-      background: #1e293b;
-    }
-    #talkBox {
-      margin-top: 16px;
-      display: flex;
-      gap: 8px;
-    }
-    input {
-      flex: 1;
-      padding: 10px 14px;
-      border-radius: 6px;
-      border: 1px solid #334155;
-      background: #1e293b;
-      color: #e2e8f0;
-      font-size: 16px;
-    }
-    button { 
-      background: #3b82f6; 
-      color: white; 
-      border: none; 
-      padding: 10px 16px; 
-      border-radius: 6px; 
-      cursor: pointer; 
-      font-size: 15px;
-    }
-    button:hover { background: #2563eb; }
-    #controls { 
-      margin-top: 20px; 
-      display: flex; 
-      gap: 12px; 
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    #nowPlaying { 
-      color: #94a3b8; 
-      font-size: 14px;
-      margin-left: auto;
-    }
-    .slider-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    #volume {
-      width: 100px;
-    }
-  </style>
-</head>
-<body>
-  <div id="chat">
-    <h1>AI Richard</h1>
-    
-    <iframe 
-      id="richard-frame" 
-      src="https://talk-web-combo.preview.emergentagent.com"
-      allow="microphone; autoplay"
-    ></iframe>
-    
-    <div id="talkBox">
-      <input id="userInput" placeholder="Type a message to AI Richard..." />
-      <button id="sendBtn">Send</button>
-    </div>
+<!-- ========== START SCHOLAR RADIO - FULL VERSION ========== -->
+<!-- THIS BLOCK GOES AFTER YOUR RICHARD SCRIPT CLOSES -->
+<div id="radio-container" style="margin-top:30px;padding-top:20px;border-top:2px solid #00ff00;">
+  <h3 style="color:#00ff00;margin:0 0 10px 0;">SCHOLAR RADIO 24/7</h3>
+  <audio id="scholarRadio" preload="none"></audio>
+  <button id="radioToggle" style="padding:12px 20px;background:#00ff00;color:#000;border:none;cursor:pointer;font-weight:bold;font-family:monospace;">▶ STREAM</button>
+  <span id="radioStatus" style="margin-left:15px;color:#666;font-family:monospace;">OFFLINE</span>
+  <input id="radioVolume" type="range" min="0" max="1" step="0.1" value="0.7" style="width:120px;vertical-align:middle;margin-left:15px;">
+</div>
 
-    <div id="controls">
-      <button id="playRadio">▶ Play Radio</button>
-      <button id="stopRadio">⏹ Stop</button>
-      <div class="slider-group">
-        <span>🔊</span>
-        <input type="range" id="volume" min="0" max="1" step="0.05" value="0.7">
-      </div>
-      <span id="nowPlaying">Ready</span>
-    </div>
-    
-    <audio id="radioPlayer" preload="none"></audio>
-  </div>
+<script>
+/* =====================================================
+   >>> IDENTIFIER: EMERGENT STREAM URL GOES HERE <<<
 
-  <script>
-    // ========================
-    // CONFIG - PUT KEYS HERE
-    // ========================
-    const EMERGENT_ORIGIN = 'https://talk-web-combo.preview.emergentagent.com';
-    const GROQ_API_KEY = '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'; // <-- GROQ KEY LOCATION
-    const STREAM_URL = 'https://stream.live.vc.bbcmedia.co.uk/bbc_world_service'; // <-- CHANGE THIS
+   DELETE THE TEXT BELOW AND PASTE YOUR URL BETWEEN THE QUOTES
+   KEEP THE SINGLE QUOTES ' ' AROUND YOUR URL
+*/
+const STREAM_URL = '###_PUT_YOUR_EMERGENT_STREAM_URL_HERE_###';
+/* =====================================================
+   >>> DO NOT PUT GROQ KEY HERE - GROQ STAYS IN YOUR OTHER SCRIPT <<<
+   ===================================================== */
 
-    // ========================
-    // BRIDGE TO EMERGENT
-    // ========================
-    function sendToRichard(payload) {
-      const iframe = document.getElementById('richard-frame');
-      if (iframe?.contentWindow) {
-        iframe.contentWindow.postMessage(payload, EMERGENT_ORIGIN);
-      } else {
-        console.warn('Richard iframe not ready yet');
-      }
-    }
+const radio = document.getElementById('scholarRadio');
+const radioToggle = document.getElementById('radioToggle');
+const radioStatus = document.getElementById('radioStatus');
+const radioVolume = document.getElementById('radioVolume');
+let radioPlaying = false;
+let reconnectAttempts = 0;
 
-    window.addEventListener('message', (event) => {
-      if (event.origin !== EMERGENT_ORIGIN) return;
+// Auto-reconnect if stream dies
+radio.addEventListener('ended', ()=>{ if(radioPlaying) restartStream(); });
+radio.addEventListener('error', ()=>{ if(radioPlaying) restartStream(); });
+radio.addEventListener('stalled', ()=>{ if(radioPlaying) restartStream(); });
+
+// Mobile lock screen controls
+if('mediaSession' in navigator){
+  navigator.mediaSession.setActionHandler('play', ()=>toggleRadio());
+  navigator.mediaSession.setActionHandler('pause', ()=>toggleRadio());
+}
+
+function restartStream(){
+  reconnectAttempts++;
+  radioStatus.innerText = `RECONNECTING ${reconnectAttempts}...`;
+  radioStatus.style.color = '#ffd700';
+  setTimeout(()=>{
+    radio.src = STREAM_URL + '?t=' + Date.now();
+    radio.play().catch(()=>{});
+  }, 2000);
+}
+
+function toggleRadio(){
+  if(STREAM_URL.includes('###_PUT_YOUR_EMERGENT_STREAM_URL_HERE_###')){
+    alert('ERROR: You must replace ###_PUT_YOUR_EMERGENT_STREAM_URL_HERE_### with your real stream URL');
+    return;
+  }
+  if(!radioPlaying){
+    radio.src = STREAM_URL;
+    radio.play().then(()=>{
+      radioPlaying = true;
+      reconnectAttempts = 0;
+      radioToggle.innerText = '⏸ LIVE';
+      radioStatus.innerText = 'BROADCASTING';
+      radioStatus.style.color = '#00ff00';
+      localStorage.setItem('scholar_radio','on');
       
-      console.log('Message from Emergent:', event.data);
-      
-      if (event.data?.type === 'richard-speak') {
-        document.getElementById('nowPlaying').textContent = `Richard: ${event.data.text}`;
-      }
-      if (event.data?.type === 'richard-status') {
-        document.getElementById('nowPlaying').textContent = `Status: ${event.data.text}`;
-      }
-    });
-
-    // ========================
-    // GROQ API CALL
-    // ========================
-    async function askGroq(userText) {
-      document.getElementById('nowPlaying').textContent = 'Richard is thinking...';
-
-      try {
-        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${GROQ_API_KEY}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            model: 'llama-3.1-70b-versatile',
-            messages: [{ role: 'user', content: userText }]
-          })
+      // Update lock screen metadata
+      if('mediaSession' in navigator){
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: 'Scholar Radio',
+          artist: 'AI Richard Network',
+          album: 'Live 24/7'
         });
-
-        const data = await res.json();
-        if (data.error) throw new Error(data.error.message);
-        
-        const reply = data.choices[0].message.content;
-        document.getElementById('nowPlaying').textContent = `Richard: ${reply}`;
-        sendToRichard({ type: 'richard-speak', text: reply });
-      } catch (err) {
-        document.getElementById('nowPlaying').textContent = `Error: ${err.message}`;
-        console.error(err);
       }
-    }
-
-    // ========================
-    // UI HOOKS
-    // ========================
-    document.getElementById('sendBtn').onclick = () => {
-      const input = document.getElementById('userInput');
-      const text = input.value.trim();
-      if (!text) return;
-      askGroq(text);
-      input.value = '';
-    };
-
-    document.getElementById('userInput').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') document.getElementById('sendBtn').click();
+    }).catch(e=>{
+      radioStatus.innerText = 'STREAM BLOCKED';
+      radioStatus.style.color = '#ff0000';
     });
+  } else {
+    radio.pause();
+    radio.src = '';
+    radioPlaying = false;
+    radioToggle.innerText = '▶ STREAM';
+    radioStatus.innerText = 'OFFLINE';
+    radioStatus.style.color = '#666';
+    localStorage.setItem('scholar_radio','off');
+  }
+}
 
-    // Radio controls
-    const radioPlayer = document.getElementById('radioPlayer');
-    const volumeSlider = document.getElementById('
+radioToggle.onclick = toggleRadio;
+radioVolume.oninput = (e)=>{
+  radio.volume = e.target.value;
+  localStorage.setItem('scholar_volume', e.target.value);
+};
+
+// Remember volume + auto-resume if user had it on
+window.addEventListener('load', ()=>{
+  const vol = localStorage.getItem('scholar_volume') || 0.7;
+  radio.volume = vol;
+  radioVolume.value = vol;
+  if(localStorage.getItem('scholar_radio') === 'on'){
+    setTimeout(()=>toggleRadio(), 1000);
+  }
+});
+
+// Keep-alive check every 5 seconds
+setInterval(()=>{
+  if(radioPlaying && radio.paused){
+    radio.play().catch(()=>{});
+  }
+}, 5000);
+</script>
+<!-- ========== END SCHOLAR RADIO - FULL VERSION ========== -->
