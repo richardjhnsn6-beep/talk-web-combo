@@ -24,13 +24,6 @@
       border-radius: 8px; 
       background: #1e293b;
     }
-    #controls { 
-      margin-top: 20px; 
-      display: flex; 
-      gap: 12px; 
-      flex-wrap: wrap;
-      align-items: center;
-    }
     #talkBox {
       margin-top: 16px;
       display: flex;
@@ -55,6 +48,13 @@
       font-size: 15px;
     }
     button:hover { background: #2563eb; }
+    #controls { 
+      margin-top: 20px; 
+      display: flex; 
+      gap: 12px; 
+      flex-wrap: wrap;
+      align-items: center;
+    }
     #nowPlaying { 
       color: #94a3b8; 
       font-size: 14px;
@@ -99,10 +99,16 @@
   </div>
 
   <script>
-    // Fix 5: Centralize origin so you only change it once
+    // ========================
+    // CONFIG - PUT KEYS HERE
+    // ========================
     const EMERGENT_ORIGIN = 'https://talk-web-combo.preview.emergentagent.com';
-    
-    // Fix 2: Safe postMessage wrapper
+    const GROQ_API_KEY = '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'; // <-- GROQ KEY LOCATION
+    const STREAM_URL = 'https://stream.live.vc.bbcmedia.co.uk/bbc_world_service'; // <-- CHANGE THIS
+
+    // ========================
+    // BRIDGE TO EMERGENT
+    // ========================
     function sendToRichard(payload) {
       const iframe = document.getElementById('richard-frame');
       if (iframe?.contentWindow) {
@@ -112,7 +118,6 @@
       }
     }
 
-    // 1. Bridge: Listen for messages from Emergent iframe
     window.addEventListener('message', (event) => {
       if (event.origin !== EMERGENT_ORIGIN) return;
       
@@ -126,14 +131,45 @@
       }
     });
 
-    // Fix 4: Add way to send messages TO Richard
+    // ========================
+    // GROQ API CALL
+    // ========================
+    async function askGroq(userText) {
+      document.getElementById('nowPlaying').textContent = 'Richard is thinking...';
+
+      try {
+        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${GROQ_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: 'llama-3.1-70b-versatile',
+            messages: [{ role: 'user', content: userText }]
+          })
+        });
+
+        const data = await res.json();
+        if (data.error) throw new Error(data.error.message);
+        
+        const reply = data.choices[0].message.content;
+        document.getElementById('nowPlaying').textContent = `Richard: ${reply}`;
+        sendToRichard({ type: 'richard-speak', text: reply });
+      } catch (err) {
+        document.getElementById('nowPlaying').textContent = `Error: ${err.message}`;
+        console.error(err);
+      }
+    }
+
+    // ========================
+    // UI HOOKS
+    // ========================
     document.getElementById('sendBtn').onclick = () => {
       const input = document.getElementById('userInput');
       const text = input.value.trim();
       if (!text) return;
-      
-      sendToRichard({ type: 'user-speak', text: text });
-      document.getElementById('nowPlaying').textContent = `You: ${text}`;
+      askGroq(text);
       input.value = '';
     };
 
@@ -141,40 +177,6 @@
       if (e.key === 'Enter') document.getElementById('sendBtn').click();
     });
 
-    // 3. Streaming Radio Station
+    // Radio controls
     const radioPlayer = document.getElementById('radioPlayer');
-    const nowPlaying = document.getElementById('nowPlaying');
-    const volumeSlider = document.getElementById('volume');
-    
-    // Replace with your stream URL
-    const STREAM_URL = 'https://stream.live.vc.bbcmedia.co.uk/bbc_world_service'; // BBC World Service
-    // const STREAM_URL = 'https://ice1.somafm.com/groovesalad-256-mp3'; // SomaFM Groove Salad
-    
-    radioPlayer.volume = volumeSlider.value;
-    volumeSlider.oninput = () => {
-      radioPlayer.volume = volumeSlider.value;
-    };
-    
-    document.getElementById('playRadio').onclick = () => {
-      radioPlayer.src = STREAM_URL;
-      radioPlayer.play().then(() => {
-        nowPlaying.textContent = '🔊 Radio: Playing';
-      }).catch(err => {
-        nowPlaying.textContent = 'Error: Click to enable audio first';
-        console.error(err);
-      });
-    };
-    
-    document.getElementById('stopRadio').onclick = () => {
-      radioPlayer.pause();
-      radioPlayer.src = '';
-      nowPlaying.textContent = '🔇 Radio: Stopped';
-    };
-
-    // Fix 1: Tell Emergent we're ready - using correct platform label
-    document.getElementById('richard-frame').onload = () => {
-      sendToRichard({ type: 'github-pages-ready', page: 'richard.html' });
-    };
-  </script>
-</body>
-</html>
+    const volumeSlider = document.getElementById('
