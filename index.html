@@ -1,49 +1,180 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AI Richard — Biblical Scholar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Richard</title>
   <style>
-    body { background:#1a0f0a; color:#ffd700; font-family:Georgia, serif; text-align:center; padding:40px 20px; }
-    h1 { font-size:2.5em; margin-bottom:10px; }
-    p { opacity:0.9; margin-bottom:30px; }
-    #askInput { width:90%; max-width:500px; padding:12px; font-size:16px; border:2px solid #ffd700; background:#2a1810; color:#ffd700; border-radius:6px; }
-    #askBtn { margin-top:15px; padding:12px 30px; font-size:16px; background:#ffd700; color:#1a0f0a; border:none; border-radius:6px; cursor:pointer; font-weight:bold; }
-    #askBtn:hover { background:#ffed4e; }
+    body { 
+      font-family: system-ui; 
+      margin: 0; 
+      background: #0f172a; 
+      color: #e2e8f0; 
+    }
+    #chat { 
+      max-width: 900px; 
+      margin: 40px auto; 
+      padding: 20px; 
+    }
+    h1 { color: #60a5fa; margin-bottom: 16px; }
+    #richard-frame { 
+      width: 100%; 
+      height: 600px; 
+      border: 1px solid #334155; 
+      border-radius: 8px; 
+      background: #1e293b;
+    }
+    #controls { 
+      margin-top: 20px; 
+      display: flex; 
+      gap: 12px; 
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    #talkBox {
+      margin-top: 16px;
+      display: flex;
+      gap: 8px;
+    }
+    input {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #e2e8f0;
+      font-size: 16px;
+    }
+    button { 
+      background: #3b82f6; 
+      color: white; 
+      border: none; 
+      padding: 10px 16px; 
+      border-radius: 6px; 
+      cursor: pointer; 
+      font-size: 15px;
+    }
+    button:hover { background: #2563eb; }
+    #nowPlaying { 
+      color: #94a3b8; 
+      font-size: 14px;
+      margin-left: auto;
+    }
+    .slider-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #volume {
+      width: 100px;
+    }
   </style>
 </head>
 <body>
-  <h1>RJHNSN12</h1>
-  <p>Welcome to the movement. This is the official home of Richard Johnson. We own this. No more subscriptions.</p>
-  <p><strong>Talk to AI Richard</strong> | My Books | 24/7 Radio</p>
-  
-  <input id="askInput" placeholder="Ask Richard about Hebrew scriptures, Second Temple history...">
-  <br>
-  <button id="askBtn">Ask</button>
+  <div id="chat">
+    <h1>AI Richard</h1>
+    
+    <iframe 
+      id="richard-frame" 
+      src="https://talk-web-combo.preview.emergentagent.com"
+      allow="microphone; autoplay"
+    ></iframe>
+    
+    <div id="talkBox">
+      <input id="userInput" placeholder="Type a message to AI Richard..." />
+      <button id="sendBtn">Send</button>
+    </div>
+
+    <div id="controls">
+      <button id="playRadio">▶ Play Radio</button>
+      <button id="stopRadio">⏹ Stop</button>
+      <div class="slider-group">
+        <span>🔊</span>
+        <input type="range" id="volume" min="0" max="1" step="0.05" value="0.7">
+      </div>
+      <span id="nowPlaying">Ready</span>
+    </div>
+    
+    <audio id="radioPlayer" preload="none"></audio>
+  </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const askButton = document.getElementById('askBtn'); 
-      const inputBox = document.getElementById('askInput');
-      const chatBox = document.createElement('div');  
-      if (!askButton || !inputBox) return;
-      chatBox.id = 'richardAnswer';
-      chatBox.style.cssText = 'max-width:600px; margin:20px auto; padding:20px; background:#2a1810; border:1px solid #ffd700; border-radius:8px; color:#ffd700; text-align:left; display:none; line-height:1.6;';
-      askButton.parentNode.insertBefore(chatBox, askButton.nextSibling);
-      function askRichard() {
-        const question = inputBox.value.trim();
-        if (!question) return;
-        chatBox.style.display = 'block';
-        chatBox.innerHTML = '<p><strong>Richard:</strong> Consulting the scrolls...</p>';
-        setTimeout(() => {
-          chatBox.innerHTML = `<p><strong>You asked:</strong> ${question}</p><p><strong>Richard:</strong> Shalom. In Second Temple Judaism, questions like this often point to the tension between Torah law and lived tradition. The Hebrew term at the root deserves careful parsing. Would you like me to examine the Dead Sea Scrolls fragments related to this?</p>`;
-          inputBox.value = '';
-        }, 1200);
+    // Fix 5: Centralize origin so you only change it once
+    const EMERGENT_ORIGIN = 'https://talk-web-combo.preview.emergentagent.com';
+    
+    // Fix 2: Safe postMessage wrapper
+    function sendToRichard(payload) {
+      const iframe = document.getElementById('richard-frame');
+      if (iframe?.contentWindow) {
+        iframe.contentWindow.postMessage(payload, EMERGENT_ORIGIN);
+      } else {
+        console.warn('Richard iframe not ready yet');
       }
-      askButton.addEventListener('click', askRichard);
-      inputBox.addEventListener('keypress', e => { if (e.key === 'Enter') askRichard(); });
+    }
+
+    // 1. Bridge: Listen for messages from Emergent iframe
+    window.addEventListener('message', (event) => {
+      if (event.origin !== EMERGENT_ORIGIN) return;
+      
+      console.log('Message from Emergent:', event.data);
+      
+      if (event.data?.type === 'richard-speak') {
+        document.getElementById('nowPlaying').textContent = `Richard: ${event.data.text}`;
+      }
+      if (event.data?.type === 'richard-status') {
+        document.getElementById('nowPlaying').textContent = `Status: ${event.data.text}`;
+      }
     });
+
+    // Fix 4: Add way to send messages TO Richard
+    document.getElementById('sendBtn').onclick = () => {
+      const input = document.getElementById('userInput');
+      const text = input.value.trim();
+      if (!text) return;
+      
+      sendToRichard({ type: 'user-speak', text: text });
+      document.getElementById('nowPlaying').textContent = `You: ${text}`;
+      input.value = '';
+    };
+
+    document.getElementById('userInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') document.getElementById('sendBtn').click();
+    });
+
+    // 3. Streaming Radio Station
+    const radioPlayer = document.getElementById('radioPlayer');
+    const nowPlaying = document.getElementById('nowPlaying');
+    const volumeSlider = document.getElementById('volume');
+    
+    // Replace with your stream URL
+    const STREAM_URL = 'https://stream.live.vc.bbcmedia.co.uk/bbc_world_service'; // BBC World Service
+    // const STREAM_URL = 'https://ice1.somafm.com/groovesalad-256-mp3'; // SomaFM Groove Salad
+    
+    radioPlayer.volume = volumeSlider.value;
+    volumeSlider.oninput = () => {
+      radioPlayer.volume = volumeSlider.value;
+    };
+    
+    document.getElementById('playRadio').onclick = () => {
+      radioPlayer.src = STREAM_URL;
+      radioPlayer.play().then(() => {
+        nowPlaying.textContent = '🔊 Radio: Playing';
+      }).catch(err => {
+        nowPlaying.textContent = 'Error: Click to enable audio first';
+        console.error(err);
+      });
+    };
+    
+    document.getElementById('stopRadio').onclick = () => {
+      radioPlayer.pause();
+      radioPlayer.src = '';
+      nowPlaying.textContent = '🔇 Radio: Stopped';
+    };
+
+    // Fix 1: Tell Emergent we're ready - using correct platform label
+    document.getElementById('richard-frame').onload = () => {
+      sendToRichard({ type: 'github-pages-ready', page: 'richard.html' });
+    };
   </script>
 </body>
 </html>
